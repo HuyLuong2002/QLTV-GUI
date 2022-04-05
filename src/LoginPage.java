@@ -19,6 +19,7 @@ public class LoginPage extends JFrame {
         this.setVisible(true);
 
     }
+    //
     public void setHomePage(){
         //set up panel
         JPanel panelHomePage1 = new JPanel();
