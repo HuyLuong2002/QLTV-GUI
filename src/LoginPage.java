@@ -1,9 +1,19 @@
 import javax.swing.*;
 import javax.swing.border.Border;
-
 import java.awt.*;
+import java.awt.event.*;
 
-public class LoginPage extends JFrame {
+public class LoginPage extends JFrame implements ActionListener {
+    JPanel panelHomePage;
+    JLabel labelHomePage,labelUsername,labelPassword;
+    JLabel labelLibrary,labelBackground,labelIconUser,labelIconPassword;
+    ImageIcon ImageBackground;
+    JTextField username;
+    JPasswordField password;
+    Border borderForgotPasswd;
+    JButton buttonDangNhap,buttonDangKy,buttonForgotPasswd;
+
+
     public LoginPage(){
         this.setTitle("Quản lý thư viện");
         this.setSize(960, 594);
@@ -22,32 +32,31 @@ public class LoginPage extends JFrame {
     //
     public void setHomePage(){
         //set up panel
-        JPanel panelHomePage1 = new JPanel();
-        panelHomePage1.setLayout(null);
-        panelHomePage1.setBackground(Color.WHITE);
+        panelHomePage = new JPanel();
+        panelHomePage.setLayout(null);
+        panelHomePage.setBackground(Color.WHITE);
         //set up label
-        JLabel labelHomePage = new JLabel("USER LOGIN");
-        JLabel labelUsername = new JLabel(" Account ");
-        JLabel labelPassword = new JLabel(" Password ");
+        labelHomePage = new JLabel("USER LOGIN");
+        labelUsername = new JLabel(" Account ");
+        labelPassword = new JLabel(" Password ");
 
         // Label Library
-        JLabel labelLibrary = new JLabel();
+        labelLibrary = new JLabel();
         labelLibrary.setIcon(new ImageIcon("images\\library.png"));
         labelLibrary.setBounds(10, 0, 64, 64);
 
-        // Label BackGround
-        ImageIcon ImageBackground = new ImageIcon("images\\backgroundsach.png");
-        JLabel labelBackground = new JLabel(ImageBackground);
+        // Label background
+        ImageBackground = new ImageIcon("images\\backgroundsach.png");
+        labelBackground = new JLabel(ImageBackground);
         labelBackground.setBounds(481, 0, 480, 594);
 
-
-        // Label Iconuser
-        JLabel labelIconUser = new JLabel();
+        // Label icon user
+        labelIconUser = new JLabel();
         labelIconUser.setIcon(new ImageIcon("images\\user.png"));
         labelIconUser.setBounds(68, 225, 24, 24);
 
         // Label IconLock
-        JLabel labelIconPassword = new JLabel();
+        labelIconPassword = new JLabel();
         labelIconPassword.setIcon(new ImageIcon("images\\padlock.png"));
         labelIconPassword.setBounds(68, 300, 24, 24);
 
@@ -67,52 +76,63 @@ public class LoginPage extends JFrame {
         labelPassword.setForeground(Color.black);
         labelPassword.setBounds(205,210,150,150);
 
-        JTextField username = new JTextField();
-        JPasswordField password = new JPasswordField();
+        username = new JTextField();
+        password = new JPasswordField();
         username.setFont(new Font("Arial",Font.ITALIC,18));
         username.setBounds(98,220,320,40);
         password.setFont(new Font("Arial",Font.ITALIC,18));
         password.setBounds(98,295,320,40);
 
-        // Tạo border 
-        Border borderForgotPasswd = BorderFactory.createEmptyBorder();
-
         // Label chèn
        
         //Button Dang nhap, Dang ky, ForgotPasswd
-        JButton buttonDangNhap = new JButton("Sign up");
-        JButton buttonDangKy = new JButton("Sign in");
-        JButton buttonForgotPasswd = new JButton("Forgot Password");
+        buttonDangNhap = new JButton("Sign in");
+        buttonDangKy = new JButton("Sign up");
+        buttonForgotPasswd = new JButton("Forgot Password");
+        //set bound button
         buttonDangNhap.setBounds(98,380,320,35);
         buttonDangKy.setBounds(98,440, 320 ,35);
         buttonForgotPasswd.setBounds(325, 500, 100,35);
+        //set font
         buttonDangNhap.setFont(new Font("Arial",Font.BOLD,16));
         buttonDangKy.setFont(new Font("Arial",Font.BOLD,16));
         buttonForgotPasswd.setFont(new Font("Arial", Font.PLAIN,11));
+        //set background
         buttonDangNhap.setBackground(Color.CYAN);
         buttonDangKy.setBackground(Color.CYAN);
-        buttonForgotPasswd.setBorder(borderForgotPasswd);
         buttonForgotPasswd.setBackground(Color.WHITE);
+        // Tạo border 
+        Border borderForgotPasswd = BorderFactory.createEmptyBorder();
+        buttonForgotPasswd.setBorder(borderForgotPasswd);
+        // Thêm sự kiện
+        buttonDangKy.addActionListener(this);
         
-        this.add(panelHomePage1);
+        this.add(panelHomePage);
 
-        panelHomePage1.add(labelLibrary);
-        panelHomePage1.add(labelHomePage);
+        panelHomePage.add(labelLibrary);
+        panelHomePage.add(labelHomePage);
 
 
-        panelHomePage1.add(labelUsername);
-        panelHomePage1.add(username);
-        panelHomePage1.add(labelIconUser);
+        panelHomePage.add(labelUsername);
+        panelHomePage.add(username);
+        panelHomePage.add(labelIconUser);
 
-        panelHomePage1.add(labelPassword);
-        panelHomePage1.add(password);
-        panelHomePage1.add(labelIconPassword);
+        panelHomePage.add(labelPassword);
+        panelHomePage.add(password);
+        panelHomePage.add(labelIconPassword);
 
-        panelHomePage1.add(buttonDangNhap);
-        panelHomePage1.add(buttonDangKy);
-        panelHomePage1.add(buttonForgotPasswd);
+        panelHomePage.add(buttonDangNhap);
+        panelHomePage.add(buttonDangKy);
+        panelHomePage.add(buttonForgotPasswd);
         // background phai de cuoi
-       
-        panelHomePage1.add(labelBackground);
+        panelHomePage.add(labelBackground);
+    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource()==buttonDangKy){
+            this.dispose();
+            new RegisterPage();
+        }
+        
     }
 }
