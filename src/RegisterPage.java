@@ -14,14 +14,13 @@ public class RegisterPage extends JFrame implements ActionListener {
     JButton buttonDangNhap,buttonDangKy,buttonForgotPasswd;
 
 
-    public RegisterPage(){
+    public RegisterPage() throws InterruptedException{
         this.setTitle("Quản lý thư viện");
         this.setSize(960, 594);
         // this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
         this.setLayout(new GridLayout(1,1));
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         // thay đổi logo thư viện
         ImageIcon img = new ImageIcon("images\\app_logo.png");
         this.setIconImage(img.getImage());
@@ -130,8 +129,12 @@ public class RegisterPage extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==buttonDangNhap){
-            this.dispose();
-            new LoginPage();
+            try {
+                this.dispose();
+                new LoginPage();
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
         }
         
     }

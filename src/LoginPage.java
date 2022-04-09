@@ -13,40 +13,22 @@ public class LoginPage extends JFrame implements ActionListener {
     Border borderForgotPasswd;
     JButton buttonDangNhap,buttonDangKy,buttonForgotPasswd;
     ImageIcon imgIconHP;
-    JProgressBar pgBarHP;
-    JFrame frProgress;
 
-    public LoginPage(){
+
+    public LoginPage() throws InterruptedException{
         this.setTitle("Quản lý thư viện");
         this.setSize(960, 594);
-        // this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
-        this.setLayout(new GridLayout(1,1));
+        // this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setLocationRelativeTo(null);
+        this.setLayout(new GridLayout(1,1));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         // thay đổi logo thư viện
         imgIconHP = new ImageIcon("images\\app_logo.png");
         this.setIconImage(imgIconHP.getImage());
-        //setProgressBar();
         setHomePage();
         this.setVisible(true);
 
     }
-    //set ProgressBar
-    // public void setProgressBar(){
-    //     frProgress = new JFrame();
-    //     pgBarHP = new JProgressBar(0);
-    //     int counter = 0;
-    //     while(counter<=100){
-    //         pgBarHP.setValue(counter);
-    //         Thread.sleep(50);
-    //         counter = counter + 10;
-    //     }
-    //     frProgress.setLocationRelativeTo(null);
-    //     frProgress.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    //     frProgress.add(pgBarHP);
-    //     frProgress.setVisible(true);
-    // }
     //set up Home Page
     public void setHomePage(){
         //set up panel
@@ -145,11 +127,17 @@ public class LoginPage extends JFrame implements ActionListener {
         // background phai de cuoi
         panelHomePage.add(labelBackground);
     }
+
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==buttonDangKy){
-            this.dispose();
-            new RegisterPage();
+            try {
+                this.dispose();
+                new RegisterPage();
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
         }
         
     }
