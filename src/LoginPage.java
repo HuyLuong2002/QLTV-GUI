@@ -12,7 +12,9 @@ public class LoginPage extends JFrame implements ActionListener {
     JPasswordField password;
     Border borderForgotPasswd;
     JButton buttonDangNhap,buttonDangKy,buttonForgotPasswd;
-
+    ImageIcon imgIconHP;
+    JProgressBar pgBarHP;
+    JFrame frProgress;
 
     public LoginPage(){
         this.setTitle("Quản lý thư viện");
@@ -23,13 +25,29 @@ public class LoginPage extends JFrame implements ActionListener {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // thay đổi logo thư viện
-        ImageIcon img = new ImageIcon("images\\app_logo.png");
-        this.setIconImage(img.getImage());
+        imgIconHP = new ImageIcon("images\\app_logo.png");
+        this.setIconImage(imgIconHP.getImage());
+        //setProgressBar();
         setHomePage();
         this.setVisible(true);
 
     }
-    //
+    //set ProgressBar
+    // public void setProgressBar(){
+    //     frProgress = new JFrame();
+    //     pgBarHP = new JProgressBar(0);
+    //     int counter = 0;
+    //     while(counter<=100){
+    //         pgBarHP.setValue(counter);
+    //         Thread.sleep(50);
+    //         counter = counter + 10;
+    //     }
+    //     frProgress.setLocationRelativeTo(null);
+    //     frProgress.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    //     frProgress.add(pgBarHP);
+    //     frProgress.setVisible(true);
+    // }
+    //set up Home Page
     public void setHomePage(){
         //set up panel
         panelHomePage = new JPanel();

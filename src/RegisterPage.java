@@ -105,7 +105,7 @@ public class RegisterPage extends JFrame implements ActionListener {
         Border borderForgotPasswd = BorderFactory.createEmptyBorder();
         buttonForgotPasswd.setBorder(borderForgotPasswd);
         // Thêm sự kiện
-        buttonDangKy.addActionListener(this);
+        buttonDangNhap.addActionListener(this);
         
         this.add(panelHomePage);
 
@@ -130,7 +130,8 @@ public class RegisterPage extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==buttonDangNhap){
-
+            this.dispose();
+            new LoginPage();
         }
         
     }
