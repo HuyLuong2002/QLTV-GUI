@@ -2,6 +2,7 @@
     "java.project.sourcePaths": ["src"],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
-        "lib/**/*.jar"
+        "lib/**/*.jar",
+        "e:\\Bai tap DHSG\\Java-tutorial\\sqljdbc_10.2\\enu\\mssql-jdbc-10.2.0.jre17.jar"
     ]
 }

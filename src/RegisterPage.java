@@ -62,7 +62,7 @@ public class RegisterPage extends JFrame implements ActionListener {
         //Label Dang nhap
         labelHomePage.setFont(new Font("Arial", Font.BOLD, 30));
         labelHomePage.setForeground(Color.CYAN);
-        labelHomePage.setBounds(150, 0, 200, 180);
+        labelHomePage.setBounds(130, 0, 250, 180);
 
         //Label Username
         labelUsername.setFont(new Font("Arial", Font.ITALIC, 17));
