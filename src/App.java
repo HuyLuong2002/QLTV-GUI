@@ -1,7 +1,8 @@
+import GUI.QLSACHGUI;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        new QLSACH();
+        new QLSACHGUI();
         //new setProgressBar();
         //new LoginPage();
     }
