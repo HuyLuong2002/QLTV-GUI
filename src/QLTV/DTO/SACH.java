@@ -1,4 +1,4 @@
-package DTO;
+package QLTV.DTO;
 public class SACH{
       private String Masach;
       private String Tensach;
@@ -9,8 +9,7 @@ public class SACH{
       private int SL;
       private int Dongia;
       public SACH(){}
-      public SACH(String Masach, String Tensach, String MaNXB, 
-      String MaTG, String NamXB, int SLtong, int SL, int Dongia){
+      public SACH(String Masach, String Tensach, String MaNXB, String MaTG, String NamXB, int SLtong, int SL, int Dongia){
             this.Masach = Masach;
             this.Tensach = Tensach;
             this.MaNXB = MaNXB;

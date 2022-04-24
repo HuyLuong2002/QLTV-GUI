@@ -1,4 +1,4 @@
-package lib;
+package MyCustom;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Insets;

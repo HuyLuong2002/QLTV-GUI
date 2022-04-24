@@ -1,4 +1,4 @@
-package lib;
+package MyCustom;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
