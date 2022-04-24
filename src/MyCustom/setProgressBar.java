@@ -1,3 +1,4 @@
+package MyCustom;
 
 import javax.swing.*;
 import java.awt.*;

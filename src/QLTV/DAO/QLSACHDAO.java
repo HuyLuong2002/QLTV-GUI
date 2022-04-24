@@ -60,6 +60,7 @@ public class QLSACHDAO {
                         JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (SQLException e) {
+            System.out.println(e);
             JOptionPane.showMessageDialog(null, "Thêm dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
     }

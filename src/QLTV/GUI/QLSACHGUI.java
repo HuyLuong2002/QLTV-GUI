@@ -10,7 +10,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Vector;
-
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -24,10 +23,12 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import MyCustom.LoginPage;
 import MyCustom.RoundedBorder;
 import QLTV.BUS.QLSACHBUS;
 import QLTV.DTO.SACH;
@@ -175,18 +176,22 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
                 }
             }
         } else if (e.getSource() == btXoa) {
-            String masach = txMasach.getText();
-            int i = tblQLSACH.getSelectedRow();
-            if (i >= 0) {
-                try {
-                    // Truy cập xuống BUS
-                    QLSACHBUS qlsachbus = new QLSACHBUS();
-                    qlsachbus.xoa(masach, i);
-                    // Quay dề GUI
-                    model.removeRow(i);
-                    tblQLSACH.setModel(model);
-                } catch (Exception e1) {
-                    System.out.println(e1);
+            int XacNhanXoa = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa không ?", "Thông báo",
+                    JOptionPane.YES_NO_OPTION);
+            if (XacNhanXoa == 0) {
+                String masach = txMasach.getText();
+                int i = tblQLSACH.getSelectedRow();
+                if (i >= 0) {
+                    try {
+                        // Truy cập xuống BUS
+                        QLSACHBUS qlsachbus = new QLSACHBUS();
+                        qlsachbus.xoa(masach, i);
+                        // Quay dề GUI
+                        model.removeRow(i);
+                        tblQLSACH.setModel(model);
+                    } catch (Exception e1) {
+                        System.out.println(e1);
+                    }
                 }
             }
         } else if (e.getSource() == comboBoxDSKhoaTK) {
@@ -290,7 +295,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
                 tblQLSACH.setModel(model);
             }
         } else if (e.getSource() == btMenuTimKiem) { // Của button Tìm kiếm sách, để hiện thị
-            // khung tìm kiếm
+                                                     // khung tìm kiếm
             if (btSearch == null) {
                 lbLCTK.setVisible(true);
                 lbTuKhoaTK.setVisible(true);
@@ -454,8 +459,17 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
                 }
             } while (luachon != null);
         }
-        if(e.getSource()==btMenu){
-            
+        if (e.getSource() == btMenu) {
+
+        }
+        if(e.getSource() == btDangXuat){
+            this.dispose();
+            try {
+                new LoginPage();
+            } catch (InterruptedException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
         }
     }
 
@@ -493,8 +507,6 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() == txMasach) {
             txMasach.setToolTipText("Gợi ý: MS001");
-        } else if (e.getSource() == txTensach) {
-            txTensach.setToolTipText("Gợi ý: Cha giàu, cha nghèo");
         } else if (e.getSource() == txMaNXB) {
             txMaNXB.setToolTipText("Gợi ý: NXB001");
         } else if (e.getSource() == txMaTG) {
@@ -568,6 +580,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         txTensach = new JTextField();
         txTensach.setBounds(270, 80, 200, 35);
         txTensach.setFont(new Font("Arial", Font.PLAIN, 15));
+        txTensach.setEditable(false);
         txTensach.addMouseListener(this);
         // JTextField Mã nhà xuất bản
         txMaNXB = new JTextField();
@@ -725,6 +738,14 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         btMT.setBorder(BorderFactory.createEmptyBorder());
         btMT.addActionListener(this);
 
+        btQLNV = new JButton("Quản lý nghiệp vụ");
+        btQLNV.setFont(new Font("Arial", Font.BOLD, 20));
+        btQLNV.setBackground(Color.LIGHT_GRAY);
+        btQLNV.setIcon(iconRent);
+        btQLNV.setHorizontalAlignment(SwingConstants.LEFT);
+        btQLNV.setBorder(BorderFactory.createEmptyBorder());
+        btQLNV.addActionListener(this);
+
         btThongKe = new JButton("Thống kê");
         btThongKe.setFont(new Font("Arial", Font.BOLD, 20));
         btThongKe.setBackground(Color.LIGHT_GRAY);
@@ -756,6 +777,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         pnMenu.add(btMenuTimKiem);
         pnMenu.add(btQLSACH);
         pnMenu.add(btMT);
+        pnMenu.add(btQLNV);
         pnMenu.add(btThongKe);
         pnMenu.add(btDangXuat);
         pnMenu.add(btThoat);
@@ -781,6 +803,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         tblQLSACH.setBackground(Color.LIGHT_GRAY);
         tblQLSACH.addMouseListener(this);
         tblQLSACH.setDefaultEditor(Object.class, null);
+
         this.add(pnTTSach);
         pnTTSach.add(lbTTSach);
         pnTTSach.add(lbKQTK);
