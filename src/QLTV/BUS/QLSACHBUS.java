@@ -133,7 +133,7 @@ public class QLSACHBUS {
     public ArrayList<SACH> timNamXBHoacSL(String NamXB, String SL) {
         ArrayList<SACH> kq = new ArrayList<SACH>();
         for (SACH sach : dssach)
-            if (sach.getNamXB().trim().equals(NamXB) || String.valueOf(sach.getSL()).equals(SL))
+            if (sach.getNamXB().trim().indexOf(NamXB) >= 0 || String.valueOf(sach.getSL()).indexOf(SL) >= 0)
                 kq.add(sach);
         return kq;
     }
@@ -141,7 +141,7 @@ public class QLSACHBUS {
     public ArrayList<SACH> timNamXBVaSL(String NamXB, String SL) {
         ArrayList<SACH> kq = new ArrayList<SACH>();
         for (SACH sach : dssach)
-            if (sach.getNamXB().trim().equals(NamXB) && String.valueOf(sach.getSL()).equals(SL))
+            if (sach.getNamXB().trim().indexOf(NamXB) >= 0 && String.valueOf(sach.getSL()).indexOf(SL) >= 0)
                 kq.add(sach);
         return kq;
     }
