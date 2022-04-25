@@ -27,6 +27,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import org.jdatepicker.impl.JDatePanelImpl;
@@ -41,13 +42,14 @@ import QLTV.DTO.SACH;
 
 public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
     JPanel pnTTSach, pnNhapTTSach, pnShowAll, pnMenu, pnTimKiem, pnLoc;
+    JPanel pnMT;
     JLabel lbHome, lbTTSach, lbMasach, lbTensach, lbMaNXB, lbMaTG, lbNamXB, lbSLtong, lbSL, lbDongia, lbLCTK,
             lbTuKhoaTK, lbKQTK;
     JLabel lbTKNam, lbTKSL, lbNgayBD, lbNgayKT;
     JTextField txMasach, txTensach, txMaNXB, txMaTG, txNamXB, txSLtong, txSL, txDongia, txKhoaTK;
     JTextField txTKNam, txTKSL;
     JButton btDoc, btThem, btSua, btXoa, btHoanTac, btMenuTimKiem, btShowAll, btThongKe;
-    JButton btMenu, btMT, btQLNV, btDangXuat, btNhapSach, btThoat;
+    JButton btMenu, btSach, btMT, btQLNV, btDangXuat, btNhapSach, btThoat;
     JButton btTK, btSearch, btLoc;
 
     JRadioButton rbNam, rbNu, rbKhac;
@@ -102,6 +104,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         setMenu();
         setShowAll();
         getDatabase();
+        setValueCellCenter();
 
         this.setVisible(true);
     }
@@ -240,17 +243,17 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
                             model = new DefaultTableModel(header, 0);
                         }
                         ShowOnTable(sach);
-                        ktHT=1;
+                        ktHT = 1;
                     } else if (kiemtra == 0) {
                         JOptionPane.showMessageDialog(null, "Hoàn tác dữ liệu thất bại", "Lỗi",
                                 JOptionPane.ERROR_MESSAGE);
-                        ktHT=0;
+                        ktHT = 0;
                     }
                 }
             }
-            if(ktHT==1){
+            if (ktHT == 1) {
                 JOptionPane.showMessageDialog(null, "Hoàn tác dữ liệu thành công", "Thông báo",
-                JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.INFORMATION_MESSAGE);
                 tblQLSACH.setModel(model);
             }
         } else if (e.getSource() == comboBoxDSKhoaTK) {
@@ -311,7 +314,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
             }
         } else if (e.getSource() == btMenuTimKiem) { // Của button Tìm kiếm sách, để hiện thị
             // khung tìm kiếm
-            OffBgSelected();
+            OffBTBgSelected();
             btMenuTimKiem.setBackground(Color.green);
             setTimKiem();
         } else if (e.getSource() == btSearch) {
@@ -457,7 +460,14 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
             } while (luachon != null);
         }
         if (e.getSource() == btMenu) {
-
+        }
+        if (e.getSource() == btMT) {
+            QLMTGUI qlmt = new QLMTGUI();
+            OffBTBgSelected();
+            OffPageQLSACH(false);
+            btMT.setBackground(Color.green);
+            pnMT = qlmt.setMTGUI();
+            this.add(pnMT);
         }
         if (e.getSource() == btDangXuat) {
             this.dispose();
@@ -486,6 +496,12 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
                 lbKQTK.setText("Kết quả lọc: " + model.getRowCount() + " SV");
                 tblQLSACH.setModel(model);
             }
+        }
+        if (e.getSource() == btSach) {
+            pnMT.setVisible(false);
+            OffPageQLSACH(true);
+            OffBTBgSelected();
+            btSach.setBackground(Color.green);
         }
     }
 
@@ -714,6 +730,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         // Set menu side left
         ImageIcon iconHome = new ImageIcon("images\\home.png");
         ImageIcon iconMenu = new ImageIcon("images\\menu.png");
+        ImageIcon iconBook = new ImageIcon("images\\book.png");
         ImageIcon iconSearch = new ImageIcon("images\\search.png");
         ImageIcon iconRent = new ImageIcon("images\\payment.png");
         ImageIcon iconTK = new ImageIcon("images\\trend.png");
@@ -740,6 +757,14 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         btMenuTimKiem.setHorizontalAlignment(SwingConstants.LEFT);
         btMenuTimKiem.setBorder(BorderFactory.createEmptyBorder());
         btMenuTimKiem.addActionListener(this);
+
+        btSach = new JButton("Thông tin sách");
+        btSach.setFont(new Font("Arial", Font.BOLD, 20));
+        btSach.setBackground(Color.green);
+        btSach.setIcon(iconBook);
+        btSach.setHorizontalAlignment(SwingConstants.LEFT);
+        btSach.setBorder(BorderFactory.createEmptyBorder());
+        btSach.addActionListener(this);
 
         btMT = new JButton("Mượn trả sách");
         btMT.setFont(new Font("Arial", Font.BOLD, 20));
@@ -793,6 +818,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         // add Menu button
         pnMenu.add(lbHome);
         pnMenu.add(btMenu);
+        pnMenu.add(btSach);
         pnMenu.add(btMenuTimKiem);
         pnMenu.add(btMT);
         pnMenu.add(btNhapSach);
@@ -885,19 +911,23 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
             model = new DefaultTableModel(header, 0);
             for (SACH sach : QLSACHBUS.dssach) {
                 ShowOnTable(sach);
-                tblQLSACH.setModel(model);
             }
+            tblQLSACH.setModel(model);
         } catch (Exception e1) {
             System.out.println(e1);
         }
     }
 
-    public void OffBgSelected() {
+    public void OffBTBgSelected() {
+        btSach.setBackground(Color.lightGray);
+        btThongKe.setBackground(Color.lightGray);
+        btNhapSach.setBackground(Color.lightGray);
         btMenu.setBackground(Color.lightGray);
         btMenuTimKiem.setBackground(Color.lightGray);
         btMT.setBackground(Color.lightGray);
         btQLNV.setBackground(Color.lightGray);
-
+        btDangXuat.setBackground(Color.lightGray);
+        btThoat.setBackground(Color.lightGray);
     }
 
     public void setTimKiem() {
@@ -1036,6 +1066,23 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         pnLoc.add(btLoc);
         pnLoc.add(datePickerNgayBD);
         pnLoc.add(datePickerNgayKT);
+    }
 
+    public void setValueCellCenter() {
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < model.getColumnCount(); i++) {
+            if (i == 1)
+                continue;
+            else
+                tblQLSACH.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+    }
+
+    public void OffPageQLSACH(Boolean x) {
+        pnNhapTTSach.setVisible(x);
+        pnShowAll.setVisible(x);
+        pnTimKiem.setVisible(x);
+        pnTTSach.setVisible(x);
     }
 }
