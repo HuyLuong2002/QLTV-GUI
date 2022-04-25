@@ -1,9 +1,10 @@
+package MyCustom;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
 
-public class RegisterPage extends JFrame implements ActionListener {
+public class LoginPage extends JFrame implements ActionListener {
     JPanel panelHomePage;
     JLabel labelHomePage,labelUsername,labelPassword;
     JLabel labelLibrary,labelBackground,labelIconUser,labelIconPassword;
@@ -12,30 +13,31 @@ public class RegisterPage extends JFrame implements ActionListener {
     JPasswordField password;
     Border borderForgotPasswd;
     JButton buttonDangNhap,buttonDangKy,buttonForgotPasswd;
+    ImageIcon imgIconHP;
 
 
-    public RegisterPage() throws InterruptedException{
+    public LoginPage() throws InterruptedException{
         this.setTitle("Quản lý thư viện");
         this.setSize(960, 594);
-        // this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
-        this.setLayout(new GridLayout(1,1));
+        // this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setLocationRelativeTo(null);
+        this.setLayout(new GridLayout(1,1));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // thay đổi logo thư viện
-        ImageIcon img = new ImageIcon("images\\app_logo.png");
-        this.setIconImage(img.getImage());
+        imgIconHP = new ImageIcon("images\\app_logo.png");
+        this.setIconImage(imgIconHP.getImage());
         setHomePage();
         this.setVisible(true);
 
     }
-    //
+    //set up Home Page
     public void setHomePage(){
         //set up panel
         panelHomePage = new JPanel();
         panelHomePage.setLayout(null);
         panelHomePage.setBackground(Color.WHITE);
         //set up label
-        labelHomePage = new JLabel("USER REGISTER");
+        labelHomePage = new JLabel("USER LOGIN");
         labelUsername = new JLabel(" Account ");
         labelPassword = new JLabel(" Password ");
 
@@ -62,7 +64,7 @@ public class RegisterPage extends JFrame implements ActionListener {
         //Label Dang nhap
         labelHomePage.setFont(new Font("Arial", Font.BOLD, 30));
         labelHomePage.setForeground(Color.CYAN);
-        labelHomePage.setBounds(130, 0, 250, 180);
+        labelHomePage.setBounds(150, 0, 200, 180);
 
         //Label Username
         labelUsername.setFont(new Font("Arial", Font.ITALIC, 17));
@@ -85,26 +87,26 @@ public class RegisterPage extends JFrame implements ActionListener {
         // Label chèn
        
         //Button Dang nhap, Dang ky, ForgotPasswd
-        buttonDangKy = new JButton("Sign up");
         buttonDangNhap = new JButton("Sign in");
+        buttonDangKy = new JButton("Sign up");
         buttonForgotPasswd = new JButton("Forgot Password");
         //set bound button
-        buttonDangKy.setBounds(98,380,320,35);
-        buttonDangNhap.setBounds(98,440, 320 ,35);
+        buttonDangNhap.setBounds(98,380,320,35);
+        buttonDangKy.setBounds(98,440, 320 ,35);
         buttonForgotPasswd.setBounds(325, 500, 100,35);
         //set font
-        buttonDangKy.setFont(new Font("Arial",Font.BOLD,16));
         buttonDangNhap.setFont(new Font("Arial",Font.BOLD,16));
+        buttonDangKy.setFont(new Font("Arial",Font.BOLD,16));
         buttonForgotPasswd.setFont(new Font("Arial", Font.PLAIN,11));
         //set background
-        buttonDangKy.setBackground(Color.CYAN);
         buttonDangNhap.setBackground(Color.CYAN);
+        buttonDangKy.setBackground(Color.CYAN);
         buttonForgotPasswd.setBackground(Color.WHITE);
         // Tạo border 
         Border borderForgotPasswd = BorderFactory.createEmptyBorder();
         buttonForgotPasswd.setBorder(borderForgotPasswd);
         // Thêm sự kiện
-        buttonDangNhap.addActionListener(this);
+        buttonDangKy.addActionListener(this);
         
         this.add(panelHomePage);
 
@@ -120,18 +122,20 @@ public class RegisterPage extends JFrame implements ActionListener {
         panelHomePage.add(password);
         panelHomePage.add(labelIconPassword);
 
-        panelHomePage.add(buttonDangKy);
         panelHomePage.add(buttonDangNhap);
+        panelHomePage.add(buttonDangKy);
         panelHomePage.add(buttonForgotPasswd);
         // background phai de cuoi
         panelHomePage.add(labelBackground);
     }
+
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==buttonDangNhap){
+        if(e.getSource()==buttonDangKy){
             try {
                 this.dispose();
-                new LoginPage();
+                new RegisterPage();
             } catch (InterruptedException e1) {
                 e1.printStackTrace();
             }

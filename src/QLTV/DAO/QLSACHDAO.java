@@ -5,9 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
-
 import MyCustom.MSSQLConnect;
 import QLTV.DTO.SACH;
 
@@ -60,6 +58,23 @@ public class QLSACHDAO {
                         JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (SQLException e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "Thêm dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void hoantacXoa(SACH sach) {
+        try {
+            String qry = "insert into SACH values  (" + "'" + sach.getMasach() + "'"
+                    + "," + "N'" + sach.getTensach() + "'" + "," + "'" + sach.getMaNXB() + "'" + ","
+                    + "'" + sach.getMaTG() + "'" + "," + "'" + sach.getNamXB() + "'" + ","
+                    + "N'" + String.valueOf(sach.getSLtong()) + "'" + "," + "'"
+                    + String.valueOf(sach.getSL()) + "'" + "," + "'" + String.valueOf(sach.getDongia()) + "'"
+                    + ")";
+            st = conn.createStatement();
+            st.executeUpdate(qry);
+        } catch (SQLException e) {
+            System.out.println(e);
             JOptionPane.showMessageDialog(null, "Thêm dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
     }
