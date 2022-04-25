@@ -9,6 +9,8 @@ import QLTV.DTO.SACH;
 
 public class QLSACHBUS {
     public static ArrayList<SACH> dssach;
+    public static ArrayList<SACH> htXoa = new ArrayList<SACH>();
+    public static ArrayList<SACH> htSua = new ArrayList<SACH>();
 
     public QLSACHBUS() {
 
@@ -50,6 +52,36 @@ public class QLSACHBUS {
         QLSACHDAO data = new QLSACHDAO();
         data.xoa(MaSV);
         dssach.remove(i);
+    }
+
+    public int hoantacXoa(SACH sach) throws Exception {
+        if (KTMa(sach.getMasach()) == 0) {
+            JOptionPane.showMessageDialog(null, "Mã sinh viên vừa nhập bị trùng. Mời nhập lại!", "Lỗi",
+                    JOptionPane.ERROR_MESSAGE);
+            return -1;
+        } else if (KTSL(sach.getSLtong(), sach.getSL()) == 0) {
+            JOptionPane.showMessageDialog(null, "Số lương tổng phải lớn hơn số lượng", "Lỗi",
+                    JOptionPane.ERROR_MESSAGE);
+            return -1;
+        } else {
+            // Truy cập vào database
+            QLSACHDAO data = new QLSACHDAO();
+            data.hoantacXoa(sach);
+            dssach.add(sach);
+            return 1;
+        }
+    }
+
+    public ArrayList<SACH> loc(int NamBD, int NamKT) {
+        ArrayList<SACH> kq = new ArrayList<SACH>();
+        for (SACH sach : dssach) {
+            if (Integer.parseInt(sach.getNamXB().trim()) >= NamBD
+                    && Integer.parseInt(sach.getNamXB().trim()) <= NamKT) {
+                kq.add(sach);
+            }
+        }
+
+        return kq;
     }
 
     public int KTMa(String MaSachMoi) {
@@ -145,24 +177,23 @@ public class QLSACHBUS {
                 kq.add(sach);
         return kq;
     }
-    
-    public int ThongKeMaSach(){
-        int count = 0;
-        for (SACH sach : dssach){
-            count++;
-        }
+
+    public int ThongKeMaSach() {
+        int count = dssach.size();
         return count;
     }
-    public int ThongKeSLBD(){
+
+    public int ThongKeSLBD() {
         int sum = 0;
-        for (SACH sach : dssach){
+        for (SACH sach : dssach) {
             sum = sum + sach.getSLtong();
         }
         return sum;
     }
-    public int ThongKeSLHT(){
+
+    public int ThongKeSLHT() {
         int sum = 0;
-        for (SACH sach : dssach){
+        for (SACH sach : dssach) {
             sum = sum + sach.getSL();
         }
         return sum;

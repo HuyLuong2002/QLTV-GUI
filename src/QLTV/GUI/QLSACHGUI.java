@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.Vector;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -23,26 +24,31 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
+
+import MyCustom.DateLabelFormatter;
 import MyCustom.LoginPage;
 import MyCustom.RoundedBorder;
 import QLTV.BUS.QLSACHBUS;
 import QLTV.DTO.SACH;
 
 public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
-    JPanel pnTTSach, pnNhapTTSach, pnShowAll, pnMenu, pnTimKiem;
+    JPanel pnTTSach, pnNhapTTSach, pnShowAll, pnMenu, pnTimKiem, pnLoc;
     JLabel lbHome, lbTTSach, lbMasach, lbTensach, lbMaNXB, lbMaTG, lbNamXB, lbSLtong, lbSL, lbDongia, lbLCTK,
             lbTuKhoaTK, lbKQTK;
-    JLabel lbTKNam, lbTKSL;
+    JLabel lbTKNam, lbTKSL, lbNgayBD, lbNgayKT;
     JTextField txMasach, txTensach, txMaNXB, txMaTG, txNamXB, txSLtong, txSL, txDongia, txKhoaTK;
     JTextField txTKNam, txTKSL;
-    JButton btDoc, btThem, btSua, btXoa, btMenuTimKiem, btShowAll, btThongKe;
-    JButton btMenu, btQLSACH, btMT, btQLNV, btDangXuat, btThoat;
-    JButton btTK, btSearch;
+    JButton btDoc, btThem, btSua, btXoa, btHoanTac, btMenuTimKiem, btShowAll, btThongKe;
+    JButton btMenu, btMT, btQLNV, btDangXuat, btNhapSach, btThoat;
+    JButton btTK, btSearch, btLoc;
 
     JRadioButton rbNam, rbNu, rbKhac;
     ButtonGroup buttonGroupGT;
@@ -51,6 +57,11 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
     JTable tblQLSACH;
     DefaultTableModel model;
     Vector<String> header;
+
+    UtilDateModel modelNgayBD, modelNgayKT;
+    Properties pNgayBD, pNgayKT;
+    JDatePanelImpl datePanelNgayBD, datePanelNgayKT;
+    JDatePickerImpl datePickerNgayBD, datePickerNgayKT;
 
     public QLSACHGUI() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -63,6 +74,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         pnShowAll = new JPanel();
         pnMenu = new JPanel();
         pnTimKiem = new JPanel();
+        pnLoc = new JPanel();
         pnTTSach.setLayout(new GridLayout(3, 1, 0, -300));
         pnTTSach.setBounds(320, 0, 1200, 400);
         pnShowAll.setLayout(null);
@@ -74,15 +86,19 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         pnMenu.setSize(new Dimension(300, 1200));
         pnTimKiem.setLayout(null);
         pnTimKiem.setBounds(1030, 445, 490, 350);
+        pnLoc.setLayout(null);
+        pnLoc.setBounds(520, 130, 300, 180);
 
         // add components
         this.add(pnMenu);
         this.add(pnShowAll);
         this.add(pnNhapTTSach);
         this.add(pnTimKiem);
+        pnNhapTTSach.add(pnLoc);
 
         setTableSach();
         setInput();
+        setLoc();
         setMenu();
         setShowAll();
         getDatabase();
@@ -134,12 +150,14 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
                 if (kiemtra == 1) {
                     // Đưa dữ liệu lên table
                     header = new Vector<String>();
-                    header.add("Mã sinh viên");
-                    header.add("Họ");
-                    header.add("Tên");
-                    header.add("Giới tính");
-                    header.add("Năm sinh");
-                    header.add("Khoa");
+                    header.add("Mã sách");
+                    header.add("Tên sách");
+                    header.add("Mã NXB");
+                    header.add("Mã tác giả");
+                    header.add("Năm xuất bản");
+                    header.add("SL tổng");
+                    header.add("SL");
+                    header.add("Đơn giá");
                     if (model.getRowCount() == 0) {
                         model = new DefaultTableModel(header, 0);
                     }
@@ -151,17 +169,14 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
             }
         } else if (e.getSource() == btSua) {
             int i = tblQLSACH.getSelectedRow();
+
             if (i >= 0) {
                 SACH sach = new SACH();
                 SACH masachCu = QLSACHBUS.dssach.set(i, sach);
                 getInfoTextField(sach);
                 try {
                     QLSACHBUS qlsachbus = new QLSACHBUS();
-                    try {
-                        qlsachbus.sua(sach, masachCu, i);
-                    } catch (Exception e1) {
-                        e1.printStackTrace();
-                    }
+                    qlsachbus.sua(sach, masachCu, i);
                     model.setValueAt(sach.getMasach(), i, 0);
                     model.setValueAt(sach.getTensach(), i, 1);
                     model.setValueAt(sach.getMaNXB(), i, 2);
@@ -184,6 +199,8 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
                 if (i >= 0) {
                     try {
                         // Truy cập xuống BUS
+                        SACH SachOld = QLSACHBUS.dssach.get(i);
+                        QLSACHBUS.htXoa.add(SachOld);
                         QLSACHBUS qlsachbus = new QLSACHBUS();
                         qlsachbus.xoa(masach, i);
                         // Quay dề GUI
@@ -194,57 +211,52 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
                     }
                 }
             }
+        } else if (e.getSource() == btHoanTac) {
+            int ktHT = 0;
+            if (QLSACHBUS.htXoa.size() == 0) {
+                JOptionPane.showMessageDialog(null, "Dữ liệu hoàn tác rỗng", "Lỗi",
+                        JOptionPane.ERROR_MESSAGE);
+            } else {
+                for (SACH sach : QLSACHBUS.htXoa) {
+                    QLSACHBUS qlsachbus = new QLSACHBUS();
+                    int kiemtra = 0;
+                    try {
+                        kiemtra = qlsachbus.hoantacXoa(sach);
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+                    if (kiemtra == 1) {
+                        // Đưa dữ liệu lên table
+                        header = new Vector<String>();
+                        header.add("Mã sách");
+                        header.add("Tên sách");
+                        header.add("Mã NXB");
+                        header.add("Mã tác giả");
+                        header.add("Năm xuất bản");
+                        header.add("SL tổng");
+                        header.add("SL");
+                        header.add("Đơn giá");
+                        if (model.getRowCount() == 0) {
+                            model = new DefaultTableModel(header, 0);
+                        }
+                        ShowOnTable(sach);
+                        ktHT=1;
+                    } else if (kiemtra == 0) {
+                        JOptionPane.showMessageDialog(null, "Hoàn tác dữ liệu thất bại", "Lỗi",
+                                JOptionPane.ERROR_MESSAGE);
+                        ktHT=0;
+                    }
+                }
+            }
+            if(ktHT==1){
+                JOptionPane.showMessageDialog(null, "Hoàn tác dữ liệu thành công", "Thông báo",
+                JOptionPane.INFORMATION_MESSAGE);
+                tblQLSACH.setModel(model);
+            }
         } else if (e.getSource() == comboBoxDSKhoaTK) {
             int vtkey = Integer.parseInt(String.valueOf(comboBoxDSKhoaTK.getSelectedIndex()));
             if (vtkey == 9 || vtkey == 10) {
-                // Ẩn các component không dùng tới
-                btSearch.setVisible(false);
-                txKhoaTK.setVisible(false);
-                // set up component mới
-                // Năm xb
-                if (lbTKNam == null) {
-                    lbTKNam = new JLabel("Năm XB:");
-                    lbTKNam.setFont(new Font("Arial", Font.BOLD, 20));
-                    lbTKNam.setBounds(10, 170, 100, 50);
-                }
-                if (txTKNam == null) {
-                    txTKNam = new JTextField();
-                    txTKNam.setFont(new Font("Arial", Font.PLAIN, 15));
-                    txTKNam.setBounds(100, 182, 100, 30);
-                }
-                // SL
-                if (lbTKSL == null) {
-                    lbTKSL = new JLabel("SL:");
-                    lbTKSL.setFont(new Font("Arial", Font.BOLD, 20));
-                    lbTKSL.setBounds(230, 172, 100, 50);
-                }
-                if (txTKSL == null) {
-                    txTKSL = new JTextField();
-                    txTKSL.setFont(new Font("Arial", Font.PLAIN, 15));
-                    txTKSL.setBounds(270, 182, 100, 30);
-                }
-                // button btTimKiem
-                if (btTK == null) {
-                    btTK = new JButton("Tìm kiếm");
-                    btTK.setFont(new Font("Arial", Font.BOLD, 15));
-                    btTK.setBounds(380, 180, 100, 34);
-                    btTK.setBackground(Color.cyan);
-                    btTK.setBorder(new RoundedBorder(10));
-                    btTK.addActionListener(this);
-                }
-
-                if (lbTKNam != null && lbTKSL != null && btTK != null && txTKNam != null && txTKSL != null) {
-                    lbTKNam.setVisible(true);
-                    txTKNam.setVisible(true);
-                    lbTKSL.setVisible(true);
-                    txTKSL.setVisible(true);
-                    btTK.setVisible(true);
-                }
-                pnTimKiem.add(lbTKNam);
-                pnTimKiem.add(txTKNam);
-                pnTimKiem.add(lbTKSL);
-                pnTimKiem.add(txTKSL);
-                pnTimKiem.add(btTK);
+                setTimKiemNC();
             } else {
                 // Ẩn lại các component của combobox key 9 10
                 if (lbTKNam != null && txTKNam != null && lbTKSL != null && txTKSL != null && btTK != null) {
@@ -255,11 +267,14 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
                     btTK.setVisible(false);
                 }
                 // Hiển thị các component của các key khác
-                btSearch.setVisible(true);
-                txKhoaTK.setVisible(true);
-                btThongKe.setVisible(true);
+                if (btSearch.isVisible() || txKhoaTK.isVisible() || btThongKe.isVisible()) {
+                    btSearch.setVisible(true);
+                    txKhoaTK.setVisible(true);
+                    btThongKe.setVisible(true);
+                }
             }
-        } else if (e.getSource() == btTK) { // btTK là của tìm kiếm hoặc, và SL
+        } else if (e.getSource() == btTK) {
+            // btTK là của tìm kiếm nâng cao
             lbKQTK.setFont(new Font("Arial", Font.BOLD, 20));
             lbKQTK.setForeground(Color.red);
             String NamXB = txTKNam.getText();
@@ -295,28 +310,10 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
                 tblQLSACH.setModel(model);
             }
         } else if (e.getSource() == btMenuTimKiem) { // Của button Tìm kiếm sách, để hiện thị
-                                                     // khung tìm kiếm
-            if (btSearch == null) {
-                lbLCTK.setVisible(true);
-                lbTuKhoaTK.setVisible(true);
-                comboBoxDSKhoaTK.setVisible(true);
-                txKhoaTK.setVisible(true);
-
-                TitledBorder titleTK;
-                titleTK = BorderFactory.createTitledBorder("Tìm kiếm");
-                titleTK.setTitleFont(new Font("Arial", Font.BOLD, 28));
-                titleTK.setTitleJustification(TitledBorder.CENTER);
-                pnTimKiem.setBorder(titleTK);
-
-                btSearch = new JButton("Tìm kiếm");
-                btSearch.setFont(new Font("Arial", Font.BOLD, 15));
-                btSearch.setBounds(360, 175, 100, 35);
-                btSearch.setBackground(Color.cyan);
-                btSearch.setBorder(new RoundedBorder(10));
-                btSearch.addActionListener(this);
-                pnTimKiem.add(btSearch);
-            }
-
+            // khung tìm kiếm
+            OffBgSelected();
+            btMenuTimKiem.setBackground(Color.green);
+            setTimKiem();
         } else if (e.getSource() == btSearch) {
             int vtkey = Integer.parseInt(String.valueOf(comboBoxDSKhoaTK.getSelectedIndex()));
             String tukhoa = txKhoaTK.getText();
@@ -462,13 +459,32 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         if (e.getSource() == btMenu) {
 
         }
-        if(e.getSource() == btDangXuat){
+        if (e.getSource() == btDangXuat) {
             this.dispose();
             try {
                 new LoginPage();
             } catch (InterruptedException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
+                System.out.println(e1);
+            }
+        }
+        if (e.getSource() == btLoc) {
+            lbKQTK.setFont(new Font("Arial", Font.BOLD, 20));
+            lbKQTK.setForeground(Color.red);
+            String tmp[] = datePickerNgayBD.getJFormattedTextField().getText().split("-");
+            String tmp1[] = datePickerNgayKT.getJFormattedTextField().getText().split("-");
+            int NamBD = Integer.parseInt(tmp[0]);
+            int NamKT = Integer.parseInt(tmp1[0]);
+            QLSACHBUS qlsachbus = new QLSACHBUS();
+            ArrayList<SACH> kq = qlsachbus.loc(NamBD, NamKT);
+            model.setRowCount(0);
+            if (kq.size() == 0) {
+                lbKQTK.setText("Kết quả lọc: Không thỏa điều kiện");
+            } else {
+                for (SACH sach : kq) {
+                    ShowOnTable(sach);
+                }
+                lbKQTK.setText("Kết quả lọc: " + model.getRowCount() + " SV");
+                tblQLSACH.setModel(model);
             }
         }
     }
@@ -646,6 +662,13 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         btXoa.setBackground(Color.cyan);
         btXoa.setBorder(new RoundedBorder(10));
         btXoa.addActionListener(this);
+        // JbuttonHoanTac
+        btHoanTac = new JButton("Hoàn tác");
+        btHoanTac.setFont(new Font("Arial", Font.BOLD, 15));
+        btHoanTac.setBounds(480, 330, 100, 40);
+        btHoanTac.setBackground(Color.cyan);
+        btHoanTac.setBorder(new RoundedBorder(10));
+        btHoanTac.addActionListener(this);
 
         // set up ComboBox
         String[] dsKhoaTK = { "", "Mã sách", "Tên sách", "Mã NXB", "Mã TG", "Năm XB", "SL tổng", "SL", "Đơn giá",
@@ -669,8 +692,6 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         pnNhapTTSach.add(lbSLtong);
         pnNhapTTSach.add(lbSL);
         pnNhapTTSach.add(lbDongia);
-        pnTimKiem.add(lbLCTK);
-        pnTimKiem.add(lbTuKhoaTK);
 
         pnNhapTTSach.add(txMasach);
         pnNhapTTSach.add(txTensach);
@@ -680,14 +701,12 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         pnNhapTTSach.add(txSLtong);
         pnNhapTTSach.add(txSL);
         pnNhapTTSach.add(txDongia);
-        pnTimKiem.add(txKhoaTK);
-
-        pnTimKiem.add(comboBoxDSKhoaTK);
 
         pnNhapTTSach.add(btDoc);
         pnNhapTTSach.add(btThem);
         pnNhapTTSach.add(btSua);
         pnNhapTTSach.add(btXoa);
+        pnNhapTTSach.add(btHoanTac);
 
     }
 
@@ -696,9 +715,9 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         ImageIcon iconHome = new ImageIcon("images\\home.png");
         ImageIcon iconMenu = new ImageIcon("images\\menu.png");
         ImageIcon iconSearch = new ImageIcon("images\\search.png");
-        ImageIcon iconBook = new ImageIcon("images\\book.png");
         ImageIcon iconRent = new ImageIcon("images\\payment.png");
         ImageIcon iconTK = new ImageIcon("images\\trend.png");
+        ImageIcon iconNS = new ImageIcon("images\\cart.png");
         ImageIcon iconLogout = new ImageIcon("images\\logout.png");
         ImageIcon iconExited = new ImageIcon("images\\exit.png");
 
@@ -722,14 +741,6 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         btMenuTimKiem.setBorder(BorderFactory.createEmptyBorder());
         btMenuTimKiem.addActionListener(this);
 
-        btQLSACH = new JButton("Quản lý sách");
-        btQLSACH.setFont(new Font("Arial", Font.BOLD, 20));
-        btQLSACH.setBackground(Color.green);
-        btQLSACH.setIcon(iconBook);
-        btQLSACH.setHorizontalAlignment(SwingConstants.LEFT);
-        btQLSACH.setBorder(BorderFactory.createEmptyBorder());
-        btQLSACH.addActionListener(this);
-
         btMT = new JButton("Mượn trả sách");
         btMT.setFont(new Font("Arial", Font.BOLD, 20));
         btMT.setBackground(Color.LIGHT_GRAY);
@@ -737,6 +748,14 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         btMT.setHorizontalAlignment(SwingConstants.LEFT);
         btMT.setBorder(BorderFactory.createEmptyBorder());
         btMT.addActionListener(this);
+
+        btNhapSach = new JButton("Nhập sách");
+        btNhapSach.setFont(new Font("Arial", Font.BOLD, 20));
+        btNhapSach.setBackground(Color.LIGHT_GRAY);
+        btNhapSach.setIcon(iconNS);
+        btNhapSach.setHorizontalAlignment(SwingConstants.LEFT);
+        btNhapSach.setBorder(BorderFactory.createEmptyBorder());
+        btNhapSach.addActionListener(this);
 
         btQLNV = new JButton("Quản lý nghiệp vụ");
         btQLNV.setFont(new Font("Arial", Font.BOLD, 20));
@@ -755,7 +774,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         btThongKe.addActionListener(this);
 
         // JButton Đăng xuất
-        btDangXuat = new JButton("ĐĂNG XUẤT");
+        btDangXuat = new JButton("Đăng xuất");
         btDangXuat.setFont(new Font("Arial", Font.BOLD, 20));
         btDangXuat.setBackground(Color.LIGHT_GRAY);
         btDangXuat.setIcon(iconLogout);
@@ -763,7 +782,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         btDangXuat.setBorder(BorderFactory.createEmptyBorder());
         btDangXuat.addActionListener(this);
         // JButton thoát
-        btThoat = new JButton("THOÁT");
+        btThoat = new JButton("Thoát");
         btThoat.setFont(new Font("Arial", Font.BOLD, 20));
         btThoat.setBackground(Color.LIGHT_GRAY);
         btThoat.setIcon(iconExited);
@@ -775,13 +794,12 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         pnMenu.add(lbHome);
         pnMenu.add(btMenu);
         pnMenu.add(btMenuTimKiem);
-        pnMenu.add(btQLSACH);
         pnMenu.add(btMT);
+        pnMenu.add(btNhapSach);
         pnMenu.add(btQLNV);
         pnMenu.add(btThongKe);
         pnMenu.add(btDangXuat);
         pnMenu.add(btThoat);
-
     }
 
     public void setTableSach() {
@@ -872,5 +890,152 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         } catch (Exception e1) {
             System.out.println(e1);
         }
+    }
+
+    public void OffBgSelected() {
+        btMenu.setBackground(Color.lightGray);
+        btMenuTimKiem.setBackground(Color.lightGray);
+        btMT.setBackground(Color.lightGray);
+        btQLNV.setBackground(Color.lightGray);
+
+    }
+
+    public void setTimKiem() {
+        if (btSearch == null) { // Là button của phần tìm kiếm cơ bản
+            lbLCTK.setVisible(true);
+            lbTuKhoaTK.setVisible(true);
+            comboBoxDSKhoaTK.setVisible(true);
+            txKhoaTK.setVisible(true);
+
+            TitledBorder titleTK;
+            titleTK = BorderFactory.createTitledBorder("Tìm kiếm");
+            titleTK.setTitleFont(new Font("Arial", Font.BOLD, 28));
+            titleTK.setTitleJustification(TitledBorder.CENTER);
+            pnTimKiem.setBorder(titleTK);
+
+            btSearch = new JButton("Tìm kiếm");
+            btSearch.setFont(new Font("Arial", Font.BOLD, 15));
+            btSearch.setBounds(360, 175, 100, 35);
+            btSearch.setBackground(Color.cyan);
+            btSearch.setBorder(new RoundedBorder(10));
+            btSearch.addActionListener(this);
+
+        }
+        if (pnTimKiem.isVisible() == true) {
+            pnTimKiem.setVisible(false);
+        } else {
+            pnTimKiem.setVisible(true);
+        }
+        pnTimKiem.add(lbLCTK);
+        pnTimKiem.add(lbTuKhoaTK);
+        pnTimKiem.add(txKhoaTK);
+        pnTimKiem.add(comboBoxDSKhoaTK);
+        pnTimKiem.add(btSearch);
+    }
+
+    public void setTimKiemNC() {
+        // Ẩn các component không dùng tới
+        btSearch.setVisible(false);
+        txKhoaTK.setVisible(false);
+        // set up component mới
+        // Năm xb
+        if (lbTKNam == null) {
+            lbTKNam = new JLabel("Năm XB:");
+            lbTKNam.setFont(new Font("Arial", Font.BOLD, 20));
+            lbTKNam.setBounds(10, 170, 100, 50);
+        }
+        if (txTKNam == null) {
+            txTKNam = new JTextField();
+            txTKNam.setFont(new Font("Arial", Font.PLAIN, 15));
+            txTKNam.setBounds(100, 182, 100, 30);
+        }
+        // SL
+        if (lbTKSL == null) {
+            lbTKSL = new JLabel("SL:");
+            lbTKSL.setFont(new Font("Arial", Font.BOLD, 20));
+            lbTKSL.setBounds(230, 172, 100, 50);
+        }
+        if (txTKSL == null) {
+            txTKSL = new JTextField();
+            txTKSL.setFont(new Font("Arial", Font.PLAIN, 15));
+            txTKSL.setBounds(270, 182, 100, 30);
+        }
+        // button btTimKiem
+        if (btTK == null) {
+            btTK = new JButton("Tìm kiếm");
+            btTK.setFont(new Font("Arial", Font.BOLD, 15));
+            btTK.setBounds(380, 180, 100, 34);
+            btTK.setBackground(Color.cyan);
+            btTK.setBorder(new RoundedBorder(10));
+            btTK.addActionListener(this);
+        }
+
+        if (lbTKNam != null && lbTKSL != null && btTK != null && txTKNam != null && txTKSL != null) {
+            lbTKNam.setVisible(true);
+            txTKNam.setVisible(true);
+            lbTKSL.setVisible(true);
+            txTKSL.setVisible(true);
+            btTK.setVisible(true);
+        }
+        pnTimKiem.add(lbTKNam);
+        pnTimKiem.add(txTKNam);
+        pnTimKiem.add(lbTKSL);
+        pnTimKiem.add(txTKSL);
+        pnTimKiem.add(btTK);
+    }
+
+    public void setLoc() {
+        // set Border
+        TitledBorder titleLoc;
+        Border blackline;
+        blackline = BorderFactory.createLineBorder(Color.black);
+        titleLoc = BorderFactory.createTitledBorder(blackline, "Lọc dữ liệu");
+        titleLoc.setTitleFont(new Font("Arial", Font.BOLD, 25));
+        titleLoc.setTitleJustification(TitledBorder.CENTER);
+
+        lbNgayBD = new JLabel("Ngày bắt đầu: ");
+        lbNgayBD.setFont(new Font("Arial", Font.BOLD, 18));
+        lbNgayBD.setBounds(5, 15, 150, 80);
+
+        lbNgayKT = new JLabel("Ngày kết thúc: ");
+        lbNgayKT.setFont(new Font("Arial", Font.BOLD, 18));
+        lbNgayKT.setBounds(5, 55, 150, 80);
+
+        btLoc = new JButton("Lọc");
+        btLoc.setFont(new Font("Arial", Font.BOLD, 15));
+        btLoc.setBounds(210, 120, 80, 30);
+        btLoc.setBackground(Color.cyan);
+        btLoc.setBorder(new RoundedBorder(10));
+        btLoc.addActionListener(this);
+
+        // Set date picker1
+        modelNgayBD = new UtilDateModel();
+        modelNgayBD.setSelected(true);
+        pNgayBD = new Properties();
+        pNgayBD.put("text.today", "Today");
+        pNgayBD.put("text.month", "Month");
+        pNgayBD.put("text.year", "Year");
+        datePanelNgayBD = new JDatePanelImpl(modelNgayBD, pNgayBD);
+        datePickerNgayBD = new JDatePickerImpl(datePanelNgayBD, new DateLabelFormatter());
+        datePickerNgayBD.setBounds(140, 40, 150, 30);
+
+        // Set date picker1
+        modelNgayKT = new UtilDateModel();
+        modelNgayKT.setSelected(true);
+        pNgayKT = new Properties();
+        pNgayKT.put("text.today", "Today");
+        pNgayKT.put("text.month", "Month");
+        pNgayKT.put("text.year", "Year");
+        datePanelNgayKT = new JDatePanelImpl(modelNgayKT, pNgayKT);
+        datePickerNgayKT = new JDatePickerImpl(datePanelNgayKT, new DateLabelFormatter());
+        datePickerNgayKT.setBounds(140, 80, 150, 30);
+
+        pnLoc.setBorder(titleLoc);
+        pnLoc.add(lbNgayBD);
+        pnLoc.add(lbNgayKT);
+        pnLoc.add(btLoc);
+        pnLoc.add(datePickerNgayBD);
+        pnLoc.add(datePickerNgayKT);
+
     }
 }
