@@ -8,37 +8,59 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Menu extends JFrame{
-    JPanel panelMenu;
-    JLabel labelQLTV, labelBackGroundMenu;
-    JButton btSach, btNhanvien, btNXB, btTheLoai, btTacGia, btNhaCC;
+    JPanel panelMenu, panelBackGround, panelTitle, panelLibrary;
+    JLabel labelQLTV, labelBackGroundMenu, labelLibrary;
+    JButton btSach, btNhanvien, btNXB, btTheLoai, btTacGia, btNhaCC, btThoat, btDangXuat;
     ImageIcon imagebackground;
+    Color ColorOCean, ColorDeepAqua, ColorRed;
     public Menu(){
         this.setTitle("Quản lý thư viện");
-        this.setSize(600, 650);
+        this.setSize(959, 750);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setLayout(new GridLayout(1,1));
+        this.setLayout(null);
 
-        // imagebackground = new ImageIcon("images\\backgroundMenu.png");
-        // this.setIconImage(imagebackground.getImage());
         setMenu();
-        //this.pack();
+        // this.pack();
         this.setVisible(true);
     }
 
     public void setMenu(){
+        ColorOCean = new Color(0,139,139);
+        ColorDeepAqua = new Color(64,224,220);
+        ColorRed = new Color(250, 75,75);
+
         panelMenu = new JPanel();
-        panelMenu.setLayout(null);
+        panelMenu.setLayout(new GridLayout(8,1));
         panelMenu.setBackground(Color.WHITE);
+        panelMenu.setBounds(0,178, 240, 540);
+
+        panelBackGround = new JPanel();
+        panelBackGround.setLayout(null);
+        panelBackGround.setBounds(243, 180, 701, 540);
+
+        panelTitle = new JPanel();
+        panelTitle.setLayout(null);
+        panelTitle.setBounds(243, 0, 700, 178);
+        panelTitle.setBackground(ColorDeepAqua);
+
+        panelLibrary = new JPanel();
+        panelLibrary.setLayout(null);
+        panelLibrary.setBounds(0, 0, 240, 178);
+        panelLibrary.setBackground(Color.LIGHT_GRAY);
 
         labelQLTV = new JLabel("QUẢN LÝ THƯ VIỆN");
         labelQLTV.setFont(new Font("Arial", Font.BOLD, 20));
-        labelQLTV.setForeground(Color.WHITE);
-        labelQLTV.setBounds(270, 0, 250, 100);
+        labelQLTV.setForeground(ColorRed);
+        labelQLTV.setBounds(250, 40, 250, 100);
         
         labelBackGroundMenu = new JLabel();
         labelBackGroundMenu.setIcon(new ImageIcon("images\\backgroundMenu.png"));
-        labelBackGroundMenu.setBounds(0,0, 600, 650);
+        labelBackGroundMenu.setBounds(0,0, 700, 540);
+
+        labelLibrary = new JLabel();
+        labelLibrary.setIcon(new ImageIcon("images\\library.png"));
+        labelLibrary.setBounds(0, 0, 64, 64);;
 
         btSach = new JButton("Sách");
         btNXB = new JButton("Nhà Xuất Bản");
@@ -46,48 +68,49 @@ public class Menu extends JFrame{
         btTacGia = new JButton("Tác giả");
         btNhanvien = new JButton("Nhân viên");
         btNhaCC = new JButton("Nhà cung cấp");
-
-        // Color 
-        Color colorBlue = new Color(30,144,255);
-        Color colorOrange = new Color(255,215,0);
-        Color colorRed_Light = new Color(255,99,71);
-        Color colorMangeta = new Color(199,21,133);
-        Color colorGreen = new Color(60,179,113);
-        Color colorOrange_Dark = new Color(255,140,0);
-
+        btDangXuat = new JButton("Đăng xuất");
+        btThoat = new JButton("Thoát");
 
         btNXB.setFont(new Font("Times new Roman", Font.BOLD, 18));
         btNXB.setForeground(Color.WHITE);
-        btNXB.setBackground(colorRed_Light);
-        btNXB.setBounds(360,120,150,60);
+        btNXB.setBackground(ColorOCean);
 
         btNhaCC.setFont(new Font("Times new Roman", Font.BOLD, 18));
         btNhaCC.setForeground(Color.WHITE);
-        btNhaCC.setBackground(colorBlue);
-        btNhaCC.setBounds(360, 200, 150, 60);
+        btNhaCC.setBackground(ColorOCean);
 
         btNhanvien.setFont(new Font("Times new Roman", Font.BOLD, 18));
         btNhanvien.setForeground(Color.WHITE);
-        btNhanvien.setBackground(colorOrange);
-        btNhanvien.setBounds(360, 280, 150, 60);
+        btNhanvien.setBackground(ColorOCean);
+        btNhanvien.setIcon(new ImageIcon("images\\group.png"));
 
         btSach.setFont(new Font("Times new Roman", Font.BOLD, 18));
         btSach.setForeground(Color.WHITE);
-        btSach.setBackground(colorMangeta);
-        btSach.setBounds(360, 360, 150, 60);
+        btSach.setBackground(ColorOCean);
+        btSach.setIcon(new ImageIcon("images\\book.png"));
 
         btTheLoai.setFont(new Font("Times new Roman", Font.BOLD, 18));
-        btTheLoai.setBackground(colorOrange_Dark);
         btTheLoai.setForeground(Color.WHITE);
-        btTheLoai.setBounds(360, 440, 150, 60);
+        btTheLoai.setBackground(ColorOCean);
 
         btTacGia.setForeground(Color.WHITE);
         btTacGia.setFont(new Font("Times new Roman", Font.BOLD, 18));
-        btTacGia.setBackground(colorGreen);
-        btTacGia.setBounds(360, 520, 150, 60);
+        btTacGia.setBackground(ColorOCean);
+
+        btDangXuat.setForeground(Color.WHITE);
+        btDangXuat.setFont(new Font("Times new Roman", Font.BOLD, 18));
+        btDangXuat.setBackground(ColorOCean);
+        btDangXuat.setIcon(new ImageIcon("images\\logout.png"));
+
+        btThoat.setForeground(Color.WHITE);
+        btThoat.setFont(new Font("Times new Roman", Font.BOLD, 18));
+        btThoat.setBackground(ColorOCean);
+        btThoat.setIcon(new ImageIcon("images\\exit.png"));
 
         this.add(panelMenu);
-        panelMenu.add(labelQLTV);
+        this.add(panelBackGround);
+        this.add(panelTitle);
+        this.add(panelLibrary);
 
         panelMenu.add(btSach);
         panelMenu.add(btNhanvien);
@@ -95,6 +118,11 @@ public class Menu extends JFrame{
         panelMenu.add(btNXB);
         panelMenu.add(btNhaCC);
         panelMenu.add(btTacGia);
-        panelMenu.add(labelBackGroundMenu);
+        panelMenu.add(btDangXuat);
+        panelMenu.add(btThoat);
+
+        panelTitle.add(labelQLTV);
+        panelBackGround.add(labelBackGroundMenu);
+        panelLibrary.add(labelLibrary);
     }
 }

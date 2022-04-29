@@ -35,7 +35,7 @@ public class LoginPage extends JFrame implements ActionListener {
         //set up panel
         panelHomePage = new JPanel();
         panelHomePage.setLayout(null);
-        panelHomePage.setBackground(Color.WHITE);
+        panelHomePage.setBackground(Color.LIGHT_GRAY);
         //set up label
         labelHomePage = new JLabel("USER LOGIN");
         labelUsername = new JLabel(" Account ");
