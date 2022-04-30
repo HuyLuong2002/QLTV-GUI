@@ -12,7 +12,7 @@ public class Menu extends JFrame{
     JLabel labelQLTV, labelBackGroundMenu, labelLibrary;
     JButton btSach, btNhanvien, btNXB, btTheLoai, btTacGia, btNhaCC, btThoat, btDangXuat;
     ImageIcon imagebackground;
-    Color ColorOCean, ColorDeepAqua, ColorRed;
+    Color ColorOCean, ColorDeepAqua, ColorRed, ColorBlue;
     public Menu(){
         this.setTitle("Quản lý thư viện");
         this.setSize(959, 750);
@@ -29,6 +29,7 @@ public class Menu extends JFrame{
         ColorOCean = new Color(0,139,139);
         ColorDeepAqua = new Color(64,224,220);
         ColorRed = new Color(250, 75,75);
+        ColorBlue = new Color(0,225,225);
 
         panelMenu = new JPanel();
         panelMenu.setLayout(new GridLayout(8,1));
@@ -47,7 +48,7 @@ public class Menu extends JFrame{
         panelLibrary = new JPanel();
         panelLibrary.setLayout(null);
         panelLibrary.setBounds(0, 0, 240, 178);
-        panelLibrary.setBackground(Color.LIGHT_GRAY);
+        panelLibrary.setBackground(ColorBlue);
 
         labelQLTV = new JLabel("QUẢN LÝ THƯ VIỆN");
         labelQLTV.setFont(new Font("Arial", Font.BOLD, 20));
@@ -59,8 +60,8 @@ public class Menu extends JFrame{
         labelBackGroundMenu.setBounds(0,0, 700, 540);
 
         labelLibrary = new JLabel();
-        labelLibrary.setIcon(new ImageIcon("images\\library.png"));
-        labelLibrary.setBounds(0, 0, 64, 64);;
+        labelLibrary.setIcon(new ImageIcon("images\\user_login.png"));
+        labelLibrary.setBounds(70, 40, 100, 100);;
 
         btSach = new JButton("Sách");
         btNXB = new JButton("Nhà Xuất Bản");
@@ -74,10 +75,12 @@ public class Menu extends JFrame{
         btNXB.setFont(new Font("Times new Roman", Font.BOLD, 18));
         btNXB.setForeground(Color.WHITE);
         btNXB.setBackground(ColorOCean);
+        btNXB.setIcon(new ImageIcon("images\\publisher.png"));
 
         btNhaCC.setFont(new Font("Times new Roman", Font.BOLD, 18));
         btNhaCC.setForeground(Color.WHITE);
         btNhaCC.setBackground(ColorOCean);
+        btNhaCC.setIcon(new ImageIcon("images\\courier.png"));
 
         btNhanvien.setFont(new Font("Times new Roman", Font.BOLD, 18));
         btNhanvien.setForeground(Color.WHITE);
@@ -92,10 +95,12 @@ public class Menu extends JFrame{
         btTheLoai.setFont(new Font("Times new Roman", Font.BOLD, 18));
         btTheLoai.setForeground(Color.WHITE);
         btTheLoai.setBackground(ColorOCean);
+        btTheLoai.setIcon(new ImageIcon("images\\list.png"));
 
         btTacGia.setForeground(Color.WHITE);
         btTacGia.setFont(new Font("Times new Roman", Font.BOLD, 18));
         btTacGia.setBackground(ColorOCean);
+        btTacGia.setIcon(new ImageIcon("images\\author.png"));
 
         btDangXuat.setForeground(Color.WHITE);
         btDangXuat.setFont(new Font("Times new Roman", Font.BOLD, 18));
