@@ -39,8 +39,7 @@ import org.jdatepicker.impl.UtilDateModel;
 
 
 import MyCustom.DateLabelFormatter;
-import MyCustom.DocFileExcel;
-import MyCustom.HoTroNhap;
+import MyCustom.DocGhiFileExcel;
 import MyCustom.LoginPage;
 import MyCustom.RoundedBorder;
 import QLTV.BUS.QLSACHBUS;
@@ -540,7 +539,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
                 File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
                 namepath = file.getAbsolutePath();
             }
-            DocFileExcel excelFile = new DocFileExcel(namepath,tblQLSACH,model);
+            new DocGhiFileExcel(namepath,tblQLSACH,model);
         }
         if (e.getSource() == btXuatExcel) {
 

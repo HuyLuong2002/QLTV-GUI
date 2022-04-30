@@ -10,9 +10,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Color;
-import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -21,12 +18,12 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import QLTV.BUS.QLSACHBUS;
 import QLTV.DTO.SACH;
 
-public class DocFileExcel {
+public class DocGhiFileExcel {
     FileInputStream excelfis=null;
     BufferedInputStream excelbis=null;
     XSSFWorkbook excelJTableImport=null;
-    public DocFileExcel() {}
-    public DocFileExcel(String namepath, JTable excelTable, DefaultTableModel model) {
+    public DocGhiFileExcel() {}
+    public DocGhiFileExcel(String namepath, JTable excelTable, DefaultTableModel model) {
         try {
             File file = new File(namepath); // creating a new file instance
             excelfis = new FileInputStream(file); // obtaining bytes from the file
