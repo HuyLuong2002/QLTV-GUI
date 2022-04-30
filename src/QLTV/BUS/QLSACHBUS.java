@@ -40,6 +40,24 @@ public class QLSACHBUS {
         }
     }
 
+    public int themDataExcel(SACH sach) throws Exception {
+        if (KTMa(sach.getMasach().trim()) == 0) {
+            JOptionPane.showMessageDialog(null, "Mã sinh viên vừa nhập bị trùng. Mời nhập lại!", "Lỗi",
+                    JOptionPane.ERROR_MESSAGE);
+            return -1;
+        } else if (KTSL(sach.getSLtong(), sach.getSL()) == 0) {
+            JOptionPane.showMessageDialog(null, "Số lương tổng phải lớn hơn số lượng", "Lỗi",
+                    JOptionPane.ERROR_MESSAGE);
+            return -1;
+        } else {
+            // Truy cập vào database
+            QLSACHDAO data = new QLSACHDAO();
+            data.themDataExcel(sach);
+            dssach.add(sach);
+            return 1;
+        }
+    }
+
     public void sua(SACH sachmoi, SACH sachcu, int i) throws Exception {
         // Truy cập vào database
         QLSACHDAO data = new QLSACHDAO();
@@ -54,7 +72,7 @@ public class QLSACHBUS {
     }
 
     public int hoantacXoa(SACH sach) throws Exception {
-        if (KTMa(sach.getMasach()) == 0) {
+        if (KTMa(sach.getMasach().trim()) == 0) {
             JOptionPane.showMessageDialog(null, "Mã sinh viên vừa nhập bị trùng. Mời nhập lại!", "Lỗi",
                     JOptionPane.ERROR_MESSAGE);
             return -1;
@@ -85,7 +103,7 @@ public class QLSACHBUS {
 
     public int KTMa(String MaSachMoi) {
         for (SACH sach : dssach)
-            if (sach.getMasach().equals(MaSachMoi)) {
+            if (sach.getMasach().trim().equals(MaSachMoi)) {
                 return 0;
             }
         return 1;
@@ -100,7 +118,7 @@ public class QLSACHBUS {
 
     public SACH timTheoMa(String Masach) {
         for (SACH sach : dssach)
-            if (sach.getMasach().equals(Masach))
+            if (sach.getMasach().trim().equals(Masach))
                 return sach;
         return null;
     }
