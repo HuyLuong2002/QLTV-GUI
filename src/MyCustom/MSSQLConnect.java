@@ -7,11 +7,11 @@ import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 public class MSSQLConnect {
-    String host="DESKTOP-5IRG803\\SQLEXPRESS";
+    String host="DESKTOP-0K98LBJ\\SQLEXPRESS";
     String database="QLTV";
     String username="sa";
     String password="sa";
-    String url = "jdbc:sqlserver://DESKTOP-5IRG803\\SQLEXPRESS:1433;databaseName=QLTV;trustServerCertificate=true;integratedSecurity=true;";
+    String url = "jdbc:sqlserver://DESKTOP-0K98LBJ\\SQLEXPRESS:1433;databaseName=QLTV;trustServerCertificate=true;integratedSecurity=true;";
     Connection conn = null;
     Statement st = null;
     ResultSet rs = null;
@@ -35,7 +35,7 @@ public class MSSQLConnect {
     public Connection getConnection() throws Exception{
         if(this.conn==null){
             driverTest();
-            String url="jdbc:sqlserver://" + this.host + ":1433;databaseName=" + this.database + ";trustServerCertificate=true;integratedSecurity=true;";
+            String url="jdbc:sqlserver://" + this.host + ":1433;databaseName=" + this.database + ";trustServerCertificate=true";
             try {
                 this.conn = DriverManager.getConnection(url,this.username,this.password);
             } catch (SQLException e) {

@@ -70,9 +70,10 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
 
     public QLSACHGUI() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.pack();
+        this.setSize(1400,800);
         this.setTitle("Quản lý thông tin sách");
         this.setLayout(null);
+        this.setLocationRelativeTo(null);
 
         pnTTSach = new JPanel();
         pnNhapTTSach = new JPanel();
@@ -80,19 +81,27 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         pnMenu = new JPanel();
         pnTimKiem = new JPanel();
         pnLoc = new JPanel();
+
         pnTTSach.setLayout(new GridLayout(3, 1, 0, -300));
-        pnTTSach.setBounds(320, 0, 1200, 400);
+        pnTTSach.setBounds(242, 0, 1142, 400);
+
         pnShowAll.setLayout(null);
-        pnShowAll.setBounds(300, 400, 1537, 40);
+        pnShowAll.setBounds(242, 402, 1142, 30);
+        pnShowAll.setBackground(Color.GREEN);
+
         pnNhapTTSach.setLayout(null);
-        pnNhapTTSach.setBounds(200, 415, 820, 600);
+        pnNhapTTSach.setBounds(242, 415, 720, 550);
+        pnNhapTTSach.setBackground(Color.red);
+
         pnMenu.setBackground(Color.LIGHT_GRAY);
-        pnMenu.setLayout(new GridLayout(15, 1));
-        pnMenu.setSize(new Dimension(300, 1200));
+        pnMenu.setLayout(new GridLayout(9, 1));
+        pnMenu.setBounds(0,178,240,590);
+
         pnTimKiem.setLayout(null);
-        pnTimKiem.setBounds(1030, 445, 490, 350);
+        pnTimKiem.setBounds(970, 445, 410, 350);
+
         pnLoc.setLayout(null);
-        pnLoc.setBounds(520, 130, 300, 180);
+        pnLoc.setBounds(415, 135, 300, 180);
 
         // add components
         this.add(pnMenu);
@@ -580,118 +589,118 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
     public void setInput() {
         // label Masach
         lbMasach = new JLabel("Mã sách:");
-        lbMasach.setFont(new Font("Arial", Font.BOLD, 20));
-        lbMasach.setBounds(120, 0, 150, 100);
+        lbMasach.setFont(new Font("Arial", Font.BOLD, 18));
+        lbMasach.setBounds(20, 0, 130, 80);
         // label Tensach
         lbTensach = new JLabel("Tên sách:");
-        lbTensach.setFont(new Font("Arial", Font.BOLD, 20));
-        lbTensach.setBounds(120, 50, 150, 100);
+        lbTensach.setFont(new Font("Arial", Font.BOLD, 18));
+        lbTensach.setBounds(20, 40, 130, 80);
         // label MaNXB
         lbMaNXB = new JLabel("Mã NXB:");
-        lbMaNXB.setFont(new Font("Arial", Font.BOLD, 20));
-        lbMaNXB.setBounds(120, 100, 150, 100);
+        lbMaNXB.setFont(new Font("Arial", Font.BOLD, 18));
+        lbMaNXB.setBounds(20, 80, 130, 80);
         // label MaTG
         lbMaTG = new JLabel("Mã tác giả: ");
-        lbMaTG.setFont(new Font("Arial", Font.BOLD, 20));
-        lbMaTG.setBounds(120, 150, 150, 100);
+        lbMaTG.setFont(new Font("Arial", Font.BOLD, 18));
+        lbMaTG.setBounds(20, 120, 130, 80);
         // label NamXB
         lbNamXB = new JLabel("Năm xuất bản:");
-        lbNamXB.setFont(new Font("Arial", Font.BOLD, 20));
-        lbNamXB.setBounds(120, 200, 150, 100);
+        lbNamXB.setFont(new Font("Arial", Font.BOLD, 18));
+        lbNamXB.setBounds(20, 160, 130, 80);
         // label SLtong
         lbSLtong = new JLabel("SL tổng:");
-        lbSLtong.setFont(new Font("Arial", Font.BOLD, 20));
-        lbSLtong.setBounds(120, 250, 150, 100);
+        lbSLtong.setFont(new Font("Arial", Font.BOLD, 18));
+        lbSLtong.setBounds(20, 200, 130, 80);
         // label SL
         lbSL = new JLabel("SL:");
-        lbSL.setFont(new Font("Arial", Font.BOLD, 20));
-        lbSL.setBounds(520, 0, 150, 100);
+        lbSL.setFont(new Font("Arial", Font.BOLD, 18));
+        lbSL.setBounds(380, 0, 130, 80);
         // label Đơn giá
         lbDongia = new JLabel("Đơn giá:");
-        lbDongia.setFont(new Font("Arial", Font.BOLD, 20));
-        lbDongia.setBounds(520, 50, 150, 100);
+        lbDongia.setFont(new Font("Arial", Font.BOLD, 18));
+        lbDongia.setBounds(380, 40, 130, 80);
         // labelLCTK
         lbLCTK = new JLabel("Lựa chọn khóa tìm kiếm:");
-        lbLCTK.setFont(new Font("Arial", Font.BOLD, 20));
-        lbLCTK.setBounds(10, 50, 250, 100);
+        lbLCTK.setFont(new Font("Arial", Font.BOLD, 18));
+        lbLCTK.setBounds(10, 50, 230, 80);
 
         // labelTuKhoaTK
         lbTuKhoaTK = new JLabel("Nhập từ khóa tìm kiếm:");
-        lbTuKhoaTK.setFont(new Font("Arial", Font.BOLD, 20));
-        lbTuKhoaTK.setBounds(10, 100, 250, 100);
+        lbTuKhoaTK.setFont(new Font("Arial", Font.BOLD, 18));
+        lbTuKhoaTK.setBounds(10, 100, 230, 80);
 
         // JTextField Mã sách
         txMasach = new JTextField();
-        txMasach.setBounds(270, 30, 200, 35);
+        txMasach.setBounds(160, 25, 180, 30);
         txMasach.setFont(new Font("Arial", Font.PLAIN, 15));
         txMasach.addMouseListener(this);
         // JTextField Tên sách
         txTensach = new JTextField();
-        txTensach.setBounds(270, 80, 200, 35);
+        txTensach.setBounds(160, 65, 180, 30);
         txTensach.setFont(new Font("Arial", Font.PLAIN, 15));
         txTensach.setEditable(false);
         txTensach.addMouseListener(this);
         // JTextField Mã nhà xuất bản
         txMaNXB = new JTextField();
-        txMaNXB.setBounds(270, 130, 200, 35);
+        txMaNXB.setBounds(160, 105, 180, 30);
         txMaNXB.setFont(new Font("Arial", Font.PLAIN, 15));
         txMaNXB.addMouseListener(this);
         // JTextField Mã tác giả
         txMaTG = new JTextField();
-        txMaTG.setBounds(270, 180, 200, 35);
+        txMaTG.setBounds(160, 145, 180, 30);
         txMaTG.setFont(new Font("Arial", Font.PLAIN, 15));
         txMaTG.addMouseListener(this);
         // JTextField Năm xuất bản
         txNamXB = new JTextField();
-        txNamXB.setBounds(270, 230, 200, 35);
+        txNamXB.setBounds(160, 185, 180, 30);
         txNamXB.setFont(new Font("Arial", Font.PLAIN, 15));
         txNamXB.addMouseListener(this);
         // JTextField SL tổng
         txSLtong = new JTextField();
-        txSLtong.setBounds(270, 280, 200, 35);
+        txSLtong.setBounds(160, 225, 180, 30);
         txSLtong.setFont(new Font("Arial", Font.PLAIN, 15));
         txSLtong.addMouseListener(this);
         // JTextField SL
         txSL = new JTextField();
-        txSL.setBounds(620, 30, 200, 35);
+        txSL.setBounds(500, 25, 180, 30);
         txSL.setFont(new Font("Arial", Font.PLAIN, 15));
         txSL.addMouseListener(this);
         // JTextField Đơn giá
         txDongia = new JTextField();
-        txDongia.setBounds(620, 80, 200, 35);
+        txDongia.setBounds(500, 65, 180, 30);
         txDongia.setFont(new Font("Arial", Font.PLAIN, 15));
         txDongia.addMouseListener(this);
         // JTextField Khóa tìm kiếm
         txKhoaTK = new JTextField();
         txKhoaTK.setFont(new Font("Arial", Font.PLAIN, 15));
-        txKhoaTK.setBounds(260, 135, 200, 35);
+        txKhoaTK.setBounds(245, 125, 160, 30);
         txKhoaTK.addMouseListener(this);
 
         // JbuttonThem
         btThem = new JButton("Thêm");
         btThem.setFont(new Font("Arial", Font.BOLD, 15));
-        btThem.setBounds(120, 330, 100, 40);
+        btThem.setBounds(10, 285, 80, 30);
         btThem.setBackground(Color.cyan);
         btThem.setBorder(new RoundedBorder(10));
         btThem.addActionListener(this);
         // JbuttonSua
         btSua = new JButton("Sửa");
         btSua.setFont(new Font("Arial", Font.BOLD, 15));
-        btSua.setBounds(240, 330, 100, 40);
+        btSua.setBounds(110, 285, 80, 30);
         btSua.setBackground(Color.cyan);
         btSua.setBorder(new RoundedBorder(10));
         btSua.addActionListener(this);
         // JbuttonXoa
         btXoa = new JButton("Xóa");
         btXoa.setFont(new Font("Arial", Font.BOLD, 15));
-        btXoa.setBounds(360, 330, 100, 40);
+        btXoa.setBounds(210, 285, 80, 30);
         btXoa.setBackground(Color.cyan);
         btXoa.setBorder(new RoundedBorder(10));
         btXoa.addActionListener(this);
         // JbuttonHoanTac
         btHoanTac = new JButton("Hoàn tác");
         btHoanTac.setFont(new Font("Arial", Font.BOLD, 15));
-        btHoanTac.setBounds(480, 330, 100, 40);
+        btHoanTac.setBounds(310, 285, 90, 30);
         btHoanTac.setBackground(Color.cyan);
         btHoanTac.setBorder(new RoundedBorder(10));
         btHoanTac.addActionListener(this);
@@ -701,7 +710,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
                 "Năm hoặc SL", "Năm và SL" };
         comboBoxDSKhoaTK = new JComboBox<>(dsKhoaTK);
         comboBoxDSKhoaTK.setFont(new Font("Arial", Font.BOLD, 13));
-        comboBoxDSKhoaTK.setBounds(260, 85, 120, 35);
+        comboBoxDSKhoaTK.setBounds(245, 75, 100, 30);
         comboBoxDSKhoaTK.addActionListener(this);
 
         lbLCTK.setVisible(false);
@@ -824,7 +833,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         btThoat.addActionListener(this);
 
         // add Menu button
-        pnMenu.add(lbHome);
+        // pnMenu.add(lbHome);
         pnMenu.add(btMenu);
         pnMenu.add(btSach);
         pnMenu.add(btMenuTimKiem);
@@ -839,7 +848,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
     public void setTableSach() {
         // label TTSV
         lbTTSach = new JLabel("THÔNG TIN SÁCH");
-        lbTTSach.setFont(new Font("Arial", Font.BOLD, 30));
+        lbTTSach.setFont(new Font("Arial", Font.BOLD, 35));
         lbTTSach.setHorizontalAlignment(SwingConstants.CENTER);
         lbTTSach.setVerticalAlignment(SwingConstants.TOP);
         // labelKQTK
@@ -850,7 +859,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         tblQLSACH = new JTable();
         pane = new JScrollPane(tblQLSACH);
         pane.setAutoscrolls(true);
-        tblQLSACH.setRowHeight(20);
+        tblQLSACH.setRowHeight(30);
         tblQLSACH.setFont(new Font(null, 0, 13));
         tblQLSACH.setBackground(Color.LIGHT_GRAY);
         tblQLSACH.addMouseListener(this);
@@ -866,7 +875,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         // JButtonShowAll
         btShowAll = new JButton("Hiển thị tất cả");
         btShowAll.setFont(new Font("Arial", Font.BOLD, 15));
-        btShowAll.setBounds(1070, 10, 150, 30);
+        btShowAll.setBounds(1010, 0, 130, 30);
         btShowAll.setBackground(Color.cyan);
         btShowAll.setBorder(new RoundedBorder(10));
         btShowAll.addActionListener(this);
@@ -956,7 +965,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
 
             btSearch = new JButton("Tìm kiếm");
             btSearch.setFont(new Font("Arial", Font.BOLD, 15));
-            btSearch.setBounds(360, 175, 100, 35);
+            btSearch.setBounds(315, 165, 90, 30);
             btSearch.setBackground(Color.cyan);
             btSearch.setBorder(new RoundedBorder(10));
             btSearch.addActionListener(this);
