@@ -146,8 +146,11 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                 if (vtkey == 1) {
                     PHIEUMUON kq = qlsachbus.timTheoMa(tukhoa);
                     modelMuon.setRowCount(0);
-                    ShowOnTablePM(kq);
-                    tblQLMuon.setModel(modelMuon);
+                    if(kq == null) {
+                        ShowOnTablePM(kq);
+                        tblQLMuon.setModel(modelMuon);
+                    }
+
                 }
                 if (vtkey == 2) {
                     ArrayList<PHIEUMUON> kq = qlsachbus.timTheoSLtong(tukhoa);
