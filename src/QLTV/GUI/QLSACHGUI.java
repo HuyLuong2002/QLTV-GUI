@@ -73,6 +73,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
     Properties pNgayBD, pNgayKT;
     JDatePanelImpl datePanelNgayBD, datePanelNgayKT;
     JDatePickerImpl datePickerNgayBD, datePickerNgayKT;
+    Color ColorOcean, ColorPurple;
 
     public QLSACHGUI() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -93,13 +94,10 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
 
         pnShowAll.setLayout(null);
         pnShowAll.setBounds(242, 402, 1142, 30);
-        pnShowAll.setBackground(Color.GREEN);
 
         pnNhapTTSach.setLayout(null);
         pnNhapTTSach.setBounds(242, 415, 720, 550);
-        pnNhapTTSach.setBackground(Color.red);
 
-        pnMenu.setBackground(Color.LIGHT_GRAY);
         pnMenu.setLayout(new GridLayout(9, 1));
         pnMenu.setBounds(0,178,240,590);
 
@@ -107,8 +105,11 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         pnTimKiem.setBounds(970, 445, 410, 350);
 
         pnLoc.setLayout(null);
-        pnLoc.setBounds(415, 135, 300, 180);
+        pnLoc.setBounds(420, 105, 300, 180);
 
+        // Color
+        ColorOcean = new Color(0,139,139);
+        ColorPurple = new Color(255,20,147);
         // add components
         this.add(pnMenu);
         this.add(pnShowAll);
@@ -306,7 +307,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         } else if (e.getSource() == btMenuTimKiem) { // Của button Tìm kiếm sách, để hiện thị
             // khung tìm kiếm
             OffBTBgSelected();
-            btMenuTimKiem.setBackground(Color.green);
+            btMenuTimKiem.setBackground(ColorPurple);
             if (pnMT != null) {
                 pnMT.setVisible(false);
             }
@@ -429,7 +430,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         }
         if (e.getSource() == btThongKe) {
             OffBTBgSelected();
-            btThongKe.setBackground(Color.green);
+            btThongKe.setBackground(ColorPurple);
             String luachon = "";
             int count, sum;
             do {
@@ -460,13 +461,13 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         }
         if (e.getSource() == btMenu) {
             OffBTBgSelected();
-            btMenu.setBackground(Color.green);
+            btMenu.setBackground(ColorPurple);
         }
         if (e.getSource() == btMT) {
             QLMTGUI qlmt = new QLMTGUI();
             OffBTBgSelected();
             OffPageQLSACH(false);
-            btMT.setBackground(Color.green);
+            btMT.setBackground(ColorPurple);
             if (pnTimKiem != null) {
                 pnTimKiem.setVisible(false);
             }
@@ -511,17 +512,17 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
             }
             OffPageQLSACH(true);
             OffBTBgSelected();
-            btSach.setBackground(Color.green);
+            btSach.setBackground(ColorPurple);
         }
         if (e.getSource() == btNhapSach) {
             OffPageQLSACH(false);
             OffBTBgSelected();
-            btNhapSach.setBackground(Color.green);
+            btNhapSach.setBackground(ColorPurple);
         }
         if (e.getSource() == btQLNV) {
             OffPageQLSACH(false);
             OffBTBgSelected();
-            btQLNV.setBackground(Color.green);
+            btQLNV.setBackground(ColorPurple);
         }
         if (e.getSource() == btThoat) {
             int ktra = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất", "Xác nhận",
@@ -718,28 +719,28 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         // JbuttonThem
         btThem = new JButton("Thêm");
         btThem.setFont(new Font("Arial", Font.BOLD, 15));
-        btThem.setBounds(10, 285, 80, 30);
+        btThem.setBounds(10, 305, 80, 30);
         btThem.setBackground(Color.cyan);
         btThem.setBorder(new RoundedBorder(10));
         btThem.addActionListener(this);
         // JbuttonSua
         btSua = new JButton("Sửa");
         btSua.setFont(new Font("Arial", Font.BOLD, 15));
-        btSua.setBounds(110, 285, 80, 30);
+        btSua.setBounds(110, 305, 80, 30);
         btSua.setBackground(Color.cyan);
         btSua.setBorder(new RoundedBorder(10));
         btSua.addActionListener(this);
         // JbuttonXoa
         btXoa = new JButton("Xóa");
         btXoa.setFont(new Font("Arial", Font.BOLD, 15));
-        btXoa.setBounds(210, 285, 80, 30);
+        btXoa.setBounds(210, 305, 80, 30);
         btXoa.setBackground(Color.cyan);
         btXoa.setBorder(new RoundedBorder(10));
         btXoa.addActionListener(this);
         // JbuttonHoanTac
         btHoanTac = new JButton("Hoàn tác");
         btHoanTac.setFont(new Font("Arial", Font.BOLD, 15));
-        btHoanTac.setBounds(310, 285, 90, 30);
+        btHoanTac.setBounds(310, 305, 90, 30);
         btHoanTac.setBackground(Color.cyan);
         btHoanTac.setBorder(new RoundedBorder(10));
         btHoanTac.addActionListener(this);
@@ -747,7 +748,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         // Jbutton nhập excel
         btNhapExcel = new JButton("Nhập Excel");
         btNhapExcel.setFont(new Font("Arial", Font.BOLD, 15));
-        btNhapExcel.setBounds(540, 330, 120, 40);
+        btNhapExcel.setBounds(470, 305, 120, 30);
         btNhapExcel.setBackground(Color.cyan);
         btNhapExcel.setBorder(new RoundedBorder(10));
         btNhapExcel.addActionListener(this);
@@ -755,7 +756,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         // Jbutton xuất excel
         btXuatExcel = new JButton("Xuất Excel");
         btXuatExcel.setFont(new Font("Arial", Font.BOLD, 15));
-        btXuatExcel.setBounds(680, 330, 100, 40);
+        btXuatExcel.setBounds(620, 305, 100, 30);
         btXuatExcel.setBackground(Color.cyan);
         btXuatExcel.setBorder(new RoundedBorder(10));
         btXuatExcel.addActionListener(this);
@@ -818,7 +819,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
 
         btMenu = new JButton("Menu");
         btMenu.setFont(new Font("Arial", Font.BOLD, 20));
-        btMenu.setBackground(Color.LIGHT_GRAY);
+        btMenu.setBackground(ColorOcean);
         btMenu.setIcon(iconMenu);
         btMenu.setHorizontalAlignment(SwingConstants.LEFT);
         btMenu.setBorder(BorderFactory.createEmptyBorder());
@@ -826,7 +827,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
 
         btMenuTimKiem = new JButton("Tìm kiếm sách");
         btMenuTimKiem.setFont(new Font("Arial", Font.BOLD, 20));
-        btMenuTimKiem.setBackground(Color.LIGHT_GRAY);
+        btMenuTimKiem.setBackground(ColorOcean);
         btMenuTimKiem.setIcon(iconSearch);
         btMenuTimKiem.setHorizontalAlignment(SwingConstants.LEFT);
         btMenuTimKiem.setBorder(BorderFactory.createEmptyBorder());
@@ -834,7 +835,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
 
         btSach = new JButton("Thông tin sách");
         btSach.setFont(new Font("Arial", Font.BOLD, 20));
-        btSach.setBackground(Color.green);
+        btSach.setBackground(ColorPurple);
         btSach.setIcon(iconBook);
         btSach.setHorizontalAlignment(SwingConstants.LEFT);
         btSach.setBorder(BorderFactory.createEmptyBorder());
@@ -842,7 +843,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
 
         btMT = new JButton("Mượn trả sách");
         btMT.setFont(new Font("Arial", Font.BOLD, 20));
-        btMT.setBackground(Color.LIGHT_GRAY);
+        btMT.setBackground(ColorOcean);
         btMT.setIcon(iconRent);
         btMT.setHorizontalAlignment(SwingConstants.LEFT);
         btMT.setBorder(BorderFactory.createEmptyBorder());
@@ -850,7 +851,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
 
         btNhapSach = new JButton("Nhập sách");
         btNhapSach.setFont(new Font("Arial", Font.BOLD, 20));
-        btNhapSach.setBackground(Color.LIGHT_GRAY);
+        btNhapSach.setBackground(ColorOcean);
         btNhapSach.setIcon(iconNS);
         btNhapSach.setHorizontalAlignment(SwingConstants.LEFT);
         btNhapSach.setBorder(BorderFactory.createEmptyBorder());
@@ -858,7 +859,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
 
         btQLNV = new JButton("Quản lý nghiệp vụ");
         btQLNV.setFont(new Font("Arial", Font.BOLD, 20));
-        btQLNV.setBackground(Color.LIGHT_GRAY);
+        btQLNV.setBackground(ColorOcean);
         btQLNV.setIcon(iconRent);
         btQLNV.setHorizontalAlignment(SwingConstants.LEFT);
         btQLNV.setBorder(BorderFactory.createEmptyBorder());
@@ -866,7 +867,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
 
         btThongKe = new JButton("Thống kê");
         btThongKe.setFont(new Font("Arial", Font.BOLD, 20));
-        btThongKe.setBackground(Color.LIGHT_GRAY);
+        btThongKe.setBackground(ColorOcean);
         btThongKe.setIcon(iconTK);
         btThongKe.setHorizontalAlignment(SwingConstants.LEFT);
         btThongKe.setBorder(BorderFactory.createEmptyBorder());
@@ -875,7 +876,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         // JButton Đăng xuất
         btDangXuat = new JButton("Đăng xuất");
         btDangXuat.setFont(new Font("Arial", Font.BOLD, 20));
-        btDangXuat.setBackground(Color.LIGHT_GRAY);
+        btDangXuat.setBackground(ColorOcean);
         btDangXuat.setIcon(iconLogout);
         btDangXuat.setHorizontalAlignment(SwingConstants.LEFT);
         btDangXuat.setBorder(BorderFactory.createEmptyBorder());
@@ -883,7 +884,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         // JButton thoát
         btThoat = new JButton("Thoát");
         btThoat.setFont(new Font("Arial", Font.BOLD, 20));
-        btThoat.setBackground(Color.LIGHT_GRAY);
+        btThoat.setBackground(ColorOcean);
         btThoat.setIcon(iconExited);
         btThoat.setHorizontalAlignment(SwingConstants.LEFT);
         btThoat.setBorder(BorderFactory.createEmptyBorder());
@@ -939,7 +940,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
 
         btSapXep = new JButton("Sắp xếp theo tên");
         btSapXep.setFont(new Font("Arial", Font.BOLD, 15));
-        btSapXep.setBounds(900, 10, 150, 30);
+        btSapXep.setBounds(830, 0, 150, 30);
         btSapXep.setBackground(Color.cyan);
         btSapXep.setBorder(new RoundedBorder(10));
         btSapXep.addActionListener(this);
@@ -1002,15 +1003,15 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
     }
 
     public void OffBTBgSelected() {
-        btSach.setBackground(Color.lightGray);
-        btThongKe.setBackground(Color.lightGray);
-        btNhapSach.setBackground(Color.lightGray);
-        btMenu.setBackground(Color.lightGray);
-        btMenuTimKiem.setBackground(Color.lightGray);
-        btMT.setBackground(Color.lightGray);
-        btQLNV.setBackground(Color.lightGray);
-        btDangXuat.setBackground(Color.lightGray);
-        btThoat.setBackground(Color.lightGray);
+        btSach.setBackground(ColorOcean);
+        btThongKe.setBackground(ColorOcean);
+        btNhapSach.setBackground(ColorOcean);
+        btMenu.setBackground(ColorOcean);
+        btMenuTimKiem.setBackground(ColorOcean);
+        btMT.setBackground(ColorOcean);
+        btQLNV.setBackground(ColorOcean);
+        btDangXuat.setBackground(ColorOcean);
+        btThoat.setBackground(ColorOcean);
     }
 
     public void setTimKiem() {

@@ -52,9 +52,9 @@ public class Menu extends JFrame implements ActionListener{
         panelLibrary.setBackground(ColorDeepAqua);
 
         labelQLTV = new JLabel("QUẢN LÝ THƯ VIỆN");
-        labelQLTV.setFont(new Font("Arial", Font.BOLD, 20));
+        labelQLTV.setFont(new Font("Arial", Font.BOLD, 35));
         labelQLTV.setForeground(ColorRed);
-        labelQLTV.setBounds(250, 40, 250, 50);
+        labelQLTV.setBounds(320, 20, 400, 50);
         
         labelBackGroundMenu = new JLabel();
         labelBackGroundMenu.setIcon(new ImageIcon("images\\backgroundMenu.png"));

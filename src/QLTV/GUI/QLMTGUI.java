@@ -57,15 +57,19 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
     Properties pNgayBD, pNgayKT;
     JDatePanelImpl datePanelNgayBD, datePanelNgayKT;
     JDatePickerImpl datePickerNgayBD, datePickerNgayKT;
+    Color ColorPurple;
 
     public QLMTGUI() {
     }
 
     public JPanel setMTGUI() {
+        ColorPurple = new Color(255,20,147);
+
         if (pnMuonTra == null) {
             pnMuonTra = new JPanel();
-            pnMuonTra.setBounds(320, 0, 1200, 1000);
+            pnMuonTra.setBounds(240, 0, 1145, 800);
             pnMuonTra.setLayout(null);
+            pnMuonTra.setBackground(ColorPurple);
 
             pnTabMuon = new JPanel();
             pnTabMuon.setLayout(new GridLayout(1, 2, 5, 0));
@@ -77,32 +81,32 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             pnCTMuon.setLayout(new GridLayout(1, 1));
 
             pnShowAll = new JPanel();
-            pnShowAll.setBounds(5, 358, 1190, 50);
+            pnShowAll.setBounds(5, 358, 1135, 50);
             pnShowAll.setLayout(null);
 
             pnNhapPM = new JPanel();
             pnNhapPM.setLayout(null);
-            pnNhapPM.setBounds(5, 410, 1200, 370);
+            pnNhapPM.setBounds(5, 410, 1137, 370);
 
             pnTimKiem = new JPanel();
             pnTimKiem.setLayout(null);
-            pnTimKiem.setBounds(590, 0, 600, 200);
+            pnTimKiem.setBounds(570, 0, 567, 200);
 
             pnLoc = new JPanel();
             pnLoc.setLayout(null);
-            pnLoc.setBounds(590, 200, 300, 160);
+            pnLoc.setBounds(570, 195, 300, 160);
 
             tabbedPane = new JTabbedPane();
             tabbedPane.addTab("Mượn sách", pnTabMuon);
             tabbedPane.addTab("Trả sách", null);
             tabbedPane.addTab("HĐ Tiền phạt", null);
             tabbedPane.addMouseListener(this);
-            tabbedPane.setBounds(5, 5, 1190, 350);
+            tabbedPane.setBounds(5, 5, 1138, 350);
 
             pnMuonTra.add(tabbedPane);
             pnMuonTra.add(pnShowAll);
             pnMuonTra.add(pnNhapPM);
-            pnMuonTra.add(pnTimKiem);
+            // pnMuonTra.add(pnTimKiem);
             // pnMuonTra.add(pnLoc);
             pnNhapPM.add(pnTimKiem);
             pnNhapPM.add(pnLoc);
@@ -263,7 +267,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
     public void setShowAll() {
         btShowAll = new JButton("Hiển thị tất cả");
         btShowAll.setFont(new Font("Arial", Font.BOLD, 15));
-        btShowAll.setBounds(1060, 10, 130, 30);
+        btShowAll.setBounds(1000, 10, 130, 30);
         btShowAll.setBackground(Color.cyan);
         btShowAll.setBorder(new RoundedBorder(10));
         btShowAll.addActionListener(this);
