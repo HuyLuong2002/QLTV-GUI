@@ -100,7 +100,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         pnMenu.setBounds(0,178,240,590);
 
         pnTimKiem.setLayout(null);
-        pnTimKiem.setBounds(970, 445, 410, 350);
+        pnTimKiem.setBounds(970, 440, 410, 300);
 
         pnLoc.setLayout(null);
         pnLoc.setBounds(420, 105, 300, 180);

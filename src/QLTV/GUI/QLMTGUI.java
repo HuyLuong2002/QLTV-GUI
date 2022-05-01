@@ -77,7 +77,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             pnMuonTra = new JPanel();
             pnMuonTra.setBounds(240, 0, 1145, 800);
             pnMuonTra.setLayout(null);
-            pnMuonTra.setBackground(ColorPurple);
+            // pnMuonTra.setBackground(ColorPurple);
 
             pnTabMuon = new JPanel();
             pnTabMuon.setLayout(new GridLayout(1, 2, 5, 0));
@@ -102,7 +102,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
 
             pnLoc = new JPanel();
             pnLoc.setLayout(null);
-            pnLoc.setBounds(570, 195, 300, 160);
+            pnLoc.setBounds(570, 195, 300, 155);
 
             tabbedPane = new JTabbedPane();
             tabbedPane.addTab("Mượn sách", pnTabMuon);
@@ -577,7 +577,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
 
         btLoc = new JButton("Lọc");
         btLoc.setFont(new Font("Arial", Font.BOLD, 15));
-        btLoc.setBounds(210, 120, 80, 30);
+        btLoc.setBounds(210, 115, 80, 30);
         btLoc.setBackground(Color.cyan);
         btLoc.setBorder(new RoundedBorder(10));
         btLoc.addActionListener(this);
