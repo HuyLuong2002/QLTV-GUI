@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.Vector;
@@ -29,6 +30,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -534,15 +536,30 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
             fileChooser.setCurrentDirectory(new File("C:\\"));
             //int response = fileChooser.showOpenDialog(null); //select file to open, trả về 
             // 0 nếu mở file, còn canel thì trả về 1
-            int response = fileChooser.showSaveDialog(null); // select file to save
+            FileNameExtensionFilter fnef = new FileNameExtensionFilter("EXCEL FILES","xls","xlsx","xlsm");
+            fileChooser.setFileFilter(fnef);
+            fileChooser.setDialogTitle("Lựa chọn file để nhập");
+            int response = fileChooser.showOpenDialog(null); // select file to save
             if(response == JFileChooser.APPROVE_OPTION){
                 File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
                 namepath = file.getAbsolutePath();
             }
-            new DocGhiFileExcel(namepath,tblQLSACH,model);
+            new DocGhiFileExcel(namepath,tblQLSACH,model,null,1);
         }
         if (e.getSource() == btXuatExcel) {
-
+            JFileChooser fileChooser = new JFileChooser();
+            String namepath="";
+            fileChooser.setCurrentDirectory(new File("C:\\"));
+            FileNameExtensionFilter fnef = new FileNameExtensionFilter("EXCEL FILES","xls","xlsx","xlsm");
+            fileChooser.setFileFilter(fnef);
+            fileChooser.setDialogTitle("Lựa chọn file để lưu");
+            int response = fileChooser.showSaveDialog(null);
+            if(response == JFileChooser.APPROVE_OPTION){
+                File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
+                namepath = file.getAbsolutePath();
+            }
+            DocGhiFileExcel file = new DocGhiFileExcel(namepath,tblQLSACH,model,fileChooser,0);
+            file.setTitleInExcel(model);
         }
     }
 
