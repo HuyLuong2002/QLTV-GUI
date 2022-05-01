@@ -30,6 +30,7 @@ public class QLMUONDAO {
                 pm.setSLtong(Integer.parseInt(rs.getString(3)));
                 pm.setNgaytra(rs.getString(4));
                 pm.setTinhTrangMuon(rs.getString(5));
+                pm.setMaDG(rs.getString(6));
                 dsmuon.add(pm);
             }
         } catch (SQLException e) {
