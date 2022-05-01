@@ -34,11 +34,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
-
 
 import MyCustom.DateLabelFormatter;
 import MyCustom.DocGhiFileExcel;
@@ -306,6 +304,10 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         } else if (e.getSource() == btSearch) {
             int vtkey = Integer.parseInt(String.valueOf(comboBoxDSKhoaTK.getSelectedIndex()));
             String tukhoa = txKhoaTK.getText();
+            if (vtkey == 8) {
+                int dongia = Integer.parseInt(tukhoa);
+                txKhoaTK.setText(String.format("%,d", dongia));
+            }
             lbKQTK.setFont(new Font("Arial", Font.BOLD, 20));
             lbKQTK.setForeground(Color.red);
             if (tukhoa.equals("") == true) {
@@ -532,34 +534,39 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         }
         if (e.getSource() == btNhapExcel) {
             JFileChooser fileChooser = new JFileChooser();
-            String namepath="";
+            String namepath = "";
             fileChooser.setCurrentDirectory(new File("C:\\"));
-            //int response = fileChooser.showOpenDialog(null); //select file to open, trả về 
+            // int response = fileChooser.showOpenDialog(null); //select file to open, trả
+            // về
             // 0 nếu mở file, còn canel thì trả về 1
-            FileNameExtensionFilter fnef = new FileNameExtensionFilter("EXCEL FILES","xls","xlsx","xlsm");
+            FileNameExtensionFilter fnef = new FileNameExtensionFilter("EXCEL FILES", "xls", "xlsx", "xlsm");
             fileChooser.setFileFilter(fnef);
             fileChooser.setDialogTitle("Lựa chọn file để nhập");
             int response = fileChooser.showOpenDialog(null); // select file to save
-            if(response == JFileChooser.APPROVE_OPTION){
+            if (response == JFileChooser.APPROVE_OPTION) {
                 File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
                 namepath = file.getAbsolutePath();
             }
-            new DocGhiFileExcel(namepath,tblQLSACH,model,null,1);
+            new DocGhiFileExcel(namepath, tblQLSACH, model, null, 1);
+            JOptionPane.showMessageDialog(null, "Thêm dữ liệu thành công", "Thông báo",
+                    JOptionPane.INFORMATION_MESSAGE);
         }
         if (e.getSource() == btXuatExcel) {
             JFileChooser fileChooser = new JFileChooser();
-            String namepath="";
+            String namepath = "";
             fileChooser.setCurrentDirectory(new File("C:\\"));
-            FileNameExtensionFilter fnef = new FileNameExtensionFilter("EXCEL FILES","xls","xlsx","xlsm");
+            FileNameExtensionFilter fnef = new FileNameExtensionFilter("EXCEL FILES", "xls", "xlsx", "xlsm");
             fileChooser.setFileFilter(fnef);
             fileChooser.setDialogTitle("Lựa chọn file để lưu");
             int response = fileChooser.showSaveDialog(null);
-            if(response == JFileChooser.APPROVE_OPTION){
+            if (response == JFileChooser.APPROVE_OPTION) {
                 File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
                 namepath = file.getAbsolutePath();
             }
-            DocGhiFileExcel file = new DocGhiFileExcel(namepath,tblQLSACH,model,fileChooser,0);
+            DocGhiFileExcel file = new DocGhiFileExcel(namepath, tblQLSACH, model, fileChooser, 0);
             file.setTitleInExcel(model);
+            JOptionPane.showMessageDialog(null, "Xuất dữ liệu thành công", "Thông báo",
+                    JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -577,7 +584,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
                 txNamXB.setText(sach.getNamXB().trim());
                 txSLtong.setText(String.valueOf(sach.getSLtong()));
                 txSL.setText(String.valueOf(sach.getSL()));
-                txDongia.setText(String.format("%,d",sach.getDongia()));
+                txDongia.setText(String.format("%,d", sach.getDongia()));
             }
         }
 
@@ -948,7 +955,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         row.add(sach.getNamXB().trim());
         row.add(String.valueOf(sach.getSLtong()));
         row.add(String.valueOf(sach.getSL()));
-        row.add(String.format("%,d",sach.getDongia()));
+        row.add(String.format("%,d", sach.getDongia()));
         model.addRow(row);
     }
 

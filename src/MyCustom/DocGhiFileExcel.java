@@ -93,8 +93,7 @@ public class DocGhiFileExcel {
                         excelTable.setModel(model);
                     }
                 }
-                JOptionPane.showMessageDialog(null, "Thêm dữ liệu thành công", "Thông báo",
-                        JOptionPane.INFORMATION_MESSAGE);
+
             }
             if (flag == 0) { //Export file excel
                 excelJTableExport = new XSSFWorkbook();
@@ -111,9 +110,7 @@ public class DocGhiFileExcel {
                 // create unique file names.
                 excelFOU = new FileOutputStream(filechooser.getSelectedFile() + ".xlsx");
                 excelBOU = new BufferedOutputStream(excelFOU);
-                // excelJTableExport.write(excelBOU);
             }
-
         } catch (FileNotFoundException e) {
             Logger.getLogger(DocGhiFileExcel.class.getName()).log(Level.SEVERE, null, e);
         } catch (IOException e) {
@@ -144,8 +141,6 @@ public class DocGhiFileExcel {
         }
         try {
             excelJTableExport.write(excelBOU);
-            JOptionPane.showMessageDialog(null, "Xuất dữ liệu thành công", "Thông báo",
-            JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

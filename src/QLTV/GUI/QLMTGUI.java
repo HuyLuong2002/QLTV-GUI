@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -35,15 +36,17 @@ import MyCustom.DateLabelFormatter;
 import MyCustom.RoundedBorder;
 import QLTV.BUS.QLCTMUONBUS;
 import QLTV.BUS.QLMUONBUS;
+import QLTV.BUS.QLSACHBUS;
 import QLTV.DTO.CHITIETPHIEUMUON;
 import QLTV.DTO.PHIEUMUON;
+import QLTV.DTO.SACH;
 
 public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
-    JPanel pnMuonTra, pnTabMuon, pnShowAll, pnMuon, pnCTMuon, pnNhapPM, pnTimKiem,pnLoc;
-    JLabel lbHome, lbMaPM, lbNgayMuon, lbSLtong, lbNgayTra, lbTinhTrangMuon, 
-    lbMaDG, lbLCTK, lbTuKhoaTK,lbNgayBD,lbNgayKT;
+    JPanel pnMuonTra, pnTabMuon, pnTabTra, pnTabTienPhat, pnShowAll, pnMuon, pnCTMuon, pnNhapPM, pnTimKiem, pnLoc;
+    JLabel lbHome, lbMaPM, lbNgayMuon, lbSLtong, lbNgayTra, lbTinhTrangMuon,
+            lbMaDG, lbLCTK, lbTuKhoaTK, lbNgayBD, lbNgayKT;
     JButton btMenu, btSach, btMT, btQLNV, btDangXuat, btNhapSach, btThoat, btMenuTimKiem, btThongKe;
-    JButton btShowAll, btTimKiem,btLoc;
+    JButton btShowAll, btTimKiem, btLoc;
     JTextField txMaPM, txSLtong, txMaDG, txKhoaTK;
     JComboBox<String> cbTinhTrangMuon, cbDSKhoaTK;
 
@@ -57,6 +60,11 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
     Properties pNgayBD, pNgayKT;
     JDatePanelImpl datePanelNgayBD, datePanelNgayKT;
     JDatePickerImpl datePickerNgayBD, datePickerNgayKT;
+
+    UtilDateModel modelNgayBDPM, modelNgayKTPM;
+    Properties pNgayBDPM, pNgayKTPM;
+    JDatePanelImpl datePanelNgayBDPM, datePanelNgayKTPM;
+    JDatePickerImpl datePickerNgayBDPM, datePickerNgayKTPM;
 
     public QLMTGUI() {
     }
@@ -94,8 +102,8 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
 
             tabbedPane = new JTabbedPane();
             tabbedPane.addTab("Mượn sách", pnTabMuon);
-            tabbedPane.addTab("Trả sách", null);
-            tabbedPane.addTab("HĐ Tiền phạt", null);
+            tabbedPane.addTab("Trả sách", pnTabTra);
+            tabbedPane.addTab("HĐ Tiền phạt", pnTabTienPhat);
             tabbedPane.addMouseListener(this);
             tabbedPane.setBounds(5, 5, 1190, 350);
 
@@ -126,7 +134,69 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        if (e.getSource() == btTimKiem) {
+            int vtkey = Integer.parseInt(String.valueOf(cbDSKhoaTK.getSelectedIndex()));
+            String tukhoa = txKhoaTK.getText();
+            if (tukhoa.equals("") == true) {
+                JOptionPane.showMessageDialog(null, "Xin mời nhập từ khóa", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            } else if (vtkey == 0) {
+                JOptionPane.showMessageDialog(null, "Xin mời lựa chọn khóa tìm kiếm", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            } else {
+                QLMUONBUS qlsachbus = new QLMUONBUS();
+                if (vtkey == 1) {
+                    PHIEUMUON kq = qlsachbus.timTheoMa(tukhoa);
+                    modelMuon.setRowCount(0);
+                    ShowOnTablePM(kq);
+                    tblQLMuon.setModel(modelMuon);
+                }
+                if (vtkey == 2) {
+                    ArrayList<PHIEUMUON> kq = qlsachbus.timTheoSLtong(tukhoa);
+                    modelMuon.setRowCount(0);
+                    if (kq.size() == 0) {
+                        JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu phù hợp", "Lỗi",
+                                JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        for (PHIEUMUON pm : kq) {
+                            ShowOnTablePM(pm);
+                        }
+                        tblQLMuon.setModel(modelMuon);
+                    }
+                }
+                if (vtkey == 3) {
+                    ArrayList<PHIEUMUON> kq = qlsachbus.timTheoTinhTrangMuon(tukhoa.trim());
+                    modelMuon.setRowCount(0);
+                    if (kq.size() == 0) {
+                        JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu phù hợp", "Lỗi",
+                                JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        for (PHIEUMUON pm : kq) {
+                            ShowOnTablePM(pm);
+                        }
+                        tblQLMuon.setModel(modelMuon);
+                    }
+                }
+                if (vtkey == 4) {
+                    ArrayList<PHIEUMUON> kq = qlsachbus.timTheoMaDG(tukhoa.trim());
+                    modelMuon.setRowCount(0);
+                    if (kq.size() == 0) {
+                        JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu phù hợp", "Lỗi",
+                                JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        for (PHIEUMUON pm : kq) {
+                            ShowOnTablePM(pm);
+                        }
+                        tblQLMuon.setModel(modelMuon);
+                    }
+                }
+            }
+        }
+        if (e.getSource() == btShowAll) {
+            modelMuon.setRowCount(0);
+            for (PHIEUMUON pm : QLMUONBUS.dspm) {
+                ShowOnTablePM(pm);
+            }
+            tblQLMuon.setModel(modelMuon);
+        }
     }
 
     @Override
@@ -134,6 +204,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         if (e.getSource() == tblQLMuon) {
             int i = tblQLMuon.getSelectedRow();
             if (i >= 0) {
+                // Hiển thị bên CTPM
                 modelCTMuon.setRowCount(0);
                 ArrayList<CHITIETPHIEUMUON> kq = new ArrayList<CHITIETPHIEUMUON>();
                 PHIEUMUON pm = QLMUONBUS.dspm.get(i);
@@ -146,6 +217,49 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                     ShowOnTableCTPM(ctpm);
                 }
                 tblQLCTMuon.setModel(modelCTMuon);
+                // Hiển thị trên textfield
+                PHIEUMUON pmTextField = new PHIEUMUON();
+                pmTextField = QLMUONBUS.dspm.get(i);
+                txMaPM.setText(pmTextField.getMaPM().trim());
+                String tmp[] = pmTextField.getNgaymuon().split("-");
+                datePanelNgayBDPM.getModel().setDate(Integer.parseInt(tmp[0]), Integer.parseInt(tmp[1]),
+                        Integer.parseInt(tmp[2]));
+                txSLtong.setText(String.valueOf(pmTextField.getSLtong()));
+                String tmp1[] = pmTextField.getNgaytra().split("-");
+                datePanelNgayKTPM.getModel().setDate(Integer.parseInt(tmp1[0]), Integer.parseInt(tmp1[1]),
+                        Integer.parseInt(tmp1[2]));
+                if (pmTextField.getTinhTrangMuon().equals("Đang mượn")) {
+                    cbTinhTrangMuon.setSelectedIndex(1);
+                }
+                if (pmTextField.getTinhTrangMuon().equals("Hết mượn")) {
+                    cbTinhTrangMuon.setSelectedIndex(2);
+                }
+                txMaDG.setText(pmTextField.getMaDG());
+
+            }
+        }
+        if (e.getSource() == tabbedPane) {
+            int index = tabbedPane.getSelectedIndex();
+            if (index == 0) {
+                if (pnTabMuon.isVisible() == false) {
+                    pnTabMuon.setVisible(true);
+                }
+                pnTabTra.setVisible(false);
+                pnTabTienPhat.setVisible(false);
+            }
+            if (index == 1) {
+                if (pnTabTra.isVisible() == false) {
+                    pnTabTra.setVisible(true);
+                }
+                pnTabMuon.setVisible(false);
+                pnTabTienPhat.setVisible(false);
+            }
+            if (index == 2) {
+                if (pnTabTienPhat.isVisible() == false) {
+                    pnTabTienPhat.setVisible(true);
+                }
+                pnTabMuon.setVisible(false);
+                pnTabTra.setVisible(false);
             }
         }
     }
@@ -191,6 +305,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             header.add("Ngày mượn");
             header.add("SL tổng");
             header.add("Ngày trả");
+            header.add("Tình trạng mượn");
             header.add("Mã độc giả");
             modelMuon = new DefaultTableModel(header, 0);
             for (PHIEUMUON pm : QLMUONBUS.dspm) {
@@ -225,20 +340,20 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
 
     public void ShowOnTablePM(PHIEUMUON pm) {
         Vector<String> row = new Vector<String>();
-        row.add(pm.getMaPM());
-        row.add(pm.getNgaymuon());
+        row.add(pm.getMaPM().trim());
+        row.add(pm.getNgaymuon().trim());
         row.add(String.valueOf(pm.getSLtong()));
-        row.add(pm.getNgaytra());
-        row.add(pm.getTinhTrangMuon());
-        row.add(pm.getMaDG());
+        row.add(pm.getNgaytra().trim());
+        row.add(pm.getTinhTrangMuon().trim());
+        row.add(pm.getMaDG().trim());
         modelMuon.addRow(row);
 
     }
 
     public void ShowOnTableCTPM(CHITIETPHIEUMUON ctpm) {
         Vector<String> row = new Vector<String>();
-        row.add(ctpm.getMaPM());
-        row.add(ctpm.getMasach());
+        row.add(ctpm.getMaPM().trim());
+        row.add(ctpm.getMasach().trim());
         row.add(String.valueOf(ctpm.getSL()));
         modelCTMuon.addRow(row);
     }
@@ -337,33 +452,33 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         txMaDG.addMouseListener(this);
 
         // set up ComboBox
-        String[] dsTinhTrangMuon = { "", "Đang thuê", "Hết thuê" };
+        String[] dsTinhTrangMuon = { "", "Đang mượn", "Hết mượn" };
         cbTinhTrangMuon = new JComboBox<>(dsTinhTrangMuon);
         cbTinhTrangMuon.setFont(new Font("Arial", Font.BOLD, 13));
         cbTinhTrangMuon.setBounds(200, 235, 120, 30);
         cbTinhTrangMuon.addActionListener(this);
 
         // Set date picker1
-        modelNgayBD = new UtilDateModel();
-        modelNgayBD.setSelected(true);
-        pNgayBD = new Properties();
-        pNgayBD.put("text.today", "Today");
-        pNgayBD.put("text.month", "Month");
-        pNgayBD.put("text.year", "Year");
-        datePanelNgayBD = new JDatePanelImpl(modelNgayBD, pNgayBD);
-        datePickerNgayBD = new JDatePickerImpl(datePanelNgayBD, new DateLabelFormatter());
-        datePickerNgayBD.setBounds(200, 85, 150, 30);
+        modelNgayBDPM = new UtilDateModel();
+        modelNgayBDPM.setSelected(true);
+        pNgayBDPM = new Properties();
+        pNgayBDPM.put("text.today", "Today");
+        pNgayBDPM.put("text.month", "Month");
+        pNgayBDPM.put("text.year", "Year");
+        datePanelNgayBDPM = new JDatePanelImpl(modelNgayBDPM, pNgayBDPM);
+        datePickerNgayBDPM = new JDatePickerImpl(datePanelNgayBDPM, new DateLabelFormatter());
+        datePickerNgayBDPM.setBounds(200, 85, 150, 30);
 
         // Set date picker1
-        modelNgayKT = new UtilDateModel();
-        modelNgayKT.setSelected(true);
-        pNgayKT = new Properties();
-        pNgayKT.put("text.today", "Today");
-        pNgayKT.put("text.month", "Month");
-        pNgayKT.put("text.year", "Year");
-        datePanelNgayKT = new JDatePanelImpl(modelNgayKT, pNgayKT);
-        datePickerNgayKT = new JDatePickerImpl(datePanelNgayKT, new DateLabelFormatter());
-        datePickerNgayKT.setBounds(200, 185, 150, 30);
+        modelNgayKTPM = new UtilDateModel();
+        modelNgayKTPM.setSelected(true);
+        pNgayKTPM = new Properties();
+        pNgayKTPM.put("text.today", "Today");
+        pNgayKTPM.put("text.month", "Month");
+        pNgayKTPM.put("text.year", "Year");
+        datePanelNgayKTPM = new JDatePanelImpl(modelNgayKTPM, pNgayKTPM);
+        datePickerNgayKTPM = new JDatePickerImpl(datePanelNgayKTPM, new DateLabelFormatter());
+        datePickerNgayKTPM.setBounds(200, 185, 150, 30);
 
         pnNhapPM.add(lbMaPM);
         pnNhapPM.add(lbNgayMuon);
@@ -377,8 +492,8 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         pnNhapPM.add(txMaDG);
         pnNhapPM.add(cbTinhTrangMuon);
 
-        pnNhapPM.add(datePickerNgayBD);
-        pnNhapPM.add(datePickerNgayKT);
+        pnNhapPM.add(datePickerNgayBDPM);
+        pnNhapPM.add(datePickerNgayKTPM);
     }
 
     public void setTimKiem() {
@@ -406,8 +521,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             txKhoaTK.setBounds(260, 115, 200, 35);
             txKhoaTK.addMouseListener(this);
 
-            String[] dsKhoaTK = { "", "Mã sách", "Tên sách", "Mã NXB", "Mã TG", "Năm XB", "SL tổng", "SL", "Đơn giá",
-                    "Năm hoặc SL", "Năm và SL" };
+            String[] dsKhoaTK = { "", "Mã phiếu mượn", "SL tổng", "Tình trạng mượn", "Mã độc giả" };
             cbDSKhoaTK = new JComboBox<>(dsKhoaTK);
             cbDSKhoaTK.setFont(new Font("Arial", Font.BOLD, 13));
             cbDSKhoaTK.setBounds(260, 65, 120, 35);
@@ -416,7 +530,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             TitledBorder titleTK;
             Border blackline;
             blackline = BorderFactory.createLineBorder(Color.black);
-            titleTK = BorderFactory.createTitledBorder(blackline,"Tìm kiếm");
+            titleTK = BorderFactory.createTitledBorder(blackline, "Tìm kiếm");
             titleTK.setTitleFont(new Font("Arial", Font.BOLD, 28));
             titleTK.setTitleJustification(TitledBorder.CENTER);
             pnTimKiem.setBorder(titleTK);
