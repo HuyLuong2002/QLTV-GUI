@@ -63,6 +63,22 @@ public class QLSACHDAO {
         }
     }
 
+    public void themDataExcel(SACH sach) {
+        try {
+            String qry = "insert into SACH values  (" + "'" + sach.getMasach() + "'"
+                    + "," + "N'" + sach.getTensach() + "'" + "," + "'" + sach.getMaNXB() + "'" + ","
+                    + "'" + sach.getMaTG() + "'" + "," + "'" + sach.getNamXB() + "'" + ","
+                    + "N'" + String.valueOf(sach.getSLtong()) + "'" + "," + "'"
+                    + String.valueOf(sach.getSL()) + "'" + "," + "'" + String.valueOf(sach.getDongia()) + "'"
+                    + ")";
+            st = conn.createStatement();
+            st.executeUpdate(qry);
+        } catch (SQLException e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "Thêm dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     public void hoantacXoa(SACH sach) {
         try {
             String qry = "insert into SACH values  (" + "'" + sach.getMasach() + "'"

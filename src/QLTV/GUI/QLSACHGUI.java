@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.Vector;
@@ -16,6 +18,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -27,15 +30,18 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+
 
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
+
 import MyCustom.DateLabelFormatter;
-import MyCustom.HoTroNhap;
+import MyCustom.DocGhiFileExcel;
 import MyCustom.LoginPage;
 import MyCustom.RoundedBorder;
 import QLTV.BUS.QLSACHBUS;
@@ -51,7 +57,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
     JTextField txTKNam, txTKSL;
     JButton btThem, btSua, btXoa, btHoanTac, btMenuTimKiem, btShowAll, btThongKe;
     JButton btMenu, btSach, btMT, btQLNV, btDangXuat, btNhapSach, btThoat;
-    JButton btTK, btSearch, btLoc;
+    JButton btTK, btSearch, btLoc, btSapXep, btNhapExcel, btXuatExcel;
 
     JScrollPane pane;
 
@@ -530,6 +536,40 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         // header.add("Tên sách");
         // new HoTroNhap(pane,model,header);
         // }
+        if (e.getSource() == btSapXep) {
+            SapXep();
+        }
+        if (e.getSource() == btNhapExcel) {
+            JFileChooser fileChooser = new JFileChooser();
+            String namepath="";
+            fileChooser.setCurrentDirectory(new File("C:\\"));
+            //int response = fileChooser.showOpenDialog(null); //select file to open, trả về 
+            // 0 nếu mở file, còn canel thì trả về 1
+            FileNameExtensionFilter fnef = new FileNameExtensionFilter("EXCEL FILES","xls","xlsx","xlsm");
+            fileChooser.setFileFilter(fnef);
+            fileChooser.setDialogTitle("Lựa chọn file để nhập");
+            int response = fileChooser.showOpenDialog(null); // select file to save
+            if(response == JFileChooser.APPROVE_OPTION){
+                File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
+                namepath = file.getAbsolutePath();
+            }
+            new DocGhiFileExcel(namepath,tblQLSACH,model,null,1);
+        }
+        if (e.getSource() == btXuatExcel) {
+            JFileChooser fileChooser = new JFileChooser();
+            String namepath="";
+            fileChooser.setCurrentDirectory(new File("C:\\"));
+            FileNameExtensionFilter fnef = new FileNameExtensionFilter("EXCEL FILES","xls","xlsx","xlsm");
+            fileChooser.setFileFilter(fnef);
+            fileChooser.setDialogTitle("Lựa chọn file để lưu");
+            int response = fileChooser.showSaveDialog(null);
+            if(response == JFileChooser.APPROVE_OPTION){
+                File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
+                namepath = file.getAbsolutePath();
+            }
+            DocGhiFileExcel file = new DocGhiFileExcel(namepath,tblQLSACH,model,fileChooser,0);
+            file.setTitleInExcel(model);
+        }
     }
 
     @Override
@@ -539,14 +579,14 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
             if (i >= 0) {
                 SACH sach = new SACH();
                 sach = QLSACHBUS.dssach.get(i);
-                txMasach.setText(sach.getMasach());
-                txTensach.setText(sach.getTensach());
-                txMaNXB.setText(sach.getMaNXB());
-                txMaTG.setText(sach.getMaTG());
-                txNamXB.setText(sach.getNamXB());
+                txMasach.setText(sach.getMasach().trim());
+                txTensach.setText(sach.getTensach().trim());
+                txMaNXB.setText(sach.getMaNXB().trim());
+                txMaTG.setText(sach.getMaTG().trim());
+                txNamXB.setText(sach.getNamXB().trim());
                 txSLtong.setText(String.valueOf(sach.getSLtong()));
                 txSL.setText(String.valueOf(sach.getSL()));
-                txDongia.setText(String.valueOf(sach.getDongia()));
+                txDongia.setText(String.format("%,d",sach.getDongia()));
             }
         }
 
@@ -638,7 +678,6 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         txTensach = new JTextField();
         txTensach.setBounds(160, 65, 180, 30);
         txTensach.setFont(new Font("Arial", Font.PLAIN, 15));
-        txTensach.setEditable(false);
         txTensach.addMouseListener(this);
         // JTextField Mã nhà xuất bản
         txMaNXB = new JTextField();
@@ -705,6 +744,22 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         btHoanTac.setBorder(new RoundedBorder(10));
         btHoanTac.addActionListener(this);
 
+        // Jbutton nhập excel
+        btNhapExcel = new JButton("Nhập Excel");
+        btNhapExcel.setFont(new Font("Arial", Font.BOLD, 15));
+        btNhapExcel.setBounds(540, 330, 120, 40);
+        btNhapExcel.setBackground(Color.cyan);
+        btNhapExcel.setBorder(new RoundedBorder(10));
+        btNhapExcel.addActionListener(this);
+
+        // Jbutton xuất excel
+        btXuatExcel = new JButton("Xuất Excel");
+        btXuatExcel.setFont(new Font("Arial", Font.BOLD, 15));
+        btXuatExcel.setBounds(680, 330, 100, 40);
+        btXuatExcel.setBackground(Color.cyan);
+        btXuatExcel.setBorder(new RoundedBorder(10));
+        btXuatExcel.addActionListener(this);
+
         // set up ComboBox
         String[] dsKhoaTK = { "", "Mã sách", "Tên sách", "Mã NXB", "Mã TG", "Năm XB", "SL tổng", "SL", "Đơn giá",
                 "Năm hoặc SL", "Năm và SL" };
@@ -740,6 +795,8 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         pnNhapTTSach.add(btSua);
         pnNhapTTSach.add(btXoa);
         pnNhapTTSach.add(btHoanTac);
+        pnNhapTTSach.add(btNhapExcel);
+        pnNhapTTSach.add(btXuatExcel);
 
     }
 
@@ -879,19 +936,28 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         btShowAll.setBackground(Color.cyan);
         btShowAll.setBorder(new RoundedBorder(10));
         btShowAll.addActionListener(this);
+
+        btSapXep = new JButton("Sắp xếp theo tên");
+        btSapXep.setFont(new Font("Arial", Font.BOLD, 15));
+        btSapXep.setBounds(900, 10, 150, 30);
+        btSapXep.setBackground(Color.cyan);
+        btSapXep.setBorder(new RoundedBorder(10));
+        btSapXep.addActionListener(this);
+
         pnShowAll.add(btShowAll);
+        pnShowAll.add(btSapXep);
     }
 
     public void ShowOnTable(SACH sach) {
         Vector<String> row = new Vector<String>();
-        row.add(sach.getMasach());
-        row.add(sach.getTensach());
-        row.add(sach.getMaNXB());
-        row.add(sach.getMaTG());
-        row.add(sach.getNamXB());
+        row.add(sach.getMasach().trim());
+        row.add(sach.getTensach().trim());
+        row.add(sach.getMaNXB().trim());
+        row.add(sach.getMaTG().trim());
+        row.add(sach.getNamXB().trim());
         row.add(String.valueOf(sach.getSLtong()));
         row.add(String.valueOf(sach.getSL()));
-        row.add(String.valueOf(sach.getDongia()));
+        row.add(String.format("%,d",sach.getDongia()));
         model.addRow(row);
     }
 
@@ -958,7 +1024,9 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
             txKhoaTK.setVisible(true);
 
             TitledBorder titleTK;
-            titleTK = BorderFactory.createTitledBorder("Tìm kiếm");
+            Border blackline;
+            blackline = BorderFactory.createLineBorder(Color.black);
+            titleTK = BorderFactory.createTitledBorder(blackline, "Tìm kiếm");
             titleTK.setTitleFont(new Font("Arial", Font.BOLD, 28));
             titleTK.setTitleJustification(TitledBorder.CENTER);
             pnTimKiem.setBorder(titleTK);
@@ -1114,5 +1182,14 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
     // btHoTroInput.addActionListener(this);
     // pnNhapTTSach.add(btHoTroInput);
     // }
+
+    public void SapXep() {
+        QLSACHBUS.dssach.sort(((o1, o2) -> o1.getTensach().compareTo(o2.getTensach())));
+        model.setRowCount(0);
+        for (SACH sach : QLSACHBUS.dssach) {
+            ShowOnTable(sach);
+        }
+        tblQLSACH.setModel(model);
+    }
 
 }

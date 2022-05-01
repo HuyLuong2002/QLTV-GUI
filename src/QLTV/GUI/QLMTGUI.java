@@ -3,7 +3,6 @@ package QLTV.GUI;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -40,10 +39,11 @@ import QLTV.DTO.CHITIETPHIEUMUON;
 import QLTV.DTO.PHIEUMUON;
 
 public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
-    JPanel pnMuonTra, pnTabMuon, pnShowAll, pnMuon, pnCTMuon, pnNhapPM, pnTimKiem;
-    JLabel lbHome, lbMaPM, lbNgayMuon, lbSLtong, lbNgayTra, lbTinhTrangMuon, lbMaDG, lbLCTK, lbTuKhoaTK;
+    JPanel pnMuonTra, pnTabMuon, pnShowAll, pnMuon, pnCTMuon, pnNhapPM, pnTimKiem,pnLoc;
+    JLabel lbHome, lbMaPM, lbNgayMuon, lbSLtong, lbNgayTra, lbTinhTrangMuon, 
+    lbMaDG, lbLCTK, lbTuKhoaTK,lbNgayBD,lbNgayKT;
     JButton btMenu, btSach, btMT, btQLNV, btDangXuat, btNhapSach, btThoat, btMenuTimKiem, btThongKe;
-    JButton btShowAll, btTimKiem;
+    JButton btShowAll, btTimKiem,btLoc;
     JTextField txMaPM, txSLtong, txMaDG, txKhoaTK;
     JComboBox<String> cbTinhTrangMuon, cbDSKhoaTK;
 
@@ -82,11 +82,15 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
 
             pnNhapPM = new JPanel();
             pnNhapPM.setLayout(null);
-            pnNhapPM.setBounds(5, 410, 600, 370);
+            pnNhapPM.setBounds(5, 410, 1200, 370);
 
             pnTimKiem = new JPanel();
             pnTimKiem.setLayout(null);
-            pnTimKiem.setBounds(600, 410, 600, 370);
+            pnTimKiem.setBounds(590, 0, 600, 200);
+
+            pnLoc = new JPanel();
+            pnLoc.setLayout(null);
+            pnLoc.setBounds(590, 200, 300, 160);
 
             tabbedPane = new JTabbedPane();
             tabbedPane.addTab("Mượn sách", pnTabMuon);
@@ -99,6 +103,9 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             pnMuonTra.add(pnShowAll);
             pnMuonTra.add(pnNhapPM);
             pnMuonTra.add(pnTimKiem);
+            // pnMuonTra.add(pnLoc);
+            pnNhapPM.add(pnTimKiem);
+            pnNhapPM.add(pnLoc);
             pnTabMuon.add(pnMuon);
             pnTabMuon.add(pnCTMuon);
 
@@ -108,6 +115,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             setShowAll();
             setInputMuon();
             setTimKiem();
+            setLoc();
             getDBMuon();
             getDBCTPM();
             setValueCellCenter(modelMuon, tblQLMuon);
@@ -385,35 +393,37 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             // labelLCTK
             lbLCTK = new JLabel("Lựa chọn khóa tìm kiếm:");
             lbLCTK.setFont(new Font("Arial", Font.BOLD, 20));
-            lbLCTK.setBounds(10, 50, 250, 100);
+            lbLCTK.setBounds(10, 30, 250, 100);
 
             // labelTuKhoaTK
             lbTuKhoaTK = new JLabel("Nhập từ khóa tìm kiếm:");
             lbTuKhoaTK.setFont(new Font("Arial", Font.BOLD, 20));
-            lbTuKhoaTK.setBounds(10, 100, 250, 100);
+            lbTuKhoaTK.setBounds(10, 80, 250, 100);
 
             // JTextField Khóa tìm kiếm
             txKhoaTK = new JTextField();
             txKhoaTK.setFont(new Font("Arial", Font.PLAIN, 15));
-            txKhoaTK.setBounds(260, 135, 200, 35);
+            txKhoaTK.setBounds(260, 115, 200, 35);
             txKhoaTK.addMouseListener(this);
 
             String[] dsKhoaTK = { "", "Mã sách", "Tên sách", "Mã NXB", "Mã TG", "Năm XB", "SL tổng", "SL", "Đơn giá",
                     "Năm hoặc SL", "Năm và SL" };
             cbDSKhoaTK = new JComboBox<>(dsKhoaTK);
             cbDSKhoaTK.setFont(new Font("Arial", Font.BOLD, 13));
-            cbDSKhoaTK.setBounds(260, 85, 120, 35);
+            cbDSKhoaTK.setBounds(260, 65, 120, 35);
             cbDSKhoaTK.addActionListener(this);
 
             TitledBorder titleTK;
-            titleTK = BorderFactory.createTitledBorder("Tìm kiếm");
+            Border blackline;
+            blackline = BorderFactory.createLineBorder(Color.black);
+            titleTK = BorderFactory.createTitledBorder(blackline,"Tìm kiếm");
             titleTK.setTitleFont(new Font("Arial", Font.BOLD, 28));
             titleTK.setTitleJustification(TitledBorder.CENTER);
             pnTimKiem.setBorder(titleTK);
 
             btTimKiem = new JButton("Tìm kiếm");
             btTimKiem.setFont(new Font("Arial", Font.BOLD, 15));
-            btTimKiem.setBounds(360, 175, 100, 35);
+            btTimKiem.setBounds(360, 155, 100, 35);
             btTimKiem.setBackground(Color.cyan);
             btTimKiem.setBorder(new RoundedBorder(10));
             btTimKiem.addActionListener(this);
@@ -425,6 +435,60 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         pnTimKiem.add(txKhoaTK);
         pnTimKiem.add(cbDSKhoaTK);
         pnTimKiem.add(btTimKiem);
+    }
+
+    public void setLoc() {
+        // set Border
+        TitledBorder titleLoc;
+        Border blackline;
+        blackline = BorderFactory.createLineBorder(Color.black);
+        titleLoc = BorderFactory.createTitledBorder(blackline, "Lọc dữ liệu");
+        titleLoc.setTitleFont(new Font("Arial", Font.BOLD, 25));
+        titleLoc.setTitleJustification(TitledBorder.CENTER);
+
+        lbNgayBD = new JLabel("Ngày bắt đầu: ");
+        lbNgayBD.setFont(new Font("Arial", Font.BOLD, 18));
+        lbNgayBD.setBounds(5, 15, 150, 80);
+
+        lbNgayKT = new JLabel("Ngày kết thúc: ");
+        lbNgayKT.setFont(new Font("Arial", Font.BOLD, 18));
+        lbNgayKT.setBounds(5, 55, 150, 80);
+
+        btLoc = new JButton("Lọc");
+        btLoc.setFont(new Font("Arial", Font.BOLD, 15));
+        btLoc.setBounds(210, 120, 80, 30);
+        btLoc.setBackground(Color.cyan);
+        btLoc.setBorder(new RoundedBorder(10));
+        btLoc.addActionListener(this);
+
+        // Set date picker1
+        modelNgayBD = new UtilDateModel();
+        modelNgayBD.setSelected(true);
+        pNgayBD = new Properties();
+        pNgayBD.put("text.today", "Today");
+        pNgayBD.put("text.month", "Month");
+        pNgayBD.put("text.year", "Year");
+        datePanelNgayBD = new JDatePanelImpl(modelNgayBD, pNgayBD);
+        datePickerNgayBD = new JDatePickerImpl(datePanelNgayBD, new DateLabelFormatter());
+        datePickerNgayBD.setBounds(140, 40, 150, 30);
+
+        // Set date picker1
+        modelNgayKT = new UtilDateModel();
+        modelNgayKT.setSelected(true);
+        pNgayKT = new Properties();
+        pNgayKT.put("text.today", "Today");
+        pNgayKT.put("text.month", "Month");
+        pNgayKT.put("text.year", "Year");
+        datePanelNgayKT = new JDatePanelImpl(modelNgayKT, pNgayKT);
+        datePickerNgayKT = new JDatePickerImpl(datePanelNgayKT, new DateLabelFormatter());
+        datePickerNgayKT.setBounds(140, 80, 150, 30);
+
+        pnLoc.setBorder(titleLoc);
+        pnLoc.add(lbNgayBD);
+        pnLoc.add(lbNgayKT);
+        pnLoc.add(btLoc);
+        pnLoc.add(datePickerNgayBD);
+        pnLoc.add(datePickerNgayKT);
     }
 
     public void setValueCellCenter(DefaultTableModel model, JTable table) {
