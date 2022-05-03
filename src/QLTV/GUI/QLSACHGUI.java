@@ -977,7 +977,8 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         sach.setNamXB(txNamXB.getText());
         sach.setSLtong(Integer.parseInt(txSLtong.getText()));
         sach.setSL(Integer.parseInt(txSL.getText()));
-        sach.setDongia(Integer.parseInt(txDongia.getText()));
+        String tmpDonGia=RemoveCommaInString(txDongia);
+        sach.setDongia(Integer.parseInt(tmpDonGia));
     }
 
     public void getDatabase() {
@@ -1200,4 +1201,12 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         tblQLSACH.setModel(model);
     }
 
+    public String RemoveCommaInString(JTextField DonGia){
+        String tmp[] = DonGia.getText().split(",");
+        String Dongia="";
+        for(int i = 0; i < tmp.length; i++){
+            Dongia = Dongia + tmp[i];
+        }
+        return Dongia;
+    }
 }

@@ -37,12 +37,16 @@ import MyCustom.RoundedBorder;
 import QLTV.BUS.QLCTMUONBUS;
 import QLTV.BUS.QLMUONBUS;
 import QLTV.BUS.QLSACHBUS;
+import QLTV.BUS.QLTRABUS;
 import QLTV.DTO.CHITIETPHIEUMUON;
+import QLTV.DTO.CHITIETPHIEUTRA;
 import QLTV.DTO.PHIEUMUON;
+import QLTV.DTO.PHIEUTRASACH;
 import QLTV.DTO.SACH;
 
 public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
-    JPanel pnMuonTra, pnTabMuon, pnTabTra, pnTabTienPhat, pnShowAll, pnMuon, pnCTMuon, pnNhapPM, pnTimKiem, pnLoc;
+    JPanel pnMuonTra, pnTabMuon, pnTabTra, pnTabTienPhat, pnShowAll, pnMuon, pnCTMuon, pnNhapPM,
+            pnTimKiemPM, pnLocPM, pnNhapPT, pnTimKiemPT, pnLocPT, pnTra, pnCTTra;
     JLabel lbHome, lbMaPM, lbNgayMuon, lbSLtong, lbNgayTra, lbTinhTrangMuon,
             lbMaDG, lbLCTK, lbTuKhoaTK, lbNgayBD, lbNgayKT;
     JButton btMenu, btSach, btMT, btQLNV, btDangXuat, btNhapSach, btThoat, btMenuTimKiem, btThongKe;
@@ -50,11 +54,11 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
     JTextField txMaPM, txSLtong, txMaDG, txKhoaTK;
     JComboBox<String> cbTinhTrangMuon, cbDSKhoaTK;
 
-    TitledBorder titleMuon;
+    TitledBorder titleMuon, titleTra;
     JTabbedPane tabbedPane;
 
-    JTable tblQLMuon, tblQLCTMuon;
-    DefaultTableModel modelMuon, modelCTMuon;
+    JTable tblQLMuon, tblQLCTMuon, tblQLTra, tblQLCTTra;
+    DefaultTableModel modelMuon, modelCTMuon, modelTra, modelCTTra;
 
     UtilDateModel modelNgayBD, modelNgayKT;
     Properties pNgayBD, pNgayKT;
@@ -71,14 +75,13 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
     }
 
     public JPanel setMTGUI() {
-        ColorPurple = new Color(255,20,147);
-
+        ColorPurple = new Color(255, 20, 147);
         if (pnMuonTra == null) {
             pnMuonTra = new JPanel();
             pnMuonTra.setBounds(240, 0, 1145, 800);
             pnMuonTra.setLayout(null);
-            // pnMuonTra.setBackground(ColorPurple);
 
+            // panel tab mượn
             pnTabMuon = new JPanel();
             pnTabMuon.setLayout(new GridLayout(1, 2, 5, 0));
 
@@ -96,13 +99,39 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             pnNhapPM.setLayout(null);
             pnNhapPM.setBounds(5, 410, 1137, 370);
 
-            pnTimKiem = new JPanel();
-            pnTimKiem.setLayout(null);
-            pnTimKiem.setBounds(570, 0, 567, 200);
+            pnTimKiemPM = new JPanel();
+            pnTimKiemPM.setLayout(null);
+            pnTimKiemPM.setBounds(570, 0, 567, 200);
 
-            pnLoc = new JPanel();
-            pnLoc.setLayout(null);
-            pnLoc.setBounds(570, 195, 300, 155);
+            pnLocPM = new JPanel();
+            pnLocPM.setLayout(null);
+            pnLocPM.setBounds(570, 195, 300, 155);
+
+            // panel tab trả
+            pnTabTra = new JPanel();
+            pnTabTra.setLayout(new GridLayout(1, 2, 5, 0));
+
+            pnTra = new JPanel();
+            pnTra.setLayout(new GridLayout(1, 1));
+
+            pnCTTra = new JPanel();
+            pnCTTra.setLayout(new GridLayout(1, 1));
+
+            pnNhapPT = new JPanel();
+            pnNhapPT.setLayout(null);
+            pnNhapPT.setBounds(5, 410, 1137, 370);
+
+            pnTimKiemPT = new JPanel();
+            pnTimKiemPT.setLayout(null);
+            pnTimKiemPT.setBounds(570, 0, 567, 200);
+
+            pnLocPT = new JPanel();
+            pnLocPT.setLayout(null);
+            pnLocPT.setBounds(570, 195, 300, 155);
+
+            // panel tab tiền phạt
+            pnTabTienPhat = new JPanel();
+            pnTabTienPhat.setLayout(new GridLayout(1, 2, 5, 0));
 
             tabbedPane = new JTabbedPane();
             tabbedPane.addTab("Mượn sách", pnTabMuon);
@@ -114,24 +143,39 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             pnMuonTra.add(tabbedPane);
             pnMuonTra.add(pnShowAll);
             pnMuonTra.add(pnNhapPM);
-            // pnMuonTra.add(pnTimKiem);
-            // pnMuonTra.add(pnLoc);
-            pnNhapPM.add(pnTimKiem);
-            pnNhapPM.add(pnLoc);
+            pnMuonTra.add(pnNhapPT);
+
+            pnNhapPM.add(pnTimKiemPM);
+            pnNhapPM.add(pnLocPM);
+
+            pnNhapPT.add(pnTimKiemPT);
+            pnNhapPT.add(pnLocPT);
+
             pnTabMuon.add(pnMuon);
             pnTabMuon.add(pnCTMuon);
 
-            setTitle();
+            pnTabTra.add(pnTra);
+            pnTabTra.add(pnCTTra);
+
+            // Phiếu mượn, chi tiết mượn
+            setTitlePM();
             setTableMuon();
             setTableCTMuon();
             setShowAll();
             setInputMuon();
-            setTimKiem();
-            setLoc();
+            setTimKiemPM();
+            setLocPM();
             getDBMuon();
             getDBCTPM();
             setValueCellCenter(modelMuon, tblQLMuon);
             setValueCellCenter(modelCTMuon, tblQLCTMuon);
+
+            // Phiếu trả, chi tiết phiếu trả
+            setTitlePT();
+            setTableTra();
+            setTableCTTra();
+            getDBTra();
+            setValueCellCenter(modelTra, tblQLTra);
         }
         return pnMuonTra;
     }
@@ -150,7 +194,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                 if (vtkey == 1) {
                     PHIEUMUON kq = qlsachbus.timTheoMa(tukhoa);
                     modelMuon.setRowCount(0);
-                    if(kq == null) {
+                    if (kq == null) {
                         ShowOnTablePM(kq);
                         tblQLMuon.setModel(modelMuon);
                     }
@@ -198,11 +242,13 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             }
         }
         if (e.getSource() == btShowAll) {
-            modelMuon.setRowCount(0);
-            for (PHIEUMUON pm : QLMUONBUS.dspm) {
-                ShowOnTablePM(pm);
+            if (pnTabMuon.isVisible()) {
+                modelMuon.setRowCount(0);
+                for (PHIEUMUON pm : QLMUONBUS.dspm) {
+                    ShowOnTablePM(pm);
+                }
+                tblQLMuon.setModel(modelMuon);
             }
-            tblQLMuon.setModel(modelMuon);
         }
     }
 
@@ -251,6 +297,9 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                 if (pnTabMuon.isVisible() == false) {
                     pnTabMuon.setVisible(true);
                 }
+                if (pnNhapPM.isVisible() == false) {
+                    pnNhapPM.setVisible(true);
+                }
                 pnTabTra.setVisible(false);
                 pnTabTienPhat.setVisible(false);
             }
@@ -258,12 +307,18 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                 if (pnTabTra.isVisible() == false) {
                     pnTabTra.setVisible(true);
                 }
+                if (pnNhapPM.isVisible() == true) {
+                    pnNhapPM.setVisible(false);
+                }
                 pnTabMuon.setVisible(false);
                 pnTabTienPhat.setVisible(false);
             }
             if (index == 2) {
                 if (pnTabTienPhat.isVisible() == false) {
                     pnTabTienPhat.setVisible(true);
+                }
+                if (pnNhapPM.isVisible() == true) {
+                    pnNhapPM.setVisible(false);
                 }
                 pnTabMuon.setVisible(false);
                 pnTabTra.setVisible(false);
@@ -345,6 +400,33 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         }
     }
 
+    public void getDBTra() {
+        try {
+            QLTRABUS qltrabus = new QLTRABUS();
+            if (QLTRABUS.dspt == null)
+                try {
+                    qltrabus.docDSPT();
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+            // set up header(column)
+            Vector<String> header = new Vector<String>();
+            header.add("Mã phiếu trả");
+            header.add("Ngày trả");
+            header.add("Tình trạng sách");
+            header.add("Tiền thuê");
+            header.add("Thành tiền");
+            header.add("Mã phiếu mượn");
+            modelTra = new DefaultTableModel(header, 0);
+            for (PHIEUTRASACH pt : QLTRABUS.dspt) {
+                ShowOnTablePT(pt);
+            }
+            tblQLTra.setModel(modelTra);
+        } catch (Exception e1) {
+            System.out.println(e1);
+        }
+    }
+
     public void ShowOnTablePM(PHIEUMUON pm) {
         Vector<String> row = new Vector<String>();
         row.add(pm.getMaPM().trim());
@@ -354,7 +436,6 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         row.add(pm.getTinhTrangMuon().trim());
         row.add(pm.getMaDG().trim());
         modelMuon.addRow(row);
-
     }
 
     public void ShowOnTableCTPM(CHITIETPHIEUMUON ctpm) {
@@ -365,7 +446,26 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         modelCTMuon.addRow(row);
     }
 
-    public void setTitle() {
+    public void ShowOnTablePT(PHIEUTRASACH pt) {
+        Vector<String> row = new Vector<String>();
+        row.add(pt.getMaPT().trim());
+        row.add(pt.getNgaytra().trim());
+        row.add(pt.getTinhtrangsach().trim());
+        row.add(String.format("%,d", pt.getTienthue()));
+        row.add(String.format("%,d", pt.getThanhtien()));
+        row.add(pt.getMaPM().trim());
+        modelTra.addRow(row);
+    }
+
+    public void ShowOnTableCTPT(CHITIETPHIEUTRA ctpt) {
+        Vector<String> row = new Vector<String>();
+        row.add(ctpt.getMaPT().trim());
+        row.add(ctpt.getMasach().trim());
+        row.add(String.valueOf(ctpt.getSL()));
+        modelCTTra.addRow(row);
+    }
+
+    public void setTitlePM() {
         // set Border
         Border empty;
         empty = BorderFactory.createEmptyBorder();
@@ -379,6 +479,23 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         titleMuon.setTitleFont(new Font("Arial", Font.BOLD, 28));
         titleMuon.setTitleJustification(TitledBorder.CENTER);
         pnCTMuon.setBorder(titleMuon);
+
+    }
+
+    public void setTitlePT() {
+        // set Border
+        Border empty;
+        empty = BorderFactory.createEmptyBorder();
+
+        titleTra = BorderFactory.createTitledBorder(empty, "THÔNG TIN PHIẾU TRẢ");
+        titleTra.setTitleFont(new Font("Arial", Font.BOLD, 28));
+        titleTra.setTitleJustification(TitledBorder.CENTER);
+        pnTra.setBorder(titleTra);
+
+        titleTra = BorderFactory.createTitledBorder(empty, "CHI TIẾT PHIẾU TRẢ");
+        titleTra.setTitleFont(new Font("Arial", Font.BOLD, 28));
+        titleTra.setTitleJustification(TitledBorder.CENTER);
+        pnCTTra.setBorder(titleTra);
 
     }
 
@@ -416,6 +533,32 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         tblQLCTMuon.addMouseListener(this);
         tblQLCTMuon.setDefaultEditor(Object.class, null);
         pnCTMuon.add(pane);
+    }
+
+    public void setTableTra() {
+        // ----set up table----
+        tblQLTra = new JTable();
+        JScrollPane pane = new JScrollPane(tblQLTra);
+        pane.setAutoscrolls(true);
+        tblQLTra.setRowHeight(20);
+        tblQLTra.setFont(new Font(null, 0, 13));
+        tblQLTra.setBackground(Color.LIGHT_GRAY);
+        tblQLTra.addMouseListener(this);
+        tblQLTra.setDefaultEditor(Object.class, null);
+        pnTra.add(pane);
+    }
+
+    public void setTableCTTra() {
+        // ----set up table----
+        tblQLCTTra = new JTable();
+        JScrollPane pane = new JScrollPane(tblQLCTTra);
+        pane.setAutoscrolls(true);
+        tblQLCTTra.setRowHeight(20);
+        tblQLCTTra.setFont(new Font(null, 0, 13));
+        tblQLCTTra.setBackground(Color.LIGHT_GRAY);
+        tblQLCTTra.addMouseListener(this);
+        tblQLCTTra.setDefaultEditor(Object.class, null);
+        pnCTTra.add(pane);
     }
 
     public void setInputMuon() {
@@ -503,7 +646,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         pnNhapPM.add(datePickerNgayKTPM);
     }
 
-    public void setTimKiem() {
+    public void setTimKiemPM() {
         if (btTimKiem == null) { // Là button của phần tìm kiếm cơ bản
             if (lbLCTK != null || lbTuKhoaTK != null || cbDSKhoaTK != null || txKhoaTK != null) {
                 lbLCTK.setVisible(true);
@@ -540,7 +683,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             titleTK = BorderFactory.createTitledBorder(blackline, "Tìm kiếm");
             titleTK.setTitleFont(new Font("Arial", Font.BOLD, 28));
             titleTK.setTitleJustification(TitledBorder.CENTER);
-            pnTimKiem.setBorder(titleTK);
+            pnTimKiemPM.setBorder(titleTK);
 
             btTimKiem = new JButton("Tìm kiếm");
             btTimKiem.setFont(new Font("Arial", Font.BOLD, 15));
@@ -551,14 +694,14 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
 
         }
 
-        pnTimKiem.add(lbLCTK);
-        pnTimKiem.add(lbTuKhoaTK);
-        pnTimKiem.add(txKhoaTK);
-        pnTimKiem.add(cbDSKhoaTK);
-        pnTimKiem.add(btTimKiem);
+        pnTimKiemPM.add(lbLCTK);
+        pnTimKiemPM.add(lbTuKhoaTK);
+        pnTimKiemPM.add(txKhoaTK);
+        pnTimKiemPM.add(cbDSKhoaTK);
+        pnTimKiemPM.add(btTimKiem);
     }
 
-    public void setLoc() {
+    public void setLocPM() {
         // set Border
         TitledBorder titleLoc;
         Border blackline;
@@ -604,12 +747,12 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         datePickerNgayKT = new JDatePickerImpl(datePanelNgayKT, new DateLabelFormatter());
         datePickerNgayKT.setBounds(140, 80, 150, 30);
 
-        pnLoc.setBorder(titleLoc);
-        pnLoc.add(lbNgayBD);
-        pnLoc.add(lbNgayKT);
-        pnLoc.add(btLoc);
-        pnLoc.add(datePickerNgayBD);
-        pnLoc.add(datePickerNgayKT);
+        pnLocPM.setBorder(titleLoc);
+        pnLocPM.add(lbNgayBD);
+        pnLocPM.add(lbNgayKT);
+        pnLocPM.add(btLoc);
+        pnLocPM.add(datePickerNgayBD);
+        pnLocPM.add(datePickerNgayKT);
     }
 
     public void setValueCellCenter(DefaultTableModel model, JTable table) {
