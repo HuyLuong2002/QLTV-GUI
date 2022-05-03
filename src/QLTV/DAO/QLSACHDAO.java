@@ -1,6 +1,7 @@
 package QLTV.DAO;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -45,15 +46,27 @@ public class QLSACHDAO {
 
     public void them(SACH sach) {
         try {
-            String qry = "insert into SACH values  (" + "'" + sach.getMasach() + "'"
-                    + "," + "N'" + sach.getTensach() + "'" + "," + "'" + sach.getMaNXB() + "'" + ","
-                    + "'" + sach.getMaTG() + "'" + "," + "'" + sach.getNamXB() + "'" + ","
-                    + "N'" + String.valueOf(sach.getSLtong()) + "'" + "," + "'"
-                    + String.valueOf(sach.getSL()) + "'" + "," + "'" + String.valueOf(sach.getDongia()) + "'"
-                    + ")";
-            st = conn.createStatement();
-            st.executeUpdate(qry);
-            if (st != null) {
+            // String qry = "insert into SACH values  (" + "'" + sach.getMasach() + "'"
+            //         + "," + "N'" + sach.getTensach() + "'" + "," + "'" + sach.getMaNXB() + "'" + ","
+            //         + "'" + sach.getMaTG() + "'" + "," + "'" + sach.getNamXB() + "'" + ","
+            //         + "N'" + String.valueOf(sach.getSLtong()) + "'" + "," + "'"
+            //         + String.valueOf(sach.getSL()) + "'" + "," + "'" + String.valueOf(sach.getDongia()) + "'"
+            //         + ")";
+            // st = conn.createStatement();
+            // st.executeUpdate(qry);
+            String qry = "INSERT INTO SACH VALUES (?,?,?,?,?,?,?,?)";
+            PreparedStatement ps = conn.prepareStatement(qry);
+            ps.setString(1, sach.getMasach());
+            ps.setString(2, sach.getTensach());
+            ps.setString(3, sach.getMaNXB());
+            ps.setString(4, sach.getMaTG());
+            ps.setString(5, sach.getNamXB());
+            ps.setString(6, String.valueOf(sach.getSLtong()));
+            ps.setString(7, String.valueOf(sach.getSL()));
+            ps.setString(8, String.valueOf(sach.getDongia()));
+
+            int n = ps.executeUpdate();
+            if (n != 0) {
                 JOptionPane.showMessageDialog(null, "Thêm dữ liệu thành công", "Thông báo",
                         JOptionPane.INFORMATION_MESSAGE);
             }

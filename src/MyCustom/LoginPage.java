@@ -14,7 +14,7 @@ public class LoginPage extends JFrame implements ActionListener {
     Border borderForgotPasswd;
     JButton buttonDangNhap,buttonDangKy,buttonForgotPasswd;
     ImageIcon imgIconHP;
-
+    Color ColorPanel;
 
     public LoginPage() throws InterruptedException{
         this.setTitle("Quản lý thư viện");
@@ -25,6 +25,7 @@ public class LoginPage extends JFrame implements ActionListener {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // thay đổi logo thư viện
         imgIconHP = new ImageIcon("images\\app_logo.png");
+        ColorPanel = new Color(240,255,255);
         this.setIconImage(imgIconHP.getImage());
         setHomePage();
         this.setVisible(true);
@@ -35,7 +36,7 @@ public class LoginPage extends JFrame implements ActionListener {
         //set up panel
         panelHomePage = new JPanel();
         panelHomePage.setLayout(null);
-        panelHomePage.setBackground(Color.LIGHT_GRAY);
+        panelHomePage.setBackground(ColorPanel);
         //set up label
         labelHomePage = new JLabel("USER LOGIN");
         labelUsername = new JLabel(" Account ");
@@ -67,13 +68,13 @@ public class LoginPage extends JFrame implements ActionListener {
         labelHomePage.setBounds(150, 0, 200, 180);
 
         //Label Username
-        labelUsername.setFont(new Font("Arial", Font.ITALIC, 17));
+        labelUsername.setFont(new Font("Arial", Font.PLAIN, 17));
         labelUsername.setForeground(Color.black);
         labelUsername.setBounds(210,130,150,150);
 
 
         //Label Password
-        labelPassword.setFont(new Font("Arial", Font.ITALIC, 17));
+        labelPassword.setFont(new Font("Arial", Font.PLAIN, 17));
         labelPassword.setForeground(Color.black);
         labelPassword.setBounds(205,210,150,150);
 
@@ -92,7 +93,9 @@ public class LoginPage extends JFrame implements ActionListener {
         buttonForgotPasswd = new JButton("Forgot Password");
         //set bound button
         buttonDangNhap.setBounds(98,380,320,35);
+        buttonDangNhap.setIcon(new ImageIcon("images\\logout.png"));
         buttonDangKy.setBounds(98,440, 320 ,35);
+        buttonDangKy.setIcon(new ImageIcon("images\\add-user.png"));
         buttonForgotPasswd.setBounds(325, 500, 100,35);
         //set font
         buttonDangNhap.setFont(new Font("Arial",Font.BOLD,16));

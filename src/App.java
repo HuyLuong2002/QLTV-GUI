@@ -1,4 +1,5 @@
 import MyCustom.LoginPage;
+import MyCustom.RegisterPage;
 import MyCustom.setProgressBar;
 import QLTV.GUI.QLSACHGUI;
 
@@ -8,5 +9,6 @@ public class App {
         //new setProgressBar();
         //new LoginPage();
         //new Menu();
+        // new RegisterPage();
     }
 }

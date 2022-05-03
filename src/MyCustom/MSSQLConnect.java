@@ -8,11 +8,11 @@ import java.sql.Statement;
 //DESKTOP-5IRG803: Lương
 import javax.swing.JOptionPane;
 public class MSSQLConnect {
-    String host="DESKTOP-5IRG803\\SQLEXPRESS";
+    String host="DESKTOP-0K98LBJ\\SQLEXPRESS";
     String database="QLTV";
     String username="sa";
     String password="sa";
-    String url = "jdbc:sqlserver://DESKTOP-5IRG803\\SQLEXPRESS:1433;databaseName=QLTV;trustServerCertificate=true;integratedSecurity=true;";
+    String url = "jdbc:sqlserver://DESKTOP-0K98LBJ\\SQLEXPRESS:1433;databaseName=QLTV;trustServerCertificate=true;integratedSecurity=true;";
     Connection conn = null;
     Statement st = null;
     ResultSet rs = null;
