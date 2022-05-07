@@ -476,12 +476,12 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         Border empty;
         empty = BorderFactory.createEmptyBorder();
 
-        titleMuon = BorderFactory.createTitledBorder(empty, "THÔNG TIN MƯỢN");
+        titleMuon = BorderFactory.createTitledBorder(empty, "THÔNG TIN PHIẾU MƯỢN");
         titleMuon.setTitleFont(new Font("Arial", Font.BOLD, 28));
         titleMuon.setTitleJustification(TitledBorder.CENTER);
         pnMuon.setBorder(titleMuon);
 
-        titleMuon = BorderFactory.createTitledBorder(empty, "CHI TIẾT MƯỢN");
+        titleMuon = BorderFactory.createTitledBorder(empty, "CHI TIẾT PHIẾU MƯỢN");
         titleMuon.setTitleFont(new Font("Arial", Font.BOLD, 28));
         titleMuon.setTitleJustification(TitledBorder.CENTER);
         pnCTMuon.setBorder(titleMuon);
