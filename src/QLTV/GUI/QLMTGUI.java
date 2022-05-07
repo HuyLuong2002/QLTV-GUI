@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Properties;
 import java.util.Vector;
 
@@ -33,6 +34,7 @@ import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
 import MyCustom.DateLabelFormatter;
+import MyCustom.ExportPDF;
 import MyCustom.RoundedBorder;
 import QLTV.BUS.QLCTMUONBUS;
 import QLTV.BUS.QLMUONBUS;
@@ -50,7 +52,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
     JLabel lbHome, lbMaPM, lbNgayMuon, lbSLtong, lbNgayTra, lbTinhTrangMuon,
             lbMaDG, lbLCTK, lbTuKhoaTK, lbNgayBD, lbNgayKT;
     JButton btMenu, btSach, btMT, btQLNV, btDangXuat, btNhapSach, btThoat, btMenuTimKiem, btThongKe;
-    JButton btShowAll, btTimKiem, btLoc;
+    JButton btShowAll, btTimKiem, btLoc, btInPM;
     JTextField txMaPM, txSLtong, txMaDG, txKhoaTK;
     JComboBox<String> cbTinhTrangMuon, cbDSKhoaTK;
 
@@ -250,6 +252,10 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                 tblQLMuon.setModel(modelMuon);
             }
         }
+        if (e.getSource() == btInPM) {
+            
+        }
+
     }
 
     @Override
@@ -506,7 +512,16 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         btShowAll.setBackground(Color.cyan);
         btShowAll.setBorder(new RoundedBorder(10));
         btShowAll.addActionListener(this);
+
+        btInPM = new JButton("In phiếu mượn");
+        btInPM.setFont(new Font("Arial", Font.BOLD, 15));
+        btInPM.setBounds(0, 10, 130, 30);
+        btInPM.setBackground(Color.cyan);
+        btInPM.setBorder(new RoundedBorder(10));
+        btInPM.addActionListener(this);
+
         pnShowAll.add(btShowAll);
+        pnShowAll.add(btInPM);
     }
 
     public void setTableMuon() {
@@ -519,6 +534,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         tblQLMuon.setBackground(Color.LIGHT_GRAY);
         tblQLMuon.addMouseListener(this);
         tblQLMuon.setDefaultEditor(Object.class, null);
+        tblQLMuon.setSelectionBackground(Color.GREEN);
         pnMuon.add(pane);
     }
 
@@ -532,6 +548,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         tblQLCTMuon.setBackground(Color.LIGHT_GRAY);
         tblQLCTMuon.addMouseListener(this);
         tblQLCTMuon.setDefaultEditor(Object.class, null);
+        tblQLCTMuon.setSelectionBackground(Color.ORANGE);
         pnCTMuon.add(pane);
     }
 
@@ -545,6 +562,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         tblQLTra.setBackground(Color.LIGHT_GRAY);
         tblQLTra.addMouseListener(this);
         tblQLTra.setDefaultEditor(Object.class, null);
+        tblQLTra.setSelectionBackground(Color.GREEN);
         pnTra.add(pane);
     }
 
@@ -558,6 +576,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         tblQLCTTra.setBackground(Color.LIGHT_GRAY);
         tblQLCTTra.addMouseListener(this);
         tblQLCTTra.setDefaultEditor(Object.class, null);
+        tblQLCTTra.setSelectionBackground(Color.ORANGE);
         pnCTTra.add(pane);
     }
 
