@@ -171,7 +171,7 @@ public class DocGhiFileExcel {
         row.add(sach.getNamXB().trim());
         row.add(String.valueOf(sach.getSLtong()));
         row.add(String.valueOf(sach.getSL()));
-        row.add(String.valueOf(sach.getDongia()));
+        row.add(String.format("%,d",sach.getDongia()));
         model.addRow(row);
     }
 }

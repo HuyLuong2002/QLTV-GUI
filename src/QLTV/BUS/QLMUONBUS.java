@@ -20,6 +20,48 @@ public class QLMUONBUS {
         dspm = data.docDSPM();
     }
 
+    public ArrayList<PHIEUMUON> getPMTheoQuy1(String year){
+        ArrayList<PHIEUMUON> kq = new ArrayList<PHIEUMUON>();
+        try {
+            QLMUONDAO data = new QLMUONDAO();
+            kq=data.getPMTheoQuy1(year);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return kq;
+    }
+
+    public ArrayList<PHIEUMUON> getPMTheoQuy2(String year){
+        ArrayList<PHIEUMUON> kq = new ArrayList<PHIEUMUON>();
+        try {
+            QLMUONDAO data = new QLMUONDAO();
+            kq=data.getPMTheoQuy2(year);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return kq;
+    }
+    public ArrayList<PHIEUMUON> getPMTheoQuy3(String year){
+        ArrayList<PHIEUMUON> kq = new ArrayList<PHIEUMUON>();
+        try {
+            QLMUONDAO data = new QLMUONDAO();
+            kq=data.getPMTheoQuy3(year);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return kq;
+    }
+    public ArrayList<PHIEUMUON> getPMTheoQuy4(String year){
+        ArrayList<PHIEUMUON> kq = new ArrayList<PHIEUMUON>();
+        try {
+            QLMUONDAO data = new QLMUONDAO();
+            kq=data.getPMTheoQuy4(year);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return kq;
+    }
+
     public PHIEUMUON timTheoMa(String MaPM) {
         for (PHIEUMUON pm : dspm)
             if (pm.getMaPM().trim().equals(MaPM))

@@ -1,7 +1,6 @@
 package QLTV.GUI;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -9,7 +8,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.Vector;
@@ -38,6 +36,7 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
+import MyCustom.BaoCaoThongKe;
 import MyCustom.DateLabelFormatter;
 import MyCustom.DocGhiFileExcel;
 import MyCustom.LoginPage;
@@ -47,7 +46,7 @@ import QLTV.DTO.SACH;
 
 public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
     JPanel pnTTSach, pnNhapTTSach, pnShowAll, pnMenu, pnTimKiem, pnLoc;
-    JPanel pnMT;
+    JPanel pnMT, pnThongKe;
     JLabel lbHome, lbTTSach, lbMasach, lbTensach, lbMaNXB, lbMaTG, lbNamXB, lbSLtong, lbSL, lbDongia, lbLCTK,
             lbTuKhoaTK, lbKQTK;
     JLabel lbTKNam, lbTKSL, lbNgayBD, lbNgayKT;
@@ -75,7 +74,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
 
     public QLSACHGUI() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(1400,800);
+        this.setSize(1400, 800);
         this.setTitle("Quản lý thông tin sách");
         this.setLayout(null);
         this.setLocationRelativeTo(null);
@@ -97,7 +96,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         pnNhapTTSach.setBounds(242, 415, 720, 550);
 
         pnMenu.setLayout(new GridLayout(9, 1));
-        pnMenu.setBounds(0,178,240,590);
+        pnMenu.setBounds(0, 178, 240, 590);
 
         pnTimKiem.setLayout(null);
         pnTimKiem.setBounds(970, 440, 410, 300);
@@ -106,8 +105,8 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         pnLoc.setBounds(420, 105, 300, 180);
 
         // Color
-        ColorOcean = new Color(0,139,139);
-        ColorPurple = new Color(255,20,147);
+        ColorOcean = new Color(0, 139, 139);
+        ColorPurple = new Color(255, 20, 147);
         // add components
         this.add(pnMenu);
         this.add(pnShowAll);
@@ -431,39 +430,32 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
             tblQLSACH.setModel(model);
         }
         if (e.getSource() == btThongKe) {
+            BaoCaoThongKe bctk = new BaoCaoThongKe();
             OffBTBgSelected();
+            OffPageQLSACH(false);
             btThongKe.setBackground(ColorPurple);
-            String luachon = "";
-            int count, sum;
-            do {
-                String[] options = { "", "Mã sách", "SL sách ban đầu", "SL hiện tại" };
-                luachon = (String) JOptionPane.showInputDialog(null, "Mời lựa chọn khóa thống kê:", "Thống kê",
-                        JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
-                if (luachon != null) {
-                    QLSACHBUS qlsachbus = new QLSACHBUS();
-                    switch (luachon) {
-                        case "Mã sách":
-                            count = qlsachbus.ThongKeMaSach();
-                            JOptionPane.showMessageDialog(null, "Đếm số lượng sách: " + String.valueOf(count),
-                                    "Kết quả", JOptionPane.PLAIN_MESSAGE);
-                            break;
-                        case "SL sách ban đầu":
-                            sum = qlsachbus.ThongKeSLBD();
-                            JOptionPane.showMessageDialog(null, "Số lượng sách ban đầu: " + String.valueOf(sum),
-                                    "Kết quả", JOptionPane.PLAIN_MESSAGE);
-                            break;
-                        case "SL hiện tại":
-                            sum = qlsachbus.ThongKeSLHT();
-                            JOptionPane.showMessageDialog(null, "Số lượng sách hiện tại: " + String.valueOf(sum),
-                                    "Kết quả", JOptionPane.PLAIN_MESSAGE);
-                            break;
-                    }
-                }
-            } while (luachon != null);
+            if (pnTimKiem != null) {
+                pnTimKiem.setVisible(false);
+            }
+            if (pnMT != null) {
+                pnMT.setVisible(false);
+            }
+            pnThongKe = bctk.BangBaoCaoThongKe();
+            this.add(pnThongKe);
         }
         if (e.getSource() == btMenu) {
             OffBTBgSelected();
+            OffPageQLSACH(false);
             btMenu.setBackground(ColorPurple);
+            if (pnTimKiem != null) {
+                pnTimKiem.setVisible(false);
+            }
+            if (pnMT != null) {
+                pnMT.setVisible(false);
+            }
+            if (pnThongKe != null) {
+                pnThongKe.setVisible(false);
+            }
         }
         if (e.getSource() == btMT) {
             QLMTGUI qlmt = new QLMTGUI();
@@ -472,6 +464,9 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
             btMT.setBackground(ColorPurple);
             if (pnTimKiem != null) {
                 pnTimKiem.setVisible(false);
+            }
+            if (pnThongKe != null) {
+                pnThongKe.setVisible(false);
             }
             pnMT = qlmt.setMTGUI();
             this.add(pnMT);
@@ -511,6 +506,9 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         if (e.getSource() == btSach) {
             if (pnMT != null) {
                 pnMT.setVisible(false);
+            }
+            if (pnThongKe != null) {
+                pnThongKe.setVisible(false);
             }
             OffPageQLSACH(true);
             OffBTBgSelected();
@@ -929,6 +927,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         tblQLSACH.setBackground(Color.LIGHT_GRAY);
         tblQLSACH.addMouseListener(this);
         tblQLSACH.setDefaultEditor(Object.class, null);
+        tblQLSACH.setSelectionBackground(Color.GREEN);
 
         this.add(pnTTSach);
         pnTTSach.add(lbTTSach);
@@ -977,7 +976,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         sach.setNamXB(txNamXB.getText());
         sach.setSLtong(Integer.parseInt(txSLtong.getText()));
         sach.setSL(Integer.parseInt(txSL.getText()));
-        String tmpDonGia=RemoveCommaInString(txDongia);
+        String tmpDonGia = RemoveCommaInString(txDongia);
         sach.setDongia(Integer.parseInt(tmpDonGia));
     }
 
@@ -1091,7 +1090,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         if (btTK == null) {
             btTK = new JButton("Tìm kiếm");
             btTK.setFont(new Font("Arial", Font.BOLD, 15));
-            btTK.setBounds(380, 180, 100, 34);
+            btTK.setBounds(270, 220, 100, 34);
             btTK.setBackground(Color.cyan);
             btTK.setBorder(new RoundedBorder(10));
             btTK.addActionListener(this);
@@ -1201,10 +1200,10 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         tblQLSACH.setModel(model);
     }
 
-    public String RemoveCommaInString(JTextField DonGia){
+    public String RemoveCommaInString(JTextField DonGia) {
         String tmp[] = DonGia.getText().split(",");
-        String Dongia="";
-        for(int i = 0; i < tmp.length; i++){
+        String Dongia = "";
+        for (int i = 0; i < tmp.length; i++) {
             Dongia = Dongia + tmp[i];
         }
         return Dongia;
