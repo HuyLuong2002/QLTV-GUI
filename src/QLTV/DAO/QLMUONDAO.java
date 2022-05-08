@@ -19,7 +19,7 @@ public class QLMUONDAO {
         conn = connect.getConnection();
     }
 
-    public ArrayList<PHIEUMUON> docDSPM() {
+    public ArrayList<PHIEUMUON> docDS() {
         ArrayList<PHIEUMUON> dsmuon = new ArrayList<PHIEUMUON>();
         try {
             String qry = "select * from PHIEUMUON";

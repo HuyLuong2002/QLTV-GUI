@@ -26,6 +26,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import MyCustom.LoginPage;
+import MyCustom.Menu;
 import MyCustom.RoundedBorder;
 import QLTV.BUS.QLNXBBUS;
 import QLTV.DTO.NXB;
@@ -272,7 +273,8 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
             } while (luachon != null);
         }
         if (e.getSource() == btMenu) {
-
+            this.dispose();
+            new Menu();
         }
         if (e.getSource() == btDangXuat) {
             this.dispose();

@@ -2,31 +2,31 @@
 use QLTV
 CREATE TABLE NXB
 (
-	MANXB nchar(6) not null primary key,
+	MANXB nchar(10) not null primary key,
 	TENNXB nvarchar(40) not null,
 )
 CREATE TABLE THELOAI
 (
-	MATL nchar(5) not null primary key,
+	MATL nchar(10) not null primary key,
 	TENTL nvarchar(30) not null,
 	SLTL int,
 )
 CREATE TABLE TACGIA
 (
-	MATG nchar(5) not null primary key,
+	MATG nchar(10) not null primary key,
 	TENTG nvarchar(30) not null,
 )
 CREATE TABLE NHACUNGCAP
 (
-	MANCC nchar(6) not null primary key,
+	MANCC nchar(10) not null primary key,
 	TENNCC nvarchar(30) not null,
 )
 CREATE TABLE SACH
 (
-	MASACH nchar(5) not null primary key,
+	MASACH nchar(10) not null primary key,
 	TENSACH nvarchar(30) not null,
-	MANXB nchar(6) not null foreign key references NXB(MANXB),
-	MATG nchar(5) not null foreign key references TACGIA(MATG),
+	MANXB nchar(10) not null foreign key references NXB(MANXB),
+	MATG nchar(10) not null foreign key references TACGIA(MATG),
 	NAMXB nchar(5),
 	SLTONG int,
 	SL int,
@@ -34,7 +34,7 @@ CREATE TABLE SACH
 )
 CREATE TABLE DOCGIA
 (
-	MADG nchar(5) not null primary key,
+	MADG nchar(10) not null primary key,
 	TENDG nvarchar(30) not null,
 	DIACHI nvarchar(50) not null,
 	EMAIL nchar(20) not null,
@@ -42,54 +42,54 @@ CREATE TABLE DOCGIA
 )
 CREATE TABLE PHIEUTHEODOIMT
 (
-	MADG nchar(5) not null primary key,
+	MADG nchar(10) not null primary key,
 	TONGMUON int not null,
 	TIENCOC int,
 )
 CREATE TABLE PHIEUMUON
 (
-	MAPM nchar(5) not null primary key,
+	MAPM nchar(10) not null primary key,
 	NGAYMUON date,
 	SLTONG int,
 	NGAYTRA date,
 	TINHTRANGMUON nvarchar(10),
-	MADG nchar(5) not null foreign key references DOCGIA(MADG),
+	MADG nchar(10) not null foreign key references DOCGIA(MADG),
 )
 CREATE TABLE CHITIETPHIEUMUON
 (
-	MAPM nchar(5) not null,
-	MASACH nchar(5) not null,
+	MAPM nchar(10) not null,
+	MASACH nchar(10) not null,
 	SL int,
 	PRIMARY KEY (MAPM,MASACH)
 )
 CREATE TABLE PHIEUTRASACH
 (
-	MAPT nchar(5) not null,
+	MAPT nchar(10) not null,
 	NGAYTRA date,
 	TINHTRANGSACH nvarchar(30),
 	TIENTHUE int,
 	THANHTIEN int,
-	MAPM nchar(5) not null,
+	MAPM nchar(10) not null,
 	PRIMARY KEY (MAPT,MAPM)
 )
 CREATE TABLE CHITIETPHIEUTRA
 (
-	MAPT nchar(5) not null,
-	MASACH nchar(5) not null,
+	MAPT nchar(10) not null,
+	MASACH nchar(10) not null,
 	SL int,
 	PRIMARY KEY (MAPT, MASACH)
 )
 CREATE TABLE HDTIENPHAT
 (
-	MAHD nchar(5) not null,
-	MASACH nchar(5) not null,
+	MAHD nchar(10) not null,
+	MASACH nchar(10) not null,
 	SL int,
 	TIENPHAT int,
 	PRIMARY KEY (MAHD,MASACH)
 )
 CREATE TABLE NHANVIEN
 (
-	MANV nchar(5) not null primary key,
+	MANV nchar(10) not null primary key,
 	TENNV nvarchar(30) not null,
 	CHUCVU nvarchar(20) not null,
 	LUONGCB int,
@@ -100,17 +100,17 @@ CREATE TABLE NHANVIEN
 )
 CREATE TABLE PHIEUNHAP
 (
-	MAPN nchar(5) not null primary key,
+	MAPN nchar(10) not null primary key,
 	NGAYNHAP date,
 	SLTONG int,
 	DONGIA int,
-	MANV nchar(5) not null foreign key references NHANVIEN(MANV),
-	MANCC nchar(6) not null foreign key references NHACUNGCAP(MANCC),
+	MANV nchar(10) not null foreign key references NHANVIEN(MANV),
+	MANCC nchar(10) not null foreign key references NHACUNGCAP(MANCC),
 )
 CREATE TABLE CHITIETPHIEUNHAP
 (
-	MAPN nchar(5) not null,
-	MASACH nchar(30) not null,
+	MAPN nchar(10) not null,
+	MASACH nchar(10) not null,
 	SL int,
 	PRIMARY KEY (MAPN,MASACH),
 )
@@ -159,11 +159,11 @@ INSERT INTO SACH VALUES ('MS003',N'Giáo trình kỹ thuật lập trình','NXB0
 INSERT INTO SACH VALUES ('MS004',N'Giải tích 1','NXB004','TG002','2003',10,10,30000)
 INSERT INTO SACH VALUES ('MS005',N'Giải tích 2','NXB005','TG004','2003',5,5,26000)
 --DOCGIA--
-INSERT INTO DOCGIA VALUES ('DG001',N'Trần Văn B',N'25/3 Lạc Long Quân, Q.10, TP HCM','tranvanb@gmail.com','Đang thuê')
-INSERT INTO DOCGIA VALUES ('DG002',N'Nguyễn Văn L',N'125 Trần Hưng Đạo, Q.1, TP HCM','nguyenvanl@gmail.com','Hết thuê')
-INSERT INTO DOCGIA VALUES ('DG003',N'Phạm Văn C',N'12/21 Võ Văn Ngân, Thủ Đức, TP HCM','phamvanc@gmail.com','Đang thuê')
-INSERT INTO DOCGIA VALUES ('DG004',N'Lưu Văn F',N'221 Hùng Vương, Q.5, TP HCM','luuvanf@gmail.com','Hết thuê')
-INSERT INTO DOCGIA VALUES ('DG005',N'Trần Văn A',N'127 Hùng Vương, TP Mỹ Tho','tranvana@gmail.com','Đang thuê')
+INSERT INTO DOCGIA VALUES ('DG001',N'Trần Văn B',N'25/3 Lạc Long Quân, Q.10, TP HCM','tranvanb@gmail.com',N'Đang thuê')
+INSERT INTO DOCGIA VALUES ('DG002',N'Nguyễn Văn L',N'125 Trần Hưng Đạo, Q.1, TP HCM','nguyenvanl@gmail.com',N'Hết thuê')
+INSERT INTO DOCGIA VALUES ('DG003',N'Phạm Văn C',N'12/21 Võ Văn Ngân, Thủ Đức, TP HCM','phamvanc@gmail.com',N'Đang thuê')
+INSERT INTO DOCGIA VALUES ('DG004',N'Lưu Văn F',N'221 Hùng Vương, Q.5, TP HCM','luuvanf@gmail.com',N'Hết thuê')
+INSERT INTO DOCGIA VALUES ('DG005',N'Trần Văn A',N'127 Hùng Vương, TP Mỹ Tho','tranvana@gmail.com',N'Đang thuê')
 --PHIEUTHEODOIMT--
 INSERT INTO PHIEUTHEODOIMT VALUES ('DG001','4',12000)
 INSERT INTO PHIEUTHEODOIMT VALUES ('DG003','5',15000)

@@ -1,20 +1,15 @@
-import MyCustom.LoginPage;
-import MyCustom.RegisterPage;
-import MyCustom.setProgressBar;
+import MyCustom.BangTTPM;
+import QLTV.GUI.QLNHANVIENGUI;
+import QLTV.GUI.QLNVGUI;
 import QLTV.GUI.QLSACHGUI;
-import QLTV.GUI.QLTACGIAGUI;
 
 public class App {
     public static void main(String[] args) throws Exception {
-<<<<<<< HEAD
-        //new QLSACHGUI();
-        // new QLTACGIAGUI();
-=======
+        //new BangTTPM();
+        //new QLNVGUI();
         new QLSACHGUI();
->>>>>>> 791e93399af750a1530e7c08a0d748c4e7ea35df
-        //new setProgressBar();
-        //new LoginPage();
-        new Menu();
-        // new RegisterPage();
+        // new QLTACGIAGUI();
+        // new setProgressBar();
+        // new LoginPage();
     }
 }

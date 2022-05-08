@@ -13,11 +13,11 @@ public class QLMUONBUS {
 
     }
 
-    public void docDSPM() throws Exception {
+    public void docDS() throws Exception {
         QLMUONDAO data = new QLMUONDAO();
         if (dspm == null)
             dspm = new ArrayList<PHIEUMUON>();
-        dspm = data.docDSPM();
+        dspm = data.docDS();
     }
 
     public ArrayList<PHIEUMUON> getPMTheoQuy1(String year){

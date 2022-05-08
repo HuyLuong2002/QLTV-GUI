@@ -1,3 +1,4 @@
+package MyCustom;
 import java.awt.Color;
 import java.awt.*;
 import java.awt.event.*;
@@ -7,6 +8,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+
+import QLTV.GUI.QLNCCGUI;
+import QLTV.GUI.QLNXBGUI;
+import QLTV.GUI.QLSACHGUI;
+import QLTV.GUI.QLTACGIAGUI;
 
 public class Menu extends JFrame implements ActionListener{
     JPanel panelMenu, panelBackGround, panelTitle, panelLibrary;
@@ -78,48 +84,56 @@ public class Menu extends JFrame implements ActionListener{
         btNXB.setBackground(ColorOCean);
         btNXB.setIcon(new ImageIcon("images\\publisher.png"));
         btNXB.setHorizontalAlignment(SwingConstants.LEFT);
+        btNXB.addActionListener(this);
 
         btNhaCC.setFont(new Font("Times new Roman", Font.BOLD, 18));
         btNhaCC.setForeground(Color.WHITE);
         btNhaCC.setBackground(ColorOCean);
         btNhaCC.setIcon(new ImageIcon("images\\courier.png"));
         btNhaCC.setHorizontalAlignment(SwingConstants.LEFT);
+        btNhaCC.addActionListener(this);
 
         btNhanvien.setFont(new Font("Times new Roman", Font.BOLD, 18));
         btNhanvien.setForeground(Color.WHITE);
         btNhanvien.setBackground(ColorOCean);
         btNhanvien.setIcon(new ImageIcon("images\\group.png"));
         btNhanvien.setHorizontalAlignment(SwingConstants.LEFT);
+        btNhanvien.addActionListener(this);
 
         btSach.setFont(new Font("Times new Roman", Font.BOLD, 18));
         btSach.setForeground(Color.WHITE);
         btSach.setBackground(ColorOCean);
         btSach.setIcon(new ImageIcon("images\\book.png"));
         btSach.setHorizontalAlignment(SwingConstants.LEFT);
+        btSach.addActionListener(this);
 
         btTheLoai.setFont(new Font("Times new Roman", Font.BOLD, 18));
         btTheLoai.setForeground(Color.WHITE);
         btTheLoai.setBackground(ColorOCean);
         btTheLoai.setIcon(new ImageIcon("images\\list.png"));
         btTheLoai.setHorizontalAlignment(SwingConstants.LEFT);
+        btTheLoai.addActionListener(this);
 
         btTacGia.setForeground(Color.WHITE);
         btTacGia.setFont(new Font("Times new Roman", Font.BOLD, 18));
         btTacGia.setBackground(ColorOCean);
         btTacGia.setIcon(new ImageIcon("images\\author.png"));
         btTacGia.setHorizontalAlignment(SwingConstants.LEFT);
+        btTacGia.addActionListener(this);
 
         btDangXuat.setForeground(Color.WHITE);
         btDangXuat.setFont(new Font("Times new Roman", Font.BOLD, 18));
         btDangXuat.setBackground(ColorOCean);
         btDangXuat.setIcon(new ImageIcon("images\\logout.png"));
         btDangXuat.setHorizontalAlignment(SwingConstants.LEFT);
+        btDangXuat.addActionListener(this);
 
         btThoat.setForeground(Color.WHITE);
         btThoat.setFont(new Font("Times new Roman", Font.BOLD, 18));
         btThoat.setBackground(ColorOCean);
         btThoat.setIcon(new ImageIcon("images\\exit.png"));
         btThoat.setHorizontalAlignment(SwingConstants.LEFT);
+        btThoat.addActionListener(this);
 
         this.add(panelMenu);
         this.add(panelBackGround);
@@ -142,7 +156,26 @@ public class Menu extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        
+        if(e.getSource()==btSach){
+            this.dispose();
+            new QLSACHGUI();
+        }
+        if(e.getSource()==btTacGia){
+            this.dispose();
+            new QLTACGIAGUI();
+        }
+        if(e.getSource()==btNXB){
+            this.dispose();
+            new QLNXBGUI();
+        }
+        if(e.getSource()==btNhaCC){
+            try {
+                this.dispose();
+                new QLNCCGUI(null);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        }
         
     }
 }

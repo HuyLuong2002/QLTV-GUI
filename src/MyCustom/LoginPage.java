@@ -109,6 +109,7 @@ public class LoginPage extends JFrame implements ActionListener {
         Border borderForgotPasswd = BorderFactory.createEmptyBorder();
         buttonForgotPasswd.setBorder(borderForgotPasswd);
         // Thêm sự kiện
+        buttonDangNhap.addActionListener(this);
         buttonDangKy.addActionListener(this);
         
         this.add(panelHomePage);
@@ -141,6 +142,13 @@ public class LoginPage extends JFrame implements ActionListener {
                 new RegisterPage();
             } catch (InterruptedException e1) {
                 e1.printStackTrace();
+            }
+        }
+        if(e.getSource()==buttonDangNhap){
+            String pass = String.valueOf(password.getPassword());
+            if(username.getText().equals("admin") && pass.equals("admin")){
+                this.dispose();
+                new Menu();
             }
         }
     }

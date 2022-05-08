@@ -40,13 +40,14 @@ import MyCustom.BaoCaoThongKe;
 import MyCustom.DateLabelFormatter;
 import MyCustom.DocGhiFileExcel;
 import MyCustom.LoginPage;
+import MyCustom.Menu;
 import MyCustom.RoundedBorder;
 import QLTV.BUS.QLSACHBUS;
 import QLTV.DTO.SACH;
 
 public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
     JPanel pnTTSach, pnNhapTTSach, pnShowAll, pnMenu, pnTimKiem, pnLoc;
-    JPanel pnMT, pnThongKe;
+    JPanel pnMT, pnThongKe, pnQLNV;
     JLabel lbHome, lbTTSach, lbMasach, lbTensach, lbMaNXB, lbMaTG, lbNamXB, lbSLtong, lbSL, lbDongia, lbLCTK,
             lbTuKhoaTK, lbKQTK;
     JLabel lbTKNam, lbTKSL, lbNgayBD, lbNgayKT;
@@ -520,9 +521,19 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
             btNhapSach.setBackground(ColorPurple);
         }
         if (e.getSource() == btQLNV) {
+            QLNVGUI qlnv = new QLNVGUI();
             OffPageQLSACH(false);
             OffBTBgSelected();
             btQLNV.setBackground(ColorPurple);
+            if (pnTimKiem != null) {
+                pnTimKiem.setVisible(false);
+            }
+            if (pnThongKe != null) {
+                pnThongKe.setVisible(false);
+            }
+            pnQLNV = qlnv.setQLNVGUI();
+            this.add(pnQLNV);
+
         }
         if (e.getSource() == btThoat) {
             int ktra = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất", "Xác nhận",
@@ -539,6 +550,10 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         // }
         if (e.getSource() == btSapXep) {
             SapXep();
+        }
+        if (e.getSource() == btMenu){
+            this.dispose();
+            new Menu();
         }
         if (e.getSource() == btNhapExcel) {
             JFileChooser fileChooser = new JFileChooser();
