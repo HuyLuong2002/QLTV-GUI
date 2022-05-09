@@ -82,9 +82,9 @@ public class QLNCCGUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        NXB.setText("NHA CUNG CAP");
+        NXB.setText("NHÀ CUNG CẤP");
 
-        jButton1.setText("THEM");
+        jButton1.setText("THÊM");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -101,21 +101,21 @@ public class QLNCCGUI extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("SUA");
+        jButton2.setText("SỬA");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
 
-        jButton3.setText("XOA");
+        jButton3.setText("XÓA");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
 
-        FIND.setText("TIMKIEM");
+        FIND.setText("TÌM KIẾM");
         FIND.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 FINDActionPerformed(evt);
