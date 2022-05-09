@@ -30,11 +30,11 @@ public class QLNHANVIENDAO {
                 NHANVIEN nhanvien = new NHANVIEN();
                 nhanvien.setMaNV(rs.getString(1));
                 nhanvien.setTenNV(rs.getString(2));
-                nhanvien.setChucvu(Integer.valueOf(rs.getString(3)));
+                nhanvien.setChucvu(String.valueOf(rs.getString(3)));
                 nhanvien.setLuongCB(Integer.valueOf(rs.getString(4)));
                 nhanvien.setPhucap(Integer.valueOf(rs.getString(5)));
-                nhanvien.setHesoluong(Integer.valueOf(rs.getString(6)));
-                nhanvien.setSDT(Integer.valueOf(rs.getString(7)));
+                nhanvien.setHesoluong(Double.valueOf(rs.getString(6)));
+                nhanvien.setSDT(Integer.valueOf(rs.getString(7).trim()));
                 nhanvien.setMail(rs.getString(8));
                 dsnhanvien.add(nhanvien);
             }
@@ -46,46 +46,6 @@ public class QLNHANVIENDAO {
 
     public void them(NHANVIEN nhanvien) {
         try {
-            // String qry = "insert into SACH values  (" + "'" + sach.getMasach() + "'"
-            //         + "," + "N'" + sach.getTensach() + "'" + "," + "'" + sach.getMaNXB() + "'" + ","
-            //         + "'" + sach.getMaTG() + "'" + "," + "'" + sach.getNamXB() + "'" + ","
-            //         + "N'" + String.valueOf(sach.getSLtong()) + "'" + "," + "'"
-            //         + String.valueOf(sach.getSL()) + "'" + "," + "'" + String.valueOf(sach.getDongia()) + "'"
-            //         + ")";
-            // st = conn.createStatement();
-            // st.executeUpdate(qry);
-            String qry = "INSERT INTO NHANVIEN VALUES (?,?,?,?,?,?,?,?)";
-            PreparedStatement ps = conn.prepareStatement(qry);
-            ps.setString(1, nhanvien.getMaNV());
-            ps.setString(2, nhanvien.getTenNV());
-            ps.setString(3, String.valueOf(nhanvien.getChucvu()));
-            ps.setString(4, String.valueOf(nhanvien.getLuongCB()));
-            ps.setString(5, String.valueOf(nhanvien.getPhucap()));
-            ps.setString(6, String.valueOf(nhanvien.getHesoluong()));
-            ps.setString(7, String.valueOf(nhanvien.getSDT()));
-            ps.setString(8, nhanvien.getMail());
-
-            int n = ps.executeUpdate();
-            if (n != 0) {
-                JOptionPane.showMessageDialog(null, "Thêm dữ liệu thành công", "Thông báo",
-                        JOptionPane.INFORMATION_MESSAGE);
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-            JOptionPane.showMessageDialog(null, "Thêm dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    public void themDataExcel(NHANVIEN nhanvien) {
-        try {
-            // String qry = "insert into SACH values  (" + "'" + sach.getMasach() + "'"
-            //         + "," + "N'" + sach.getTensach() + "'" + "," + "'" + sach.getMaNXB() + "'" + ","
-            //         + "'" + sach.getMaTG() + "'" + "," + "'" + sach.getNamXB() + "'" + ","
-            //         + "N'" + String.valueOf(sach.getSLtong()) + "'" + "," + "'"
-            //         + String.valueOf(sach.getSL()) + "'" + "," + "'" + String.valueOf(sach.getDongia()) + "'"
-            //         + ")";
-            // st = conn.createStatement();
-            // st.executeUpdate(qry);
             String qry = "INSERT INTO NHANVIEN VALUES (?,?,?,?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(qry);
             ps.setString(1, nhanvien.getMaNV());
@@ -110,14 +70,6 @@ public class QLNHANVIENDAO {
 
     public void hoantacXoa(NHANVIEN nhanvien) {
         try {
-            // String qry = "insert into SACH values  (" + "'" + sach.getMasach() + "'"
-            //         + "," + "N'" + sach.getTensach() + "'" + "," + "'" + sach.getMaNXB() + "'" + ","
-            //         + "'" + sach.getMaTG() + "'" + "," + "'" + sach.getNamXB() + "'" + ","
-            //         + "N'" + String.valueOf(sach.getSLtong()) + "'" + "," + "'"
-            //         + String.valueOf(sach.getSL()) + "'" + "," + "'" + String.valueOf(sach.getDongia()) + "'"
-            //         + ")";
-            // st = conn.createStatement();
-            // st.executeUpdate(qry);
             String qry = "INSERT INTO NHANVIEN VALUES (?,?,?,?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(qry);
             ps.setString(1, nhanvien.getMaNV());
@@ -130,31 +82,15 @@ public class QLNHANVIENDAO {
             ps.setString(8, nhanvien.getMail());
 
             int n = ps.executeUpdate();
-            if (n != 0) {
-                JOptionPane.showMessageDialog(null, "Thêm dữ liệu thành công", "Thông báo",
-                        JOptionPane.INFORMATION_MESSAGE);
-            }
         } catch (SQLException e) {
             System.out.println(e);
-            JOptionPane.showMessageDialog(null, "Thêm dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Hoàn tác dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     public void sua(NHANVIEN nhanvienmoi, NHANVIEN nhanviencu) {
         try {
-            // String qry = "update SACH set " + "MASACH=" + "'" + sachmoi.getMasach() + "'" +
-            //         ",TENSACH=" + "N'" + sachmoi.getTensach() + "'" + ",MANXB=" + "'" + sachmoi.getMaNXB() + "'" +
-            //         ",MATG=" + "'" + sachmoi.getMaTG() + "'" + ",NAMXB=" + "'" + sachmoi.getNamXB() + "'" +
-            //         ",SLTONG=" + "'" + sachmoi.getSLtong() + "'" + ",SL=" + "'" + sachmoi.getSL() + "'" +
-            //         ",DONGIA=" + "'" + sachmoi.getDongia() + "'" + " " + "where MASACH='" + sachcu.getMasach()
-            //         + "'";
-            // st = conn.createStatement();
-            // st.executeUpdate(qry);
-            // if (st != null) {
-            //     JOptionPane.showMessageDialog(null, "Sửa dữ liệu thành công", "Thông báo",
-            //             JOptionPane.INFORMATION_MESSAGE);
-            // }
-            String qry = "UPDATE SACH SET MANV=?, TENNV=?, CHUCVU=?, LUONGCB=?, PHUCAP=?, HESOLUONG=?, SDT=?, MAIL=? WHERE MANV=? ";
+            String qry = "UPDATE NHANVIEN SET MANV=?, TENNV=?, CHUCVU=?, LUONGCB=?, PHUCAP=?, HESOLUONG=?, SDT=?, EMAIL=? WHERE MANV=? ";
             PreparedStatement ps = conn.prepareStatement(qry);
             ps.setString(1, nhanvienmoi.getMaNV());
             ps.setString(2, nhanvienmoi.getTenNV());
@@ -164,35 +100,31 @@ public class QLNHANVIENDAO {
             ps.setString(6, String.valueOf(nhanvienmoi.getHesoluong()));
             ps.setString(7, String.valueOf(nhanvienmoi.getSDT()));
             ps.setString(8, nhanvienmoi.getMail());
-            ps.setString(9, nhanviencu.getMaNV());
+            ps.setString(9, nhanviencu.getMaNV().trim());
 
             int n = ps.executeUpdate();
             if (n != 0) {
-                JOptionPane.showMessageDialog(null, "Thêm dữ liệu thành công", "Thông báo",
+                JOptionPane.showMessageDialog(null, "Sửa dữ liệu thành công", "Thông báo",
                         JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (SQLException e) {
+            System.out.println(e);
             JOptionPane.showMessageDialog(null, "Sửa dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     public void xoa(String Masach) {
         try {
-            // String qry = "delete from SACH where MASACH='" + Masach + "'";
-            // st = conn.createStatement();
-            // st.executeUpdate(qry);
-            // if (st != null) {
-            //     JOptionPane.showMessageDialog(null, "Xóa dữ liệu thành công", "Thông báo",
-            //             JOptionPane.INFORMATION_MESSAGE);
-            // }
-            String qry = "DELETE FROM SACH WHERE MANV=? " ;
+            String qry = "DELETE FROM NHANVIEN WHERE MANV=? ";
             PreparedStatement ps = conn.prepareStatement(qry);
+            ps.setString(1, Masach);
             int n = ps.executeUpdate();
             if (n != 0) {
-                JOptionPane.showMessageDialog(null, "Thêm dữ liệu thành công", "Thông báo",
+                JOptionPane.showMessageDialog(null, "Xóa dữ liệu thành công", "Thông báo",
                         JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (SQLException e) {
+            System.out.println(e);
             JOptionPane.showMessageDialog(null, "Xóa dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
     }

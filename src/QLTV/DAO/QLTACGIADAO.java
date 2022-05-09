@@ -69,8 +69,8 @@ public class QLTACGIADAO {
 
     public void sua(TACGIA tacgiamoi, TACGIA tacgiacu) {
         try {
-            String qry = "update TACGIA set " + "MATACGIA=" + "'" + tacgiamoi.getMaTacGia() + "'" +
-                    ",TENTACGIA=" + "N'" + tacgiamoi.getTenTacGia() + "'" + " " + "where MATACGIA='" + tacgiacu.getMaTacGia()
+            String qry = "update TACGIA set " + "MATG=" + "'" + tacgiamoi.getMaTacGia() + "'" +
+                    ",TENTG=" + "N'" + tacgiamoi.getTenTacGia() + "'" + " " + "where MATG='" + tacgiacu.getMaTacGia()
                     + "'";
             st = conn.createStatement();
             st.executeUpdate(qry);
@@ -79,13 +79,14 @@ public class QLTACGIADAO {
                         JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (SQLException e) {
+            System.out.println(e);
             JOptionPane.showMessageDialog(null, "Sửa dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     public void xoa(String MaTacGia) {
         try {
-            String qry = "delete from TACGIA where MATACGIA='" + MaTacGia + "'";
+            String qry = "delete from TACGIA where MATG='" + MaTacGia + "'";
             st = conn.createStatement();
             st.executeUpdate(qry);
             if (st != null) {
@@ -93,6 +94,7 @@ public class QLTACGIADAO {
                         JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (SQLException e) {
+            System.out.println(e);
             JOptionPane.showMessageDialog(null, "Xóa dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
     }

@@ -64,18 +64,6 @@ public class QLTACGIABUS {
         }
     }
 
-    // public ArrayList<TACGIA> loc(int NamBD, int NamKT) {
-    //     ArrayList<TACGIA> kq = new ArrayList<TACGIA>();
-    //     for (TACGIA tacgia : dstacgia) {
-    //         if (Integer.parseInt(tacgia.getNamXB().trim()) >= NamBD
-    //                 && Integer.parseInt(tacgia.getNamXB().trim()) <= NamKT) {
-    //             kq.add(tacgia);
-    //         }
-    //     }
-
-    //     return kq;
-    // }
-
     public int KTMa(String MaTacGiaMoi) {
         for (TACGIA tacgia : dstacgia)
             if (tacgia.getMaTacGia().equals(MaTacGiaMoi)) {

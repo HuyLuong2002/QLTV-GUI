@@ -1,7 +1,7 @@
 package QLTV.GUI;
 
 import java.awt.Color;
-import java.awt.Dimension;
+// import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -37,20 +37,28 @@ public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener
     JLabel lbTKMatacgia;
     JTextField txMatacgia, txTentacgia, txKhoaTK;
     JButton btDoc, btThem, btSua, btXoa, btHoanTac, btMenuTimKiem, btShowAll, btThongKe;
-    JButton btMenu, bttacgia, btDangXuat, btThoat;
+    JButton btMenu, btSapXep, bttacgia, btDangXuat, btThoat;
     JButton btSearch;
 
     JComboBox<String> comboBoxDSKhoaTK;
+    JScrollPane pane;
 
     JTable tblQLTACGIA;
     DefaultTableModel model;
     Vector<String> header;
 
+    Color ColorOcean, ColorPurple;
+
     public QLTACGIAGUI() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.pack();
+        this.setSize(1400, 800);
         this.setTitle("Quản lý thông tin tác giả");
         this.setLayout(null);
+        this.setLocationRelativeTo(null);
+
+        // Color
+        ColorOcean = new Color(0, 139, 139);
+        ColorPurple = new Color(255, 20, 147);
 
         pnTTTacgia = new JPanel();
         pnNhapTTTacgia = new JPanel();
@@ -58,16 +66,16 @@ public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener
         pnMenu = new JPanel();
         pnTimKiem = new JPanel();
         pnTTTacgia.setLayout(new GridLayout(3, 1, 0, -300));
-        pnTTTacgia.setBounds(320, 0, 1200, 400);
+        pnTTTacgia.setBounds(242, 0, 1142, 400);
         pnShowAll.setLayout(null);
-        pnShowAll.setBounds(300, 400, 1537, 40);
+        pnShowAll.setBounds(242, 402, 1142, 30);
         pnNhapTTTacgia.setLayout(null);
-        pnNhapTTTacgia.setBounds(200, 415, 820, 600);
-        pnMenu.setBackground(Color.LIGHT_GRAY);
-        pnMenu.setLayout(new GridLayout(15, 1));
-        pnMenu.setSize(new Dimension(300, 1200));
+        pnNhapTTTacgia.setBounds(242, 415, 720, 550);
+        pnMenu.setLayout(new GridLayout(9, 1));
+        pnMenu.setBounds(0, 178, 240, 590);
+        pnMenu.setBackground(ColorOcean);
         pnTimKiem.setLayout(null);
-        pnTimKiem.setBounds(1030, 445, 490, 350);
+        pnTimKiem.setBounds(970, 440, 410, 300);
 
         // add components
         this.add(pnMenu);
@@ -86,28 +94,7 @@ public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == btDoc) {
-            try {
-                QLTACGIABUS qltacgiabus = new QLTACGIABUS();
-                if (QLTACGIABUS.dstacgia == null)
-                    try {
-                        qltacgiabus.docdstacgia();
-                    } catch (Exception e1) {
-                        e1.printStackTrace();
-                    }
-                // set up header(column)
-                header = new Vector<String>();
-                header.add("Mã tác giả");
-                header.add("Tên tác giả");
-                model = new DefaultTableModel(header, 0);
-                for (TACGIA tacgia : QLTACGIABUS.dstacgia) {
-                    ShowOnTable(tacgia);
-                    tblQLTACGIA.setModel(model);
-                }
-            } catch (Exception e1) {
-                System.out.println(e1);
-            }
-        } else if (e.getSource() == btThem) {
+        if (e.getSource() == btThem) {
             try {
                 TACGIA tacgia = new TACGIA();
                 getInfoTextField(tacgia);
@@ -194,23 +181,23 @@ public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener
                             model = new DefaultTableModel(header, 0);
                         }
                         ShowOnTable(tacgia);
-                        ktHT=1;
+                        ktHT = 1;
                     } else if (kiemtra == 0) {
                         JOptionPane.showMessageDialog(null, "Hoàn tác dữ liệu thất bại", "Lỗi",
                                 JOptionPane.ERROR_MESSAGE);
-                        ktHT=0;
+                        ktHT = 0;
                     }
                 }
             }
-            if(ktHT==1){
+            if (ktHT == 1) {
                 JOptionPane.showMessageDialog(null, "Hoàn tác dữ liệu thành công", "Thông báo",
-                JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.INFORMATION_MESSAGE);
                 tblQLTACGIA.setModel(model);
             }
-        }else if (e.getSource() == btMenuTimKiem) { // Của button Tìm kiếm tác giả, để hiện thị
+        } else if (e.getSource() == btMenuTimKiem) { // Của button Tìm kiếm tác giả, để hiện thị
             // khung tìm kiếm
             OffBTBgSelected();
-            btMenuTimKiem.setBackground(Color.green);
+            btMenuTimKiem.setBackground(ColorPurple);
             setTimKiem();
         } else if (e.getSource() == btSearch) {
             int vtkey = Integer.parseInt(String.valueOf(comboBoxDSKhoaTK.getSelectedIndex()));
@@ -277,18 +264,42 @@ public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener
             new Menu();
         }
         if (e.getSource() == btDangXuat) {
-            this.dispose();
-            try {
-                new LoginPage();
-            } catch (InterruptedException e1) {
-                System.out.println(e1);
+            int ktra = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất", "Xác nhận",
+                    JOptionPane.YES_NO_OPTION);
+            if (ktra == 0) {
+                this.dispose();
+                try {
+                    new LoginPage();
+                } catch (InterruptedException e1) {
+                    System.out.println(e1);
+                }
             }
         }
         if (e.getSource() == bttacgia) {
             OffPageQLSACH(true);
             OffBTBgSelected();
-            bttacgia.setBackground(Color.green);
+            bttacgia.setBackground(ColorPurple);
         }
+
+        if (e.getSource() == btThoat) {
+            int ktra = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất", "Xác nhận",
+                    JOptionPane.YES_NO_OPTION);
+            if (ktra == 0) {
+                System.exit(0);
+            }
+        }
+        if (e.getSource() == btSapXep) {
+            SapXep();
+        }
+    }
+
+    public void SapXep() {
+        QLTACGIABUS.dstacgia.sort(((o1, o2) -> o1.getTenTacGia().compareTo(o2.getTenTacGia())));
+        model.setRowCount(0);
+        for (TACGIA tacgia : QLTACGIABUS.dstacgia) {
+            ShowOnTable(tacgia);
+        }
+        tblQLTACGIA.setModel(model);
     }
 
     @Override
@@ -298,8 +309,8 @@ public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener
             if (i >= 0) {
                 TACGIA tacgia = new TACGIA();
                 tacgia = QLTACGIABUS.dstacgia.get(i);
-                txMatacgia.setText(tacgia.getMaTacGia());
-                txTentacgia.setText(tacgia.getTenTacGia());
+                txMatacgia.setText(tacgia.getMaTacGia().trim());
+                txTentacgia.setText(tacgia.getTenTacGia().trim());
             }
         }
 
@@ -331,83 +342,75 @@ public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener
         // label Matacgia
         lbMatacgia = new JLabel("Mã tác giả:");
         lbMatacgia.setFont(new Font("Arial", Font.BOLD, 20));
-        lbMatacgia.setBounds(120, 0, 150, 100);
+        lbMatacgia.setBounds(20, 0, 130, 80);
         // label Tentacgia
         lbTentacgia = new JLabel("Tên tác giả:");
         lbTentacgia.setFont(new Font("Arial", Font.BOLD, 20));
-        lbTentacgia.setBounds(120, 50, 150, 100);
+        lbTentacgia.setBounds(20, 40, 130, 80);
 
         // labelLCTK
-        lbLCTK = new JLabel("Lựa chọn khóa tìm kiếm:");
+        lbLCTK = new JLabel("khóa tìm kiếm:");
         lbLCTK.setFont(new Font("Arial", Font.BOLD, 20));
-        lbLCTK.setBounds(10, 50, 250, 100);
+        lbLCTK.setBounds(10, 50, 230, 80);
 
         // labelTuKhoaTK
         lbTuKhoaTK = new JLabel("Nhập từ khóa tìm kiếm:");
         lbTuKhoaTK.setFont(new Font("Arial", Font.BOLD, 20));
-        lbTuKhoaTK.setBounds(10, 100, 250, 100);
+        lbTuKhoaTK.setBounds(10, 100, 230, 80);
 
         // JTextField Mã tác giả
         txMatacgia = new JTextField();
-        txMatacgia.setBounds(270, 30, 200, 35);
+        txMatacgia.setBounds(160, 25, 180, 30);
         txMatacgia.setFont(new Font("Arial", Font.PLAIN, 15));
         txMatacgia.addMouseListener(this);
         // JTextField Tên tác giả
         txTentacgia = new JTextField();
-        txTentacgia.setBounds(270, 80, 200, 35);
+        txTentacgia.setBounds(160, 65, 180, 30);
         txTentacgia.setFont(new Font("Arial", Font.PLAIN, 15));
 
         txTentacgia.addMouseListener(this);
         // JTextField Khóa tìm kiếm
         txKhoaTK = new JTextField();
         txKhoaTK.setFont(new Font("Arial", Font.PLAIN, 15));
-        txKhoaTK.setBounds(260, 135, 200, 35);
+        txKhoaTK.setBounds(245, 125, 160, 30);
         txKhoaTK.addMouseListener(this);
 
-        // JButtonDoc
-        btDoc = new JButton("Đọc DS");
-        btDoc.setFont(new Font("Arial", Font.BOLD, 15));
-        btDoc.setBounds(120, 130, 100, 40);
-        btDoc.setBackground(Color.cyan);
-        btDoc.setBorder(new RoundedBorder(10));
-        btDoc.addActionListener(this);
         // JbuttonThem
         btThem = new JButton("Thêm");
         btThem.setFont(new Font("Arial", Font.BOLD, 15));
-        btThem.setBounds(120, 130, 100, 40);
+        btThem.setBounds(10, 305, 80, 30);
         btThem.setBackground(Color.cyan);
         btThem.setBorder(new RoundedBorder(10));
         btThem.addActionListener(this);
         // JbuttonSua
         btSua = new JButton("Sửa");
         btSua.setFont(new Font("Arial", Font.BOLD, 15));
-        btSua.setBounds(240, 130, 100, 40);
+        btSua.setBounds(110, 305, 80, 30);
         btSua.setBackground(Color.cyan);
         btSua.setBorder(new RoundedBorder(10));
         btSua.addActionListener(this);
         // JbuttonXoa
         btXoa = new JButton("Xóa");
         btXoa.setFont(new Font("Arial", Font.BOLD, 15));
-        btXoa.setBounds(360, 130, 100, 40);
+        btXoa.setBounds(210, 305, 80, 30);
         btXoa.setBackground(Color.cyan);
         btXoa.setBorder(new RoundedBorder(10));
         btXoa.addActionListener(this);
         // JbuttonHoanTac
         btHoanTac = new JButton("Hoàn tác");
         btHoanTac.setFont(new Font("Arial", Font.BOLD, 15));
-        btHoanTac.setBounds(480, 130, 100, 40);
+        btHoanTac.setBounds(310, 305, 90, 30);
         btHoanTac.setBackground(Color.cyan);
         btHoanTac.setBorder(new RoundedBorder(10));
         btHoanTac.addActionListener(this);
 
         // set up ComboBox
-        String[] dsKhoaTK = { "", "Mã tác giả", "Tên tác giả"};
+        String[] dsKhoaTK = { "", "Mã tác giả", "Tên tác giả" };
         comboBoxDSKhoaTK = new JComboBox<>(dsKhoaTK);
         comboBoxDSKhoaTK.setFont(new Font("Arial", Font.BOLD, 13));
-        comboBoxDSKhoaTK.setBounds(260, 85, 120, 35);
+        comboBoxDSKhoaTK.setBounds(245, 75, 100, 30);
         comboBoxDSKhoaTK.addActionListener(this);
 
-        btDoc.setVisible(false);
         lbLCTK.setVisible(false);
         lbTuKhoaTK.setVisible(false);
         comboBoxDSKhoaTK.setVisible(false);
@@ -419,7 +422,6 @@ public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener
         pnNhapTTTacgia.add(txMatacgia);
         pnNhapTTTacgia.add(txTentacgia);
 
-        pnNhapTTTacgia.add(btDoc);
         pnNhapTTTacgia.add(btThem);
         pnNhapTTTacgia.add(btSua);
         pnNhapTTTacgia.add(btXoa);
@@ -429,7 +431,6 @@ public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener
 
     public void setMenu() {
         // Set menu side left
-        ImageIcon iconHome = new ImageIcon("images\\home.png");
         ImageIcon iconMenu = new ImageIcon("images\\menu.png");
         ImageIcon iconauthor = new ImageIcon("images\\user-icon.png");
         ImageIcon iconSearch = new ImageIcon("images\\search.png");
@@ -438,11 +439,10 @@ public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener
 
         lbHome = new JLabel();
         lbHome.setHorizontalAlignment(SwingConstants.CENTER);
-        lbHome.setIcon(iconHome);
 
         btMenu = new JButton("Menu");
         btMenu.setFont(new Font("Arial", Font.BOLD, 20));
-        btMenu.setBackground(Color.LIGHT_GRAY);
+        btMenu.setBackground(ColorOcean);
         btMenu.setIcon(iconMenu);
         btMenu.setHorizontalAlignment(SwingConstants.LEFT);
         btMenu.setBorder(BorderFactory.createEmptyBorder());
@@ -450,7 +450,7 @@ public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener
 
         bttacgia = new JButton("Thông tin tác giả");
         bttacgia.setFont(new Font("Arial", Font.BOLD, 20));
-        bttacgia.setBackground(Color.green);
+        bttacgia.setBackground(ColorPurple);
         bttacgia.setIcon(iconauthor);
         bttacgia.setHorizontalAlignment(SwingConstants.LEFT);
         bttacgia.setBorder(BorderFactory.createEmptyBorder());
@@ -458,7 +458,7 @@ public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener
 
         btMenuTimKiem = new JButton("Tìm kiếm tác giả");
         btMenuTimKiem.setFont(new Font("Arial", Font.BOLD, 20));
-        btMenuTimKiem.setBackground(Color.LIGHT_GRAY);
+        btMenuTimKiem.setBackground(ColorOcean);
         btMenuTimKiem.setIcon(iconSearch);
         btMenuTimKiem.setHorizontalAlignment(SwingConstants.LEFT);
         btMenuTimKiem.setBorder(BorderFactory.createEmptyBorder());
@@ -467,7 +467,7 @@ public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener
         // JButton Đăng xuất
         btDangXuat = new JButton("Đăng xuất");
         btDangXuat.setFont(new Font("Arial", Font.BOLD, 20));
-        btDangXuat.setBackground(Color.LIGHT_GRAY);
+        btDangXuat.setBackground(ColorOcean);
         btDangXuat.setIcon(iconLogout);
         btDangXuat.setHorizontalAlignment(SwingConstants.LEFT);
         btDangXuat.setBorder(BorderFactory.createEmptyBorder());
@@ -475,7 +475,7 @@ public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener
         // JButton thoát
         btThoat = new JButton("Thoát");
         btThoat.setFont(new Font("Arial", Font.BOLD, 20));
-        btThoat.setBackground(Color.LIGHT_GRAY);
+        btThoat.setBackground(ColorOcean);
         btThoat.setIcon(iconExited);
         btThoat.setHorizontalAlignment(SwingConstants.LEFT);
         btThoat.setBorder(BorderFactory.createEmptyBorder());
@@ -502,13 +502,14 @@ public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener
         lbKQTK.setVerticalAlignment(SwingConstants.TOP);
         // ----set up table----
         tblQLTACGIA = new JTable();
-        JScrollPane pane = new JScrollPane(tblQLTACGIA);
+        pane = new JScrollPane(tblQLTACGIA);
         pane.setAutoscrolls(true);
-        tblQLTACGIA.setRowHeight(20);
+        tblQLTACGIA.setRowHeight(30);
         tblQLTACGIA.setFont(new Font(null, 0, 13));
         tblQLTACGIA.setBackground(Color.LIGHT_GRAY);
         tblQLTACGIA.addMouseListener(this);
         tblQLTACGIA.setDefaultEditor(Object.class, null);
+        tblQLTACGIA.setSelectionBackground(Color.GREEN);
 
         this.add(pnTTTacgia);
         pnTTTacgia.add(lbTTTacgia);
@@ -520,23 +521,32 @@ public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener
         // JButtonShowAll
         btShowAll = new JButton("Hiển thị tất cả");
         btShowAll.setFont(new Font("Arial", Font.BOLD, 15));
-        btShowAll.setBounds(1070, 10, 150, 30);
+        btShowAll.setBounds(1010, 0, 130, 30);
         btShowAll.setBackground(Color.cyan);
         btShowAll.setBorder(new RoundedBorder(10));
         btShowAll.addActionListener(this);
+
+        btSapXep = new JButton("Sắp xếp theo tên");
+        btSapXep.setFont(new Font("Arial", Font.BOLD, 15));
+        btSapXep.setBounds(830, 0, 150, 30);
+        btSapXep.setBackground(Color.cyan);
+        btSapXep.setBorder(new RoundedBorder(10));
+        btSapXep.addActionListener(this);
+
         pnShowAll.add(btShowAll);
+        pnShowAll.add(btSapXep);
     }
 
     public void ShowOnTable(TACGIA tacgia) {
         Vector<String> row = new Vector<String>();
-        row.add(tacgia.getMaTacGia());
-        row.add(tacgia.getTenTacGia());
+        row.add(tacgia.getMaTacGia().trim());
+        row.add(tacgia.getTenTacGia().trim());
         model.addRow(row);
     }
 
     public void getInfoTextField(TACGIA tacgia) {
-        tacgia.setMaTacGia(txMatacgia.getText());
-        tacgia.setTenTacGia(txTentacgia.getText());
+        tacgia.setMaTacGia(txMatacgia.getText().trim());
+        tacgia.setTenTacGia(txTentacgia.getText().trim());
     }
 
     public void getDatabase() {
@@ -555,19 +565,19 @@ public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener
             model = new DefaultTableModel(header, 0);
             for (TACGIA tacgia : QLTACGIABUS.dstacgia) {
                 ShowOnTable(tacgia);
-                tblQLTACGIA.setModel(model);
             }
+            tblQLTACGIA.setModel(model);
         } catch (Exception e1) {
             System.out.println(e1);
         }
     }
 
     public void OffBTBgSelected() {
-        bttacgia.setBackground(Color.lightGray);
-        btMenu.setBackground(Color.lightGray);
-        btMenuTimKiem.setBackground(Color.lightGray);
-        btDangXuat.setBackground(Color.lightGray);
-        btThoat.setBackground(Color.lightGray);
+        bttacgia.setBackground(ColorOcean);
+        btMenu.setBackground(ColorOcean);
+        btMenuTimKiem.setBackground(ColorOcean);
+        btDangXuat.setBackground(ColorOcean);
+        btThoat.setBackground(ColorOcean);
     }
 
     public void setTimKiem() {
@@ -585,7 +595,7 @@ public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener
 
             btSearch = new JButton("Tìm kiếm");
             btSearch.setFont(new Font("Arial", Font.BOLD, 15));
-            btSearch.setBounds(360, 175, 100, 35);
+            btSearch.setBounds(315, 165, 90, 30);
             btSearch.setBackground(Color.cyan);
             btSearch.setBorder(new RoundedBorder(10));
             btSearch.addActionListener(this);
