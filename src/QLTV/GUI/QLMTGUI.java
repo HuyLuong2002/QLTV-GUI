@@ -51,7 +51,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             pnTimKiemPM, pnLocPM, pnNhapPT, pnTimKiemPT, pnLocPT, pnTra, pnCTTra;
     JLabel lbHome, lbMaPM, lbNgayMuon, lbSLtong, lbNgayTra, lbTinhTrangMuon,
             lbMaDG, lbLCTK, lbTuKhoaTK, lbNgayBD, lbNgayKT;
-    JButton btMenu, btSach, btMT, btQLNV, btDangXuat, btNhapSach, btThoat, btMenuTimKiem, btThongKe;
+    JButton btThoat, btSua, btThem, btXoa, btHoanTac;
     JButton btShowAll, btTimKiem, btLoc, btInPM;
     JTextField txMaPM, txSLtong, txMaDG, txKhoaTK;
     JComboBox<String> cbTinhTrangMuon, cbDSKhoaTK;
@@ -254,6 +254,39 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         }
         if (e.getSource() == btInPM) {
             
+        }
+        if (e.getSource() == btThem){
+            try {
+                PHIEUMUON phieumuon = new PHIEUMUON();
+                getInfoTextField(phieumuon);
+                // Truy cập vào bus
+                QLSACHBUS qlsachbus = new QLSACHBUS();
+                int kiemtra = 0;
+                try {
+                    kiemtra = qlsachbus.them(sach);
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+                if (kiemtra == 1) {
+                    // Đưa dữ liệu lên table
+                    header = new Vector<String>();
+                    header.add("Mã sách");
+                    header.add("Tên sách");
+                    header.add("Mã NXB");
+                    header.add("Mã tác giả");
+                    header.add("Năm xuất bản");
+                    header.add("SL tổng");
+                    header.add("SL");
+                    header.add("Đơn giá");
+                    if (model.getRowCount() == 0) {
+                        model = new DefaultTableModel(header, 0);
+                    }
+                    ShowOnTable(sach);
+                    tblQLSACH.setModel(model);
+                }
+            } catch (Exception e1) {
+                System.out.println(e1);
+            }
         }
 
     }
@@ -638,7 +671,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         datePickerNgayBDPM = new JDatePickerImpl(datePanelNgayBDPM, new DateLabelFormatter());
         datePickerNgayBDPM.setBounds(200, 85, 150, 30);
 
-        // Set date picker1
+        // Set date picker2
         modelNgayKTPM = new UtilDateModel();
         modelNgayKTPM.setSelected(true);
         pNgayKTPM = new Properties();
@@ -648,6 +681,34 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         datePanelNgayKTPM = new JDatePanelImpl(modelNgayKTPM, pNgayKTPM);
         datePickerNgayKTPM = new JDatePickerImpl(datePanelNgayKTPM, new DateLabelFormatter());
         datePickerNgayKTPM.setBounds(200, 185, 150, 30);
+
+        btThem = new JButton("Thêm");
+        btThem.setFont(new Font("Arial", Font.BOLD, 15));
+        btThem.setBounds(10, 305, 80, 30);
+        btThem.setBackground(Color.cyan);
+        btThem.setBorder(new RoundedBorder(10));
+        btThem.addActionListener(this);
+
+        btSua = new JButton("Sửa");
+        btSua.setFont(new Font("Arial", Font.BOLD, 15));
+        btSua.setBounds(110, 305, 80, 30);
+        btSua.setBackground(Color.cyan);
+        btSua.setBorder(new RoundedBorder(10));
+        btSua.addActionListener(this);
+
+        btXoa = new JButton("Xóa");
+        btXoa.setFont(new Font("Arial", Font.BOLD, 15));
+        btXoa.setBounds(210, 305, 80, 30);
+        btXoa.setBackground(Color.cyan);
+        btXoa.setBorder(new RoundedBorder(10));
+        btXoa.addActionListener(this);
+
+        btHoanTac = new JButton("Hoàn tác");
+        btHoanTac.setFont(new Font("Arial", Font.BOLD, 15));
+        btHoanTac.setBounds(310, 305, 90, 30);
+        btHoanTac.setBackground(Color.cyan);
+        btHoanTac.setBorder(new RoundedBorder(10));
+        btHoanTac.addActionListener(this);
 
         pnNhapPM.add(lbMaPM);
         pnNhapPM.add(lbNgayMuon);
@@ -780,5 +841,17 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         for (int i = 0; i < model.getColumnCount(); i++) {
             table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
+    }
+
+    public void getInfoTextField(PHIEUMUON phieumuon) {
+        phieumuon.setMaPM(txMaPM.getText());
+        phieumuon.setNgaymuon(datePickerNgayBDPM.getJFormattedTextField().getText());
+        phieumuon.setSLtong(txMaNXB.getText());
+        sach.setMaTG(txMaTG.getText());
+        sach.setNamXB(txNamXB.getText());
+        sach.setSLtong(Integer.parseInt(txSLtong.getText()));
+        sach.setSL(Integer.parseInt(txSL.getText()));
+        String tmpDonGia = RemoveCommaInString(txDongia);
+        sach.setDongia(Integer.parseInt(tmpDonGia));
     }
 }

@@ -11,13 +11,13 @@ public class PHIEUTRASACH {
     public PHIEUTRASACH() {
     }
 
-    public PHIEUTRASACH(String MaPT, String MaPM, String Tinhtrangsach, String Ngaytra, int Tienthue, int Thanhtien) {
+    public PHIEUTRASACH(String MaPT, String Tinhtrangsach, String Ngaytra, int Tienthue, int Thanhtien, String MaPM) {
         this.MaPT = MaPT;
-        this.MaPM = MaPM;
         this.Tinhtrangsach = Tinhtrangsach;
         this.Ngaytra = Ngaytra;
         PHIEUTRASACH.Tienthue = Tienthue;
         this.Thanhtien = Thanhtien;
+        this.MaPM = MaPM;
     }
 
     public void setMaPT(String MaPT) {
