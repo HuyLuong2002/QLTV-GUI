@@ -388,7 +388,7 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
         // labelLCTK
         lbLCTK = new JLabel("Lựa chọn khóa tìm kiếm:");
         lbLCTK.setFont(new Font("Arial", Font.BOLD, 18));
-        lbLCTK.setBounds(10, 100, 230, 80);
+        lbLCTK.setBounds(10, 50, 230, 80);
         // labelTuKhoaTK
         lbTuKhoaTK = new JLabel("Nhập từ khóa tìm kiếm:");
         lbTuKhoaTK.setFont(new Font("Arial", Font.BOLD, 18));
@@ -473,7 +473,7 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
         String[] dsKhoaTK = { "", "Mã Nhân Viên", "Tên Nhân Viên" };
         comboBoxDSKhoaTK = new JComboBox<>(dsKhoaTK);
         comboBoxDSKhoaTK.setFont(new Font("Arial", Font.BOLD, 13));
-        comboBoxDSKhoaTK.setBounds(260, 85, 120, 35);
+        comboBoxDSKhoaTK.setBounds(245, 74, 120, 35);
         comboBoxDSKhoaTK.addActionListener(this);
 
         lbLCTK.setVisible(false);
@@ -717,23 +717,6 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
         pnTimKiem.add(txKhoaTK);
         pnTimKiem.add(comboBoxDSKhoaTK);
         pnTimKiem.add(btSearch);
-    }
-
-    public void setTimKiemNC() {
-        // Ẩn các component không dùng tới
-        btSearch.setVisible(false);
-        txKhoaTK.setVisible(false);
-        // set up component mới
-        // Năm xb
-        if (lbTKMaNV == null) {
-            lbTKMaNV = new JLabel("Mã Nhân Viên:");
-            lbTKMaNV.setFont(new Font("Arial", Font.BOLD, 20));
-            lbTKMaNV.setBounds(10, 170, 100, 50);
-        }
-        if (lbTKMaNV != null) {
-            lbTKMaNV.setVisible(true);
-        }
-        pnTimKiem.add(lbTKMaNV);
     }
 
     public void OffPageQLSACH(Boolean x) {

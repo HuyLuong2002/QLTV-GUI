@@ -6,9 +6,9 @@ import QLTV.GUI.QLTACGIAGUI;
 public class App {
     public static void main(String[] args) throws Exception {
         //new QLSACHGUI();
-        new QLTACGIAGUI();
-        //new QLNHANVIENGUI();
-        // new QLNXBGUI();
+        //new QLTACGIAGUI();
+        // new QLNHANVIENGUI();
+        new QLNXBGUI();
         //new setProgressBar();
         //new LoginPage();
         // new Menu();

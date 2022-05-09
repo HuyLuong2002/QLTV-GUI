@@ -217,7 +217,7 @@ public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener
                         lbKQTK.setText("Kết quả tìm kiếm: Không tìm thấy");
                     } else {
                         ShowOnTable(kq);
-                        lbKQTK.setText("Kết quả tìm kiếm: Tìm thấy " + model.getRowCount() + " TACGIA");
+                        lbKQTK.setText("Kết quả tìm kiếm: Tìm thấy " + model.getRowCount() + " tác giả");
                         tblQLTACGIA.setModel(model);
                     }
                 } else if (vtkey == 2) {
@@ -229,7 +229,7 @@ public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener
                         for (TACGIA tacgia : kq) {
                             ShowOnTable(tacgia);
                         }
-                        lbKQTK.setText("Kết quả tìm kiếm: Tìm thấy " + model.getRowCount() + " TACGIA");
+                        lbKQTK.setText("Kết quả tìm kiếm: Tìm thấy " + model.getRowCount() + " tác giả");
                         tblQLTACGIA.setModel(model);
                     }
                 }
