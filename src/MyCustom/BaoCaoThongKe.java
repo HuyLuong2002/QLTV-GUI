@@ -15,8 +15,10 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 
 import QLTV.BUS.QLMUONBUS;
+import QLTV.BUS.QLNVBUS;
 import QLTV.BUS.QLSACHBUS;
 import QLTV.BUS.QLTRABUS;
+import QLTV.DTO.DOCGIA;
 import QLTV.DTO.PHIEUMUON;
 import QLTV.DTO.PHIEUTRASACH;
 import QLTV.DTO.SACH;
@@ -71,8 +73,8 @@ public class BaoCaoThongKe implements ActionListener {
             pnBaoCaoDoanhThu.setLayout(new GridLayout(1, 1));
 
             lbThongKe = new JLabel("THỐNG KÊ TỔNG QUÁT");
-            lbThongKe.setFont(new Font("Arial", Font.BOLD, 25));
-            lbThongKe.setBounds(400, 0, 300, 80);
+            lbThongKe.setFont(new Font("Arial", Font.BOLD, 30));
+            lbThongKe.setBounds(400, 0, 380, 80);
 
             String[] dsNam = { "", "2021", "2022", "2023" };
             cbKhoaThongKe = new JComboBox<>(dsNam);
@@ -90,6 +92,7 @@ public class BaoCaoThongKe implements ActionListener {
 
             setTKSach();
             setTKDT();
+            setTKDG();
             setTableThongKe();
         }
         return pnThongKe;
@@ -110,6 +113,53 @@ public class BaoCaoThongKe implements ActionListener {
             lbKQ.setBounds(50, 30, 250, 80);
             pnSach.add(lbKQSach);
             pnSach.add(lbKQ);
+        }
+    }
+
+    public void setTKDG(){
+        int countDG = 0;
+        QLNVBUS qlnvbus = new QLNVBUS();
+        if (QLNVBUS.dsdg == null)
+            try {
+                qlnvbus.docDS();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        for (DOCGIA dg : QLNVBUS.dsdg) {
+            if(dg.getMaDG().trim().isEmpty()==false) {
+                countDG++;
+            }
+        }
+        if (countDG != 0) {
+            JLabel lbKQ = new JLabel();
+            lbKQKH = new JLabel("Số lượng độc giả");
+            lbKQKH.setFont(new Font("Arial", Font.BOLD, 20));
+            lbKQKH.setBounds(8, 80, 250, 80);
+            lbKQ.setText(String.valueOf(countDG));
+            lbKQ.setFont(new Font("Arial", Font.BOLD, 35));
+            lbKQ.setBounds(50, 30, 250, 80);
+            pnKhachHang.add(lbKQKH);
+            pnKhachHang.add(lbKQ);
+        }
+    }
+
+    public void setTKNV(){
+        int countNV = 0;
+        for (DOCGIA dg : QLNVBUS.dsdg) {
+            if(dg.getMaDG().trim().isEmpty()==false) {
+                countNV++;
+            }
+        }
+        if (countNV != 0) {
+            JLabel lbKQ = new JLabel();
+            lbKQNV = new JLabel("Số lượng nhân viên");
+            lbKQNV.setFont(new Font("Arial", Font.BOLD, 20));
+            lbKQNV.setBounds(8, 80, 250, 80);
+            lbKQ.setText(String.valueOf(countNV));
+            lbKQ.setFont(new Font("Arial", Font.BOLD, 35));
+            lbKQ.setBounds(50, 30, 250, 80);
+            pnNhanVien.add(lbKQNV);
+            pnNhanVien.add(lbKQ);
         }
     }
 
@@ -251,11 +301,6 @@ public class BaoCaoThongKe implements ActionListener {
             model.setValueAt(String.format("%,d", DoanhThuQuy2), 0, 2);
             model.setValueAt(String.format("%,d", DoanhThuQuy3), 0, 3);
             model.setValueAt(String.format("%,d", DoanhThuQuy4), 0, 4);
-            
-            model.setValueAt(String.format("%,d", DoanhThuQuy1), 1, 1);
-            model.setValueAt(String.format("%,d", DoanhThuQuy2), 1, 2);
-            model.setValueAt(String.format("%,d", DoanhThuQuy3), 1, 3);
-            model.setValueAt(String.format("%,d", DoanhThuQuy4), 1, 4);
             
             model.setValueAt(String.format("%,d", TongDoanhThu), 0, 5);
             model.setValueAt(String.format("%,d", TongDoanhThu), 1, 5);

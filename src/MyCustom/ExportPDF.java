@@ -1,11 +1,15 @@
 package MyCustom;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -20,8 +24,19 @@ import com.itextpdf.text.pdf.PdfWriter;
 import QLTV.DTO.SACH;
 
 public class ExportPDF {
+    JFileChooser fileChooser;
+    String namepath = "";
     public ExportPDF() {
-
+        fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(new File("C:\\"));
+        FileNameExtensionFilter fnef = new FileNameExtensionFilter("PDF file", "pdf");
+        fileChooser.setFileFilter(fnef);
+        fileChooser.setDialogTitle("Lựa chọn file để lưu");
+        int response = fileChooser.showSaveDialog(null);
+        if (response == JFileChooser.APPROVE_OPTION) {
+            File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
+            namepath = file.getAbsolutePath();
+        }
     }
 
     public void setExportPDFPM(String MaPM, String TenDG, String NgayMuon, String NgayTra, String SLtong, ArrayList<SACH> kq) {
@@ -30,7 +45,8 @@ public class ExportPDF {
         BaseFont bf = null;
         try {
             // khởi tạo một PdfWriter truyền vào document và FileOutputStream
-            PdfWriter.getInstance(document, new FileOutputStream("D:\\HelloWorld.pdf"));
+
+            PdfWriter.getInstance(document, new FileOutputStream(namepath + ".pdf"));
             // mở file để thực hiện viết
             document.open();
             // thêm nội dung sử dụng add function
@@ -47,7 +63,6 @@ public class ExportPDF {
             paragraph1.setSpacingAfter(16);
             // Đinh dạng đoạn văn bản thứ 2
             Paragraph paragraph2 = new Paragraph("Danh sách mượn\n", fontPDF);
-            paragraph2.setSpacingBefore(16);
             paragraph2.setAlignment(Element.ALIGN_LEFT);
             PdfPTable pdfPTable1 = new PdfPTable(3);
             pdfPTable1.setSpacingBefore(16);

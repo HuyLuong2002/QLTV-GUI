@@ -35,7 +35,7 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
     JLabel lbHome, lbTTNhanVien, lbManhanvien, lbTennhanvien, lbChucvu, lbLuongCB, lbPhucap, lbHesoluong, lbSDT, lbEmail, lbLCTK, lbTuKhoaTK, lbKQTK;
     JLabel lbTKMaNV;
     JTextField txMaNV, txTenNV,  txChucvu, txLuongCB, txPhucap, txHesoluong, txSDT, txEmail,  txKhoaTK;
-    JButton btThem, btNV, btSua, btXoa, btHoanTac, btSapXep, btMenuTimKiem, btShowAll, btThongKe;
+    JButton btThem, btSua, btXoa, btHoanTac, btSapXep, btMenuTimKiem, btShowAll, btThongKe;
     JButton btMenu, btNhanvien, btDangXuat, btThoat;
     JButton btSearch;
 
@@ -76,7 +76,7 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
         this.add(pnNhapTTnhanvien);
         this.add(pnTimKiem);
 
-        setTableNXB();
+        setTableNV();
         setInput();
         setMenu();
         setShowAll();
@@ -170,18 +170,24 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
                         JOptionPane.ERROR_MESSAGE);
             } else {
                 for (NHANVIEN nhanvien : QLNHANVIENBUS.htXoa) {
-                    QLNHANVIENBUS qlnxbbus = new QLNHANVIENBUS();
+                    QLNHANVIENBUS qlnhanvienbus = new QLNHANVIENBUS();
                     int kiemtra = 0;
                     try {
-                        kiemtra = qlnxbbus.hoantacXoa(nhanvien);
+                        kiemtra = qlnhanvienbus.hoantacXoa(nhanvien);
                     } catch (Exception e1) {
                         e1.printStackTrace();
                     }
                     if (kiemtra == 1) {
                         // Đưa dữ liệu lên table
                         header = new Vector<String>();
-                        header.add("Mã Nhà Xuất Bản");
-                        header.add("Tên Nhà Xuất Bản");
+                        header.add("Mã Nhân Viên");
+                        header.add("Tên Nhân Viên");
+                        header.add("Chức Vụ");
+                        header.add("Lương Cơ Bản");
+                        header.add("Phụ Cấp");
+                        header.add("Hệ Số Lương");
+                        header.add("Số Điện Thoại");
+                        header.add("Email");
                         if (model.getRowCount() == 0) {
                             model = new DefaultTableModel(header, 0);
                         }
@@ -199,7 +205,7 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
                 JOptionPane.INFORMATION_MESSAGE);
                 tblQLNHANVIEN.setModel(model);
             }
-        }else if (e.getSource() == btMenuTimKiem) { // Của button Tìm kiếm nhà xuất bản, để hiện thị
+        }else if (e.getSource() == btMenuTimKiem) { // Của button Tìm kiếm  nhân viên, để hiện thị
             // khung tìm kiếm
             OffBTBgSelected();
             btMenuTimKiem.setBackground(Color.green);
@@ -247,25 +253,13 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
             }
             tblQLNHANVIEN.setModel(model);
         }
-        if (e.getSource() == btThongKe) {
-            String luachon = "";
-            do {
-                String[] options = { "", "Mã Nhà Xuất Bản", "SL Nhà Xuất Bản ban đầu", "SL hiện tại" };
-                luachon = (String) JOptionPane.showInputDialog(null, "Mời lựa chọn khóa thống kê:", "Thống kê",
-                        JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
-                // QLNHANVIENBUS qlnhanvienbus = new QLNHANVIENBUS();
-                // switch (luachon) {
-                //     case "Mã Nhà Xuất Bản":
-                //         count = qlnhanvienbus.ThongKeMaNV();
-                //         JOptionPane.showMessageDialog(null, "Đếm số lượng Nhà Xuất Bản: " + String.valueOf(count),
-                //                 "Kết quả", JOptionPane.PLAIN_MESSAGE);
-                //         break;
-                // }
-            } while (luachon != null);
-        }
-        if (e.getSource() == btMenu) {
 
+        if (e.getSource() == btMenu) {
+            OffPageQLSACH(true);
+            OffBTBgSelected();
+            btMenu.setBackground(Color.green);
         }
+        
         if (e.getSource() == btDangXuat) {
             this.dispose();
             try {
@@ -274,10 +268,10 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
                 System.out.println(e1);
             }
         }
-        if (e.getSource() == btNV) {
+        if (e.getSource() == btNhanvien) {
             OffPageQLSACH(true);
             OffBTBgSelected();
-            btNV.setBackground(Color.green);
+            btNhanvien.setBackground(Color.green);
         }
     }
 
@@ -456,7 +450,7 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
         btHoanTac.addActionListener(this);
 
         // set up ComboBox
-        String[] dsKhoaTK = { "", "Mã Nhà Xuất Bản", "Tên Nhà Xuất Bản"};
+        String[] dsKhoaTK = { "", "Mã Nhân Viên", "Tên Nhân Viên"};
         comboBoxDSKhoaTK = new JComboBox<>(dsKhoaTK);
         comboBoxDSKhoaTK.setFont(new Font("Arial", Font.BOLD, 13));
         comboBoxDSKhoaTK.setBounds(260, 85, 120, 35);
@@ -554,9 +548,9 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
         pnMenu.add(btThoat);
     }
 
-    public void setTableNXB() {
-        // label TTNXB
-        lbTTNhanVien = new JLabel("THÔNG TIN NXB");
+    public void setTableNV() {
+        // label TTNV
+        lbTTNhanVien = new JLabel("THÔNG TIN NHÂN VIÊN");
         lbTTNhanVien.setFont(new Font("Arial", Font.BOLD, 30));
         lbTTNhanVien.setHorizontalAlignment(SwingConstants.CENTER);
         lbTTNhanVien.setVerticalAlignment(SwingConstants.TOP);
@@ -630,7 +624,7 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
             QLNHANVIENBUS qlsachbus = new QLNHANVIENBUS();
             if (QLNHANVIENBUS.dsnhanvien == null)
                 try {
-                    qlsachbus.docDSSACH();
+                    qlsachbus.docDSNHANVIEN();
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }

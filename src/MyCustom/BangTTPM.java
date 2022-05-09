@@ -173,6 +173,7 @@ public class BangTTPM extends JFrame implements ActionListener {
                 }
                 ExportPDF export = new ExportPDF();
                 export.setExportPDFPM(MaPM, TenDG, NgayBD, NgayKT, SLtong, dsSachMuon);
+                dsSachMuon.clear();
             }
         }
 

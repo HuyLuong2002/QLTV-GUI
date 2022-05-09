@@ -441,6 +441,9 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
             if (pnMT != null) {
                 pnMT.setVisible(false);
             }
+            if (pnQLNV != null){
+                pnQLNV.setVisible(false);
+            }
             pnThongKe = bctk.BangBaoCaoThongKe();
             this.add(pnThongKe);
         }
@@ -468,6 +471,9 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
             }
             if (pnThongKe != null) {
                 pnThongKe.setVisible(false);
+            }
+            if (pnQLNV != null){
+                pnQLNV.setVisible(false);
             }
             pnMT = qlmt.setMTGUI();
             this.add(pnMT);
@@ -511,6 +517,9 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
             if (pnThongKe != null) {
                 pnThongKe.setVisible(false);
             }
+            if (pnQLNV != null){
+                pnQLNV.setVisible(false);
+            }
             OffPageQLSACH(true);
             OffBTBgSelected();
             btSach.setBackground(ColorPurple);
@@ -525,6 +534,9 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
             OffPageQLSACH(false);
             OffBTBgSelected();
             btQLNV.setBackground(ColorPurple);
+            if (pnMT != null) {
+                pnMT.setVisible(false);
+            }
             if (pnTimKiem != null) {
                 pnTimKiem.setVisible(false);
             }
@@ -542,12 +554,6 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
                 System.exit(0);
             }
         }
-        // if(e.getSource() == btHoTroInput){
-        // header = new Vector<String>();
-        // header.add("Mã sách");
-        // header.add("Tên sách");
-        // new HoTroNhap(pane,model,header);
-        // }
         if (e.getSource() == btSapXep) {
             SapXep();
         }
