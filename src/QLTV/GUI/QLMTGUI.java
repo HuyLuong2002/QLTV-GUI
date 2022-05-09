@@ -8,10 +8,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Properties;
 import java.util.Vector;
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -33,18 +31,16 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
+import MyCustom.BangTTPM;
 import MyCustom.DateLabelFormatter;
-import MyCustom.ExportPDF;
 import MyCustom.RoundedBorder;
 import QLTV.BUS.QLCTMUONBUS;
 import QLTV.BUS.QLMUONBUS;
-import QLTV.BUS.QLSACHBUS;
 import QLTV.BUS.QLTRABUS;
 import QLTV.DTO.CHITIETPHIEUMUON;
 import QLTV.DTO.CHITIETPHIEUTRA;
 import QLTV.DTO.PHIEUMUON;
 import QLTV.DTO.PHIEUTRASACH;
-import QLTV.DTO.SACH;
 
 public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
     JPanel pnMuonTra, pnTabMuon, pnTabTra, pnTabTienPhat, pnShowAll, pnMuon, pnCTMuon, pnNhapPM,
@@ -59,8 +55,8 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
     TitledBorder titleMuon, titleTra;
     JTabbedPane tabbedPane;
 
-    JTable tblQLMuon, tblQLCTMuon, tblQLTra, tblQLCTTra;
-    DefaultTableModel modelMuon, modelCTMuon, modelTra, modelCTTra;
+    public JTable tblQLMuon, tblQLCTMuon, tblQLTra, tblQLCTTra;
+    public DefaultTableModel modelMuon, modelCTMuon, modelTra, modelCTTra;
 
     UtilDateModel modelNgayBD, modelNgayKT;
     Properties pNgayBD, pNgayKT;
@@ -253,7 +249,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             }
         }
         if (e.getSource() == btInPM) {
-            
+            new BangTTPM();
         }
         if (e.getSource() == btThem){
             try {
@@ -313,11 +309,14 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                 PHIEUMUON pmTextField = new PHIEUMUON();
                 pmTextField = QLMUONBUS.dspm.get(i);
                 txMaPM.setText(pmTextField.getMaPM().trim());
+                
                 String tmp[] = pmTextField.getNgaymuon().split("-");
                 datePanelNgayBDPM.getModel().setDate(Integer.parseInt(tmp[0]), Integer.parseInt(tmp[1]),
                         Integer.parseInt(tmp[2]));
+
                 txSLtong.setText(String.valueOf(pmTextField.getSLtong()));
                 String tmp1[] = pmTextField.getNgaytra().split("-");
+
                 datePanelNgayKTPM.getModel().setDate(Integer.parseInt(tmp1[0]), Integer.parseInt(tmp1[1]),
                         Integer.parseInt(tmp1[2]));
                 if (pmTextField.getTinhTrangMuon().equals("Đang mượn")) {
@@ -396,7 +395,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             QLMUONBUS qlmuonbus = new QLMUONBUS();
             if (QLMUONBUS.dspm == null)
                 try {
-                    qlmuonbus.docDSPM();
+                    qlmuonbus.docDS();
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
@@ -518,7 +517,6 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         titleMuon.setTitleFont(new Font("Arial", Font.BOLD, 28));
         titleMuon.setTitleJustification(TitledBorder.CENTER);
         pnCTMuon.setBorder(titleMuon);
-
     }
 
     public void setTitlePT() {
@@ -749,7 +747,6 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             txKhoaTK = new JTextField();
             txKhoaTK.setFont(new Font("Arial", Font.PLAIN, 15));
             txKhoaTK.setBounds(260, 115, 200, 35);
-            txKhoaTK.addMouseListener(this);
 
             String[] dsKhoaTK = { "", "Mã phiếu mượn", "SL tổng", "Tình trạng mượn", "Mã độc giả" };
             cbDSKhoaTK = new JComboBox<>(dsKhoaTK);
@@ -846,7 +843,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
     public void getInfoTextField(PHIEUMUON phieumuon) {
         phieumuon.setMaPM(txMaPM.getText());
         phieumuon.setNgaymuon(datePickerNgayBDPM.getJFormattedTextField().getText());
-        phieumuon.setSLtong(txMaNXB.getText());
+        phieumuon.setSLtong(Integer.parseInt(txSLtong.getText()));
         sach.setMaTG(txMaTG.getText());
         sach.setNamXB(txNamXB.getText());
         sach.setSLtong(Integer.parseInt(txSLtong.getText()));

@@ -6,13 +6,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 //DESKTOP-0K98LBJ: Lợi
 //DESKTOP-5IRG803: Lương
+//ADMIN: Thành
 import javax.swing.JOptionPane;
 public class MSSQLConnect {
-    String host="DESKTOP-0K98LBJ\\SQLEXPRESS";
+    String host="DESKTOP-5IRG803\\SQLEXPRESS";
     String database="QLTV";
     String username="sa";
     String password="sa";
-    String url = "jdbc:sqlserver://DESKTOP-0K98LBJ\\SQLEXPRESS:1433;databaseName=QLTV;trustServerCertificate=true;integratedSecurity=true;";
+    String url = "jdbc:sqlserver://DESKTOP-5IRG803\\SQLEXPRESS:1433;databaseName=QLTV;trustServerCertificate=true;integratedSecurity=true;";
     Connection conn = null;
     Statement st = null;
     ResultSet rs = null;

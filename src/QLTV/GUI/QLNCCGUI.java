@@ -35,7 +35,10 @@ public class QLNCCGUI extends javax.swing.JFrame {
         NHACUNGCAP b = new NHACUNGCAP("2", "TAM");
         ds.add(b);
         show(list);
+    }
 
+    public QLNCCGUI(String x){
+        main(null);
     }
 
     public void show(ArrayList<NHACUNGCAP> dsnxb) {
