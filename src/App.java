@@ -1,9 +1,3 @@
-import MyCustom.BangTTPM;
-import MyCustom.LoginPage;
-import MyCustom.setProgressBar;
-import QLTV.GUI.QLNCCGUI;
-import QLTV.GUI.QLNHANVIENGUI;
-import QLTV.GUI.QLNVGUI;
 import QLTV.GUI.QLSACHGUI;
 
 public class App {

@@ -5,7 +5,7 @@ public class PHIEUTRASACH {
     private String MaPM;
     private String Tinhtrangsach;
     private String Ngaytra;
-    private static int Tienthue = 3000;
+    public static int Tienthue = 3000;
     private int Thanhtien;
 
     public PHIEUTRASACH() {
