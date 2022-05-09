@@ -26,15 +26,17 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import MyCustom.LoginPage;
+import MyCustom.Menu;
 import MyCustom.RoundedBorder;
 import QLTV.BUS.QLNHANVIENBUS;
 import QLTV.DTO.NHANVIEN;
 
 public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListener {
     JPanel pnTTnhanvien, pnNhapTTnhanvien, pnShowAll, pnMenu, pnTimKiem;
-    JLabel lbHome, lbTTNhanVien, lbManhanvien, lbTennhanvien, lbChucvu, lbLuongCB, lbPhucap, lbHesoluong, lbSDT, lbEmail, lbLCTK, lbTuKhoaTK, lbKQTK;
+    JLabel lbHome, lbTTNhanVien, lbManhanvien, lbTennhanvien, lbChucvu, lbLuongCB, lbPhucap, lbHesoluong, lbSDT,
+            lbEmail, lbLCTK, lbTuKhoaTK, lbKQTK;
     JLabel lbTKMaNV;
-    JTextField txMaNV, txTenNV,  txChucvu, txLuongCB, txPhucap, txHesoluong, txSDT, txEmail,  txKhoaTK;
+    JTextField txMaNV, txTenNV, txChucvu, txLuongCB, txPhucap, txHesoluong, txSDT, txEmail, txKhoaTK;
     JButton btThem, btSua, btXoa, btHoanTac, btSapXep, btMenuTimKiem, btShowAll, btThongKe;
     JButton btMenu, btNhanvien, btDangXuat, btThoat;
     JButton btSearch;
@@ -49,10 +51,13 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
 
     public QLNHANVIENGUI() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // this.setSize(1400,800);
+        this.setSize(1400, 800);
         this.setTitle("Quản lý thông tin nhân viên");
         this.setLayout(null);
         this.setLocationRelativeTo(null);
+
+        ColorOcean = new Color(0, 139, 139);
+        ColorPurple = new Color(255, 20, 147);
 
         pnTTnhanvien = new JPanel();
         pnNhapTTnhanvien = new JPanel();
@@ -66,9 +71,12 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
         pnNhapTTnhanvien.setLayout(null);
         pnNhapTTnhanvien.setBounds(242, 415, 720, 550);
         pnMenu.setLayout(new GridLayout(9, 1));
-        pnMenu.setBounds(0,178,240,590);
+        pnMenu.setBounds(0, 178, 240, 590);
+        pnMenu.setBackground(ColorOcean);
         pnTimKiem.setLayout(null);
         pnTimKiem.setBounds(970, 440, 410, 300);
+
+
 
         // add components
         this.add(pnMenu);
@@ -146,7 +154,7 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
             int XacNhanXoa = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa không ?", "Thông báo",
                     JOptionPane.YES_NO_OPTION);
             if (XacNhanXoa == 0) {
-                String masach = txMaNV.getText();
+                String MaNV = txMaNV.getText();
                 int i = tblQLNHANVIEN.getSelectedRow();
                 if (i >= 0) {
                     try {
@@ -154,7 +162,7 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
                         NHANVIEN nhanviencu = QLNHANVIENBUS.dsnhanvien.get(i);
                         QLNHANVIENBUS.htXoa.add(nhanviencu);
                         QLNHANVIENBUS qlsachbus = new QLNHANVIENBUS();
-                        qlsachbus.xoa(masach, i);
+                        qlsachbus.xoa(MaNV, i);
                         // Quay dề GUI
                         model.removeRow(i);
                         tblQLNHANVIEN.setModel(model);
@@ -192,23 +200,23 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
                             model = new DefaultTableModel(header, 0);
                         }
                         ShowOnTable(nhanvien);
-                        ktHT=1;
+                        ktHT = 1;
                     } else if (kiemtra == 0) {
                         JOptionPane.showMessageDialog(null, "Hoàn tác dữ liệu thất bại", "Lỗi",
                                 JOptionPane.ERROR_MESSAGE);
-                        ktHT=0;
+                        ktHT = 0;
                     }
                 }
             }
-            if(ktHT==1){
+            if (ktHT == 1) {
                 JOptionPane.showMessageDialog(null, "Hoàn tác dữ liệu thành công", "Thông báo",
-                JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.INFORMATION_MESSAGE);
                 tblQLNHANVIEN.setModel(model);
             }
-        }else if (e.getSource() == btMenuTimKiem) { // Của button Tìm kiếm  nhân viên, để hiện thị
+        } else if (e.getSource() == btMenuTimKiem) { // Của button Tìm kiếm nhân viên, để hiện thị
             // khung tìm kiếm
             OffBTBgSelected();
-            btMenuTimKiem.setBackground(Color.green);
+            btMenuTimKiem.setBackground(ColorPurple);
             setTimKiem();
         } else if (e.getSource() == btSearch) {
             int vtkey = Integer.parseInt(String.valueOf(comboBoxDSKhoaTK.getSelectedIndex()));
@@ -253,25 +261,38 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
             }
             tblQLNHANVIEN.setModel(model);
         }
-
         if (e.getSource() == btMenu) {
-            OffPageQLSACH(true);
             OffBTBgSelected();
-            btMenu.setBackground(Color.green);
+            OffPageQLSACH(false);
+            btMenu.setBackground(ColorOcean);
         }
-        
-        if (e.getSource() == btDangXuat) {
+        if (e.getSource() == btMenu) {
             this.dispose();
-            try {
-                new LoginPage();
-            } catch (InterruptedException e1) {
-                System.out.println(e1);
+            new Menu();
+        }
+        if (e.getSource() == btThoat) {
+            int ktra = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất", "Xác nhận",
+                    JOptionPane.YES_NO_OPTION);
+            if (ktra == 0) {
+                System.exit(0);
+            }
+        }
+        if (e.getSource() == btDangXuat) {
+            int ktra = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất", "Xác nhận",
+                    JOptionPane.YES_NO_OPTION);
+            if (ktra == 0) {
+                this.dispose();
+                try {
+                    new LoginPage();
+                } catch (InterruptedException e1) {
+                    System.out.println(e1);
+                }
             }
         }
         if (e.getSource() == btNhanvien) {
             OffPageQLSACH(true);
             OffBTBgSelected();
-            btNhanvien.setBackground(Color.green);
+            btNhanvien.setBackground(ColorPurple);
         }
     }
 
@@ -285,11 +306,11 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
                 txMaNV.setText(nhanvien.getMaNV().trim());
                 txTenNV.setText(nhanvien.getTenNV().trim());
                 txChucvu.setText(String.valueOf(nhanvien.getChucvu()));
-                txLuongCB.setText(String.valueOf(nhanvien.getLuongCB()));
-                txPhucap.setText(String.valueOf(nhanvien.getPhucap()));
+                txLuongCB.setText(String.format("%,d", nhanvien.getLuongCB()));
+                txPhucap.setText(String.format("%,d", nhanvien.getPhucap()));
                 txHesoluong.setText(String.valueOf(nhanvien.getHesoluong()));
                 txSDT.setText(String.valueOf(nhanvien.getSDT()));
-                txEmail.setText(String.format(nhanvien.getMail()));
+                txEmail.setText(String.valueOf(nhanvien.getMail()));
             }
         }
 
@@ -321,7 +342,7 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
             txSDT.setToolTipText("Gợi ý: 3000");
         } else if (e.getSource() == txEmail) {
             txEmail.setToolTipText("Gợi ý: 915656572 ");
-        }else if (e.getSource() == txEmail) {
+        } else if (e.getSource() == txEmail) {
             txEmail.setToolTipText("Gợi ý: nguyenvana@gmail.com ");
         }
     }
@@ -367,8 +388,7 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
         // labelLCTK
         lbLCTK = new JLabel("Lựa chọn khóa tìm kiếm:");
         lbLCTK.setFont(new Font("Arial", Font.BOLD, 18));
-        lbLCTK.setBounds(10, 50, 230, 80);
-
+        lbLCTK.setBounds(10, 100, 230, 80);
         // labelTuKhoaTK
         lbTuKhoaTK = new JLabel("Nhập từ khóa tìm kiếm:");
         lbTuKhoaTK.setFont(new Font("Arial", Font.BOLD, 18));
@@ -389,7 +409,7 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
         txChucvu.setBounds(160, 105, 180, 30);
         txChucvu.setFont(new Font("Arial", Font.PLAIN, 15));
         txChucvu.addMouseListener(this);
-        // JTextField Lương cơ bản  
+        // JTextField Lương cơ bản
         txLuongCB = new JTextField();
         txLuongCB.setBounds(160, 145, 180, 30);
         txLuongCB.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -450,7 +470,7 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
         btHoanTac.addActionListener(this);
 
         // set up ComboBox
-        String[] dsKhoaTK = { "", "Mã Nhân Viên", "Tên Nhân Viên"};
+        String[] dsKhoaTK = { "", "Mã Nhân Viên", "Tên Nhân Viên" };
         comboBoxDSKhoaTK = new JComboBox<>(dsKhoaTK);
         comboBoxDSKhoaTK.setFont(new Font("Arial", Font.BOLD, 13));
         comboBoxDSKhoaTK.setBounds(260, 85, 120, 35);
@@ -562,7 +582,7 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
         tblQLNHANVIEN = new JTable();
         JScrollPane pane = new JScrollPane(tblQLNHANVIEN);
         pane.setAutoscrolls(true);
-        tblQLNHANVIEN.setRowHeight(20);
+        tblQLNHANVIEN.setRowHeight(30);
         tblQLNHANVIEN.setFont(new Font(null, 0, 13));
         tblQLNHANVIEN.setBackground(Color.LIGHT_GRAY);
         tblQLNHANVIEN.addMouseListener(this);
@@ -594,29 +614,39 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
         pnShowAll.add(btSapXep);
     }
 
-
     public void ShowOnTable(NHANVIEN nhanvien) {
         Vector<String> row = new Vector<String>();
         row.add(nhanvien.getMaNV().trim());
         row.add(nhanvien.getTenNV().trim());
         row.add(String.valueOf(nhanvien.getChucvu()));
-        row.add(String.valueOf(nhanvien.getLuongCB()));
-        row.add(String.valueOf(nhanvien.getPhucap()));
+        row.add(String.format("%,d", nhanvien.getLuongCB()));
+        row.add(String.format("%,d", nhanvien.getPhucap()));
         row.add(String.valueOf(nhanvien.getHesoluong()));
         row.add(String.valueOf(nhanvien.getSDT()));
-        row.add( nhanvien.getMail().trim());
+        row.add(nhanvien.getMail().trim());
         model.addRow(row);
     }
 
     public void getInfoTextField(NHANVIEN nhanvien) {
-        nhanvien.setMaNV(txMaNV.getText());
-        nhanvien.setTenNV(txTenNV.getText());
-        nhanvien.setChucvu(Integer.parseInt(txChucvu.getText()));
-        nhanvien.setLuongCB(Integer.parseInt(txLuongCB.getText()));
-        nhanvien.setPhucap(Integer.parseInt(txPhucap.getText()));
-        nhanvien.setHesoluong(Integer.parseInt(txHesoluong.getText()));
-        nhanvien.setSDT(Integer.parseInt(txSDT.getText()));
-        nhanvien.setMail(txEmail.getText());
+        String luongCB = RemoveCommaInString(txLuongCB);
+        String phucap = RemoveCommaInString(txPhucap);
+        nhanvien.setMaNV(txMaNV.getText().trim());
+        nhanvien.setTenNV(txTenNV.getText().trim());
+        nhanvien.setChucvu(String.valueOf(txChucvu.getText().trim()));
+        nhanvien.setLuongCB(Integer.parseInt(luongCB));
+        nhanvien.setPhucap(Integer.parseInt(phucap));
+        nhanvien.setHesoluong(Double.parseDouble(txHesoluong.getText().trim()));
+        nhanvien.setSDT(Integer.parseInt(txSDT.getText().trim()));
+        nhanvien.setMail(txEmail.getText().trim());
+    }
+
+    public String RemoveCommaInString(JTextField DonGia) {
+        String tmp[] = DonGia.getText().split(",");
+        String Dongia = "";
+        for (int i = 0; i < tmp.length; i++) {
+            Dongia = Dongia + tmp[i];
+        }
+        return Dongia;
     }
 
     public void getDatabase() {
@@ -671,7 +701,7 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
 
             btSearch = new JButton("Tìm kiếm");
             btSearch.setFont(new Font("Arial", Font.BOLD, 15));
-            btSearch.setBounds(360, 175, 100, 35);
+            btSearch.setBounds(315, 165, 90, 30);
             btSearch.setBackground(Color.cyan);
             btSearch.setBorder(new RoundedBorder(10));
             btSearch.addActionListener(this);

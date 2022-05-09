@@ -36,20 +36,6 @@ public class QLNHANVIENBUS {
         }
     }
 
-    public int themDataExcel(NHANVIEN nhanvien) throws Exception {
-        if (KTMa(nhanvien.getMaNV().trim()) == 0) {
-            JOptionPane.showMessageDialog(null, "Mã nhân viên vừa nhập bị trùng. Mời nhập lại!", "Lỗi",
-                    JOptionPane.ERROR_MESSAGE);
-            return -1;
-        }else {
-            // Truy cập vào database
-            QLNHANVIENDAO data = new QLNHANVIENDAO();
-            data.themDataExcel(nhanvien);
-            dsnhanvien.add(nhanvien);
-            return 1;
-        }
-    }
-
     public void sua(NHANVIEN nhanvienmoi, NHANVIEN nhanviencu, int i) throws Exception {
         // Truy cập vào database
         QLNHANVIENDAO data = new QLNHANVIENDAO();
@@ -57,9 +43,9 @@ public class QLNHANVIENBUS {
         dsnhanvien.set(i, nhanvienmoi);
     }
 
-    public void xoa(String MaSV, int i) throws Exception {
+    public void xoa(String MaNV, int i) throws Exception {
         QLNHANVIENDAO data = new QLNHANVIENDAO();
-        data.xoa(MaSV);
+        data.xoa(MaNV);
         dsnhanvien.remove(i);
     }
 

@@ -139,13 +139,14 @@ public class QLMUONDAO {
     }
     public void them(PHIEUMUON phieumuon) {
         try {
-            String qry = "INSERT INTO SACH VALUES (?,?,?,?,?)";
+            String qry = "INSERT INTO PHIEUMUON VALUES (?,?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(qry);
             ps.setString(1, phieumuon.getMaPM());
             ps.setString(2, phieumuon.getNgaymuon());
             ps.setString(3, String.valueOf(phieumuon.getSLtong()));
             ps.setString(4, phieumuon.getNgaytra());
-            ps.setString(5, phieumuon.getMaDG());
+            ps.setString(5, phieumuon.getTinhTrangMuon());
+            ps.setString(6, phieumuon.getMaDG());
 
             int n = ps.executeUpdate();
             if (n != 0) {

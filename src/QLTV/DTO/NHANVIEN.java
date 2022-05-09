@@ -3,14 +3,14 @@ package QLTV.DTO;
 public class NHANVIEN {
     private String MaNV;
     private String TenNV;
-    private int Chucvu;
+    private String Chucvu;
     private int LuongCB;
     private int Phucap;
     private double Hesoluong;
     private int SDT;
     private String Mail;
     public NHANVIEN(){}
-    public NHANVIEN(String MaNV,String TenNV,int Chucvu,int LuongCB,int Phucap,double Hesoluong,int SDT,String Mail){
+    public NHANVIEN(String MaNV,String TenNV,String Chucvu,int LuongCB,int Phucap,double Hesoluong,int SDT,String Mail){
         this.MaNV = MaNV;
         this.TenNV = TenNV;
         this.Chucvu = Chucvu;
@@ -26,7 +26,7 @@ public class NHANVIEN {
     public void setTenNV(String TenNV){
         this.TenNV = TenNV;
     }
-    public void setChucvu(int Chucvu){
+    public void setChucvu(String Chucvu){
         this.Chucvu = Chucvu;
     }
     public void setLuongCB(int LuongCB){
@@ -50,7 +50,7 @@ public class NHANVIEN {
     public String getTenNV(){
         return TenNV;
     }
-    public int getChucvu(){
+    public String getChucvu(){
         return Chucvu;
     }
     public int getLuongCB(){

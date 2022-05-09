@@ -95,7 +95,7 @@ public class QLMUONBUS {
 
     public int them(PHIEUMUON phieumuon) throws Exception {
         if (KTMa(phieumuon.getMaPM()) == 0) {
-            JOptionPane.showMessageDialog(null, "Mã sinh viên vừa nhập bị trùng. Mời nhập lại!", "Lỗi",
+            JOptionPane.showMessageDialog(null, "Mã phiếu mượn vừa nhập bị trùng. Mời nhập lại!", "Lỗi",
                     JOptionPane.ERROR_MESSAGE);
             return -1;
         } else {
