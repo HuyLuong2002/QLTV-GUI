@@ -46,40 +46,28 @@ import QLTV.DTO.PHIEUTRASACH;
 
 public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
     JPanel pnMuonTra, pnTabMuon, pnTabTra, pnTabTienPhat, pnShowAll, pnMuon, pnCTMuon, pnNhapPM,
-<<<<<<< HEAD
-            pnTimKiemPM, pnLocPM, pnNhapPT, pnTimKiemPT, pnLocPT, pnTra, pnCTTra;
-=======
             pnTimKiemPM, pnLocPM, pnNhapPT, pnTimKiemPT, pnLocPT, pnTra, pnCTTra, pnHDTP, pnCTHDTP;
->>>>>>> 80da50e157630b12aaa64f50b09ff5b1146bdb93
     JLabel lbHome, lbMaPM, lbNgayMuon, lbSLtong, lbNgayTra, lbTinhTrangMuon,
-<<<<<<< HEAD
             lbMaDG, lbLCTK, lbTuKhoaTK, lbNgayBD, lbNgayKT;
     JButton btThoat, btSua, btThem, btXoa, btHoanTac;
     JButton btShowAll, btTimKiem, btLoc, btInPM;
     JTextField txMaPM, txSLtong, txMaDG, txKhoaTK;
     JComboBox<String> cbTinhTrangMuon, cbDSKhoaTK;
-=======
-            lbMaDG, lbLCTKPM, lbTuKhoaTKPM, lbLCTKPT, lbTuKhoaTKPT, lbNgayBD, lbNgayKT, lbMaPT, lbNgayTraPT,
-            lbTinhTrangSach, lbTienThue, lbThanhTien, lbMaPMTra;
     JButton btMenu, btSach, btMT, btQLNV, btDangXuat, btNhapSach, btThoat, btMenuTimKiem, btThongKe;
     JButton btShowAll, btTimKiemPM, btLocPM, btInPM, btTimKiemPT, btLocPT;
     JTextField txMaPM, txSLtong, txMaDG, txKhoaTKPM, txKhoaTKPT, txMaPT, txTienThue, txThanhTien, txMaPMTra;
     JComboBox<String> cbTinhTrangMuon, cbTinhTrangTra, cbDSKhoaTKPM, cbDSKhoaTKPT;
->>>>>>> 2e9da2c8711846a07f27a86e09e310dd42ff5c5b
 
-<<<<<<< HEAD
     TitledBorder titleMuon, titleTra;
     JTabbedPane tabbedPane;
 
     public JTable tblQLMuon, tblQLCTMuon, tblQLTra, tblQLCTTra;
     public DefaultTableModel modelMuon, modelCTMuon, modelTra, modelCTTra;
-=======
     TitledBorder titleMuon, titleTra, titleHDTP, titleCTHDTP;
     JTabbedPane tabbedPane;
 
     public JTable tblQLMuon, tblQLCTMuon, tblQLTra, tblQLCTTra, tblQLHDTP, tblQLCTHDTP;
     public DefaultTableModel modelMuon, modelCTMuon, modelTra, modelCTTra, modelHDTP, modelCTHDTP;
->>>>>>> 80da50e157630b12aaa64f50b09ff5b1146bdb93
 
     UtilDateModel modelNgayBDMuon, modelNgayKTMuon;
     Properties pNgayBDMuon, pNgayKTMuon;
@@ -97,14 +85,11 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
     JDatePanelImpl datePanelNgayBDPM, datePanelNgayKTPM;
     JDatePickerImpl datePickerNgayBDPM, datePickerNgayKTPM;
 
-<<<<<<< HEAD
     Vector<String> header;
-=======
     UtilDateModel modelNgayBDPT;
     Properties pNgayBDPT;
     JDatePanelImpl datePanelNgayBDPT;
     JDatePickerImpl datePickerNgayBDPT;
->>>>>>> 2e9da2c8711846a07f27a86e09e310dd42ff5c5b
 
     public QLMTGUI() {
     }
@@ -151,8 +136,6 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
 
             pnCTTra = new JPanel();
             pnCTTra.setLayout(new GridLayout(1, 1));
-<<<<<<< HEAD
-=======
 
             // panel tab tiền phạt
             pnHDTP = new JPanel();
@@ -160,7 +143,6 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
 
             pnCTHDTP = new JPanel();
             pnCTHDTP.setLayout(new GridLayout(1, 1));
->>>>>>> 80da50e157630b12aaa64f50b09ff5b1146bdb93
 
             pnNhapPT = new JPanel();
             pnNhapPT.setLayout(null);
@@ -203,12 +185,9 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             pnTabTra.add(pnTra);
             pnTabTra.add(pnCTTra);
 
-<<<<<<< HEAD
-=======
             pnTabTienPhat.add(pnHDTP);
             pnTabTienPhat.add(pnCTHDTP);
 
->>>>>>> 80da50e157630b12aaa64f50b09ff5b1146bdb93
             // Phiếu mượn, chi tiết mượn
             setTitlePM();
             setTableMuon();
@@ -231,8 +210,6 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             setLocPT();
             getDBTra();
             setValueCellCenter(modelTra, tblQLTra);
-<<<<<<< HEAD
-=======
 
             // Hóa đơn tiền phạt, chi tiết hóa đơn
             setTitleHDTP();
@@ -243,7 +220,6 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             setValueCellCenter(modelHDTP, tblQLHDTP);
             setValueCellCenter(modelCTHDTP, tblQLCTHDTP);
 
->>>>>>> 80da50e157630b12aaa64f50b09ff5b1146bdb93
         }
         return pnMuonTra;
     }
