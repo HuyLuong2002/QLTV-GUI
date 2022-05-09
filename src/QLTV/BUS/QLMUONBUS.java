@@ -1,7 +1,7 @@
 package QLTV.BUS;
 
 import java.util.ArrayList;
-
+import javax.swing.JOptionPane;
 import QLTV.DAO.QLMUONDAO;
 import QLTV.DTO.PHIEUMUON;
 
@@ -91,5 +91,34 @@ public class QLMUONBUS {
             if (String.valueOf(pm.getMaDG().trim()).indexOf(MaDG) >= 0)
                 kq.add(pm);
         return kq;
+    }
+
+    public int them(PHIEUMUON phieumuon) throws Exception {
+        if (KTMa(phieumuon.getMaPM()) == 0) {
+            JOptionPane.showMessageDialog(null, "Mã sinh viên vừa nhập bị trùng. Mời nhập lại!", "Lỗi",
+                    JOptionPane.ERROR_MESSAGE);
+            return -1;
+        } else {
+            // Truy cập vào database
+            QLMUONDAO data = new QLMUONDAO();
+            data.them(phieumuon);
+            dspm.add(phieumuon);
+            return 1;
+        }
+    }
+
+    public int KTMa(String MaPmMoi) {
+        for (PHIEUMUON phieumuon : dspm)
+            if (phieumuon.getMaPM().trim().equals(MaPmMoi)) {
+                return 0;
+            }
+        return 1;
+    }
+
+    public int KTSL(int SLtongmoi, int SLmoi) {
+        if (SLtongmoi < SLmoi) {
+            return 0;
+        }
+        return 1;
     }
 }
