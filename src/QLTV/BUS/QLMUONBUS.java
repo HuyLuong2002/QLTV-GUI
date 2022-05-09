@@ -8,6 +8,7 @@ import QLTV.DTO.PHIEUMUON;
 public class QLMUONBUS {
     public static ArrayList<PHIEUMUON> dspm;
     public static ArrayList<PHIEUMUON> htXoa = new ArrayList<PHIEUMUON>();
+    public static ArrayList<PHIEUMUON> htSua = new ArrayList<PHIEUMUON>();
 
     public QLMUONBUS() {
 
@@ -107,6 +108,12 @@ public class QLMUONBUS {
         }
     }
 
+    public void sua(PHIEUMUON phieumuonmoi, PHIEUMUON phieumuoncu, int i) throws Exception {
+        // Truy cập vào database
+        QLMUONDAO data = new QLMUONDAO();
+        data.sua(phieumuonmoi, phieumuoncu);
+        dspm.set(i, phieumuonmoi);
+    }
     public int KTMa(String MaPmMoi) {
         for (PHIEUMUON phieumuon : dspm)
             if (phieumuon.getMaPM().trim().equals(MaPmMoi)) {
