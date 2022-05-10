@@ -50,9 +50,11 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
     JPanel pnMuonTra, pnTabMuon, pnTabTra, pnTabTienPhat, pnShowAll, pnMuon, pnCTMuon, pnNhapPM,
             pnTimKiemPM, pnLocPM, pnNhapPT, pnTimKiemPT, pnLocPT, pnTra, pnCTTra, pnHDTP, pnCTHDTP;
     JLabel lbHome, lbMaPM, lbNgayMuon, lbSLtong, lbNgayTra, lbTinhTrangMuon,
-            lbMaDG, lbLCTK, lbTuKhoaTK, lbNgayBD, lbNgayKT;
-    JButton btThoat, btSua, btThem, btXoa, btHoanTac;
-    JTextField txMaPM, txSLtong, txMaDG, txKhoaTK;
+            lbMaDG, lbLCTK, lbTuKhoaTK, lbNgayBD, lbNgayKT, lbNhapPM, lbNhapCTPM;
+    JLabel lbCTPMMaPM, lbCTPMMaSach, lbCTPMSL;
+    JButton btThoat, btSuaPM, btThemPM, btXoa, btHoanTac,
+            btSuaCTPM, btThemCTPM;
+    JTextField txMaPM, txSLtong, txMaDG, txKhoaTK, txCTPMMaPM, txCTPMMaSach, txCTPMSL;
     JComboBox<String> cbTinhTrangMuon, cbDSKhoaTK;
     JLabel lbLCTKPM, lbTuKhoaTKPM, lbLCTKPT, lbTuKhoaTKPT, lbMaPT, lbNgayTraPT,
             lbTinhTrangSach, lbTienThue, lbThanhTien, lbMaPMTra;
@@ -109,20 +111,20 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             pnCTMuon.setLayout(new GridLayout(1, 1));
 
             pnShowAll = new JPanel();
-            pnShowAll.setBounds(5, 358, 1135, 50);
+            pnShowAll.setBounds(5, 353, 1135, 50);
             pnShowAll.setLayout(null);
 
             pnNhapPM = new JPanel();
             pnNhapPM.setLayout(null);
-            pnNhapPM.setBounds(5, 410, 1137, 370);
+            pnNhapPM.setBounds(5, 405, 1135, 370);
 
             pnTimKiemPM = new JPanel();
             pnTimKiemPM.setLayout(null);
-            pnTimKiemPM.setBounds(570, 0, 567, 200);
+            pnTimKiemPM.setBounds(720, 0, 413, 200);
 
             pnLocPM = new JPanel();
             pnLocPM.setLayout(null);
-            pnLocPM.setBounds(570, 195, 300, 155);
+            pnLocPM.setBounds(720, 195, 300, 155);
 
             // panel tab trả
             pnTabTra = new JPanel();
@@ -191,6 +193,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             setTableCTMuon();
             setShowAll();
             setInputMuon();
+            setInputCTPM();
             setTimKiemPM();
             setLocPM();
             getDBMuon();
@@ -309,10 +312,10 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         if (e.getSource() == btInPM) {
             new BangTTPM();
         }
-        if (e.getSource() == btThem) {
+        if (e.getSource() == btThemPM) {
             try {
                 PHIEUMUON phieumuon = new PHIEUMUON();
-                getInfoTextField(phieumuon);
+                getInfoTextFieldPM(phieumuon);
                 // Truy cập vào bus
                 QLMUONBUS qlphieumuonbus = new QLMUONBUS();
                 int kiemtra = 0;
@@ -339,13 +342,14 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             } catch (Exception e1) {
                 System.out.println(e1);
             }
-        } else if(e.getSource() == btSua){
+        }
+        if(e.getSource() == btSuaPM){
             int i = tblQLMuon.getSelectedRow();
 
             if (i >= 0) {
                 PHIEUMUON phieumuon = new PHIEUMUON();
                 PHIEUMUON MaPMCu = QLMUONBUS.dspm.set(i, phieumuon);
-                getInfoTextField(phieumuon);
+                getInfoTextFieldPM(phieumuon);
                 try {
                     QLMUONBUS qlphieumuonbus = new QLMUONBUS();
                     qlphieumuonbus.sua(phieumuon, MaPMCu, i);
@@ -356,6 +360,53 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                     modelMuon.setValueAt(phieumuon.getTinhTrangMuon(), i, 4);
                     modelMuon.setValueAt(phieumuon.getMaDG(), i, 5);
                     tblQLMuon.setModel(modelMuon);
+                } catch (Exception e1) {
+                    System.out.println(e1);
+                }
+            }
+        }
+        if (e.getSource() == btThemCTPM) {
+            try {
+                CHITIETPHIEUMUON ctphieumuon = new CHITIETPHIEUMUON();
+                getInfoTextFieldCTPM(ctphieumuon);
+                // Truy cập vào bus
+                QLCTMUONBUS qlctphieumuonbus = new QLCTMUONBUS();
+                int kiemtra = 0;
+                try {
+                    kiemtra = qlctphieumuonbus.them(ctphieumuon);
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+                if (kiemtra == 1) {
+                    // Đưa dữ liệu lên table
+                    header = new Vector<String>();
+                    header.add("Mã phiếu mượn");
+                    header.add("Mã sách");
+                    header.add("SL");
+                    if (modelCTMuon.getRowCount() == 0) {
+                        modelCTMuon = new DefaultTableModel(header, 0);
+                    }
+                    ShowOnTableCTPM(ctphieumuon);
+                    tblQLCTMuon.setModel(modelCTMuon);
+                }
+            } catch (Exception e1) {
+                System.out.println(e1);
+            }
+        }
+        if(e.getSource() == btSuaCTPM){
+            int i = tblQLCTMuon.getSelectedRow();
+
+            if (i >= 0) {
+                CHITIETPHIEUMUON ctphieumuon = new CHITIETPHIEUMUON();
+                CHITIETPHIEUMUON MaCTPMCu = QLCTMUONBUS.dsctpm.set(i, ctphieumuon);
+                getInfoTextFieldCTPM(ctphieumuon);
+                try {
+                    QLCTMUONBUS qlctphieumuonbus = new QLCTMUONBUS();
+                    qlctphieumuonbus.sua(ctphieumuon, MaCTPMCu, i);
+                    modelMuon.setValueAt(ctphieumuon.getMaPM(), i, 0);
+                    modelMuon.setValueAt(ctphieumuon.getMasach(), i, 1);
+                    modelMuon.setValueAt(ctphieumuon.getSL(), i, 2);
+                    tblQLCTMuon.setModel(modelCTMuon);
                 } catch (Exception e1) {
                     System.out.println(e1);
                 }
@@ -832,42 +883,46 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
     }
 
     public void setInputMuon() {
+        lbNhapPM = new JLabel("Phiếu Mượn");
+        lbNhapPM.setFont(new Font("Arial", Font.BOLD, 20));
+        lbNhapPM.setBounds(100, 0, 180, 80);
+
         lbMaPM = new JLabel("Mã phiếu mượn:");
-        lbMaPM.setFont(new Font("Arial", Font.BOLD, 20));
-        lbMaPM.setBounds(0, 0, 200, 100);
+        lbMaPM.setFont(new Font("Arial", Font.BOLD, 18));
+        lbMaPM.setBounds(0, 40, 150, 80);
 
         lbNgayMuon = new JLabel("Ngày mượn:");
-        lbNgayMuon.setFont(new Font("Arial", Font.BOLD, 20));
-        lbNgayMuon.setBounds(0, 50, 200, 100);
+        lbNgayMuon.setFont(new Font("Arial", Font.BOLD, 18));
+        lbNgayMuon.setBounds(0, 85, 150, 80);
 
         lbSLtong = new JLabel("SL tổng:");
-        lbSLtong.setFont(new Font("Arial", Font.BOLD, 20));
-        lbSLtong.setBounds(0, 100, 200, 100);
+        lbSLtong.setFont(new Font("Arial", Font.BOLD, 18));
+        lbSLtong.setBounds(0, 130, 150, 80);
 
         lbNgayTra = new JLabel("Ngày trả:");
-        lbNgayTra.setFont(new Font("Arial", Font.BOLD, 20));
-        lbNgayTra.setBounds(0, 150, 200, 100);
+        lbNgayTra.setFont(new Font("Arial", Font.BOLD, 18));
+        lbNgayTra.setBounds(0, 175, 150, 80);
 
         lbTinhTrangMuon = new JLabel("Tình trạng mượn:");
-        lbTinhTrangMuon.setFont(new Font("Arial", Font.BOLD, 20));
-        lbTinhTrangMuon.setBounds(0, 200, 200, 100);
+        lbTinhTrangMuon.setFont(new Font("Arial", Font.BOLD, 18));
+        lbTinhTrangMuon.setBounds(0, 220, 170, 80);
 
         lbMaDG = new JLabel("Mã độc giả:");
-        lbMaDG.setFont(new Font("Arial", Font.BOLD, 20));
-        lbMaDG.setBounds(0, 250, 200, 100);
+        lbMaDG.setFont(new Font("Arial", Font.BOLD, 18));
+        lbMaDG.setBounds(0, 265, 150, 80);
 
         txMaPM = new JTextField();
-        txMaPM.setBounds(200, 35, 150, 30);
+        txMaPM.setBounds(175, 65, 150, 30);
         txMaPM.setFont(new Font("Arial", Font.PLAIN, 15));
         txMaPM.addMouseListener(this);
 
         txSLtong = new JTextField();
-        txSLtong.setBounds(200, 135, 150, 30);
+        txSLtong.setBounds(175, 155, 150, 30);
         txSLtong.setFont(new Font("Arial", Font.PLAIN, 15));
         txSLtong.addMouseListener(this);
 
         txMaDG = new JTextField();
-        txMaDG.setBounds(200, 285, 150, 30);
+        txMaDG.setBounds(175, 290, 150, 30);
         txMaDG.setFont(new Font("Arial", Font.PLAIN, 15));
         txMaDG.addMouseListener(this);
 
@@ -875,7 +930,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         String[] dsTinhTrangMuon = { "", "Đang mượn", "Hết mượn" };
         cbTinhTrangMuon = new JComboBox<>(dsTinhTrangMuon);
         cbTinhTrangMuon.setFont(new Font("Arial", Font.BOLD, 13));
-        cbTinhTrangMuon.setBounds(200, 235, 120, 30);
+        cbTinhTrangMuon.setBounds(175, 245, 150, 30);
         cbTinhTrangMuon.addActionListener(this);
 
         // Set date picker1
@@ -887,7 +942,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         pNgayBDPM.put("text.year", "Year");
         datePanelNgayBDPM = new JDatePanelImpl(modelNgayBDPM, pNgayBDPM);
         datePickerNgayBDPM = new JDatePickerImpl(datePanelNgayBDPM, new DateLabelFormatter());
-        datePickerNgayBDPM.setBounds(200, 85, 150, 30);
+        datePickerNgayBDPM.setBounds(175, 110, 150, 30);
 
         // Set date picker2
         modelNgayKTPM = new UtilDateModel();
@@ -898,21 +953,21 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         pNgayKTPM.put("text.year", "Year");
         datePanelNgayKTPM = new JDatePanelImpl(modelNgayKTPM, pNgayKTPM);
         datePickerNgayKTPM = new JDatePickerImpl(datePanelNgayKTPM, new DateLabelFormatter());
-        datePickerNgayKTPM.setBounds(200, 185, 150, 30);
+        datePickerNgayKTPM.setBounds(175, 200, 150, 30);
 
-        btThem = new JButton("Thêm");
-        btThem.setFont(new Font("Arial", Font.BOLD, 15));
-        btThem.setBounds(400, 200, 80, 30);
-        btThem.setBackground(Color.cyan);
-        btThem.setBorder(new RoundedBorder(10));
-        btThem.addActionListener(this);
+        btThemPM = new JButton("Thêm");
+        btThemPM.setFont(new Font("Arial", Font.BOLD, 15));
+        btThemPM.setBounds(95, 325, 80, 30);
+        btThemPM.setBackground(Color.cyan);
+        btThemPM.setBorder(new RoundedBorder(10));
+        btThemPM.addActionListener(this);
 
-        btSua = new JButton("Sửa");
-        btSua.setFont(new Font("Arial", Font.BOLD, 15));
-        btSua.setBounds(110, 305, 80, 30);
-        btSua.setBackground(Color.cyan);
-        btSua.setBorder(new RoundedBorder(10));
-        btSua.addActionListener(this);
+        btSuaPM = new JButton("Sửa");
+        btSuaPM.setFont(new Font("Arial", Font.BOLD, 15));
+        btSuaPM.setBounds(245, 325, 80, 30);
+        btSuaPM.setBackground(Color.cyan);
+        btSuaPM.setBorder(new RoundedBorder(10));
+        btSuaPM.addActionListener(this);
 
         btXoa = new JButton("Xóa");
         btXoa.setFont(new Font("Arial", Font.BOLD, 15));
@@ -928,6 +983,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         btHoanTac.setBorder(new RoundedBorder(10));
         btHoanTac.addActionListener(this);
 
+        pnNhapPM.add(lbNhapPM);
         pnNhapPM.add(lbMaPM);
         pnNhapPM.add(lbNgayMuon);
         pnNhapPM.add(lbSLtong);
@@ -943,9 +999,67 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         pnNhapPM.add(datePickerNgayBDPM);
         pnNhapPM.add(datePickerNgayKTPM);
 
-        pnNhapPM.add(btThem);
+        pnNhapPM.add(btThemPM);
+        pnNhapPM.add(btSuaPM);
     }
 
+    public void setInputCTPM(){
+        lbNhapCTPM = new JLabel("CT Phiếu Mượn");
+        lbNhapCTPM.setFont(new Font("Arial", Font.BOLD, 20));
+        lbNhapCTPM.setBounds(450, 0, 200, 80);
+
+        lbCTPMMaPM = new JLabel("Mã Phiếu Mượn:");
+        lbCTPMMaPM.setFont(new Font("Arial", Font.BOLD, 18));
+        lbCTPMMaPM.setBounds(390, 40, 150, 80);
+
+        lbCTPMMaSach = new JLabel("Mã Sách:");
+        lbCTPMMaSach.setFont(new Font("Arial", Font.BOLD, 18));
+        lbCTPMMaSach.setBounds(390, 85, 150, 80);
+
+        lbCTPMSL = new JLabel("Số lượng:");
+        lbCTPMSL.setFont(new Font("Arial", Font.BOLD, 18));
+        lbCTPMSL.setBounds(390, 130, 150, 80);
+
+        txCTPMMaPM = new JTextField();
+        txCTPMMaPM.setBounds(550, 65, 130, 30);
+        txCTPMMaPM.setFont(new Font("Arial", Font.PLAIN, 15));
+        txCTPMMaPM.setEditable(false);
+
+        txCTPMMaSach = new JTextField();
+        txCTPMMaSach.setBounds(550, 110, 130, 30);
+        txCTPMMaSach.setFont(new Font("Arial", Font.PLAIN, 15));
+        txCTPMMaSach.setEditable(false);
+
+        txCTPMSL = new JTextField();
+        txCTPMSL.setBounds(550, 155, 130, 30);
+        txCTPMSL.setFont(new Font("Arial", Font.PLAIN, 15));
+
+        btThemCTPM = new JButton("Thêm");
+        btThemCTPM.setFont(new Font("Arial", Font.BOLD, 15));
+        btThemCTPM.setBounds(440, 200, 80, 30);
+        btThemCTPM.setBackground(Color.cyan);
+        btThemCTPM.setBorder(new RoundedBorder(10));
+        btThemCTPM.addActionListener(this);
+
+        btSuaCTPM = new JButton("Sửa");
+        btSuaCTPM.setFont(new Font("Arial", Font.BOLD, 15));
+        btSuaCTPM.setBounds(600, 200, 80, 30);
+        btSuaCTPM.setBackground(Color.cyan);
+        btSuaCTPM.setBorder(new RoundedBorder(10));
+        btSuaCTPM.addActionListener(this);
+
+        pnNhapPM.add(lbNhapCTPM);
+        pnNhapPM.add(lbCTPMMaPM);
+        pnNhapPM.add(lbCTPMMaSach);
+        pnNhapPM.add(lbCTPMSL);
+
+        pnNhapPM.add(txCTPMMaPM);
+        pnNhapPM.add(txCTPMMaSach);
+        pnNhapPM.add(txCTPMSL);
+
+        pnNhapPM.add(btThemCTPM);
+        pnNhapPM.add(btSuaCTPM);
+    }
     public void setInputTra() {
         lbMaPT = new JLabel("Mã phiếu trả:");
         lbMaPT.setFont(new Font("Arial", Font.BOLD, 20));
@@ -1037,36 +1151,36 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
 
             // labelLCTK
             lbLCTKPM = new JLabel("Lựa chọn khóa tìm kiếm:");
-            lbLCTKPM.setFont(new Font("Arial", Font.BOLD, 20));
-            lbLCTKPM.setBounds(10, 30, 250, 100);
+            lbLCTKPM.setFont(new Font("Arial", Font.BOLD, 18));
+            lbLCTKPM.setBounds(5, 25, 230, 100);
 
             // labelTuKhoaTK
             lbTuKhoaTKPM = new JLabel("Nhập từ khóa tìm kiếm:");
-            lbTuKhoaTKPM.setFont(new Font("Arial", Font.BOLD, 20));
-            lbTuKhoaTKPM.setBounds(10, 80, 250, 100);
+            lbTuKhoaTKPM.setFont(new Font("Arial", Font.BOLD, 18));
+            lbTuKhoaTKPM.setBounds(5, 75, 230, 100);
 
             // JTextField Khóa tìm kiếm
             txKhoaTKPM = new JTextField();
             txKhoaTKPM.setFont(new Font("Arial", Font.PLAIN, 15));
-            txKhoaTKPM.setBounds(260, 115, 200, 35);
+            txKhoaTKPM.setBounds(250, 110, 150, 30);
 
             String[] dsKhoaTK = { "", "Mã phiếu mượn", "SL tổng", "Tình trạng mượn", "Mã độc giả" };
             cbDSKhoaTKPM = new JComboBox<>(dsKhoaTK);
             cbDSKhoaTKPM.setFont(new Font("Arial", Font.BOLD, 13));
-            cbDSKhoaTKPM.setBounds(260, 65, 120, 35);
+            cbDSKhoaTKPM.setBounds(250, 60, 120, 30);
             cbDSKhoaTKPM.addActionListener(this);
 
             TitledBorder titleTK;
             Border blackline;
             blackline = BorderFactory.createLineBorder(Color.black);
             titleTK = BorderFactory.createTitledBorder(blackline, "Tìm kiếm");
-            titleTK.setTitleFont(new Font("Arial", Font.BOLD, 28));
+            titleTK.setTitleFont(new Font("Arial", Font.BOLD, 25));
             titleTK.setTitleJustification(TitledBorder.CENTER);
             pnTimKiemPM.setBorder(titleTK);
 
             btTimKiemPM = new JButton("Tìm kiếm");
             btTimKiemPM.setFont(new Font("Arial", Font.BOLD, 15));
-            btTimKiemPM.setBounds(360, 155, 100, 35);
+            btTimKiemPM.setBounds(300, 155, 100, 30);
             btTimKiemPM.setBackground(Color.cyan);
             btTimKiemPM.setBorder(new RoundedBorder(10));
             btTimKiemPM.addActionListener(this);
@@ -1248,16 +1362,21 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         }
     }
 
-    public void getInfoTextField(PHIEUMUON phieumuon) {
+    public void getInfoTextFieldPM(PHIEUMUON phieumuon) {
         phieumuon.setMaPM(txMaPM.getText());
         phieumuon.setNgaymuon(datePickerNgayBDPM.getJFormattedTextField().getText());
         phieumuon.setSLtong(Integer.parseInt(txSLtong.getText()));
         phieumuon.setNgaytra(datePickerNgayKTPM.getJFormattedTextField().getText());
-        String TinhTrangMuon = (String) cbTinhTrangMuon.getSelectedItem().toString();
+        String TinhTrangMuon = (String) cbTinhTrangMuon.getSelectedItem();
         phieumuon.setTinhTrangMuon(TinhTrangMuon);
         phieumuon.setMaDG(txMaDG.getText());
         // String tmpDonGia = RemoveCommaInString(txDongia);
         // phieumuon.setDongia(Integer.parseInt(tmpDonGia));
     }
 
+    public void getInfoTextFieldCTPM(CHITIETPHIEUMUON ctphieumuon) {
+        ctphieumuon.setMaPM(txCTPMMaPM.getText());
+        ctphieumuon.setMasach(txCTPMMaSach.getText());
+        ctphieumuon.setSL(Integer.parseInt(txCTPMSL.getText()));
+    }
 }

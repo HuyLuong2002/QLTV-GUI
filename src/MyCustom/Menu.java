@@ -59,7 +59,7 @@ public class Menu extends JFrame implements ActionListener{
 
         labelQLTV = new JLabel("QUẢN LÝ THƯ VIỆN");
         labelQLTV.setFont(new Font("Arial", Font.BOLD, 35));
-        labelQLTV.setForeground(ColorRed);
+        labelQLTV.setForeground(Color.WHITE);
         labelQLTV.setBounds(320, 20, 400, 50);
         
         labelBackGroundMenu = new JLabel();
@@ -68,7 +68,7 @@ public class Menu extends JFrame implements ActionListener{
 
         labelLibrary = new JLabel();
         labelLibrary.setIcon(new ImageIcon("images\\user_login1.png"));
-        labelLibrary.setBounds(55, 25, 125, 125);;
+        labelLibrary.setBounds(55, 25, 125, 125);
 
         btSach = new JButton("Quản lý Sách");
         btNXB = new JButton("Nhà Xuất Bản");

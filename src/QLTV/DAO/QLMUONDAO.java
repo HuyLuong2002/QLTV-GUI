@@ -6,8 +6,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
-import java.util.Date;
-
 import javax.swing.JOptionPane;
 import MyCustom.MSSQLConnect;
 import QLTV.DTO.PHIEUMUON;
@@ -141,7 +139,7 @@ public class QLMUONDAO {
     }
     public void them(PHIEUMUON phieumuon) {
         try {
-            String qry = "INSERT INTO PHIEUMUON VALUES (?,?,?,?,?)";
+            String qry = "INSERT INTO PHIEUMUON VALUES (?,?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(qry);
             ps.setString(1, phieumuon.getMaPM());
             ps.setString(2, phieumuon.getNgaymuon());
@@ -163,7 +161,7 @@ public class QLMUONDAO {
 
     public void sua(PHIEUMUON phieumuonMoi, PHIEUMUON phieumuonCu){
         try {
-            String qry = "UPDATE PHIEUMUON SET MAPM= ?, NGAYMUON= ?, SLTONG= ?, NGAYTRA= ?, MADG= ?" + "WHERE MAPM= ?";
+            String qry = "UPDATE PHIEUMUON SET MAPM= ?, NGAYMUON= ?, SLTONG= ?, NGAYTRA= ?, MADG= ?" + " WHERE MAPM= ?";
             PreparedStatement ps = conn.prepareStatement(qry);
             ps.setString(1, phieumuonMoi.getMaPM());
             ps.setString(2, phieumuonMoi.getNgaymuon());

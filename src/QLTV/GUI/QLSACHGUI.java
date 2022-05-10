@@ -47,10 +47,10 @@ import QLTV.DTO.SACH;
 
 public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
     JPanel pnTTSach, pnNhapTTSach, pnShowAll, pnMenu, pnTimKiem, pnLoc;
-    JPanel pnMT, pnThongKe, pnQLNV;
+    JPanel pnMT, pnThongKe, pnQLNV, pnLibrary;
     JLabel lbHome, lbTTSach, lbMasach, lbTensach, lbMaNXB, lbMaTG, lbNamXB, lbSLtong, lbSL, lbDongia, lbLCTK,
             lbTuKhoaTK, lbKQTK;
-    JLabel lbTKNam, lbTKSL, lbNgayBD, lbNgayKT;
+    JLabel lbTKNam, lbTKSL, lbNgayBD, lbNgayKT, lbLibrary;
     JTextField txMasach, txTensach, txMaNXB, txMaTG, txNamXB, txSLtong, txSL, txDongia, txKhoaTK;
     JTextField txTKNam, txTKSL;
     JButton btThem, btSua, btXoa, btHoanTac, btMenuTimKiem, btShowAll, btThongKe;
@@ -71,7 +71,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
     Properties pNgayBD, pNgayKT;
     JDatePanelImpl datePanelNgayBD, datePanelNgayKT;
     JDatePickerImpl datePickerNgayBD, datePickerNgayKT;
-    Color ColorOcean, ColorPurple;
+    Color ColorOcean, ColorPurple, ColorDeepAqua;
 
     public QLSACHGUI() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -86,6 +86,14 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         pnMenu = new JPanel();
         pnTimKiem = new JPanel();
         pnLoc = new JPanel();
+        pnLibrary = new JPanel();
+
+        pnLibrary.setLayout(null);
+        pnLibrary.setBounds(0, 0, 240, 178);
+
+        lbLibrary = new JLabel();
+        lbLibrary.setIcon(new ImageIcon("images\\user_login.png"));
+        lbLibrary.setBounds(55, 25, 125, 125);
 
         pnTTSach.setLayout(new GridLayout(3, 1, 0, -300));
         pnTTSach.setBounds(242, 0, 1142, 400);
@@ -108,12 +116,17 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         // Color
         ColorOcean = new Color(0, 139, 139);
         ColorPurple = new Color(255, 20, 147);
+        ColorDeepAqua = new Color(64,224,220);
+
+        pnLibrary.setBackground(ColorDeepAqua);
         // add components
         this.add(pnMenu);
         this.add(pnShowAll);
         this.add(pnNhapTTSach);
         this.add(pnTimKiem);
+        this.add(pnLibrary);
         pnNhapTTSach.add(pnLoc);
+        pnLibrary.add(lbLibrary);
 
         setTableSach();
         setInput();
