@@ -36,7 +36,7 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
     JLabel lbHome, lbTTNXB, lbMaNXB, lbTenNXB, lbLCTK, lbTuKhoaTK, lbKQTK;
     JLabel lbTKMaNXB;
     JTextField txMaNXB, txTenNXB, txKhoaTK;
-    JButton btThem, btnxb, btSua, btXoa, btHoanTac, btMenuTimKiem, btShowAll, btThongKe;
+    JButton  btThem, btnxb, btSua, btXoa, btHoanTac, btMenuTimKiem, btShowAll, btThongKe;
     JButton btMenu, btSapXep, btDangXuat, btThoat;
     JButton btSearch;
 
@@ -56,6 +56,10 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
         this.setLayout(null);
         this.setLocationRelativeTo(null);
 
+        // Color
+        ColorOcean = new Color(0, 139, 139);
+        ColorPurple = new Color(255, 20, 147);
+
         pnTTNXB = new JPanel();
         pnNhapTTNXB = new JPanel();
         pnShowAll = new JPanel();
@@ -64,17 +68,14 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
         pnTTNXB.setLayout(new GridLayout(3, 1, 0, -300));
         pnTTNXB.setBounds(242, 0, 1142, 400);
         pnShowAll.setLayout(null);
-        pnShowAll.setBounds(300, 400, 1537, 40);
+        pnShowAll.setBounds(242, 402, 1142, 30);
         pnNhapTTNXB.setLayout(null);
-        pnNhapTTNXB.setBounds(200, 415, 820, 600);
+        pnNhapTTNXB.setBounds(242, 415, 720, 550);
         pnMenu.setLayout(new GridLayout(9, 1));
         pnMenu.setBounds(0, 178, 240, 590);
+        pnMenu.setBackground(ColorOcean);
         pnTimKiem.setLayout(null);
-        pnTimKiem.setBounds(970, 440, 410, 300);
-
-        // Color
-        ColorOcean = new Color(0, 139, 139);
-        ColorPurple = new Color(255, 20, 147);
+        pnTimKiem.setBounds(970, 440, 410, 300);      
 
         // add components
         this.add(pnMenu);
@@ -262,6 +263,7 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
             OffBTBgSelected();
             btnxb.setBackground(ColorPurple);
         }
+
         if (e.getSource() == btThoat) {
             int ktra = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất", "Xác nhận",
                     JOptionPane.YES_NO_OPTION);
@@ -383,6 +385,7 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
         btHoanTac.setBackground(Color.cyan);
         btHoanTac.setBorder(new RoundedBorder(10));
         btHoanTac.addActionListener(this);
+
         // set up ComboBox
         String[] dsKhoaTK = { "", "Mã Nhà Xuất Bản", "Tên Nhà Xuất Bản"};
         comboBoxDSKhoaTK = new JComboBox<>(dsKhoaTK);
@@ -410,7 +413,6 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
 
     public void setMenu() {
         // Set menu side left
-        ImageIcon iconHome = new ImageIcon("images\\home.png");
         ImageIcon iconMenu = new ImageIcon("images\\menu.png");
         ImageIcon iconPubCompany = new ImageIcon("images\\company-building-icon.png");
         ImageIcon iconSearch = new ImageIcon("images\\search.png");
@@ -419,7 +421,6 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
 
         lbHome = new JLabel();
         lbHome.setHorizontalAlignment(SwingConstants.CENTER);
-        lbHome.setIcon(iconHome);
 
         btMenu = new JButton("Menu");
         btMenu.setFont(new Font("Arial", Font.BOLD, 20));

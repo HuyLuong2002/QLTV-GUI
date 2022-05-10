@@ -74,7 +74,7 @@ public class QLTACGIABUS {
 
     public TACGIA timTheoMa(String Matacgia) {
         for (TACGIA sach : dstacgia)
-            if (sach.getMaTacGia().equals(Matacgia))
+            if (sach.getMaTacGia().trim().equals(Matacgia))
                 return sach;
         return null;
     }
@@ -82,7 +82,7 @@ public class QLTACGIABUS {
     public ArrayList<TACGIA> timTheoTen(String Tentacgia) {
         ArrayList<TACGIA> kq = new ArrayList<TACGIA>();
         for (TACGIA sach : dstacgia)
-            if (sach.getTenTacGia().indexOf(Tentacgia) >= 0)
+            if (sach.getTenTacGia().trim().indexOf(Tentacgia) >= 0)
                 kq.add(sach);
         return kq;
     }
