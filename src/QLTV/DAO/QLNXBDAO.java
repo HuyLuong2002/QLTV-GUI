@@ -41,7 +41,7 @@ public class QLNXBDAO {
 
     public void them(NXB nxb) {
         try {
-            String qry = "insert into NXB values  (" + "'" + nxb.getMaNXB() + "'"
+            String qry = "insert into NXB values  (" + "'" + nxb.getMaNXB().trim() + "'"
                     + "," + "N'" + nxb.getTenNXB() + "'" + ")";
             st = conn.createStatement();
             st.executeUpdate(qry);
@@ -67,7 +67,7 @@ public class QLNXBDAO {
         }
     }
 
-    public void sua(NXB nxbmoi, NXB nxbcu) {
+    public int sua(NXB nxbmoi, NXB nxbcu) {
         try {
             String qry = "update NXB set " + "MANXB=" + "'" + nxbmoi.getMaNXB() + "'" +
                     ",TENNXB=" + "N'" + nxbmoi.getTenNXB() + "'" + " " + "where MANXB='" + nxbcu.getMaNXB()
@@ -78,12 +78,15 @@ public class QLNXBDAO {
                 JOptionPane.showMessageDialog(null, "Sửa dữ liệu thành công", "Thông báo",
                         JOptionPane.INFORMATION_MESSAGE);
             }
+            return 0;
         } catch (SQLException e) {
+            System.out.println(e);
             JOptionPane.showMessageDialog(null, "Sửa dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return -1;
         }
     }
 
-    public void xoa(String MaNXB) {
+    public int xoa(String MaNXB) {
         try {
             String qry = "delete from NXB where MANXB='" + MaNXB + "'";
             st = conn.createStatement();
@@ -92,8 +95,11 @@ public class QLNXBDAO {
                 JOptionPane.showMessageDialog(null, "Xóa dữ liệu thành công", "Thông báo",
                         JOptionPane.INFORMATION_MESSAGE);
             }
+            return 0;
         } catch (SQLException e) {
+            System.out.println(e);
             JOptionPane.showMessageDialog(null, "Xóa dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return -1;
         }
     }
 

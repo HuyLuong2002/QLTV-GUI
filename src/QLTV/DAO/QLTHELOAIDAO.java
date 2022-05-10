@@ -1,6 +1,7 @@
 package QLTV.DAO;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -9,45 +10,46 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import MyCustom.MSSQLConnect;
-import QLTV.DTO.NHACUNGCAP;
-import QLTV.DTO.NXB;
+import QLTV.DTO.THELOAI;
 
-public class QLNCCDAO {
+public class QLTHELOAIDAO {
     Connection conn = null;
     Statement st = null;
     ResultSet rs = null;
 
-    public QLNCCDAO() throws Exception {
+    public QLTHELOAIDAO() throws Exception {
         MSSQLConnect connect = new MSSQLConnect();
         conn = connect.getConnection();
     }
 
-    public ArrayList<NHACUNGCAP> docDSSV() {
-        ArrayList<NHACUNGCAP> dsncc = new ArrayList<NHACUNGCAP>();
+    public ArrayList<THELOAI> docDSSV() {
+        ArrayList<THELOAI> dsnxb = new ArrayList<THELOAI>();
         try {
-            String qry = "select * from NHACUNGCAP";
+            String qry = "select * from THELOAI";
             st = conn.createStatement();
             rs = st.executeQuery(qry);
             while (rs.next()) {
-                NHACUNGCAP ncc = new NHACUNGCAP();
-                ncc.setId(rs.getString(1));
-                ncc.setName(rs.getString(2));
-                dsncc.add(ncc);
+                THELOAI theloai = new THELOAI();
+                theloai.setMaTL(rs.getString(1));
+                theloai.setTenTL(rs.getString(2));
+                theloai.setSLTL(Integer.valueOf(rs.getString(3)));
+                dsnxb.add(theloai);
             }
         } catch (SQLException e) {
-
             JOptionPane.showMessageDialog(null, "Đọc dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
-        return dsncc;
+        return dsnxb;
     }
 
-    public void them(NHACUNGCAP ncc) {
+    public void them(THELOAI theloai) {
         try {
-            String qry = "insert into NHACUNGCAP values  (" + "'" + ncc.getId().trim() + "'"
-                    + "," + "N'" + ncc.getName() + "'" + ")";
-            st = conn.createStatement();
-            st.executeUpdate(qry);
-            if (st != null) {
+            String qry = "INSERT INTO THELOAI VALUES (?,?,?)";
+            PreparedStatement ps = conn.prepareStatement(qry);
+            ps.setString(1, theloai.getMaTL());
+            ps.setString(2, theloai.getTenTL());
+            ps.setString(3, String.valueOf(theloai.getSLTL()));
+            int n = ps.executeUpdate();
+            if (n != 0) {
                 JOptionPane.showMessageDialog(null, "Thêm dữ liệu thành công", "Thông báo",
                         JOptionPane.INFORMATION_MESSAGE);
             }
@@ -57,22 +59,28 @@ public class QLNCCDAO {
         }
     }
 
-    public void hoantacXoa(NHACUNGCAP ncc) {
+    public void hoantacXoa(THELOAI theloai) {
         try {
-            String qry = "insert into NHACUNGCAP values  (" + "'" + ncc.getId() + "'"
-                    + "," + "N'" + ncc.getName() + "'" + ")";
-            st = conn.createStatement();
-            st.executeUpdate(qry);
+            String qry = "INSERT INTO THELOAI VALUES (?,?,?)";
+            PreparedStatement ps = conn.prepareStatement(qry);
+            ps.setString(1, theloai.getMaTL());
+            ps.setString(2, theloai.getTenTL());
+            ps.setString(3, String.valueOf(theloai.getSLTL()));
+            int n = ps.executeUpdate();
+            if (n != 0) {
+                JOptionPane.showMessageDialog(null, "Hoàn tác dữ liệu thành công", "Thông báo",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
         } catch (SQLException e) {
             System.out.println(e);
-            JOptionPane.showMessageDialog(null, "Hoàn tác dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Hoàn tác liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    public int sua(NHACUNGCAP nccmoi, NHACUNGCAP ncccu) {
+    public int sua(THELOAI theloaimoi,THELOAI theloaicu) {
         try {
-            String qry = "update NHACUNGCAP set " + "MANCC=" + "'" + nccmoi.getId() + "'" +
-                    ",TENNCC=" + "N'" + ncccu.getName() + "'" + " " + "where MANCC='" + ncccu.getId()
+            String qry = "update THELOAI set " + "MATL=" + "'" + theloaimoi.getMaTL() + "'" +
+                    ",TENTL=" + "N'" + theloaimoi.getTenTL() + "'" + " ,SLTL=" + "'" + theloaimoi.getSLTL() + "'" + " " + "where MATL='" + theloaicu.getMaTL().trim()
                     + "'";
             st = conn.createStatement();
             st.executeUpdate(qry);
@@ -88,9 +96,9 @@ public class QLNCCDAO {
         }
     }
 
-    public int xoa(String MaNCC) {
+    public int xoa(String MaTL) {
         try {
-            String qry = "delete from NHACUNGCAP where MANCC='" + MaNCC + "'";
+            String qry = "delete from theloai where MATL='" + MaTL + "'";
             st = conn.createStatement();
             st.executeUpdate(qry);
             if (st != null) {

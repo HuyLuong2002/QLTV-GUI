@@ -5,6 +5,7 @@ import QLTV.GUI.QLNVGUI;
 import QLTV.GUI.QLNXBGUI;
 import QLTV.GUI.QLSACHGUI;
 import QLTV.GUI.QLTACGIAGUI;
+import QLTV.GUI.QLTHELOAIGUI;
 
 public class App {
     public static void main(String[] args) throws Exception {

@@ -613,23 +613,6 @@ public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener
         pnTimKiem.add(btSearch);
     }
 
-    public void setTimKiemNC() {
-        // Ẩn các component không dùng tới
-        btSearch.setVisible(false);
-        txKhoaTK.setVisible(false);
-        // set up component mới
-        // Năm xb
-        if (lbTKMatacgia == null) {
-            lbTKMatacgia = new JLabel("Mã tác giả:");
-            lbTKMatacgia.setFont(new Font("Arial", Font.BOLD, 20));
-            lbTKMatacgia.setBounds(10, 170, 100, 50);
-        }
-        if (lbTKMatacgia != null) {
-            lbTKMatacgia.setVisible(true);
-        }
-        pnTimKiem.add(lbTKMatacgia);
-    }
-
     public void OffPageQLSACH(Boolean x) {
         pnNhapTTTacgia.setVisible(x);
         pnShowAll.setVisible(x);

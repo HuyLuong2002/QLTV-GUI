@@ -36,7 +36,7 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
     JLabel lbHome, lbTTNXB, lbMaNXB, lbTenNXB, lbLCTK, lbTuKhoaTK, lbKQTK;
     JLabel lbTKMaNXB;
     JTextField txMaNXB, txTenNXB, txKhoaTK;
-    JButton  btThem, btnxb, btSua, btXoa, btHoanTac, btMenuTimKiem, btShowAll, btThongKe;
+    JButton btThem, btnxb, btSua, btXoa, btHoanTac, btMenuTimKiem, btShowAll, btThongKe;
     JButton btMenu, btSapXep, btDangXuat, btThoat;
     JButton btSearch;
 
@@ -75,7 +75,7 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
         pnMenu.setBounds(0, 178, 240, 590);
         pnMenu.setBackground(ColorOcean);
         pnTimKiem.setLayout(null);
-        pnTimKiem.setBounds(970, 440, 410, 300);      
+        pnTimKiem.setBounds(970, 440, 410, 300);
 
         // add components
         this.add(pnMenu);
@@ -122,25 +122,29 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
             }
         } else if (e.getSource() == btSua) {
             int i = tblQLNXB.getSelectedRow();
-
+            int kt = -1;
             if (i >= 0) {
                 NXB nxb = new NXB();
                 NXB manxbcu = QLNXBBUS.dsnxb.set(i, nxb);
                 getInfoTextField(nxb);
                 try {
                     QLNXBBUS qlnxbbus = new QLNXBBUS();
-                    qlnxbbus.sua(nxb, manxbcu, i);
+                    kt = qlnxbbus.sua(nxb, manxbcu, i);
+
+                } catch (Exception e1) {
+                    System.out.println(e1);
+                }
+                if (kt == 0) {
                     model.setValueAt(nxb.getMaNXB(), i, 0);
                     model.setValueAt(nxb.getTenNXB(), i, 1);
                     tblQLNXB.setModel(model);
-                } catch (Exception e1) {
-                    System.out.println(e1);
                 }
             }
         } else if (e.getSource() == btXoa) {
             int XacNhanXoa = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa không ?", "Thông báo",
                     JOptionPane.YES_NO_OPTION);
             if (XacNhanXoa == 0) {
+                int kt = -1;
                 String manxb = txMaNXB.getText();
                 int i = tblQLNXB.getSelectedRow();
                 if (i >= 0) {
@@ -149,12 +153,15 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
                         NXB SachOld = QLNXBBUS.dsnxb.get(i);
                         QLNXBBUS.htXoa.add(SachOld);
                         QLNXBBUS qlnxbbus = new QLNXBBUS();
-                        qlnxbbus.xoa(manxb, i);
+                        kt = qlnxbbus.xoa(manxb, i);
                         // Quay dề GUI
-                        model.removeRow(i);
-                        tblQLNXB.setModel(model);
+
                     } catch (Exception e1) {
                         System.out.println(e1);
+                    }
+                    if (kt == 0) {
+                        model.removeRow(i);
+                        tblQLNXB.setModel(model);
                     }
                 }
             }
@@ -181,20 +188,20 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
                             model = new DefaultTableModel(header, 0);
                         }
                         ShowOnTable(nxb);
-                        ktHT=1;
+                        ktHT = 1;
                     } else if (kiemtra == 0) {
                         JOptionPane.showMessageDialog(null, "Hoàn tác dữ liệu thất bại", "Lỗi",
                                 JOptionPane.ERROR_MESSAGE);
-                        ktHT=0;
+                        ktHT = 0;
                     }
                 }
             }
-            if(ktHT==1){
+            if (ktHT == 1) {
                 JOptionPane.showMessageDialog(null, "Hoàn tác dữ liệu thành công", "Thông báo",
-                JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.INFORMATION_MESSAGE);
                 tblQLNXB.setModel(model);
             }
-        }else if (e.getSource() == btMenuTimKiem) { // Của button Tìm kiếm nhà xuất bản, để hiện thị
+        } else if (e.getSource() == btMenuTimKiem) { // Của button Tìm kiếm nhà xuất bản, để hiện thị
             // khung tìm kiếm
             OffBTBgSelected();
             btMenuTimKiem.setBackground(ColorPurple);
@@ -292,8 +299,8 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
             if (i >= 0) {
                 NXB nxb = new NXB();
                 nxb = QLNXBBUS.dsnxb.get(i);
-                txMaNXB.setText(nxb.getMaNXB());
-                txTenNXB.setText(nxb.getTenNXB());
+                txMaNXB.setText(nxb.getMaNXB().trim());
+                txTenNXB.setText(nxb.getTenNXB().trim());
             }
         }
 
@@ -334,12 +341,12 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
         // labelLCTK
         lbLCTK = new JLabel("Lựa chọn khóa tìm kiếm:");
         lbLCTK.setFont(new Font("Arial", Font.BOLD, 20));
-        lbLCTK.setBounds(10, 50, 230, 80);
+        lbLCTK.setBounds(10, 50, 260, 80);
 
         // labelTuKhoaTK
         lbTuKhoaTK = new JLabel("Nhập từ khóa tìm kiếm:");
         lbTuKhoaTK.setFont(new Font("Arial", Font.BOLD, 20));
-        lbTuKhoaTK.setBounds(10, 100, 230, 80);
+        lbTuKhoaTK.setBounds(10, 100, 260, 80);
 
         // JTextField Mã Nhà Xuất Bản
         txMaNXB = new JTextField();
@@ -360,34 +367,34 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
         // JbuttonThem
         btThem = new JButton("Thêm");
         btThem.setFont(new Font("Arial", Font.BOLD, 15));
-        btThem.setBounds(10, 305, 80, 30);
+        btThem.setBounds(20, 120, 80, 30);
         btThem.setBackground(Color.cyan);
         btThem.setBorder(new RoundedBorder(10));
         btThem.addActionListener(this);
         // JbuttonSua
         btSua = new JButton("Sửa");
         btSua.setFont(new Font("Arial", Font.BOLD, 15));
-        btSua.setBounds(110, 305, 80, 30);
+        btSua.setBounds(120, 120, 80, 30);
         btSua.setBackground(Color.cyan);
         btSua.setBorder(new RoundedBorder(10));
         btSua.addActionListener(this);
         // JbuttonXoa
         btXoa = new JButton("Xóa");
         btXoa.setFont(new Font("Arial", Font.BOLD, 15));
-        btXoa.setBounds(210, 305, 80, 30);
+        btXoa.setBounds(220, 120, 80, 30);
         btXoa.setBackground(Color.cyan);
         btXoa.setBorder(new RoundedBorder(10));
         btXoa.addActionListener(this);
         // JbuttonHoanTac
         btHoanTac = new JButton("Hoàn tác");
         btHoanTac.setFont(new Font("Arial", Font.BOLD, 15));
-        btHoanTac.setBounds(310, 305, 90, 30);
+        btHoanTac.setBounds(320, 120, 90, 30);
         btHoanTac.setBackground(Color.cyan);
         btHoanTac.setBorder(new RoundedBorder(10));
         btHoanTac.addActionListener(this);
 
         // set up ComboBox
-        String[] dsKhoaTK = { "", "Mã Nhà Xuất Bản", "Tên Nhà Xuất Bản"};
+        String[] dsKhoaTK = { "", "Mã NXB", "Tên NXB" };
         comboBoxDSKhoaTK = new JComboBox<>(dsKhoaTK);
         comboBoxDSKhoaTK.setFont(new Font("Arial", Font.BOLD, 13));
         comboBoxDSKhoaTK.setBounds(245, 75, 100, 30);
@@ -514,7 +521,7 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
         btSapXep.setBackground(Color.cyan);
         btSapXep.setBorder(new RoundedBorder(10));
         btSapXep.addActionListener(this);
-        
+
         pnShowAll.add(btShowAll);
         pnShowAll.add(btSapXep);
     }
@@ -527,8 +534,8 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
     }
 
     public void getInfoTextField(NXB nxb) {
-        nxb.setMaNXB(txMaNXB.getText());
-        nxb.setTenNXB(txTenNXB.getText());
+        nxb.setMaNXB(txMaNXB.getText().trim());
+        nxb.setTenNXB(txTenNXB.getText().trim());
     }
 
     public void getDatabase() {

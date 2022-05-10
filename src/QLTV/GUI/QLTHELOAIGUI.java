@@ -28,31 +28,31 @@ import javax.swing.table.DefaultTableModel;
 import MyCustom.LoginPage;
 import MyCustom.Menu;
 import MyCustom.RoundedBorder;
-import QLTV.BUS.QLNCCBUS;
-import QLTV.DTO.NHACUNGCAP;
+import QLTV.BUS.QLTHELOAIBUS;
+import QLTV.DTO.THELOAI;
 
-public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
-    JPanel pnTTNCC, pnNhapTTNCC, pnShowAll, pnMenu, pnTimKiem;
-    JLabel lbHome, lbTTNCC, lbMaNCC, lbTenNCC, lbLCTK, lbTuKhoaTK, lbKQTK;
-    JLabel lbTKMaNCC;
-    JTextField txMaNCC, txTenNCC, txKhoaTK;
-    JButton btThem, btnxb, btSua, btXoa, btHoanTac, btMenuTimKiem, btShowAll, btThongKe;
+public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListener {
+    JPanel pnTTTheLoai, pnNhapTTTL, pnShowAll, pnMenu, pnTimKiem;
+    JLabel lbHome, lbTTTL, lbMaTL, lbTenTL, lbSLTL, lbLCTK, lbTuKhoaTK, lbKQTK;
+    JLabel lbTKMaTL;
+    JTextField txMaTL, txTenTL, txSLTL, txKhoaTK;
+    JButton btThem, bttheloai, btSua, btXoa, btHoanTac, btMenuTimKiem, btShowAll;
     JButton btMenu, btSapXep, btDangXuat, btThoat;
     JButton btSearch;
 
     JComboBox<String> comboBoxDSKhoaTK;
     JScrollPane pane;
 
-    JTable tblQLNCC;
+    JTable tblQLTHELOAI;
     DefaultTableModel model;
     Vector<String> header;
 
     Color ColorOcean, ColorPurple;
 
-    public QLNCCGUI() {
+    public QLTHELOAIGUI() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(1400, 800);
-        this.setTitle("Quản lý thông tin nhà xuất bản");
+        this.setTitle("Quản lý thông tin thể loại");
         this.setLayout(null);
         this.setLocationRelativeTo(null);
 
@@ -60,17 +60,17 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
         ColorOcean = new Color(0, 139, 139);
         ColorPurple = new Color(255, 20, 147);
 
-        pnTTNCC = new JPanel();
-        pnNhapTTNCC = new JPanel();
+        pnTTTheLoai = new JPanel();
+        pnNhapTTTL = new JPanel();
         pnShowAll = new JPanel();
         pnMenu = new JPanel();
         pnTimKiem = new JPanel();
-        pnTTNCC.setLayout(new GridLayout(3, 1, 0, -300));
-        pnTTNCC.setBounds(242, 0, 1142, 400);
+        pnTTTheLoai.setLayout(new GridLayout(3, 1, 0, -300));
+        pnTTTheLoai.setBounds(242, 0, 1142, 400);
         pnShowAll.setLayout(null);
         pnShowAll.setBounds(242, 402, 1142, 30);
-        pnNhapTTNCC.setLayout(null);
-        pnNhapTTNCC.setBounds(242, 415, 720, 550);
+        pnNhapTTTL.setLayout(null);
+        pnNhapTTTL.setBounds(242, 415, 720, 550);
         pnMenu.setLayout(new GridLayout(9, 1));
         pnMenu.setBounds(0, 178, 240, 590);
         pnMenu.setBackground(ColorOcean);
@@ -80,7 +80,7 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
         // add components
         this.add(pnMenu);
         this.add(pnShowAll);
-        this.add(pnNhapTTNCC);
+        this.add(pnNhapTTTL);
         this.add(pnTimKiem);
 
         setTableNXB();
@@ -96,48 +96,50 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btThem) {
             try {
-                NHACUNGCAP ncc = new NHACUNGCAP();
-                getInfoTextField(ncc);
+                THELOAI theloai = new THELOAI();
+                getInfoTextField(theloai);
                 // Truy cập vào bus
-                QLNCCBUS qlnccbus = new QLNCCBUS();
+                QLTHELOAIBUS qltheloaibus = new QLTHELOAIBUS();
                 int kiemtra = 0;
                 try {
-                    kiemtra = qlnccbus.them(ncc);
+                    kiemtra = qltheloaibus.them(theloai);
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
                 if (kiemtra == 1) {
                     // Đưa dữ liệu lên table
                     header = new Vector<String>();
-                    header.add("Mã Nhà Cung Cấp");
-                    header.add("Tên Nhà Cung Cấp");
+                    header.add("Mã THể Loại");
+                    header.add("Tên Thể Loại");
+                    header.add("Số Lượng Thể Loại");
                     if (model.getRowCount() == 0) {
                         model = new DefaultTableModel(header, 0);
                     }
-                    ShowOnTable(ncc);
-                    tblQLNCC.setModel(model);
+                    ShowOnTable(theloai);
+                    tblQLTHELOAI.setModel(model);
                 }
             } catch (Exception e1) {
                 System.out.println(e1);
             }
         } else if (e.getSource() == btSua) {
-            int i = tblQLNCC.getSelectedRow();
+            int i = tblQLTHELOAI.getSelectedRow();
             int kt = -1;
             if (i >= 0) {
-                NHACUNGCAP ncc = new NHACUNGCAP();
-                NHACUNGCAP mancccu = QLNCCBUS.dsncc.set(i, ncc);
-                getInfoTextField(ncc);
+                THELOAI theloai = new THELOAI();
+                THELOAI matheloaicu = QLTHELOAIBUS.dstheloai.set(i, theloai);
+                getInfoTextField(theloai);
                 try {
-                    QLNCCBUS qlnccbus = new QLNCCBUS();
-                    kt = qlnccbus.sua(ncc, mancccu, i);
+                    QLTHELOAIBUS qltheloaibus = new QLTHELOAIBUS();
+                    kt = qltheloaibus.sua(theloai, matheloaicu, i);
 
                 } catch (Exception e1) {
                     System.out.println(e1);
                 }
                 if (kt == 0) {
-                    model.setValueAt(ncc.getId(), i, 0);
-                    model.setValueAt(ncc.getName(), i, 1);
-                    tblQLNCC.setModel(model);
+                    model.setValueAt(theloai.getMaTL(), i, 0);
+                    model.setValueAt(theloai.getTenTL(), i, 1);
+                    model.setValueAt(theloai.getSLTL(), i, 2);
+                    tblQLTHELOAI.setModel(model);
                 }
             }
         } else if (e.getSource() == btXoa) {
@@ -145,15 +147,15 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
                     JOptionPane.YES_NO_OPTION);
             if (XacNhanXoa == 0) {
                 int kt = -1;
-                String manxb = txMaNCC.getText();
-                int i = tblQLNCC.getSelectedRow();
+                String matheloai = txMaTL.getText();
+                int i = tblQLTHELOAI.getSelectedRow();
                 if (i >= 0) {
                     try {
                         // Truy cập xuống BUS
-                        NHACUNGCAP SachOld = QLNCCBUS.dsncc.get(i);
-                        QLNCCBUS.htXoa.add(SachOld);
-                        QLNCCBUS qlnccbus = new QLNCCBUS();
-                        kt = qlnccbus.xoa(manxb, i);
+                        THELOAI theloaiold = QLTHELOAIBUS.dstheloai.get(i);
+                        QLTHELOAIBUS.htXoa.add(theloaiold);
+                        QLTHELOAIBUS qltheloaibus = new QLTHELOAIBUS();
+                        kt = qltheloaibus.xoa(matheloai, i);
                         // Quay dề GUI
 
                     } catch (Exception e1) {
@@ -161,33 +163,34 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
                     }
                     if (kt == 0) {
                         model.removeRow(i);
-                        tblQLNCC.setModel(model);
+                        tblQLTHELOAI.setModel(model);
                     }
                 }
             }
         } else if (e.getSource() == btHoanTac) {
             int ktHT = 0;
-            if (QLNCCBUS.htXoa.size() == 0) {
+            if (QLTHELOAIBUS.htXoa.size() == 0) {
                 JOptionPane.showMessageDialog(null, "Dữ liệu hoàn tác rỗng", "Lỗi",
                         JOptionPane.ERROR_MESSAGE);
             } else {
-                for (NHACUNGCAP nxb : QLNCCBUS.htXoa) {
-                    QLNCCBUS qlnccbus = new QLNCCBUS();
+                for (THELOAI theloai : QLTHELOAIBUS.htXoa) {
+                    QLTHELOAIBUS qltheloaibus = new QLTHELOAIBUS();
                     int kiemtra = 0;
                     try {
-                        kiemtra = qlnccbus.hoantacXoa(nxb);
+                        kiemtra = qltheloaibus.hoantacXoa(theloai);
                     } catch (Exception e1) {
                         e1.printStackTrace();
                     }
                     if (kiemtra == 1) {
                         // Đưa dữ liệu lên table
                         header = new Vector<String>();
-                        header.add("Mã Nhà Cung Cấp");
-                        header.add("Tên Nhà Cung Cấp");
+                        header.add("Mã Thể Loại");
+                        header.add("Tên Thể Loại");
+                        header.add("Số Lượng Thể Loại");
                         if (model.getRowCount() == 0) {
                             model = new DefaultTableModel(header, 0);
                         }
-                        ShowOnTable(nxb);
+                        ShowOnTable(theloai);
                         ktHT = 1;
                     } else if (kiemtra == 0) {
                         JOptionPane.showMessageDialog(null, "Hoàn tác dữ liệu thất bại", "Lỗi",
@@ -199,9 +202,9 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
             if (ktHT == 1) {
                 JOptionPane.showMessageDialog(null, "Hoàn tác dữ liệu thành công", "Thông báo",
                         JOptionPane.INFORMATION_MESSAGE);
-                tblQLNCC.setModel(model);
+                tblQLTHELOAI.setModel(model);
             }
-        } else if (e.getSource() == btMenuTimKiem) { // Của button Tìm kiếm nhà xuất bản, để hiện thị
+        } else if (e.getSource() == btMenuTimKiem) { // Của button Tìm kiếm thể loại, để hiện thị
             // khung tìm kiếm
             OffBTBgSelected();
             btMenuTimKiem.setBackground(ColorPurple);
@@ -216,38 +219,38 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
             } else if (vtkey == 0) {
                 JOptionPane.showMessageDialog(null, "Xin mời lựa chọn khóa tìm kiếm", "Lỗi", JOptionPane.ERROR_MESSAGE);
             } else {
-                QLNCCBUS qlnccbus = new QLNCCBUS();
+                QLTHELOAIBUS qltheloaibus = new QLTHELOAIBUS();
                 if (vtkey == 1) {
-                    NHACUNGCAP kq = qlnccbus.timTheoMa(tukhoa);
+                    THELOAI kq = qltheloaibus.timTheoMa(tukhoa);
                     model.setRowCount(0);
                     if (kq == null) {
                         lbKQTK.setText("Kết quả tìm kiếm: Không tìm thấy");
                     } else {
                         ShowOnTable(kq);
-                        lbKQTK.setText("Kết quả tìm kiếm: Tìm thấy " + model.getRowCount() + " NXB");
-                        tblQLNCC.setModel(model);
+                        lbKQTK.setText("Kết quả tìm kiếm: Tìm thấy " + model.getRowCount() + " THELOAI");
+                        tblQLTHELOAI.setModel(model);
                     }
                 } else if (vtkey == 2) {
-                    ArrayList<NHACUNGCAP> kq = qlnccbus.timTheoTen(tukhoa);
+                    ArrayList<THELOAI> kq = qltheloaibus.timTheoTen(tukhoa);
                     model.setRowCount(0);
                     if (kq.size() == 0) {
                         lbKQTK.setText("Kết quả tìm kiếm: Không tìm thấy");
                     } else {
-                        for (NHACUNGCAP ncc : kq) {
-                            ShowOnTable(ncc);
+                        for (THELOAI theloai : kq) {
+                            ShowOnTable(theloai);
                         }
-                        lbKQTK.setText("Kết quả tìm kiếm: Tìm thấy " + model.getRowCount() + " NXB");
-                        tblQLNCC.setModel(model);
+                        lbKQTK.setText("Kết quả tìm kiếm: Tìm thấy " + model.getRowCount() + " THELOAI");
+                        tblQLTHELOAI.setModel(model);
                     }
                 }
             }
         } else if (e.getSource() == btShowAll) {
             lbKQTK.setText("");
             model.setRowCount(0);
-            for (NHACUNGCAP ncc : QLNCCBUS.dsncc) {
-                ShowOnTable(ncc);
+            for (THELOAI theloai : QLTHELOAIBUS.dstheloai) {
+                ShowOnTable(theloai);
             }
-            tblQLNCC.setModel(model);
+            tblQLTHELOAI.setModel(model);
         }
         if (e.getSource() == btMenu) {
             this.dispose();
@@ -265,10 +268,10 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
                 }
             }
         }
-        if (e.getSource() == btnxb) {
+        if (e.getSource() == bttheloai) {
             OffPageQLSACH(true);
             OffBTBgSelected();
-            btnxb.setBackground(ColorPurple);
+            bttheloai.setBackground(ColorPurple);
         }
 
         if (e.getSource() == btThoat) {
@@ -284,23 +287,24 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
     }
 
     public void SapXep() {
-        QLNCCBUS.dsncc.sort(((o1, o2) -> o1.getName().compareTo(o2.getName())));
+        QLTHELOAIBUS.dstheloai.sort((o1, o2) -> o1.getMaTL().compareTo(o2.getTenTL()));
         model.setRowCount(0);
-        for (NHACUNGCAP ncc : QLNCCBUS.dsncc) {
-            ShowOnTable(ncc);
+        for (THELOAI theloai : QLTHELOAIBUS.dstheloai) {
+            ShowOnTable(theloai);
         }
-        tblQLNCC.setModel(model);
+        tblQLTHELOAI.setModel(model);
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (e.getSource() == tblQLNCC) {
-            int i = tblQLNCC.getSelectedRow();
+        if (e.getSource() == tblQLTHELOAI) {
+            int i = tblQLTHELOAI.getSelectedRow();
             if (i >= 0) {
-                NHACUNGCAP ncc = new NHACUNGCAP();
-                ncc = QLNCCBUS.dsncc.get(i);
-                txMaNCC.setText(ncc.getId().trim());
-                txTenNCC.setText(ncc.getName().trim());
+                THELOAI theloai = new THELOAI();
+                theloai = QLTHELOAIBUS.dstheloai.get(i);
+                txMaTL.setText(theloai.getMaTL().trim());
+                txTenTL.setText(theloai.getTenTL().trim());
+                txSLTL.setText(String.valueOf(theloai.getSLTL()));
             }
         }
 
@@ -318,8 +322,14 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        if (e.getSource() == txMaNCC) {
-            txMaNCC.setToolTipText("Gợi ý: NXB001");
+        if (e.getSource() == txMaTL) {
+            txMaTL.setToolTipText("Gợi ý: TL001");
+        }
+        else if (e.getSource() == txTenTL) {
+            txTenTL.setToolTipText("Gợi ý: Kinh tế");
+        }
+        else if (e.getSource() == txSLTL) {
+            txSLTL.setToolTipText("Gợi ý: 5");
         }
     }
 
@@ -329,14 +339,18 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
     }
 
     public void setInput() {
-        // label Matacgia
-        lbMaNCC = new JLabel("Mã NCC:");
-        lbMaNCC.setFont(new Font("Arial", Font.BOLD, 20));
-        lbMaNCC.setBounds(20, 0, 130, 80);
-        // label Tentacgia
-        lbTenNCC = new JLabel("Tên NCC:");
-        lbTenNCC.setFont(new Font("Arial", Font.BOLD, 20));
-        lbTenNCC.setBounds(20, 40, 130, 80);
+        // label Matheloai
+        lbMaTL = new JLabel("Mã Thể Loại:");
+        lbMaTL.setFont(new Font("Arial", Font.BOLD, 20));
+        lbMaTL.setBounds(20, 0, 140, 80);
+        // label Tentheloai
+        lbTenTL = new JLabel("Tên Thể Loại:");
+        lbTenTL.setFont(new Font("Arial", Font.BOLD, 20));
+        lbTenTL.setBounds(20, 40, 140, 80);
+        // label SLTL
+        lbSLTL = new JLabel("SLTL:");
+        lbSLTL.setFont(new Font("Arial", Font.BOLD, 20));
+        lbSLTL.setBounds(20, 80, 140, 80);
 
         // labelLCTK
         lbLCTK = new JLabel("Lựa chọn khóa tìm kiếm:");
@@ -348,16 +362,21 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
         lbTuKhoaTK.setFont(new Font("Arial", Font.BOLD, 20));
         lbTuKhoaTK.setBounds(10, 100, 260, 80);
 
-        // JTextField Mã Nhà Xuất Bản
-        txMaNCC = new JTextField();
-        txMaNCC.setBounds(160, 25, 180, 30);
-        txMaNCC.setFont(new Font("Arial", Font.PLAIN, 15));
-        txMaNCC.addMouseListener(this);
-        // JTextField Tên Nhà Xuất Bản
-        txTenNCC = new JTextField();
-        txTenNCC.setBounds(160, 65, 180, 30);
-        txTenNCC.setFont(new Font("Arial", Font.PLAIN, 15));
-        txTenNCC.addMouseListener(this);
+        // JTextField Mã Thể Loại
+        txMaTL = new JTextField();
+        txMaTL.setBounds(160, 25, 180, 30);
+        txMaTL.setFont(new Font("Arial", Font.PLAIN, 15));
+        txMaTL.addMouseListener(this);
+        // JTextField Tên Thể Loại
+        txTenTL = new JTextField();
+        txTenTL.setBounds(160, 65, 180, 30);
+        txTenTL.setFont(new Font("Arial", Font.PLAIN, 15));
+        txTenTL.addMouseListener(this);
+        // JTextField SLTL
+        txSLTL = new JTextField();
+        txSLTL.setBounds(160, 105, 180, 30);
+        txSLTL.setFont(new Font("Arial", Font.PLAIN, 15));
+        txSLTL.addMouseListener(this);
         // JTextField Khóa tìm kiếm
         txKhoaTK = new JTextField();
         txKhoaTK.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -367,34 +386,34 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
         // JbuttonThem
         btThem = new JButton("Thêm");
         btThem.setFont(new Font("Arial", Font.BOLD, 15));
-        btThem.setBounds(20, 120, 80, 30);
+        btThem.setBounds(20, 160, 80, 30);
         btThem.setBackground(Color.cyan);
         btThem.setBorder(new RoundedBorder(10));
         btThem.addActionListener(this);
         // JbuttonSua
         btSua = new JButton("Sửa");
         btSua.setFont(new Font("Arial", Font.BOLD, 15));
-        btSua.setBounds(120, 120, 80, 30);
+        btSua.setBounds(120, 160, 80, 30);
         btSua.setBackground(Color.cyan);
         btSua.setBorder(new RoundedBorder(10));
         btSua.addActionListener(this);
         // JbuttonXoa
         btXoa = new JButton("Xóa");
         btXoa.setFont(new Font("Arial", Font.BOLD, 15));
-        btXoa.setBounds(220, 120, 80, 30);
+        btXoa.setBounds(220, 160, 80, 30);
         btXoa.setBackground(Color.cyan);
         btXoa.setBorder(new RoundedBorder(10));
         btXoa.addActionListener(this);
         // JbuttonHoanTac
         btHoanTac = new JButton("Hoàn tác");
         btHoanTac.setFont(new Font("Arial", Font.BOLD, 15));
-        btHoanTac.setBounds(320, 120, 90, 30);
+        btHoanTac.setBounds(320, 160, 90, 30);
         btHoanTac.setBackground(Color.cyan);
         btHoanTac.setBorder(new RoundedBorder(10));
         btHoanTac.addActionListener(this);
 
         // set up ComboBox
-        String[] dsKhoaTK = { "", "Mã NCC", "Tên NCC" };
+        String[] dsKhoaTK = { "", "Mã Thể Loại", "Tên Thể Loại" };
         comboBoxDSKhoaTK = new JComboBox<>(dsKhoaTK);
         comboBoxDSKhoaTK.setFont(new Font("Arial", Font.BOLD, 13));
         comboBoxDSKhoaTK.setBounds(245, 75, 100, 30);
@@ -405,16 +424,18 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
         comboBoxDSKhoaTK.setVisible(false);
         txKhoaTK.setVisible(false);
 
-        pnNhapTTNCC.add(lbMaNCC);
-        pnNhapTTNCC.add(lbTenNCC);
+        pnNhapTTTL.add(lbMaTL);
+        pnNhapTTTL.add(lbTenTL);
+        pnNhapTTTL.add(lbSLTL);
 
-        pnNhapTTNCC.add(txMaNCC);
-        pnNhapTTNCC.add(txTenNCC);
+        pnNhapTTTL.add(txMaTL);
+        pnNhapTTTL.add(txTenTL);
+        pnNhapTTTL.add(txSLTL);
 
-        pnNhapTTNCC.add(btThem);
-        pnNhapTTNCC.add(btSua);
-        pnNhapTTNCC.add(btXoa);
-        pnNhapTTNCC.add(btHoanTac);
+        pnNhapTTTL.add(btThem);
+        pnNhapTTTL.add(btSua);
+        pnNhapTTTL.add(btXoa);
+        pnNhapTTTL.add(btHoanTac);
 
     }
 
@@ -437,15 +458,15 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
         btMenu.setBorder(BorderFactory.createEmptyBorder());
         btMenu.addActionListener(this);
 
-        btnxb = new JButton("Thông tin NCC");
-        btnxb.setFont(new Font("Arial", Font.BOLD, 20));
-        btnxb.setBackground(ColorPurple);
-        btnxb.setIcon(iconPubCompany);
-        btnxb.setHorizontalAlignment(SwingConstants.LEFT);
-        btnxb.setBorder(BorderFactory.createEmptyBorder());
-        btnxb.addActionListener(this);
+        bttheloai = new JButton("Thông tin thể loại");
+        bttheloai.setFont(new Font("Arial", Font.BOLD, 20));
+        bttheloai.setBackground(ColorPurple);
+        bttheloai.setIcon(iconPubCompany);
+        bttheloai.setHorizontalAlignment(SwingConstants.LEFT);
+        bttheloai.setBorder(BorderFactory.createEmptyBorder());
+        bttheloai.addActionListener(this);
 
-        btMenuTimKiem = new JButton("Tìm kiếm NCC");
+        btMenuTimKiem = new JButton("Tìm kiếm thể loại");
         btMenuTimKiem.setFont(new Font("Arial", Font.BOLD, 20));
         btMenuTimKiem.setBackground(ColorOcean);
         btMenuTimKiem.setIcon(iconSearch);
@@ -473,7 +494,7 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
         // add Menu button
         pnMenu.add(lbHome);
         pnMenu.add(btMenu);
-        pnMenu.add(btnxb);
+        pnMenu.add(bttheloai);
         pnMenu.add(btMenuTimKiem);
         pnMenu.add(btDangXuat);
         pnMenu.add(btThoat);
@@ -481,28 +502,29 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
 
     public void setTableNXB() {
         // label TTNXB
-        lbTTNCC = new JLabel("THÔNG TIN NHÀ CUNG CẤP");
-        lbTTNCC.setFont(new Font("Arial", Font.BOLD, 30));
-        lbTTNCC.setHorizontalAlignment(SwingConstants.CENTER);
-        lbTTNCC.setVerticalAlignment(SwingConstants.TOP);
+        lbTTTL = new JLabel("THÔNG TIN THỂ LOẠI");
+        lbTTTL.setFont(new Font("Arial", Font.BOLD, 30));
+        lbTTTL.setHorizontalAlignment(SwingConstants.CENTER);
+        lbTTTL.setVerticalAlignment(SwingConstants.TOP);
         // labelKQTK
         lbKQTK = new JLabel();
         lbKQTK.setHorizontalAlignment(SwingConstants.CENTER);
         lbKQTK.setVerticalAlignment(SwingConstants.TOP);
         // ----set up table----
-        tblQLNCC = new JTable();
-        pane = new JScrollPane(tblQLNCC);
+        tblQLTHELOAI = new JTable();
+        pane = new JScrollPane(tblQLTHELOAI);
         pane.setAutoscrolls(true);
-        tblQLNCC.setRowHeight(30);
-        tblQLNCC.setFont(new Font(null, 0, 13));
-        tblQLNCC.setBackground(Color.LIGHT_GRAY);
-        tblQLNCC.addMouseListener(this);
-        tblQLNCC.setSelectionBackground(Color.GREEN);
+        tblQLTHELOAI.setRowHeight(30);
+        tblQLTHELOAI.setFont(new Font(null, 0, 13));
+        tblQLTHELOAI.setBackground(Color.LIGHT_GRAY);
+        tblQLTHELOAI.addMouseListener(this);
+        tblQLTHELOAI.setDefaultEditor(Object.class, null);
+        tblQLTHELOAI.setSelectionBackground(Color.GREEN);
 
-        this.add(pnTTNCC);
-        pnTTNCC.add(lbTTNCC);
-        pnTTNCC.add(lbKQTK);
-        pnTTNCC.add(pane);
+        this.add(pnTTTheLoai);
+        pnTTTheLoai.add(lbTTTL);
+        pnTTTheLoai.add(lbKQTK);
+        pnTTTheLoai.add(pane);
     }
 
     public void setShowAll() {
@@ -525,43 +547,46 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
         pnShowAll.add(btSapXep);
     }
 
-    public void ShowOnTable(NHACUNGCAP ncc) {
+    public void ShowOnTable(THELOAI theloai) {
         Vector<String> row = new Vector<String>();
-        row.add(ncc.getId().trim());
-        row.add(ncc.getName().trim());
+        row.add(theloai.getMaTL().trim());
+        row.add(theloai.getTenTL().trim());
+        row.add(String.valueOf(theloai.getSLTL()));
         model.addRow(row);
     }
 
-    public void getInfoTextField(NHACUNGCAP ncc) {
-        ncc.setId(txMaNCC.getText().trim());
-        ncc.setName(txTenNCC.getText().trim());
+    public void getInfoTextField(THELOAI theloai) {
+        theloai.setMaTL(txMaTL.getText().trim());
+        theloai.setTenTL(txTenTL.getText().trim());
+        theloai.setSLTL(Integer.valueOf(txSLTL.getText()));
     }
 
     public void getDatabase() {
         try {
-            QLNCCBUS qlnccbus = new QLNCCBUS();
-            if (QLNCCBUS.dsncc == null)
+            QLTHELOAIBUS qltheloaibus = new QLTHELOAIBUS();
+            if (QLTHELOAIBUS.dstheloai == null)
                 try {
-                    qlnccbus.docdsnxb();
+                    qltheloaibus.docdsnxb();
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
             // set up header(column)
             header = new Vector<String>();
-            header.add("Mã Nhà Cung Cấp");
-            header.add("Tên Nhà Cung Cấp");
+            header.add("Mã Thể Loại");
+            header.add("Tên Thể Loại");
+            header.add("Số Lượng Thể Loại");
             model = new DefaultTableModel(header, 0);
-            for (NHACUNGCAP ncc : QLNCCBUS.dsncc) {
-                ShowOnTable(ncc);
+            for (THELOAI theloai : QLTHELOAIBUS.dstheloai) {
+                ShowOnTable(theloai);
             }
-            tblQLNCC.setModel(model);
+            tblQLTHELOAI.setModel(model);
         } catch (Exception e1) {
             System.out.println(e1);
         }
     }
 
     public void OffBTBgSelected() {
-        btnxb.setBackground(ColorOcean);
+        bttheloai.setBackground(ColorOcean);
         btMenu.setBackground(ColorOcean);
         btMenuTimKiem.setBackground(ColorOcean);
         btDangXuat.setBackground(ColorOcean);
@@ -601,10 +626,27 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
         pnTimKiem.add(btSearch);
     }
 
+    public void setTimKiemNC() {
+        // Ẩn các component không dùng tới
+        btSearch.setVisible(false);
+        txKhoaTK.setVisible(false);
+        // set up component mới
+        // Năm xb
+        if (lbTKMaTL == null) {
+            lbTKMaTL = new JLabel("Mã Thể Loại:");
+            lbTKMaTL.setFont(new Font("Arial", Font.BOLD, 20));
+            lbTKMaTL.setBounds(10, 170, 100, 50);
+        }
+        if (lbTKMaTL != null) {
+            lbTKMaTL.setVisible(true);
+        }
+        pnTimKiem.add(lbTKMaTL);
+    }
+
     public void OffPageQLSACH(Boolean x) {
-        pnNhapTTNCC.setVisible(x);
+        pnNhapTTTL.setVisible(x);
         pnShowAll.setVisible(x);
         pnTimKiem.setVisible(x);
-        pnTTNCC.setVisible(x);
+        pnTTTheLoai.setVisible(x);
     }
 }
