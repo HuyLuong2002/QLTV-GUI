@@ -24,7 +24,7 @@ public class QLNXBBUS {
     }
 
     public int them(NXB nxb) throws Exception {
-        if (KTMa(nxb.getMaNXB()) == 0) {
+        if (KTMa(nxb.getMaNXB().trim()) == 0) {
             JOptionPane.showMessageDialog(null, "Mã Nhà Xuất Bản vừa nhập bị trùng. Mời nhập lại!", "Lỗi",
                     JOptionPane.ERROR_MESSAGE);
             return -1;
@@ -37,17 +37,21 @@ public class QLNXBBUS {
         }
     }
 
-    public void sua(NXB nxbmoi, NXB nxbcu, int i) throws Exception {
+    public int sua(NXB nxbmoi, NXB nxbcu, int i) throws Exception {
         // Truy cập vào database
+        int kt=0;
         QLNXBDAO data = new QLNXBDAO();
-        data.sua(nxbmoi, nxbcu);
+        kt=data.sua(nxbmoi, nxbcu);
         dsnxb.set(i, nxbmoi);
+        return kt;
     }
 
-    public void xoa(String MaSV, int i) throws Exception {
+    public int xoa(String MaSV, int i) throws Exception {
+        int kt=0;
         QLNXBDAO data = new QLNXBDAO();
-        data.xoa(MaSV);
+        kt=data.xoa(MaSV);
         dsnxb.remove(i);
+        return kt;
     }
 
     public int hoantacXoa(NXB nxb) throws Exception {
@@ -66,7 +70,7 @@ public class QLNXBBUS {
 
     public int KTMa(String MaNXBMoi) {
         for (NXB nxb : dsnxb)
-            if (nxb.getMaNXB().equals(MaNXBMoi)) {
+            if (nxb.getMaNXB().trim().equals(MaNXBMoi)) {
                 return 0;
             }
         return 1;
@@ -86,10 +90,4 @@ public class QLNXBBUS {
                 kq.add(sach);
         return kq;
     }
-
-    public int ThongKeMaNXB() {
-        int count = dsnxb.size();
-        return count;
-    }
-
 }

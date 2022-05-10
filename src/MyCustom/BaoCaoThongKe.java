@@ -1,7 +1,6 @@
 package MyCustom;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -13,10 +12,12 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 import QLTV.BUS.QLMUONBUS;
+import QLTV.BUS.QLNHANVIENBUS;
 import QLTV.BUS.QLNVBUS;
 import QLTV.BUS.QLSACHBUS;
 import QLTV.BUS.QLTRABUS;
 import QLTV.DTO.DOCGIA;
+import QLTV.DTO.NHANVIEN;
 import QLTV.DTO.PHIEUMUON;
 import QLTV.DTO.PHIEUTRASACH;
 import QLTV.DTO.SACH;
@@ -26,6 +27,7 @@ public class BaoCaoThongKe implements ActionListener {
     JPanel pnThongKe, pnSach, pnKhachHang, pnNhanVien, pnTongDoanhThu, pnBaoCaoDoanhThu;
     JLabel lbThongKe, lbKQSach, lbKQKH, lbKQNV, lbKQDT;
     JComboBox<String> cbKhoaThongKe;
+    JButton btXemThem;
 
     JTable tblDoanhThu;
     DefaultTableModel model;
@@ -65,7 +67,7 @@ public class BaoCaoThongKe implements ActionListener {
             pnTongDoanhThu.setLayout(null);
 
             pnBaoCaoDoanhThu = new JPanel();
-            pnBaoCaoDoanhThu.setBounds(200, 550, 700, 180);
+            pnBaoCaoDoanhThu.setBounds(200, 550, 700, 100);
             pnBaoCaoDoanhThu.setBorder(line);
             pnBaoCaoDoanhThu.setLayout(new GridLayout(1, 1));
 
@@ -79,6 +81,15 @@ public class BaoCaoThongKe implements ActionListener {
             cbKhoaThongKe.setBounds(500, 500, 100, 30);
             cbKhoaThongKe.addActionListener(this);
 
+            ImageIcon iconXemTheme = new ImageIcon("images\\right-arrow.png");
+            btXemThem = new JButton();
+            btXemThem.setIcon(iconXemTheme);
+            btXemThem.setFont(new Font("Arial", Font.BOLD, 15));
+            btXemThem.setBounds(1000, 700, 80, 40);
+            btXemThem.setBackground(Color.cyan);
+            btXemThem.setBorder(new RoundedBorder(10));
+            btXemThem.addActionListener(this);
+
             pnThongKe.add(pnSach);
             pnThongKe.add(pnKhachHang);
             pnThongKe.add(pnNhanVien);
@@ -86,9 +97,11 @@ public class BaoCaoThongKe implements ActionListener {
             pnThongKe.add(pnBaoCaoDoanhThu);
             pnThongKe.add(lbThongKe);
             pnThongKe.add(cbKhoaThongKe);
+            pnThongKe.add(btXemThem);
 
             setTKSach();
             setTKDT();
+            setTKNV();
             setTKDG();
             setTableThongKe();
         }
@@ -142,8 +155,15 @@ public class BaoCaoThongKe implements ActionListener {
 
     public void setTKNV(){
         int countNV = 0;
-        for (DOCGIA dg : QLNVBUS.dsdg) {
-            if(dg.getMaDG().trim().isEmpty()==false) {
+        QLNHANVIENBUS qlnhanvienbus = new QLNHANVIENBUS();
+        if (QLNHANVIENBUS.dsnhanvien == null)
+        try {
+            qlnhanvienbus.docDSNHANVIEN();
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+        for (NHANVIEN nv : QLNHANVIENBUS.dsnhanvien) {
+            if(nv.getMaNV().trim().isEmpty()==false) {
                 countNV++;
             }
         }
@@ -189,10 +209,12 @@ public class BaoCaoThongKe implements ActionListener {
 
     public void setTableThongKe() {
         tblDoanhThu = new JTable();
+        tblDoanhThu.getTableHeader().setBackground(new Color(32, 136, 203));
+        tblDoanhThu.getTableHeader().setForeground(new Color(255,255,255));
+        tblDoanhThu.getTableHeader().setFont(new Font("Arial", Font.BOLD, 18));
         tblDoanhThu.setRowHeight(30);
-        tblDoanhThu.setFont(new Font(null, 0, 13));
+        tblDoanhThu.setFont(new Font("Arial", Font.BOLD, 15));
         tblDoanhThu.setDefaultEditor(Object.class, null);
-        tblDoanhThu.setPreferredSize(new Dimension(500, 500));
         model = new DefaultTableModel(new Object[][] {
                 { "Doanh thu", null, null, null, null },
                 { "Tổng cộng", null, null, null, null }

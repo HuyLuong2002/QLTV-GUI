@@ -9,7 +9,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import QLTV.GUI.QLNCCGUI;
 import QLTV.GUI.QLNXBGUI;
 import QLTV.GUI.QLSACHGUI;
 import QLTV.GUI.QLTACGIAGUI;
@@ -171,7 +170,7 @@ public class Menu extends JFrame implements ActionListener{
         if(e.getSource()==btNhaCC){
             try {
                 this.dispose();
-                new QLNCCGUI(null);
+                //new QLNCCGUI(null);
             } catch (Exception e1) {
                 e1.printStackTrace();
             }

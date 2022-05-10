@@ -1,14 +1,18 @@
+import QLTV.GUI.QLNCCGUI;
 import QLTV.GUI.QLNHANVIENGUI;
 import QLTV.GUI.QLNXBGUI;
 import QLTV.GUI.QLSACHGUI;
 import QLTV.GUI.QLTACGIAGUI;
+import QLTV.GUI.QLTHELOAIGUI;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        //new QLSACHGUI();
+        new QLSACHGUI();
         //new QLTACGIAGUI();
+        //new QLNCCGUI();
+        // new QLTHELOAIGUI();
         // new QLNHANVIENGUI();
-        new QLNXBGUI();
+        //new QLNXBGUI();
         //new setProgressBar();
         //new LoginPage();
         // new Menu();
