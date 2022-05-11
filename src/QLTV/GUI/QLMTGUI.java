@@ -456,6 +456,16 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
 
             }
         }
+        if(e.getSource() == tblQLCTMuon){
+            int i = tblQLCTMuon.getSelectedRow();
+            if (i >= 0) {
+                CHITIETPHIEUMUON ctpm = new CHITIETPHIEUMUON();
+                ctpm = QLCTMUONBUS.dsctpm.get(i);
+                txCTPMMaPM.setText(ctpm.getMaPM().trim());
+                txCTPMMaSach.setText(ctpm.getMasach().trim());
+                txCTPMSL.setText(String.valueOf(ctpm.getSL()));
+            }
+        }
         if (e.getSource() == tblQLHDTP) {
             int i = tblQLHDTP.getSelectedRow();
             if (i >= 0) {

@@ -47,7 +47,7 @@ import QLTV.DTO.SACH;
 
 public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
     JPanel pnTTSach, pnNhapTTSach, pnShowAll, pnMenu, pnTimKiem, pnLoc;
-    JPanel pnMT, pnThongKe, pnQLNV, pnLibrary;
+    JPanel pnMT, pnPN, pnThongKe, pnQLNV, pnLibrary;
     JLabel lbHome, lbTTSach, lbMasach, lbTensach, lbMaNXB, lbMaTG, lbNamXB, lbSLtong, lbSL, lbDongia, lbLCTK,
             lbTuKhoaTK, lbKQTK;
     JLabel lbTKNam, lbTKSL, lbNgayBD, lbNgayKT, lbLibrary;
@@ -116,7 +116,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         // Color
         ColorOcean = new Color(0, 139, 139);
         ColorPurple = new Color(255, 20, 147);
-        ColorDeepAqua = new Color(64,224,220);
+        ColorDeepAqua = new Color(64, 224, 220);
 
         pnLibrary.setBackground(ColorDeepAqua);
         // add components
@@ -454,8 +454,11 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
             if (pnMT != null) {
                 pnMT.setVisible(false);
             }
-            if (pnQLNV != null){
+            if (pnQLNV != null) {
                 pnQLNV.setVisible(false);
+            }
+            if (pnPN != null) {
+                pnPN.setVisible(false);
             }
             pnThongKe = bctk.BangBaoCaoThongKe();
             this.add(pnThongKe);
@@ -473,6 +476,9 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
             if (pnThongKe != null) {
                 pnThongKe.setVisible(false);
             }
+            if (pnPN != null) {
+                pnPN.setVisible(false);
+            }
         }
         if (e.getSource() == btMT) {
             QLMTGUI qlmt = new QLMTGUI();
@@ -485,8 +491,11 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
             if (pnThongKe != null) {
                 pnThongKe.setVisible(false);
             }
-            if (pnQLNV != null){
+            if (pnQLNV != null) {
                 pnQLNV.setVisible(false);
+            }
+            if (pnPN != null) {
+                pnPN.setVisible(false);
             }
             pnMT = qlmt.setMTGUI();
             this.add(pnMT);
@@ -530,17 +539,36 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
             if (pnThongKe != null) {
                 pnThongKe.setVisible(false);
             }
-            if (pnQLNV != null){
+            if (pnQLNV != null) {
                 pnQLNV.setVisible(false);
+            }
+            if (pnPN != null) {
+                pnPN.setVisible(false);
             }
             OffPageQLSACH(true);
             OffBTBgSelected();
             btSach.setBackground(ColorPurple);
         }
         if (e.getSource() == btNhapSach) {
+            QLPNGUI qlpn = new QLPNGUI();
             OffPageQLSACH(false);
             OffBTBgSelected();
+            if (pnMT != null) {
+                pnMT.setVisible(false);
+            }
+            if (pnTimKiem != null) {
+                pnTimKiem.setVisible(false);
+            }
+            if (pnThongKe != null) {
+                pnThongKe.setVisible(false);
+            }
+            if (pnQLNV != null) {
+                pnQLNV.setVisible(false);
+            }
             btNhapSach.setBackground(ColorPurple);
+            pnPN = qlpn.setPNGUI();
+            this.add(pnPN);
+
         }
         if (e.getSource() == btQLNV) {
             QLNVGUI qlnv = new QLNVGUI();
@@ -570,7 +598,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         if (e.getSource() == btSapXep) {
             SapXep();
         }
-        if (e.getSource() == btMenu){
+        if (e.getSource() == btMenu) {
             this.dispose();
             new Menu();
         }
