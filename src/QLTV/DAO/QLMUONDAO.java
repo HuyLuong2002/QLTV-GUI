@@ -161,14 +161,15 @@ public class QLMUONDAO {
 
     public void sua(PHIEUMUON phieumuonMoi, PHIEUMUON phieumuonCu){
         try {
-            String qry = "UPDATE PHIEUMUON SET MAPM= ?, NGAYMUON= ?, SLTONG= ?, NGAYTRA= ?, MADG= ?" + " WHERE MAPM= ?";
+            String qry = "UPDATE PHIEUMUON SET MAPM= ?, NGAYMUON= ?, SLTONG= ?, NGAYTRA= ?, TINHTRANGMUON= ?, MADG= ?" + " WHERE MAPM= ?";
             PreparedStatement ps = conn.prepareStatement(qry);
             ps.setString(1, phieumuonMoi.getMaPM());
             ps.setString(2, phieumuonMoi.getNgaymuon());
             ps.setString(3, String.valueOf(phieumuonMoi.getSLtong()));
             ps.setString(4, phieumuonMoi.getNgaytra());
-            ps.setString(5, phieumuonMoi.getMaDG());
-            ps.setString(6, phieumuonCu.getMaPM());
+            ps.setString(5, phieumuonMoi.getTinhTrangMuon());
+            ps.setString(6, phieumuonMoi.getMaDG());
+            ps.setString(7, phieumuonCu.getMaPM());
 
             int n = ps.executeUpdate();
             if (n != 0) {

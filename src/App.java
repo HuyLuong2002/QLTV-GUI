@@ -9,7 +9,7 @@ import QLTV.GUI.QLTHELOAIGUI;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        // new QLSACHGUI();
+        new QLSACHGUI();
         // new QLTACGIAGUI();
         //new QLNHANVIENGUI();
         // new QLNXBGUI();
