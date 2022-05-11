@@ -584,6 +584,9 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
             if (pnThongKe != null) {
                 pnThongKe.setVisible(false);
             }
+            if (pnPN != null) {
+                pnPN.setVisible(false);
+            }
             pnQLNV = qlnv.setQLNVGUI();
             this.add(pnQLNV);
 
