@@ -1,6 +1,7 @@
 package QLTV.DAO;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -39,5 +40,46 @@ public class QLCTHDTPDAO {
             JOptionPane.showMessageDialog(null, "Đọc dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
         return dscthdtp;
+    }
+
+    public void them(CHITIETHDTIENPHAT chitiethdtienphat) {
+        try {
+            String qry = "INSERT INTO CHITIETHDTIENPHAT VALUES (?,?,?,?)";
+            PreparedStatement ps = conn.prepareStatement(qry);
+            ps.setString(1, chitiethdtienphat.getMaHD());
+            ps.setString(2, chitiethdtienphat.getMasach());
+            ps.setString(3, String.valueOf(chitiethdtienphat.getSL()));
+            ps.setString(3, String.valueOf(chitiethdtienphat.getDongia()));
+
+            int n = ps.executeUpdate();
+            if (n != 0) {
+                JOptionPane.showMessageDialog(null, "Thêm dữ liệu thành công", "Thông báo",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "Thêm dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void sua(CHITIETHDTIENPHAT chitiethdtienphatMoi, CHITIETHDTIENPHAT chitiethdtienphatCu){
+        try {
+            String qry = "UPDATE CHITIETPHIEUTRA SET MAHD= ?, MASACH= ?, SL= ?, DONGIA= ?" + " WHERE MAPT= ?";
+            PreparedStatement ps = conn.prepareStatement(qry);
+            ps.setString(1, chitiethdtienphatMoi.getMaHD());
+            ps.setString(2, chitiethdtienphatMoi.getMasach());
+            ps.setString(3, String.valueOf(chitiethdtienphatMoi.getSL()));
+            ps.setString(4, String.valueOf(chitiethdtienphatMoi.getDongia()));
+            ps.setString(5, chitiethdtienphatCu.getMaHD());
+
+            int n = ps.executeUpdate();
+            if (n != 0) {
+                JOptionPane.showMessageDialog(null, "Sửa dữ liệu thành công", "Thông báo",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "Sửa dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }

@@ -607,6 +607,35 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                 }
             }
         }
+        if (e.getSource() == btThemCTHD) {
+            try {
+                CHITIETHDTIENPHAT chitiethdtienphat = new CHITIETHDTIENPHAT();
+                getInfoTextFieldCTHD(chitiethdtienphat);
+                // Truy cập vào bus
+                QLCTHDTPBUS qlcthoadonbus = new QLCTHDTPBUS();
+                int kiemtra = 0;
+                try {
+                    kiemtra = qlcthoadonbus.them(chitiethdtienphat);
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+                if (kiemtra == 1) {
+                    // Đưa dữ liệu lên table
+                    header = new Vector<String>();
+                    header.add("Mã phiếu trả");
+                    header.add("Mã sách");
+                    header.add("Số lượng");
+                    header.add("Đơn giá");
+                    if (modelCTTra.getRowCount() == 0) {
+                        modelCTTra = new DefaultTableModel(header, 0);
+                    }
+                    ShowOnTableCTHD(chitiethdtienphat);
+                    tblQLCTTra.setModel(modelCTTra);
+                }
+            } catch (Exception e1) {
+                System.out.println(e1);
+            }
+        }
     }
 
     @Override
@@ -828,11 +857,14 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                 pnTabTra.setVisible(false);
             }
         }
+
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        if(e.getSource() == datePickerNgayBDPT){
+            System.out.println("1");
+        }
     }
 
     @Override
@@ -1455,6 +1487,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         datePanelNgayBDPT = new JDatePanelImpl(modelNgayBDPT, pNgayBDPT);
         datePickerNgayBDPT = new JDatePickerImpl(datePanelNgayBDPT, new DateLabelFormatter());
         datePickerNgayBDPT.setBounds(175, 110, 150, 30);
+        datePickerNgayBDPT.addMouseListener(this);
 
         btThemPT = new JButton("Thêm");
         btThemPT.setFont(new Font("Arial", Font.BOLD, 15));
@@ -2068,10 +2101,25 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         chitiethdtienphat.setDongia(Integer.parseInt(txCTHDDonGia.getText().trim()));
     }
 
-    // public String TinhThanhTien(){
-    // int ThanhTien = 0;
-    // String SoNgayMuon;
-
-    // String ThanhTien;
-    // }
+    public int TinhThanhTien(){
+    int ThanhTien = 0;
+    // QLMUONBUS qlmuonbus = new QLMUONBUS();
+    // ArrayList<PHIEUMUON> kq = new ArrayList<PHIEUMUON>();
+    // kq = qlmuonbus.getNgayMuon();
+    for(PHIEUMUON pm : QLMUONBUS.dspm){
+        String MaPM = pm.getMaPM();
+        for(PHIEUTRASACH pt : QLTRABUS.dspt){
+            if(pt.getMaPM().equals(MaPM)){
+                String tmp[] = pt.getNgaytra().split("-");
+                String tmp1[] = pm.getNgaymuon().split("-");
+                int songaymuon = Integer.parseInt(tmp[2]) - Integer.parseInt(tmp1[2]);
+                if(songaymuon <= 15)
+                    ThanhTien = pt.getTienthue() * songaymuon;
+                else
+                    ThanhTien = pt.getThanhtien() * songaymuon + (pt.getTienthue() + 2000) * songaymuon;
+            }
+        }
+    }
+    return ThanhTien;
+    }
 }

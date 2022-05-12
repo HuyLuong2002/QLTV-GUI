@@ -20,6 +20,17 @@ public class QLMUONBUS {
         dspm = data.docDS();
     }
 
+    public ArrayList<PHIEUMUON> getNgayMuon(){
+        ArrayList<PHIEUMUON> kq = new ArrayList<PHIEUMUON>();
+        try {
+            QLMUONDAO data = new QLMUONDAO();
+            kq = data.docDS();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return kq;
+    }
+
     public ArrayList<PHIEUMUON> getPMTheoQuy1(String year){
         ArrayList<PHIEUMUON> kq = new ArrayList<PHIEUMUON>();
         try {

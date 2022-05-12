@@ -173,12 +173,12 @@ public class QLMUONDAO {
 
             int n = ps.executeUpdate();
             if (n != 0) {
-                JOptionPane.showMessageDialog(null, "Thêm dữ liệu thành công", "Thông báo",
+                JOptionPane.showMessageDialog(null, "Sửa dữ liệu thành công", "Thông báo",
                         JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (Exception e) {
             System.out.println(e);
-            JOptionPane.showMessageDialog(null, "Thêm dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Sửa dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
     }
 
