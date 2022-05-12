@@ -134,7 +134,8 @@ public class BangTTPM extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btHoTroNhap) {
-            new HoTroNhap();
+            HoTroNhap ht = new HoTroNhap();
+            ht.setHoTroNhapInPM();
         }
         if (e.getSource() == btIn) {
             if (txMaPM.getText().equals("")) {
