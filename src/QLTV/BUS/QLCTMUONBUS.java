@@ -1,14 +1,12 @@
 package QLTV.BUS;
 
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 import QLTV.DAO.QLCTMUONDAO;
 import QLTV.DTO.CHITIETPHIEUMUON;
 
 public class QLCTMUONBUS {
     public static ArrayList<CHITIETPHIEUMUON> dsctpm;
     public static ArrayList<CHITIETPHIEUMUON> htXoa = new ArrayList<CHITIETPHIEUMUON>();
-    public static ArrayList<CHITIETPHIEUMUON> htSua = new ArrayList<CHITIETPHIEUMUON>();
     public QLCTMUONBUS() {
 
     }

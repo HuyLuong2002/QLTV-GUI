@@ -33,6 +33,7 @@ import org.jdatepicker.impl.UtilDateModel;
 
 import MyCustom.BangTTPM;
 import MyCustom.DateLabelFormatter;
+import MyCustom.MyTable;
 import MyCustom.RoundedBorder;
 import QLTV.BUS.QLCTHDTPBUS;
 import QLTV.BUS.QLCTMUONBUS;
@@ -234,8 +235,9 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             setLocPM();
             getDBMuon();
             getDBCTPM();
-            setValueCellCenter(modelMuon, tblQLMuon);
-            setValueCellCenter(modelCTMuon, tblQLCTMuon);
+            MyTable myTable = new MyTable();
+            myTable.setValueCellCenter(modelMuon, tblQLMuon);
+            myTable.setValueCellCenter(modelCTMuon, tblQLCTMuon);
 
             // Phiếu trả, chi tiết phiếu trả
             setTitlePT();
@@ -247,8 +249,8 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             setLocPT();
             getDBTra();
             getDBCTPT();
-            setValueCellCenter(modelTra, tblQLTra);
-            setValueCellCenter(modelCTTra, tblQLCTTra);
+            myTable.setValueCellCenter(modelTra, tblQLTra);
+            myTable.setValueCellCenter(modelCTTra, tblQLCTTra);
 
             // Hóa đơn tiền phạt, chi tiết hóa đơn
             setTitleHDTP();
@@ -260,8 +262,8 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             setLocHDTP();
             getDBHDTP();
             getDBCTHDTP();
-            setValueCellCenter(modelHDTP, tblQLHDTP);
-            setValueCellCenter(modelCTHDTP, tblQLCTHDTP);
+            myTable.setValueCellCenter(modelHDTP, tblQLHDTP);
+            myTable.setValueCellCenter(modelCTHDTP, tblQLCTHDTP);
 
         }
         return pnMuonTra;

@@ -1,16 +1,12 @@
 package QLTV.BUS;
 
 import java.util.ArrayList;
-
-import org.apache.xmlbeans.impl.xb.xsdschema.Public;
-
 import QLTV.DAO.QLCTTRADAO;
 import QLTV.DTO.CHITIETPHIEUTRA;
 
 public class QLCTTRABUS {
     public static ArrayList<CHITIETPHIEUTRA> dsctpt;
     public static ArrayList<CHITIETPHIEUTRA> htXoa = new ArrayList<CHITIETPHIEUTRA>();
-    public static ArrayList<CHITIETPHIEUTRA> htSua = new ArrayList<CHITIETPHIEUTRA>();
 
     public QLCTTRABUS(){}
 

@@ -8,7 +8,6 @@ import QLTV.DTO.PHIEUMUON;
 public class QLMUONBUS {
     public static ArrayList<PHIEUMUON> dspm;
     public static ArrayList<PHIEUMUON> htXoa = new ArrayList<PHIEUMUON>();
-    public static ArrayList<PHIEUMUON> htSua = new ArrayList<PHIEUMUON>();
 
     public QLMUONBUS() {
 

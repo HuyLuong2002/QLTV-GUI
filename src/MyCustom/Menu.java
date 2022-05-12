@@ -1,4 +1,5 @@
 package MyCustom;
+
 import java.awt.Color;
 import java.awt.*;
 import java.awt.event.*;
@@ -6,21 +7,24 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-
+import QLTV.GUI.QLNCCGUI;
+import QLTV.GUI.QLNHANVIENGUI;
 import QLTV.GUI.QLNXBGUI;
 import QLTV.GUI.QLSACHGUI;
 import QLTV.GUI.QLTACGIAGUI;
+import QLTV.GUI.QLTHELOAIGUI;
 
-public class Menu extends JFrame implements ActionListener{
+public class Menu extends JFrame implements ActionListener {
     JPanel panelMenu, panelBackGround, panelTitle, panelLibrary;
     JLabel labelQLTV, labelBackGroundMenu, labelLibrary;
     JButton btSach, btNhanvien, btNXB, btTheLoai, btTacGia, btNhaCC, btThoat, btDangXuat;
     ImageIcon imagebackground;
     Color ColorOCean, ColorDeepAqua, ColorRed, ColorBlue;
 
-    public Menu(){
+    public Menu() {
         this.setTitle("Quản lý thư viện");
         this.setSize(1214, 750);
         this.setLocationRelativeTo(null);
@@ -32,15 +36,15 @@ public class Menu extends JFrame implements ActionListener{
         this.setVisible(true);
     }
 
-    public void setMenu(){
-        ColorOCean = new Color(0,139,139);
-        ColorDeepAqua = new Color(64,224,220);
-        ColorRed = new Color(250, 75,75);
+    public void setMenu() {
+        ColorOCean = new Color(0, 139, 139);
+        ColorDeepAqua = new Color(64, 224, 220);
+        ColorRed = new Color(250, 75, 75);
 
         panelMenu = new JPanel();
-        panelMenu.setLayout(new GridLayout(8,1));
+        panelMenu.setLayout(new GridLayout(8, 1));
         panelMenu.setBackground(Color.WHITE);
-        panelMenu.setBounds(0,178, 240, 540);
+        panelMenu.setBounds(0, 178, 240, 540);
 
         panelBackGround = new JPanel();
         panelBackGround.setLayout(null);
@@ -60,10 +64,10 @@ public class Menu extends JFrame implements ActionListener{
         labelQLTV.setFont(new Font("Arial", Font.BOLD, 35));
         labelQLTV.setForeground(Color.WHITE);
         labelQLTV.setBounds(320, 20, 400, 50);
-        
+
         labelBackGroundMenu = new JLabel();
         labelBackGroundMenu.setIcon(new ImageIcon("images\\backgroundMenu.png"));
-        labelBackGroundMenu.setBounds(0,0, 954, 629);
+        labelBackGroundMenu.setBounds(0, 0, 954, 629);
 
         labelLibrary = new JLabel();
         labelLibrary.setIcon(new ImageIcon("images\\user_login1.png"));
@@ -155,26 +159,60 @@ public class Menu extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==btSach){
+        if (e.getSource() == btSach) {
             this.dispose();
             new QLSACHGUI();
         }
-        if(e.getSource()==btTacGia){
+        if (e.getSource() == btTacGia) {
             this.dispose();
             new QLTACGIAGUI();
         }
-        if(e.getSource()==btNXB){
+        if (e.getSource() == btNXB) {
             this.dispose();
             new QLNXBGUI();
         }
-        if(e.getSource()==btNhaCC){
+        if (e.getSource() == btNhaCC) {
             try {
                 this.dispose();
-                //new QLNCCGUI(null);
+                new QLNCCGUI();
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
         }
-        
+        if (e.getSource() == btNhanvien) {
+            try {
+                this.dispose();
+                new QLNHANVIENGUI();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        }
+        if (e.getSource() == btTheLoai) {
+            try {
+                this.dispose();
+                new QLTHELOAIGUI();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        }
+        if (e.getSource() == btDangXuat) {
+            int ktra = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất", "Xác nhận",
+                    JOptionPane.YES_NO_OPTION);
+            if (ktra == 0) {
+                this.dispose();
+                try {
+                    new LoginPage();
+                } catch (InterruptedException e1) {
+                    System.out.println(e1);
+                }
+            }
+        }
+        if (e.getSource() == btThoat) {
+            int ktra = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất", "Xác nhận",
+                    JOptionPane.YES_NO_OPTION);
+            if (ktra == 0) {
+                System.exit(0);
+            }
+        }
     }
 }
