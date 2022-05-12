@@ -10,7 +10,6 @@ import javax.swing.JOptionPane;
 
 import MyCustom.MSSQLConnect;
 import QLTV.DTO.NHACUNGCAP;
-import QLTV.DTO.NXB;
 
 public class QLNCCDAO {
     Connection conn = null;

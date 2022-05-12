@@ -21,7 +21,6 @@ import QLTV.DTO.NHANVIEN;
 import QLTV.DTO.PHIEUMUON;
 import QLTV.DTO.PHIEUTRASACH;
 import QLTV.DTO.SACH;
-import QLTV.GUI.QLMTGUI;
 
 public class BaoCaoThongKe implements ActionListener {
     JPanel pnThongKe, pnSach, pnKhachHang, pnNhanVien, pnTongDoanhThu, pnBaoCaoDoanhThu;
@@ -224,8 +223,8 @@ public class BaoCaoThongKe implements ActionListener {
                 });
         tblDoanhThu.setSelectionBackground(Color.GREEN);
         tblDoanhThu.setModel(model);
-        QLMTGUI qlmtgui = new QLMTGUI();
-        qlmtgui.setValueCellCenter(model, tblDoanhThu);
+        MyTable myTable = new MyTable();
+        myTable.setValueCellCenter(model, tblDoanhThu);
         pnBaoCaoDoanhThu.add(new JScrollPane(tblDoanhThu));
 
     }
@@ -238,7 +237,7 @@ public class BaoCaoThongKe implements ActionListener {
             int vtkey = cbKhoaThongKe.getSelectedIndex();
             String NamThongKe = cbKhoaThongKe.getItemAt(vtkey);
             QLMUONBUS qlmuonbus = new QLMUONBUS();
-            QLMTGUI qlmtgui = new QLMTGUI();
+            MyTable myTable = new MyTable();
             ArrayList<PHIEUMUON> kq = new ArrayList<PHIEUMUON>();
             // Quý 1
             kq = qlmuonbus.getPMTheoQuy1(NamThongKe);
@@ -324,7 +323,7 @@ public class BaoCaoThongKe implements ActionListener {
             model.setValueAt(String.format("%,d", TongDoanhThu), 0, 5);
             model.setValueAt(String.format("%,d", TongDoanhThu), 1, 5);
 
-            qlmtgui.setValueCellCenter(model, tblDoanhThu);
+            myTable.setValueCellCenter(model, tblDoanhThu);
         }
 
     }

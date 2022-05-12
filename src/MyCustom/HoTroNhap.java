@@ -16,7 +16,6 @@ import QLTV.BUS.QLMUONBUS;
 import QLTV.BUS.QLNVBUS;
 import QLTV.DTO.DOCGIA;
 import QLTV.DTO.PHIEUMUON;
-import QLTV.GUI.QLMTGUI;
 
 public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
     JLabel lbHoTro, lbTuKhoaTK;
@@ -29,7 +28,7 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
     JScrollPane pane;
 
     public HoTroNhap() {
-        QLMTGUI qlmtgui = new QLMTGUI();
+        MyTable myTable = new MyTable();
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setSize(700, 600);
         this.setTitle("Lựa chọn thông tin");
@@ -43,7 +42,7 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
         setTitle();
         setTable();
         addTTPMOnTable();
-        qlmtgui.setValueCellCenter(model, table);
+        myTable.setValueCellCenter(model, table);
 
         this.add(pnTable);
 
