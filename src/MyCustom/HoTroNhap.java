@@ -12,11 +12,16 @@ import java.awt.event.MouseListener;
 import javax.swing.*;
 import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
+
+import QLTV.BUS.QLHDTPBUS;
 import QLTV.BUS.QLMUONBUS;
 import QLTV.BUS.QLNVBUS;
 import QLTV.BUS.QLSACHBUS;
+import QLTV.BUS.QLTRABUS;
 import QLTV.DTO.DOCGIA;
+import QLTV.DTO.HDTIENPHAT;
 import QLTV.DTO.PHIEUMUON;
+import QLTV.DTO.PHIEUTRASACH;
 import QLTV.DTO.SACH;
 import QLTV.GUI.QLMTGUI;
 
@@ -24,7 +29,8 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
     JLabel lbHoTro, lbTuKhoaTK;
     JTextField txKhoaTK;
     JPanel pnTable;
-    JButton btLuaChon, btTimKiem, btTimKiemSach, btLuaChonCTPM, btLuaChonSach;
+    JButton btLuaChon, btTimKiemPM, btTimKiemPT, btTimKiemHD, btTimKiemSach, btLuaChonCTPM, btLuaChonCTPT, 
+            btLuaCHonCTHDTP, btLuaChonSach, btLuaChonSachPT, btLuaChonSachHD;
     JTable table;
     DefaultTableModel model;
     Vector<String> header;
@@ -76,6 +82,48 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
         this.setVisible(true);
     }
 
+    public void setHoTroNhapCTPT() {
+        MyTable myTable = new MyTable();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setSize(700, 600);
+        this.setTitle("Lựa chọn thông tin");
+        this.setLayout(null);
+        this.setLocationRelativeTo(null);
+
+        pnTable = new JPanel();
+        pnTable.setLayout(new GridLayout(1, 1));
+        pnTable.setBounds(40, 100, 600, 300);
+
+        setTitleCTPT();
+        setTable();
+        addTTPTOnTable();
+        myTable.setValueCellCenter(model, table);
+
+        this.add(pnTable);
+        this.setVisible(true);
+    }
+
+    public void setHoTroNhapCTHDTP() {
+        MyTable myTable = new MyTable();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setSize(700, 600);
+        this.setTitle("Lựa chọn thông tin");
+        this.setLayout(null);
+        this.setLocationRelativeTo(null);
+
+        pnTable = new JPanel();
+        pnTable.setLayout(new GridLayout(1, 1));
+        pnTable.setBounds(40, 100, 600, 300);
+
+        setTitleCTHDTP();
+        setTable();
+        addTTHDTPOnTable();
+        myTable.setValueCellCenter(model, table);
+
+        this.add(pnTable);
+        this.setVisible(true);
+    }
+
     public void setHoTroNhapMasach() {
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setSize(700, 600);
@@ -115,18 +163,18 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
         txKhoaTK.setFont(new Font("Arial", Font.PLAIN, 15));
         txKhoaTK.setBounds(270, 55, 150, 30);
 
-        btTimKiem = new JButton("Tìm kiếm");
-        btTimKiem.setFont(new Font("Arial", Font.BOLD, 15));
-        btTimKiem.setBounds(430, 55, 100, 30);
-        btTimKiem.setBackground(Color.cyan);
-        btTimKiem.setBorder(new RoundedBorder(10));
-        btTimKiem.addActionListener(this);
+        btTimKiemPM = new JButton("Tìm kiếm");
+        btTimKiemPM.setFont(new Font("Arial", Font.BOLD, 15));
+        btTimKiemPM.setBounds(430, 55, 100, 30);
+        btTimKiemPM.setBackground(Color.cyan);
+        btTimKiemPM.setBorder(new RoundedBorder(10));
+        btTimKiemPM.addActionListener(this);
 
         this.add(lbHoTro);
         this.add(btLuaChon);
         this.add(lbTuKhoaTK);
         this.add(txKhoaTK);
-        this.add(btTimKiem);
+        this.add(btTimKiemPM);
     }
 
     public void setTitleCTPM() {
@@ -149,18 +197,86 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
         txKhoaTK.setFont(new Font("Arial", Font.PLAIN, 15));
         txKhoaTK.setBounds(270, 55, 150, 30);
 
-        btTimKiem = new JButton("Tìm kiếm");
-        btTimKiem.setFont(new Font("Arial", Font.BOLD, 15));
-        btTimKiem.setBounds(430, 55, 100, 30);
-        btTimKiem.setBackground(Color.cyan);
-        btTimKiem.setBorder(new RoundedBorder(10));
-        btTimKiem.addActionListener(this);
+        btTimKiemPM = new JButton("Tìm kiếm");
+        btTimKiemPM.setFont(new Font("Arial", Font.BOLD, 15));
+        btTimKiemPM.setBounds(430, 55, 100, 30);
+        btTimKiemPM.setBackground(Color.cyan);
+        btTimKiemPM.setBorder(new RoundedBorder(10));
+        btTimKiemPM.addActionListener(this);
 
         this.add(lbHoTro);
         this.add(btLuaChonCTPM);
         this.add(lbTuKhoaTK);
         this.add(txKhoaTK);
-        this.add(btTimKiem);
+        this.add(btTimKiemPM);
+    }
+
+    public void setTitleCTPT() {
+        lbHoTro = new JLabel("LỰA CHỌN PHIẾU TRẢ");
+        lbHoTro.setFont(new Font("Arial", Font.BOLD, 20));
+        lbHoTro.setBounds(210, 0, 320, 50);
+
+        btLuaChonCTPT = new JButton("Chọn");
+        btLuaChonCTPT.setFont(new Font("Arial", Font.BOLD, 15));
+        btLuaChonCTPT.setBounds(560, 420, 80, 30);
+        btLuaChonCTPT.setBackground(Color.cyan);
+        btLuaChonCTPT.setBorder(new RoundedBorder(10));
+        btLuaChonCTPT.addActionListener(this);
+
+        lbTuKhoaTK = new JLabel("Nhập từ khóa tìm kiếm:");
+        lbTuKhoaTK.setFont(new Font("Arial", Font.BOLD, 20));
+        lbTuKhoaTK.setBounds(40, 20, 250, 100);
+
+        txKhoaTK = new JTextField();
+        txKhoaTK.setFont(new Font("Arial", Font.PLAIN, 15));
+        txKhoaTK.setBounds(270, 55, 150, 30);
+
+        btTimKiemPT = new JButton("Tìm kiếm");
+        btTimKiemPT.setFont(new Font("Arial", Font.BOLD, 15));
+        btTimKiemPT.setBounds(430, 55, 100, 30);
+        btTimKiemPT.setBackground(Color.cyan);
+        btTimKiemPT.setBorder(new RoundedBorder(10));
+        btTimKiemPT.addActionListener(this);
+
+        this.add(lbHoTro);
+        this.add(btLuaChonCTPT);
+        this.add(lbTuKhoaTK);
+        this.add(txKhoaTK);
+        this.add(btTimKiemPT);
+    }
+
+    public void setTitleCTHDTP() {
+        lbHoTro = new JLabel("LỰA CHỌN HÓA ĐƠN TIỀN PHẠT");
+        lbHoTro.setFont(new Font("Arial", Font.BOLD, 20));
+        lbHoTro.setBounds(210, 0, 320, 50);
+
+        btLuaCHonCTHDTP = new JButton("Chọn");
+        btLuaCHonCTHDTP.setFont(new Font("Arial", Font.BOLD, 15));
+        btLuaCHonCTHDTP.setBounds(560, 420, 80, 30);
+        btLuaCHonCTHDTP.setBackground(Color.cyan);
+        btLuaCHonCTHDTP.setBorder(new RoundedBorder(10));
+        btLuaCHonCTHDTP.addActionListener(this);
+
+        lbTuKhoaTK = new JLabel("Nhập từ khóa tìm kiếm:");
+        lbTuKhoaTK.setFont(new Font("Arial", Font.BOLD, 20));
+        lbTuKhoaTK.setBounds(40, 20, 250, 100);
+
+        txKhoaTK = new JTextField();
+        txKhoaTK.setFont(new Font("Arial", Font.PLAIN, 15));
+        txKhoaTK.setBounds(270, 55, 150, 30);
+
+        btTimKiemHD = new JButton("Tìm kiếm");
+        btTimKiemHD.setFont(new Font("Arial", Font.BOLD, 15));
+        btTimKiemHD.setBounds(430, 55, 100, 30);
+        btTimKiemHD.setBackground(Color.cyan);
+        btTimKiemHD.setBorder(new RoundedBorder(10));
+        btTimKiemHD.addActionListener(this);
+
+        this.add(lbHoTro);
+        this.add(btLuaCHonCTHDTP);
+        this.add(lbTuKhoaTK);
+        this.add(txKhoaTK);
+        this.add(btTimKiemHD);
     }
 
     public void setTitleSach() {
@@ -234,6 +350,50 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
         table.setModel(model);
     }
 
+    public void addTTPTOnTable() {
+        Vector<String> header = new Vector<String>();
+        header.add("Mã phiếu trả");
+        header.add("Ngày trả");
+        header.add("Tình trạng sách");
+        header.add("Tiền thuê");
+        header.add("Thành tiền");
+        header.add("Mã phiếu mượn");
+        model = new DefaultTableModel(header, 0);
+        QLTRABUS qltrabus = new QLTRABUS();
+        if (QLTRABUS.dspt == null) {
+            try {
+                qltrabus.docDSPT();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        }
+        for (PHIEUTRASACH pt : QLTRABUS.dspt) {
+            ShowOnTablePT(pt);
+        }
+        table.setModel(model);
+    }
+
+    public void addTTHDTPOnTable() {
+        Vector<String> header = new Vector<String>();
+        header.add("Mã hóa đơn");
+        header.add("Mã độc giả");
+        header.add("Số lượng tổng");
+        header.add("Tiền phạt");
+        model = new DefaultTableModel(header, 0);
+        QLHDTPBUS qlhdbus = new QLHDTPBUS();
+        if (QLHDTPBUS.dshdtp == null) {
+            try {
+                qlhdbus.docDS();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        }
+        for (HDTIENPHAT hd : QLHDTPBUS.dshdtp) {
+            ShowOnTableHD(hd);
+        }
+        table.setModel(model);
+    }
+
     public void addTTSachOnTable() {
         Vector<String> header = new Vector<String>();
         header.add("Mã sách");
@@ -283,9 +443,29 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
         model.addRow(row);
     }
 
+    public void ShowOnTablePT(PHIEUTRASACH pt) {
+        Vector<String> row = new Vector<String>();
+        row.add(pt.getMaPT().trim());
+        row.add(pt.getNgaytra().trim());
+        row.add(pt.getTinhtrangsach().trim());
+        row.add(String.format("%,d", pt.getTienthue()));
+        row.add(String.format("%,d", pt.getThanhtien()));
+        row.add(pt.getMaPM().trim());
+        model.addRow(row);
+    }
+
+    public void ShowOnTableHD(HDTIENPHAT hd) {
+        Vector<String> row = new Vector<String>();
+        row.add(hd.getMaHD().trim());
+        row.add(hd.getMaDG().trim());
+        row.add(String.valueOf(hd.getSL()));
+        row.add(String.format("%,d", hd.getTienphat()));
+        model.addRow(row);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == btTimKiem) {
+        if (e.getSource() == btTimKiemPM) {
             String tukhoa = txKhoaTK.getText();
             if (tukhoa.equals("") == true) {
                 model.setRowCount(0);
@@ -308,6 +488,62 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
                 } else {
                     for (PHIEUMUON pm : kq) {
                         ShowOnTablePM(pm);
+                    }
+                    table.setModel(model);
+                }
+            }
+        }
+        if (e.getSource() == btTimKiemPT) {
+            String tukhoa = txKhoaTK.getText();
+            if (tukhoa.equals("") == true) {
+                model.setRowCount(0);
+                for (PHIEUTRASACH pt : QLTRABUS.dspt) {
+                    ShowOnTablePT(pt);
+                }
+            } else {
+                model.setRowCount(0);
+                ArrayList<PHIEUTRASACH> kq = new ArrayList<PHIEUTRASACH>();
+                for (PHIEUTRASACH pt : QLTRABUS.dspt) {
+                    if (tukhoa.indexOf(pt.getMaPT().trim()) >= 0 || tukhoa.indexOf(pt.getNgaytra()) >= 0
+                            || tukhoa.indexOf(String.valueOf(pt.getTienthue())) >= 0 
+                            || tukhoa.indexOf(String.valueOf(pt.getTienthue())) >= 0
+                            || tukhoa.indexOf(pt.getTinhtrangsach().trim()) >= 0
+                            || tukhoa.indexOf(pt.getMaPM().trim()) >= 0) {
+                        kq.add(pt);
+                    }
+                }
+                if (kq.size() == 0) {
+                    JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    for (PHIEUTRASACH pt : kq) {
+                        ShowOnTablePT(pt);
+                    }
+                    table.setModel(model);
+                }
+            }
+        }
+        if (e.getSource() == btTimKiemHD) {
+            String tukhoa = txKhoaTK.getText();
+            if (tukhoa.equals("") == true) {
+                model.setRowCount(0);
+                for (HDTIENPHAT hd : QLHDTPBUS.dshdtp) {
+                    ShowOnTableHD(hd);
+                }
+            } else {
+                model.setRowCount(0);
+                ArrayList<HDTIENPHAT> kq = new ArrayList<HDTIENPHAT>();
+                for (HDTIENPHAT hd : QLHDTPBUS.dshdtp) {
+                    if (tukhoa.indexOf(hd.getMaHD().trim()) >= 0 || tukhoa.indexOf(hd.getMaDG()) >= 0
+                        || tukhoa.indexOf(String.valueOf(hd.getTienphat())) >= 0 
+                        || tukhoa.indexOf(String.valueOf(hd.getSL())) >= 0){
+                        kq.add(hd);
+                    }
+                }
+                if (kq.size() == 0) {
+                    JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    for (HDTIENPHAT hd : kq) {
+                        ShowOnTableHD(hd);
                     }
                     table.setModel(model);
                 }
@@ -386,11 +622,26 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
             }
             this.dispose();
         }
+        if (e.getSource() == btLuaChonCTPT) {
+            int i = table.getSelectedRow();
+            if (i >= 0) {
+                QLMTGUI.txCTPTMaPT.setText(String.valueOf(model.getValueAt(i, 0)));
+            }
+            this.dispose();
+        }
+        if (e.getSource() == btLuaCHonCTHDTP) {
+            int i = table.getSelectedRow();
+            if (i >= 0) {
+                QLMTGUI.txCTHDMaHD.setText(String.valueOf(model.getValueAt(i, 0)));
+            }
+            this.dispose();
+        }
         if (e.getSource() == btLuaChonSach) {
             int i = table.getSelectedRow();
             if (i >= 0) {
                 QLMTGUI.txCTPMMaSach.setText(String.valueOf(model.getValueAt(i, 0)));
-                
+                QLMTGUI.txCTPTMaSach.setText(String.valueOf(model.getValueAt(i, 0)));
+                QLMTGUI.txCTHDMaSach.setText(String.valueOf(model.getValueAt(i, 0)));
             }
             this.dispose();
         }

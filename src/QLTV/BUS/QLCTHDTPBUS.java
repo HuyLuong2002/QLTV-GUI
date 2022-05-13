@@ -26,10 +26,12 @@ public class QLCTHDTPBUS {
         return 1;
     }
 
-    public void sua(CHITIETHDTIENPHAT chitiethdtienphatMoi, CHITIETHDTIENPHAT chitiethdtienphatCu, int i) throws Exception {
+    public int sua(CHITIETHDTIENPHAT chitiethdtienphatMoi, CHITIETHDTIENPHAT chitiethdtienphatCu, int i) throws Exception {
         // Truy cập vào database
+        int kt = 0;
         QLCTHDTPDAO data = new QLCTHDTPDAO();
-        data.sua(chitiethdtienphatMoi, chitiethdtienphatCu);
+        kt = data.sua(chitiethdtienphatMoi, chitiethdtienphatCu);
         dscthdtp.set(i, chitiethdtienphatMoi);
+        return kt;
     }
 }

@@ -67,7 +67,7 @@ public class QLTRADAO {
         }
     }
 
-    public void sua(PHIEUTRASACH phieutraMoi, PHIEUTRASACH phieutraCu){
+    public int sua(PHIEUTRASACH phieutraMoi, PHIEUTRASACH phieutraCu){
         try {
             String qry = "UPDATE PHIEUTRASACH SET MAPT= ?, NGAYTRA= ?, TINHTRANGSACH= ?, TIENTHUE= ?, THANHTIEN= ?, MAPM= ?" + " WHERE MAPT= ?";
             PreparedStatement ps = conn.prepareStatement(qry);
@@ -84,9 +84,11 @@ public class QLTRADAO {
                 JOptionPane.showMessageDialog(null, "Sửa dữ liệu thành công", "Thông báo",
                         JOptionPane.INFORMATION_MESSAGE);
             }
+            return 0;
         } catch (Exception e) {
             System.out.println(e);
             JOptionPane.showMessageDialog(null, "Sửa dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return -1;
         }
     }
 }

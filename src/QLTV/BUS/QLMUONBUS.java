@@ -118,11 +118,13 @@ public class QLMUONBUS {
         }
     }
 
-    public void sua(PHIEUMUON phieumuonmoi, PHIEUMUON phieumuoncu, int i) throws Exception {
+    public int sua(PHIEUMUON phieumuonmoi, PHIEUMUON phieumuoncu, int i) throws Exception {
         // Truy cập vào database
+        int kt = 0;
         QLMUONDAO data = new QLMUONDAO();
-        data.sua(phieumuonmoi, phieumuoncu);
+        kt = data.sua(phieumuonmoi, phieumuoncu);
         dspm.set(i, phieumuonmoi);
+        return kt;
     }
     public int KTMa(String MaPmMoi) {
         for (PHIEUMUON phieumuon : dspm)

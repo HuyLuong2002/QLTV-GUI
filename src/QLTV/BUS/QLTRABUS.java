@@ -74,11 +74,13 @@ public class QLTRABUS {
         }
     }
 
-    public void sua(PHIEUTRASACH phieutramoi, PHIEUTRASACH phieutracu, int i) throws Exception {
+    public int sua(PHIEUTRASACH phieutramoi, PHIEUTRASACH phieutracu, int i) throws Exception {
         // Truy cập vào database
+        int kt = 0;
         QLTRADAO data = new QLTRADAO();
-        data.sua(phieutramoi, phieutracu);
+        kt=data.sua(phieutramoi, phieutracu);
         dspt.set(i, phieutramoi);
+        return kt;
     }
     public int KTMa(String MaPtMoi) {
         for (PHIEUTRASACH phieutrasach : dspt)

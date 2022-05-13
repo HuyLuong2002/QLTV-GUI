@@ -37,11 +37,13 @@ public class QLCTMUONBUS {
         return 1;
     }
 
-    public void sua(CHITIETPHIEUMUON phieumuonmoi, CHITIETPHIEUMUON phieumuoncu, int i) throws Exception {
+    public int sua(CHITIETPHIEUMUON phieumuonmoi, CHITIETPHIEUMUON phieumuoncu, int i) throws Exception {
         // Truy cập vào database
+        int kt = 0;
         QLCTMUONDAO data = new QLCTMUONDAO();
-        data.sua(phieumuonmoi, phieumuoncu);
+        kt = data.sua(phieumuonmoi, phieumuoncu);
         dsctpm.set(i, phieumuonmoi);
+        return kt;
     }
     public int KTMa(String MaCTPmMoi) {
         for (CHITIETPHIEUMUON phieumuon : dsctpm)

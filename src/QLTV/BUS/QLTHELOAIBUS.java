@@ -28,6 +28,11 @@ public class QLTHELOAIBUS {
             JOptionPane.showMessageDialog(null, "Mã thể loại vừa nhập bị trùng. Mời nhập lại!", "Lỗi",
                     JOptionPane.ERROR_MESSAGE);
             return -1;
+        }
+        if(KTTENTL(theloai.getTenTL().trim()) == 0){
+            JOptionPane.showMessageDialog(null, "Tên thể loại vừa nhập bị trùng. Mời nhập lại!", "Lỗi",
+                    JOptionPane.ERROR_MESSAGE);
+            return -1;
         }else {
             // Truy cập vào database
             QLTHELOAIDAO data = new QLTHELOAIDAO();
@@ -71,6 +76,14 @@ public class QLTHELOAIBUS {
     public int KTMa(String MaNXBMoi) {
         for (THELOAI theloai : dstheloai)
             if (theloai.getMaTL().trim().equals(MaNXBMoi)) {
+                return 0;
+            }
+        return 1;
+    }
+
+    public int KTTENTL(String TENTLMoi) {
+        for (THELOAI theloai : dstheloai)
+            if (theloai.getTenTL().trim().equals(TENTLMoi)) {
                 return 0;
             }
         return 1;

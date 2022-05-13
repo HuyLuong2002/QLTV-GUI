@@ -1,6 +1,7 @@
 package QLTV.DAO;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -69,12 +70,14 @@ public class QLNXBDAO {
 
     public int sua(NXB nxbmoi, NXB nxbcu) {
         try {
-            String qry = "update NXB set " + "MANXB=" + "'" + nxbmoi.getMaNXB() + "'" +
-                    ",TENNXB=" + "N'" + nxbmoi.getTenNXB() + "'" + " " + "where MANXB='" + nxbcu.getMaNXB()
-                    + "'";
-            st = conn.createStatement();
-            st.executeUpdate(qry);
-            if (st != null) {
+            String qry = "UPDATE NXB SET MANXB= ?, TENNXB= ?" + " WHERE MANXB= ?";
+            PreparedStatement ps = conn.prepareStatement(qry);
+            ps.setString(1, nxbmoi.getMaNXB());
+            ps.setString(2, nxbmoi.getTenNXB());
+            ps.setString(3, nxbcu.getMaNXB());
+
+            int n = ps.executeUpdate();
+            if (n != 0) {
                 JOptionPane.showMessageDialog(null, "Sửa dữ liệu thành công", "Thông báo",
                         JOptionPane.INFORMATION_MESSAGE);
             }

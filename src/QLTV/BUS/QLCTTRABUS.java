@@ -24,10 +24,12 @@ public class QLCTTRABUS {
         return 1;
     }
 
-    public void sua(CHITIETPHIEUTRA phieutramoi, CHITIETPHIEUTRA phieutracu, int i) throws Exception {
+    public int sua(CHITIETPHIEUTRA phieutramoi, CHITIETPHIEUTRA phieutracu, int i) throws Exception {
         // Truy cập vào database
+        int kt = 0;
         QLCTTRADAO data = new QLCTTRADAO();
-        data.sua(phieutramoi, phieutracu);
+        kt = data.sua(phieutramoi, phieutracu);
         dsctpt.set(i, phieutramoi);
+        return kt;
     }
 }

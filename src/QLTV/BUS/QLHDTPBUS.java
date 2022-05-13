@@ -36,11 +36,13 @@ public class QLHDTPBUS {
         }
     }
 
-    public void sua(HDTIENPHAT hoadonmoi, HDTIENPHAT hoadoncu, int i) throws Exception {
+    public int sua(HDTIENPHAT hoadonmoi, HDTIENPHAT hoadoncu, int i) throws Exception {
         // Truy cập vào database
+        int kt = 0;
         QLHDTPDAO data = new QLHDTPDAO();
-        data.sua(hoadonmoi, hoadoncu);
+        kt = data.sua(hoadonmoi, hoadoncu);
         dshdtp.set(i, hoadonmoi);
+        return kt;
     }
 
     public int KTMa(String MaHDMoi) {

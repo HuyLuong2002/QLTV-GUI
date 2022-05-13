@@ -60,7 +60,7 @@ public class QLCTTRADAO {
         }
     }
 
-    public void sua(CHITIETPHIEUTRA ctphieutraMoi, CHITIETPHIEUTRA ctphieutraCu){
+    public int sua(CHITIETPHIEUTRA ctphieutraMoi, CHITIETPHIEUTRA ctphieutraCu){
         try {
             String qry = "UPDATE CHITIETPHIEUTRA SET MAPT= ?, MASACH= ?, SL= ?" + " WHERE MAPT= ?";
             PreparedStatement ps = conn.prepareStatement(qry);
@@ -74,9 +74,11 @@ public class QLCTTRADAO {
                 JOptionPane.showMessageDialog(null, "Sửa dữ liệu thành công", "Thông báo",
                         JOptionPane.INFORMATION_MESSAGE);
             }
+            return 0;
         } catch (Exception e) {
             System.out.println(e);
             JOptionPane.showMessageDialog(null, "Sửa dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return -1;
         }
     }
 }
