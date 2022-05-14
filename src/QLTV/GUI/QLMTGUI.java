@@ -31,7 +31,7 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
-import MyCustom.BangTTPM;
+import MyCustom.BangTTIn;
 import MyCustom.DateLabelFormatter;
 import MyCustom.HoTroNhap;
 import MyCustom.MyTable;
@@ -424,7 +424,12 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             }
         }
         if (e.getSource() == btInPM) {
-            new BangTTPM();
+            BangTTIn ttpm = new BangTTIn();
+            ttpm.setTTPM();
+        }
+        if (e.getSource() == btInHDTP) {
+            BangTTIn ttpm = new BangTTIn();
+            ttpm.setTTHD();
         }
         if (e.getSource() == btThemPM) {
             try {
@@ -715,6 +720,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             } catch (Exception e1) {
                 System.out.println(e1);
             }
+<<<<<<< HEAD
         }
         if (e.getSource() == btSuaCTHD) {
             int i = tblQLCTHDTP.getSelectedRow();
@@ -761,6 +767,16 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         if(e.getSource() == btHoTroNhapMasachHD){
             HoTroNhap hoTroNhapMaSachHD = new HoTroNhap();
             hoTroNhapMaSachHD.setHoTroNhapMasach();
+=======
+        }
+        if (e.getSource() == btHoTroNhapMaPM) {
+            HoTroNhap ht = new HoTroNhap();
+            ht.setHoTroNhapCTPM();
+        }
+        if (e.getSource() == btHoTroNhapMasach) {
+            HoTroNhap ht = new HoTroNhap();
+            ht.setHoTroNhapMasach();
+>>>>>>> 00302c8e1f44c9e20a974a113cee514b279604c3
         }
     }
 
@@ -940,6 +956,9 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                 if (pnNhapPT.isVisible() == false) {
                     pnNhapPT.setVisible(true);
                 }
+                if (btInHDTP.isVisible() == true) {
+                    btInHDTP.setVisible(false);
+                }
                 pnTabMuon.setVisible(false);
                 pnTabTienPhat.setVisible(false);
             }
@@ -952,6 +971,9 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                 }
                 if (btInPM.isVisible() == true) {
                     btInPM.setVisible(false);
+                }
+                if (btInHDTP.isVisible() == false) {
+                    btInHDTP.setVisible(true);
                 }
                 if (pnNhapPT.isVisible() == true) {
                     pnNhapPT.setVisible(false);
@@ -968,7 +990,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if(e.getSource() == datePickerNgayBDPT){
+        if (e.getSource() == datePickerNgayBDPT) {
             System.out.println("1");
         }
     }
@@ -1257,8 +1279,16 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         btInPM.setBorder(new RoundedBorder(10));
         btInPM.addActionListener(this);
 
+        btInHDTP = new JButton("In hóa đơn");
+        btInHDTP.setFont(new Font("Arial", Font.BOLD, 15));
+        btInHDTP.setBounds(0, 10, 130, 30);
+        btInHDTP.setBackground(Color.cyan);
+        btInHDTP.setBorder(new RoundedBorder(10));
+        btInHDTP.addActionListener(this);
+
         pnShowAll.add(btShowAll);
         pnShowAll.add(btInPM);
+        pnShowAll.add(btInHDTP);
     }
 
     public void setTableMuon() {
@@ -2271,25 +2301,25 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         chitiethdtienphat.setDongia(Integer.parseInt(txCTHDDonGia.getText().trim()));
     }
 
-    public int TinhThanhTien(){
-    int ThanhTien = 0;
-    // QLMUONBUS qlmuonbus = new QLMUONBUS();
-    // ArrayList<PHIEUMUON> kq = new ArrayList<PHIEUMUON>();
-    // kq = qlmuonbus.getNgayMuon();
-    for(PHIEUMUON pm : QLMUONBUS.dspm){
-        String MaPM = pm.getMaPM();
-        for(PHIEUTRASACH pt : QLTRABUS.dspt){
-            if(pt.getMaPM().equals(MaPM)){
-                String tmp[] = pt.getNgaytra().split("-");
-                String tmp1[] = pm.getNgaymuon().split("-");
-                int songaymuon = Integer.parseInt(tmp[2]) - Integer.parseInt(tmp1[2]);
-                if(songaymuon <= 15)
-                    ThanhTien = pt.getTienthue() * songaymuon;
-                else
-                    ThanhTien = pt.getThanhtien() * songaymuon + (pt.getTienthue() + 2000) * songaymuon;
+    public int TinhThanhTien() {
+        int ThanhTien = 0;
+        // QLMUONBUS qlmuonbus = new QLMUONBUS();
+        // ArrayList<PHIEUMUON> kq = new ArrayList<PHIEUMUON>();
+        // kq = qlmuonbus.getNgayMuon();
+        for (PHIEUMUON pm : QLMUONBUS.dspm) {
+            String MaPM = pm.getMaPM();
+            for (PHIEUTRASACH pt : QLTRABUS.dspt) {
+                if (pt.getMaPM().equals(MaPM)) {
+                    String tmp[] = pt.getNgaytra().split("-");
+                    String tmp1[] = pm.getNgaymuon().split("-");
+                    int songaymuon = Integer.parseInt(tmp[2]) - Integer.parseInt(tmp1[2]);
+                    if (songaymuon <= 15)
+                        ThanhTien = pt.getTienthue() * songaymuon;
+                    else
+                        ThanhTien = pt.getThanhtien() * songaymuon + (pt.getTienthue() + 2000) * songaymuon;
+                }
             }
         }
-    }
-    return ThanhTien;
+        return ThanhTien;
     }
 }

@@ -185,7 +185,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
                     model.setValueAt(sach.getNamXB(), i, 4);
                     model.setValueAt(sach.getSLtong(), i, 5);
                     model.setValueAt(sach.getSL(), i, 6);
-                    model.setValueAt(sach.getDongia(), i, 7);
+                    model.setValueAt(String.format("%,d",sach.getDongia()), i, 7);
                     tblQLSACH.setModel(model);
                 } catch (Exception e1) {
                     System.out.println(e1);
