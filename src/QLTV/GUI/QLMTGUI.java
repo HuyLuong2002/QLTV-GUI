@@ -348,10 +348,10 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             } else {
                 QLTRABUS qltrabus = new QLTRABUS();
                 if (vtkey == 1) {
-                    PHIEUTRASACH kq = qltrabus.timTheoMa(tukhoa);
+                    PHIEUTRASACH kq = qltrabus.timTheoMaPT(tukhoa);
                     modelMuon.setRowCount(0);
                     if (kq != null) {
-                        ShowOnTablePM(kq);
+                        ShowOnTablePT(kq);
                         tblQLMuon.setModel(modelMuon);
                     } else {
                         JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu phù hợp", "Lỗi",
@@ -359,41 +359,39 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                     }
                 }
                 if (vtkey == 2) {
-                    ArrayList<PHIEUMUON> kq = qlsachbus.timTheoSLtong(tukhoa);
+                    ArrayList<PHIEUTRASACH> kq = qltrabus.timTheoTinhTrangSach(tukhoa);
                     modelMuon.setRowCount(0);
                     if (kq.size() == 0) {
                         JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu phù hợp", "Lỗi",
                                 JOptionPane.ERROR_MESSAGE);
                     } else {
-                        for (PHIEUMUON pm : kq) {
-                            ShowOnTablePM(pm);
+                        for (PHIEUTRASACH pt : kq) {
+                            ShowOnTablePT(pt);
                         }
                         tblQLMuon.setModel(modelMuon);
                     }
                 }
                 if (vtkey == 3) {
-                    ArrayList<PHIEUMUON> kq = qlsachbus.timTheoTinhTrangMuon(tukhoa.trim());
+                    ArrayList<PHIEUTRASACH> kq = qltrabus.timTheoThanhTien(tukhoa.trim());
                     modelMuon.setRowCount(0);
                     if (kq.size() == 0) {
                         JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu phù hợp", "Lỗi",
                                 JOptionPane.ERROR_MESSAGE);
                     } else {
-                        for (PHIEUMUON pm : kq) {
-                            ShowOnTablePM(pm);
+                        for (PHIEUTRASACH pt : kq) {
+                            ShowOnTablePT(pt);
                         }
                         tblQLMuon.setModel(modelMuon);
                     }
                 }
                 if (vtkey == 4) {
-                    ArrayList<PHIEUMUON> kq = qlsachbus.timTheoMaDG(tukhoa.trim());
+                    PHIEUTRASACH kq = qltrabus.timTheoMaPM(tukhoa.trim());
                     modelMuon.setRowCount(0);
-                    if (kq.size() == 0) {
+                    if (kq == null) {
                         JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu phù hợp", "Lỗi",
                                 JOptionPane.ERROR_MESSAGE);
                     } else {
-                        for (PHIEUMUON pm : kq) {
-                            ShowOnTablePM(pm);
-                        }
+                        ShowOnTablePT(kq);
                         tblQLMuon.setModel(modelMuon);
                     }
                 }
@@ -720,7 +718,6 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             } catch (Exception e1) {
                 System.out.println(e1);
             }
-<<<<<<< HEAD
         }
         if (e.getSource() == btSuaCTHD) {
             int i = tblQLCTHDTP.getSelectedRow();
@@ -750,7 +747,6 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         }
         if(e.getSource() == btHoTroNhapMaPT){
             HoTroNhap hoTroNhapMaPT = new HoTroNhap();
-            hoTroNhapMaPT.setHoTroNhapCTPT();
         }
         if(e.getSource() == btHoTroNhapMaHD){
             HoTroNhap hoTroNhapMaHD = new HoTroNhap();
@@ -767,16 +763,6 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         if(e.getSource() == btHoTroNhapMasachHD){
             HoTroNhap hoTroNhapMaSachHD = new HoTroNhap();
             hoTroNhapMaSachHD.setHoTroNhapMasach();
-=======
-        }
-        if (e.getSource() == btHoTroNhapMaPM) {
-            HoTroNhap ht = new HoTroNhap();
-            ht.setHoTroNhapCTPM();
-        }
-        if (e.getSource() == btHoTroNhapMasach) {
-            HoTroNhap ht = new HoTroNhap();
-            ht.setHoTroNhapMasach();
->>>>>>> 00302c8e1f44c9e20a974a113cee514b279604c3
         }
     }
 

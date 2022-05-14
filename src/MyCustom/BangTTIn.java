@@ -34,7 +34,7 @@ public class BangTTIn extends JFrame implements ActionListener {
     public BangTTIn() {
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setSize(700, 500);
-        this.setTitle("Bảng thông tin phiếu mượn");
+
         this.setLayout(null);
         this.setLocationRelativeTo(null);
 
@@ -42,6 +42,7 @@ public class BangTTIn extends JFrame implements ActionListener {
     }
 
     public void setTTPM() {
+        this.setTitle("Bảng thông tin phiếu mượn");
         lbInPM = new JLabel("PHIẾU MƯỢN SÁCH");
         lbInPM.setFont(new Font("Arial", Font.BOLD, 25));
         lbInPM.setBounds(230, 0, 250, 80);
@@ -132,6 +133,7 @@ public class BangTTIn extends JFrame implements ActionListener {
     }
 
     public void setTTHD() {
+        this.setTitle("Bảng thông tin hóa đơn");
         lbInHD = new JLabel("HÓA ĐƠN TIỀN PHẠT");
         lbInHD.setFont(new Font("Arial", Font.BOLD, 25));
         lbInHD.setBounds(230, 0, 260, 80);

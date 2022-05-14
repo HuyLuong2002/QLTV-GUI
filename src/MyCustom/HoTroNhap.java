@@ -29,12 +29,9 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
     JLabel lbHoTro, lbTuKhoaTK;
     JTextField txKhoaTK;
     JPanel pnTable;
-<<<<<<< HEAD
-    JButton btLuaChon, btTimKiemPM, btTimKiemPT, btTimKiemHD, btTimKiemSach, btLuaChonCTPM, btLuaChonCTPT, 
-            btLuaCHonCTHDTP, btLuaChonSach, btLuaChonSachPT, btLuaChonSachHD;
-=======
+    JButton btLuaChon, btTimKiemPM, btTimKiemPT, btTimKiemHD, btLuaChonCTPT,
+            btLuaChonCTHDTP, btLuaChonSachPT, btLuaChonSachHD;
     JButton btLuaChonInPM, btTimKiemInPM, btLuaChonCTPM, btTimKiemSach, btLuaChonSach, btLuaChonInHD, btTimKiemInHD;
->>>>>>> 00302c8e1f44c9e20a974a113cee514b279604c3
     JTable table;
     DefaultTableModel model;
     Vector<String> header;
@@ -86,11 +83,7 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
         this.setVisible(true);
     }
 
-<<<<<<< HEAD
-    public void setHoTroNhapCTPT() {
-=======
     public void setHoTroNhapInHD() {
->>>>>>> 00302c8e1f44c9e20a974a113cee514b279604c3
         MyTable myTable = new MyTable();
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setSize(700, 600);
@@ -102,10 +95,9 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
         pnTable.setLayout(new GridLayout(1, 1));
         pnTable.setBounds(40, 100, 600, 300);
 
-<<<<<<< HEAD
-        setTitleCTPT();
+        setTitleInHD();
         setTable();
-        addTTPTOnTable();
+        addTTHDOnTable();
         myTable.setValueCellCenter(model, table);
 
         this.add(pnTable);
@@ -126,12 +118,7 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
 
         setTitleCTHDTP();
         setTable();
-        addTTHDTPOnTable();
-=======
-        setTitleInHD();
-        setTable();
         addTTHDOnTable();
->>>>>>> 00302c8e1f44c9e20a974a113cee514b279604c3
         myTable.setValueCellCenter(model, table);
 
         this.add(pnTable);
@@ -177,29 +164,17 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
         txKhoaTK.setFont(new Font("Arial", Font.PLAIN, 15));
         txKhoaTK.setBounds(270, 55, 150, 30);
 
-<<<<<<< HEAD
-        btTimKiemPM = new JButton("Tìm kiếm");
-        btTimKiemPM.setFont(new Font("Arial", Font.BOLD, 15));
-        btTimKiemPM.setBounds(430, 55, 100, 30);
-        btTimKiemPM.setBackground(Color.cyan);
-        btTimKiemPM.setBorder(new RoundedBorder(10));
-        btTimKiemPM.addActionListener(this);
-=======
         btTimKiemInPM = new JButton("Tìm kiếm");
         btTimKiemInPM.setFont(new Font("Arial", Font.BOLD, 15));
         btTimKiemInPM.setBounds(430, 55, 100, 30);
         btTimKiemInPM.setBackground(Color.cyan);
         btTimKiemInPM.setBorder(new RoundedBorder(10));
         btTimKiemInPM.addActionListener(this);
->>>>>>> 00302c8e1f44c9e20a974a113cee514b279604c3
 
         this.add(lbHoTro);
         this.add(btLuaChonInPM);
         this.add(lbTuKhoaTK);
         this.add(txKhoaTK);
-<<<<<<< HEAD
-        this.add(btTimKiemPM);
-=======
         this.add(btTimKiemInPM);
     }
 
@@ -235,7 +210,6 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
         this.add(lbTuKhoaTK);
         this.add(txKhoaTK);
         this.add(btTimKiemInHD);
->>>>>>> 00302c8e1f44c9e20a974a113cee514b279604c3
     }
 
     public void setTitleCTPM() {
@@ -258,27 +232,17 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
         txKhoaTK.setFont(new Font("Arial", Font.PLAIN, 15));
         txKhoaTK.setBounds(270, 55, 150, 30);
 
-<<<<<<< HEAD
         btTimKiemPM = new JButton("Tìm kiếm");
         btTimKiemPM.setFont(new Font("Arial", Font.BOLD, 15));
         btTimKiemPM.setBounds(430, 55, 100, 30);
         btTimKiemPM.setBackground(Color.cyan);
         btTimKiemPM.setBorder(new RoundedBorder(10));
         btTimKiemPM.addActionListener(this);
-=======
-        btTimKiemInPM = new JButton("Tìm kiếm");
-        btTimKiemInPM.setFont(new Font("Arial", Font.BOLD, 15));
-        btTimKiemInPM.setBounds(430, 55, 100, 30);
-        btTimKiemInPM.setBackground(Color.cyan);
-        btTimKiemInPM.setBorder(new RoundedBorder(10));
-        btTimKiemInPM.addActionListener(this);
->>>>>>> 00302c8e1f44c9e20a974a113cee514b279604c3
 
         this.add(lbHoTro);
         this.add(btLuaChonCTPM);
         this.add(lbTuKhoaTK);
         this.add(txKhoaTK);
-<<<<<<< HEAD
         this.add(btTimKiemPM);
     }
 
@@ -321,12 +285,12 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
         lbHoTro.setFont(new Font("Arial", Font.BOLD, 20));
         lbHoTro.setBounds(210, 0, 320, 50);
 
-        btLuaCHonCTHDTP = new JButton("Chọn");
-        btLuaCHonCTHDTP.setFont(new Font("Arial", Font.BOLD, 15));
-        btLuaCHonCTHDTP.setBounds(560, 420, 80, 30);
-        btLuaCHonCTHDTP.setBackground(Color.cyan);
-        btLuaCHonCTHDTP.setBorder(new RoundedBorder(10));
-        btLuaCHonCTHDTP.addActionListener(this);
+        btLuaChonCTHDTP = new JButton("Chọn");
+        btLuaChonCTHDTP.setFont(new Font("Arial", Font.BOLD, 15));
+        btLuaChonCTHDTP.setBounds(560, 420, 80, 30);
+        btLuaChonCTHDTP.setBackground(Color.cyan);
+        btLuaChonCTHDTP.setBorder(new RoundedBorder(10));
+        btLuaChonCTHDTP.addActionListener(this);
 
         lbTuKhoaTK = new JLabel("Nhập từ khóa tìm kiếm:");
         lbTuKhoaTK.setFont(new Font("Arial", Font.BOLD, 20));
@@ -344,13 +308,10 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
         btTimKiemHD.addActionListener(this);
 
         this.add(lbHoTro);
-        this.add(btLuaCHonCTHDTP);
+        this.add(btLuaChonCTHDTP);
         this.add(lbTuKhoaTK);
         this.add(txKhoaTK);
         this.add(btTimKiemHD);
-=======
-        this.add(btTimKiemInPM);
->>>>>>> 00302c8e1f44c9e20a974a113cee514b279604c3
     }
 
     public void setTitleSach() {
@@ -424,7 +385,6 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
         table.setModel(model);
     }
 
-<<<<<<< HEAD
     public void addTTPTOnTable() {
         Vector<String> header = new Vector<String>();
         header.add("Mã phiếu trả");
@@ -448,18 +408,6 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
         table.setModel(model);
     }
 
-    public void addTTHDTPOnTable() {
-        Vector<String> header = new Vector<String>();
-        header.add("Mã hóa đơn");
-        header.add("Mã độc giả");
-        header.add("Số lượng tổng");
-        header.add("Tiền phạt");
-        model = new DefaultTableModel(header, 0);
-        QLHDTPBUS qlhdbus = new QLHDTPBUS();
-        if (QLHDTPBUS.dshdtp == null) {
-            try {
-                qlhdbus.docDS();
-=======
     public void addTTHDOnTable() { // Thống tin hóa đơn
         Vector<String> header = new Vector<String>();
         header.add("Mã hóa đơn");
@@ -471,18 +419,12 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
         if (QLHDTPBUS.dshdtp == null) {
             try {
                 qlbus.docDS();
->>>>>>> 00302c8e1f44c9e20a974a113cee514b279604c3
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
         }
-<<<<<<< HEAD
         for (HDTIENPHAT hd : QLHDTPBUS.dshdtp) {
             ShowOnTableHD(hd);
-=======
-        for (HDTIENPHAT hdtienphat : QLHDTPBUS.dshdtp) {
-            ShowOnTableHD(hdtienphat);
->>>>>>> 00302c8e1f44c9e20a974a113cee514b279604c3
         }
         table.setModel(model);
     }
@@ -536,7 +478,6 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
         model.addRow(row);
     }
 
-<<<<<<< HEAD
     public void ShowOnTablePT(PHIEUTRASACH pt) {
         Vector<String> row = new Vector<String>();
         row.add(pt.getMaPT().trim());
@@ -548,30 +489,18 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
         model.addRow(row);
     }
 
-    public void ShowOnTableHD(HDTIENPHAT hd) {
-        Vector<String> row = new Vector<String>();
-        row.add(hd.getMaHD().trim());
-        row.add(hd.getMaDG().trim());
-        row.add(String.valueOf(hd.getSL()));
-        row.add(String.format("%,d", hd.getTienphat()));
-=======
     public void ShowOnTableHD(HDTIENPHAT hdtienphat) {
         Vector<String> row = new Vector<String>();
         row.add(hdtienphat.getMaHD().trim());
         row.add(hdtienphat.getMaDG().trim());
         row.add(String.valueOf(hdtienphat.getSL()));
         row.add(String.format("%,d", hdtienphat.getTienphat()));
->>>>>>> 00302c8e1f44c9e20a974a113cee514b279604c3
         model.addRow(row);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-<<<<<<< HEAD
-        if (e.getSource() == btTimKiemPM) {
-=======
         if (e.getSource() == btTimKiemInPM) {
->>>>>>> 00302c8e1f44c9e20a974a113cee514b279604c3
             String tukhoa = txKhoaTK.getText();
             if (tukhoa.equals("") == true) {
                 model.setRowCount(0);
@@ -612,7 +541,7 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
                 ArrayList<PHIEUTRASACH> kq = new ArrayList<PHIEUTRASACH>();
                 for (PHIEUTRASACH pt : QLTRABUS.dspt) {
                     if (tukhoa.indexOf(pt.getMaPT().trim()) >= 0 || tukhoa.indexOf(pt.getNgaytra()) >= 0
-                            || tukhoa.indexOf(String.valueOf(pt.getTienthue())) >= 0 
+                            || tukhoa.indexOf(String.valueOf(pt.getTienthue())) >= 0
                             || tukhoa.indexOf(String.valueOf(pt.getTienthue())) >= 0
                             || tukhoa.indexOf(pt.getTinhtrangsach().trim()) >= 0
                             || tukhoa.indexOf(pt.getMaPM().trim()) >= 0) {
@@ -641,8 +570,8 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
                 ArrayList<HDTIENPHAT> kq = new ArrayList<HDTIENPHAT>();
                 for (HDTIENPHAT hd : QLHDTPBUS.dshdtp) {
                     if (tukhoa.indexOf(hd.getMaHD().trim()) >= 0 || tukhoa.indexOf(hd.getMaDG()) >= 0
-                        || tukhoa.indexOf(String.valueOf(hd.getTienphat())) >= 0 
-                        || tukhoa.indexOf(String.valueOf(hd.getSL())) >= 0){
+                            || tukhoa.indexOf(String.valueOf(hd.getTienphat())) >= 0
+                            || tukhoa.indexOf(String.valueOf(hd.getSL())) >= 0) {
                         kq.add(hd);
                     }
                 }
@@ -686,8 +615,8 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
                 }
             }
         }
-        if(e.getSource()==btTimKiemInHD){
-            
+        if (e.getSource() == btTimKiemInHD) {
+
         }
         if (e.getSource() == btLuaChonInPM) {
             int i = table.getSelectedRow();
@@ -738,7 +667,7 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
             }
             this.dispose();
         }
-        if (e.getSource() == btLuaCHonCTHDTP) {
+        if (e.getSource() == btLuaChonCTHDTP) {
             int i = table.getSelectedRow();
             if (i >= 0) {
                 QLMTGUI.txCTHDMaHD.setText(String.valueOf(model.getValueAt(i, 0)));
@@ -749,19 +678,17 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
             int i = table.getSelectedRow();
             if (i >= 0) {
                 QLMTGUI.txCTPMMaSach.setText(String.valueOf(model.getValueAt(i, 0)));
-<<<<<<< HEAD
                 QLMTGUI.txCTPTMaSach.setText(String.valueOf(model.getValueAt(i, 0)));
                 QLMTGUI.txCTHDMaSach.setText(String.valueOf(model.getValueAt(i, 0)));
-=======
             }
             this.dispose();
         }
         if (e.getSource() == btLuaChonInHD) {
             int i = table.getSelectedRow();
             if (i >= 0) {
-                String MaDG = String.valueOf(model.getValueAt(i,1));
-                String TenDG=null;
-                if(QLNVBUS.dsdg== null){
+                String MaDG = String.valueOf(model.getValueAt(i, 1));
+                String TenDG = null;
+                if (QLNVBUS.dsdg == null) {
                     QLNVBUS qlbus = new QLNVBUS();
                     try {
                         qlbus.docDS();
@@ -769,16 +696,15 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
                         e1.printStackTrace();
                     }
                 }
-                for(DOCGIA dg : QLNVBUS.dsdg){
-                    if(dg.getMaDG().trim().equals(MaDG)){
+                for (DOCGIA dg : QLNVBUS.dsdg) {
+                    if (dg.getMaDG().trim().equals(MaDG)) {
                         TenDG = dg.getTenDG();
                     }
                 }
-                BangTTIn.txMaHD.setText(String.valueOf(model.getValueAt(i,0)));
-                BangTTIn.txTenDGHD.setText(MaDG+"-"+TenDG);
-                BangTTIn.txSLtongHD.setText(String.valueOf(model.getValueAt(i,2)));
-                BangTTIn.txTienPhat.setText(String.valueOf(model.getValueAt(i,3)));
->>>>>>> 00302c8e1f44c9e20a974a113cee514b279604c3
+                BangTTIn.txMaHD.setText(String.valueOf(model.getValueAt(i, 0)));
+                BangTTIn.txTenDGHD.setText(MaDG + "-" + TenDG);
+                BangTTIn.txSLtongHD.setText(String.valueOf(model.getValueAt(i, 2)));
+                BangTTIn.txTienPhat.setText(String.valueOf(model.getValueAt(i, 3)));
             }
             this.dispose();
         }
