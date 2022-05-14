@@ -83,6 +83,27 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
         this.setVisible(true);
     }
 
+    public void setHoTroNhapCTPT() {
+        MyTable myTable = new MyTable();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setSize(700, 600);
+        this.setTitle("Lựa chọn thông tin");
+        this.setLayout(null);
+        this.setLocationRelativeTo(null);
+
+        pnTable = new JPanel();
+        pnTable.setLayout(new GridLayout(1, 1));
+        pnTable.setBounds(40, 100, 600, 300);
+
+        setTitleCTPT();
+        setTable();
+        addTTPTOnTable();
+        myTable.setValueCellCenter(model, table);
+
+        this.add(pnTable);
+        this.setVisible(true);
+    }
+
     public void setHoTroNhapInHD() {
         MyTable myTable = new MyTable();
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -529,6 +550,35 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
                 }
             }
         }
+        if(e.getSource()==btTimKiemPM){
+            String tukhoa = txKhoaTK.getText();
+            if (tukhoa.equals("") == true) {
+                model.setRowCount(0);
+                for (PHIEUMUON pm : QLMUONBUS.dspm) {
+                    ShowOnTablePM(pm);
+                }
+            } else {
+                model.setRowCount(0);
+                ArrayList<PHIEUMUON> kq = new ArrayList<PHIEUMUON>();
+                for (PHIEUMUON pm : QLMUONBUS.dspm) {
+                    if (tukhoa.indexOf(pm.getMaPM().trim()) >= 0 || tukhoa.indexOf(pm.getNgaymuon()) >= 0
+                            || tukhoa.indexOf(pm.getNgaytra()) >= 0
+                            || tukhoa.indexOf(String.valueOf(pm.getSLtong())) >= 0
+                            || tukhoa.indexOf(pm.getTinhTrangMuon().trim()) >= 0
+                            || tukhoa.indexOf(pm.getMaDG().trim()) >= 0) {
+                        kq.add(pm);
+                    }
+                }
+                if (kq.size() == 0) {
+                    JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    for (PHIEUMUON pm : kq) {
+                        ShowOnTablePM(pm);
+                    }
+                    table.setModel(model);
+                }
+            }
+        }
         if (e.getSource() == btTimKiemPT) {
             String tukhoa = txKhoaTK.getText();
             if (tukhoa.equals("") == true) {
@@ -616,7 +666,31 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
             }
         }
         if (e.getSource() == btTimKiemInHD) {
-
+            String tukhoa = txKhoaTK.getText();
+            if (tukhoa.equals("") == true) {
+                model.setRowCount(0);
+                for (HDTIENPHAT hd : QLHDTPBUS.dshdtp) {
+                    ShowOnTableHD(hd);
+                }
+            } else {
+                model.setRowCount(0);
+                ArrayList<HDTIENPHAT> kq = new ArrayList<HDTIENPHAT>();
+                for (HDTIENPHAT hd : QLHDTPBUS.dshdtp) {
+                    if (tukhoa.indexOf(hd.getMaHD().trim()) >= 0 || tukhoa.indexOf(hd.getMaDG()) >= 0
+                            || tukhoa.indexOf(String.valueOf(hd.getTienphat())) >= 0
+                            || tukhoa.indexOf(String.valueOf(hd.getSL())) >= 0) {
+                        kq.add(hd);
+                    }
+                }
+                if (kq.size() == 0) {
+                    JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    for (HDTIENPHAT hd : kq) {
+                        ShowOnTableHD(hd);
+                    }
+                    table.setModel(model);
+                }
+            }
         }
         if (e.getSource() == btLuaChonInPM) {
             int i = table.getSelectedRow();
