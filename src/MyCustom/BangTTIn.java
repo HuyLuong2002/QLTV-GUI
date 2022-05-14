@@ -5,8 +5,10 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
+import QLTV.BUS.QLCTHDTPBUS;
 import QLTV.BUS.QLCTMUONBUS;
 import QLTV.BUS.QLSACHBUS;
+import QLTV.DTO.CHITIETHDTIENPHAT;
 import QLTV.DTO.CHITIETPHIEUMUON;
 import QLTV.DTO.SACH;
 
@@ -17,25 +19,24 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Properties;
 
-public class BangTTPM extends JFrame implements ActionListener {
-    JLabel lbInPM, lbMaPM, lbTenDG, lbNgayMuon, lbNgayTra, lbSLtong, lbDS;
-    static JTextField txMaPM, txTenDG, txSLtong;
-    JButton btHoTroNhap, btIn;
+public class BangTTIn extends JFrame implements ActionListener {
+    JLabel lbInPM, lbMaPM, lbTenDG, lbNgayMuon, lbNgayTra, lbSLtong, lbDS, lbInHD, lbMaHD, lbMaDG, lbTienPhat,
+            lbSLtongHD;
+    static JTextField txMaHD, txTenDGHD, txMaPM, txTenDGPM, txSLtong, txSLtongHD, txTienPhat;
+    JButton btHoTroNhap, btHoTroNhapHD, btIn, btInHDTP;
 
     UtilDateModel modelNgayBDPM, modelNgayKTPM;
     Properties pNgayBDPM, pNgayKTPM;
     JDatePanelImpl datePanelNgayBDPM, datePanelNgayKTPM;
     static JDatePickerImpl datePickerNgayBDPM, datePickerNgayKTPM;
-    static ArrayList<SACH> dsSachMuon;
+    static ArrayList<SACH> dsSachMuon, dsSachHDTP;
 
-    public BangTTPM() {
+    public BangTTIn() {
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setSize(700, 500);
         this.setTitle("Bảng thông tin phiếu mượn");
         this.setLayout(null);
         this.setLocationRelativeTo(null);
-
-        setTTPM();
 
         this.setVisible(true);
     }
@@ -69,10 +70,10 @@ public class BangTTPM extends JFrame implements ActionListener {
         txMaPM.setBounds(250, 75, 150, 30);
         txMaPM.setFont(new Font("Arial", Font.PLAIN, 15));
 
-        txTenDG = new JTextField();
-        txTenDG.setBounds(250, 125, 150, 30);
-        txTenDG.setFont(new Font("Arial", Font.PLAIN, 15));
-        txTenDG.setEditable(false);
+        txTenDGPM = new JTextField();
+        txTenDGPM.setBounds(250, 125, 150, 30);
+        txTenDGPM.setFont(new Font("Arial", Font.PLAIN, 15));
+        txTenDGPM.setEditable(false);
 
         txSLtong = new JTextField();
         txSLtong.setBounds(250, 275, 150, 30);
@@ -122,13 +123,79 @@ public class BangTTPM extends JFrame implements ActionListener {
         this.add(lbNgayTra);
         this.add(lbSLtong);
         this.add(txMaPM);
-        this.add(txTenDG);
+        this.add(txTenDGPM);
         this.add(txSLtong);
         this.add(btHoTroNhap);
         this.add(btIn);
         this.add(datePickerNgayBDPM);
         this.add(datePickerNgayKTPM);
+    }
 
+    public void setTTHD() {
+        lbInHD = new JLabel("HÓA ĐƠN TIỀN PHẠT");
+        lbInHD.setFont(new Font("Arial", Font.BOLD, 25));
+        lbInHD.setBounds(230, 0, 260, 80);
+
+        lbMaHD = new JLabel("Mã hóa đơn:");
+        lbMaHD.setFont(new Font("Arial", Font.BOLD, 18));
+        lbMaHD.setBounds(90, 50, 150, 80);
+
+        lbMaDG = new JLabel("Mã độc giả:");
+        lbMaDG.setFont(new Font("Arial", Font.BOLD, 18));
+        lbMaDG.setBounds(90, 100, 150, 80);
+
+        lbSLtongHD = new JLabel("SL tổng:");
+        lbSLtongHD.setFont(new Font("Arial", Font.BOLD, 18));
+        lbSLtongHD.setBounds(90, 150, 150, 80);
+
+        lbTienPhat = new JLabel("Tiền phạt:");
+        lbTienPhat.setFont(new Font("Arial", Font.BOLD, 18));
+        lbTienPhat.setBounds(90, 200, 150, 80);
+
+        txMaHD = new JTextField();
+        txMaHD.setBounds(250, 75, 150, 30);
+        txMaHD.setFont(new Font("Arial", Font.PLAIN, 15));
+
+        txTenDGHD = new JTextField();
+        txTenDGHD.setBounds(250, 125, 150, 30);
+        txTenDGHD.setFont(new Font("Arial", Font.PLAIN, 15));
+        txTenDGHD.setEditable(false);
+
+        txSLtongHD = new JTextField();
+        txSLtongHD.setBounds(250, 175, 150, 30);
+        txSLtongHD.setFont(new Font("Arial", Font.PLAIN, 15));
+        txSLtongHD.setEditable(false);
+
+        txTienPhat = new JTextField();
+        txTienPhat.setBounds(250, 225, 150, 30);
+        txTienPhat.setFont(new Font("Arial", Font.PLAIN, 15));
+        txTienPhat.setEditable(false);
+
+        btHoTroNhapHD = new JButton("...");
+        btHoTroNhapHD.setFont(new Font("Arial", Font.BOLD, 15));
+        btHoTroNhapHD.setBounds(405, 75, 30, 30);
+        btHoTroNhapHD.setBackground(Color.cyan);
+        btHoTroNhapHD.setBorder(new RoundedBorder(10));
+        btHoTroNhapHD.addActionListener(this);
+
+        btInHDTP = new JButton("In hóa đơn");
+        btInHDTP.setFont(new Font("Arial", Font.BOLD, 15));
+        btInHDTP.setBounds(270, 280, 120, 30);
+        btInHDTP.setBackground(Color.cyan);
+        btInHDTP.setBorder(new RoundedBorder(10));
+        btInHDTP.addActionListener(this);
+
+        this.add(lbInHD);
+        this.add(lbMaHD);
+        this.add(lbMaDG);
+        this.add(lbSLtongHD);
+        this.add(lbTienPhat);
+        this.add(txMaHD);
+        this.add(txTenDGHD);
+        this.add(txSLtongHD);
+        this.add(txTienPhat);
+        this.add(btHoTroNhapHD);
+        this.add(btInHDTP);
     }
 
     @Override
@@ -137,12 +204,16 @@ public class BangTTPM extends JFrame implements ActionListener {
             HoTroNhap ht = new HoTroNhap();
             ht.setHoTroNhapInPM();
         }
+        if (e.getSource() == btHoTroNhapHD) {
+            HoTroNhap ht = new HoTroNhap();
+            ht.setHoTroNhapInHD();
+        }
         if (e.getSource() == btIn) {
             if (txMaPM.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Mời nhập thông tin cần in", "Lỗi", JOptionPane.ERROR_MESSAGE);
             } else {
                 String MaPM = txMaPM.getText();
-                String TenDG = txTenDG.getText();
+                String TenDG = txTenDGPM.getText();
                 int ngaymuon = datePickerNgayBDPM.getModel().getDay();
                 int thangmuon = datePickerNgayBDPM.getModel().getMonth();
                 int nammuon = datePickerNgayBDPM.getModel().getYear();
@@ -177,7 +248,37 @@ public class BangTTPM extends JFrame implements ActionListener {
                 dsSachMuon.clear();
             }
         }
-
+        if (e.getSource() == btInHDTP) {
+            if (txMaHD.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Mời nhập thông tin cần in", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            } else {
+                String MaHD = txMaHD.getText();
+                String TenDG = txTenDGHD.getText();
+                String SLtong = txSLtongHD.getText();
+                String Tienphat = txTienPhat.getText();
+                if (dsSachHDTP == null) {
+                    dsSachHDTP = new ArrayList<>();
+                }
+                for (CHITIETHDTIENPHAT cthdtp : QLCTHDTPBUS.dscthdtp) {
+                    if (cthdtp.getMaHD().trim().equals(MaHD)) {
+                        String Masach = cthdtp.getMasach().trim();
+                        String SL = String.valueOf(cthdtp.getSL());
+                        for (SACH sach : QLSACHBUS.dssach) {
+                            if (sach.getMasach().trim().equals(Masach)) {
+                                SACH sachTMP = new SACH();
+                                sachTMP.setMasach(Masach);
+                                sachTMP.setTensach(sach.getTensach());
+                                sachTMP.setSL(Integer.valueOf(SL));
+                                sachTMP.setDongia(sach.getDongia());
+                                dsSachHDTP.add(sachTMP);
+                            }
+                        }
+                    }
+                }
+                ExportPDF export = new ExportPDF();
+                export.setExportPDFHDTP(MaHD, TenDG, SLtong, Tienphat, dsSachHDTP);
+                dsSachHDTP.clear();
+            }
+        }
     }
-
 }
