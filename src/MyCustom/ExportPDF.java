@@ -1,5 +1,6 @@
 package MyCustom;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -10,6 +11,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -69,18 +71,19 @@ public class ExportPDF {
             pdfPTable1.setSpacingBefore(16);
             // Create cells
             PdfPCell pdfPCell1 = new PdfPCell(new Paragraph("Mã sách",fontHeader));
+            pdfPCell1.setBorderColor(BaseColor.WHITE);
             pdfPCell1.setHorizontalAlignment(Element.ALIGN_CENTER);
             PdfPCell pdfPCell2 = new PdfPCell(new Paragraph("Tên sách",fontHeader));
             pdfPCell2.setColspan(2);
-            pdfPCell2.setHorizontalAlignment(Element.ALIGN_CENTER);
+            pdfPCell2.setBorderColor(BaseColor.WHITE);
+            pdfPCell2.setHorizontalAlignment(Element.ALIGN_LEFT);
             PdfPCell pdfPCell3 = new PdfPCell(new Paragraph("Số lượng",fontHeader));
+            pdfPCell3.setBorderColor(BaseColor.WHITE);
             pdfPCell3.setHorizontalAlignment(Element.ALIGN_CENTER);
-            PdfPCell pdfPCell4 = new PdfPCell(new Paragraph(""));
             // Add cells to table
             pdfPTable1.addCell(pdfPCell1);
             pdfPTable1.addCell(pdfPCell2);
             pdfPTable1.addCell(pdfPCell3);
-            pdfPTable1.addCell(pdfPCell4);
 
             // Thêm 2 đoạn văn bản vào document
             document.add(paragraph);
@@ -99,13 +102,15 @@ public class ExportPDF {
                 // Paragraph paragraph6 = new Paragraph("");
 
                 PdfPCell PdfPCell1 = new PdfPCell(paragraph3);
+                PdfPCell1.setBorderColor(BaseColor.WHITE);
                 PdfPCell1.setHorizontalAlignment(Element.ALIGN_CENTER);
                 PdfPCell PdfPCell2 = new PdfPCell(paragraph4);
                 PdfPCell2.setColspan(2);
-                PdfPCell2.setHorizontalAlignment(Element.ALIGN_CENTER);
+                PdfPCell2.setBorderColor(BaseColor.WHITE);
+                PdfPCell2.setHorizontalAlignment(Element.ALIGN_LEFT);
                 PdfPCell PdfPCell3 = new PdfPCell(paragraph5);
+                PdfPCell3.setBorderColor(BaseColor.WHITE);
                 PdfPCell3.setHorizontalAlignment(Element.ALIGN_CENTER);
-                // PdfPCell PdfPCell4 = new PdfPCell(paragraph6);
 
                 
                 pdfPTable2.addCell(PdfPCell1);
@@ -162,12 +167,16 @@ public class ExportPDF {
             // Create cells
             PdfPCell pdfPCell1 = new PdfPCell(new Paragraph("Mã sách",fontHeader));
             pdfPCell1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            pdfPCell1.setBorderColor(BaseColor.WHITE);
             PdfPCell pdfPCell2 = new PdfPCell(new Paragraph("Tên sách",fontHeader));
             pdfPCell2.setColspan(2);
-            pdfPCell2.setHorizontalAlignment(Element.ALIGN_CENTER);
+            pdfPCell2.setBorderColor(BaseColor.WHITE);
+            pdfPCell2.setHorizontalAlignment(Element.ALIGN_LEFT);
             PdfPCell pdfPCell3 = new PdfPCell(new Paragraph("Số lượng",fontHeader));
+            pdfPCell3.setBorderColor(BaseColor.WHITE);
             pdfPCell3.setHorizontalAlignment(Element.ALIGN_CENTER);
             PdfPCell pdfPCell4 = new PdfPCell(new Paragraph("Đơn giá",fontHeader));
+            pdfPCell4.setBorderColor(BaseColor.WHITE);
             pdfPCell4.setHorizontalAlignment(Element.ALIGN_CENTER);
             // Add cells to table
             pdfPTable1.addCell(pdfPCell1);
@@ -192,13 +201,17 @@ public class ExportPDF {
                 Paragraph paragraph6 = new Paragraph(String.format("%,d",sach.getDongia()));
 
                 PdfPCell PdfPCell1 = new PdfPCell(paragraph3);
+                PdfPCell1.setBorderColor(BaseColor.WHITE);
                 PdfPCell1.setHorizontalAlignment(Element.ALIGN_CENTER);
                 PdfPCell PdfPCell2 = new PdfPCell(paragraph4);
                 PdfPCell2.setColspan(2);
-                PdfPCell2.setHorizontalAlignment(Element.ALIGN_CENTER);
+                PdfPCell2.setBorderColor(BaseColor.WHITE);
+                PdfPCell2.setHorizontalAlignment(Element.ALIGN_LEFT);
                 PdfPCell PdfPCell3 = new PdfPCell(paragraph5);
+                PdfPCell3.setBorderColor(BaseColor.WHITE);
                 PdfPCell3.setHorizontalAlignment(Element.ALIGN_CENTER);
                 PdfPCell PdfPCell4 = new PdfPCell(paragraph6);
+                PdfPCell4.setBorderColor(BaseColor.WHITE);
                 PdfPCell4.setHorizontalAlignment(Element.ALIGN_CENTER);
                 
                 pdfPTable2.addCell(PdfPCell1);

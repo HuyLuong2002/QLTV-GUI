@@ -40,7 +40,7 @@ public class QLCTMUONDAO {
         return dsctmuon;
     }
 
-    public void them(CHITIETPHIEUMUON ctphieumuon) {
+    public int them(CHITIETPHIEUMUON ctphieumuon) {
         try {
             String qry = "INSERT INTO CHITIETPHIEUMUON VALUES (?,?,?)";
             PreparedStatement ps = conn.prepareStatement(qry);
@@ -53,20 +53,23 @@ public class QLCTMUONDAO {
                 JOptionPane.showMessageDialog(null, "Thêm dữ liệu thành công", "Thông báo",
                         JOptionPane.INFORMATION_MESSAGE);
             }
+            return 0;
         } catch (SQLException e) {
             System.out.println(e);
             JOptionPane.showMessageDialog(null, "Thêm dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return -1;
         }
     }
 
-    public int sua(CHITIETPHIEUMUON ctphieumuonMoi, CHITIETPHIEUMUON ctphieumuonCu){
+    public int sua(CHITIETPHIEUMUON ctphieumuonMoi, String MaPMCTPMCu, String MasachCTPMCu){
         try {
-            String qry = "UPDATE CHITIETPHIEUMUON SET MAPM= ?, MASACH= ?, SL= ?" + " WHERE MAPM= ?";
+            String qry = "UPDATE CHITIETPHIEUMUON SET MAPM=?, MASACH=?, SL=? WHERE MAPM=? AND MASACH=?";
             PreparedStatement ps = conn.prepareStatement(qry);
             ps.setString(1, ctphieumuonMoi.getMaPM());
             ps.setString(2, ctphieumuonMoi.getMasach());
             ps.setString(3, String.valueOf(ctphieumuonMoi.getSL()));
-            ps.setString(4, ctphieumuonCu.getMaPM());
+            ps.setString(4, MaPMCTPMCu);
+            ps.setString(5, MasachCTPMCu);
 
             int n = ps.executeUpdate();
             if (n != 0) {
