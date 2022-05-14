@@ -55,7 +55,7 @@ public class QLTRABUS {
     public ArrayList<PHIEUTRASACH> timTheoThanhTien(String Thanhtien) {
         ArrayList<PHIEUTRASACH> kq = new ArrayList<PHIEUTRASACH>();
         for (PHIEUTRASACH pt : dspt)
-            if (String.valueOf(pt.getThanhtien()).equals(Thanhtien))
+            if (String.valueOf(pt.getThanhtien()).indexOf(Thanhtien) >= 0)
                 kq.add(pt);
         return kq;
     }

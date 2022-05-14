@@ -61,12 +61,13 @@ public class QLCTMUONDAO {
 
     public int sua(CHITIETPHIEUMUON ctphieumuonMoi, CHITIETPHIEUMUON ctphieumuonCu){
         try {
-            String qry = "UPDATE CHITIETPHIEUMUON SET MAPM= ?, MASACH= ?, SL= ?" + " WHERE MAPM= ?";
+            String qry = "UPDATE CHITIETPHIEUMUON SET MAPM= ?, MASACH= ?, SL= ?" + " WHERE MAPM= ? AND MASACH= ?";
             PreparedStatement ps = conn.prepareStatement(qry);
             ps.setString(1, ctphieumuonMoi.getMaPM());
             ps.setString(2, ctphieumuonMoi.getMasach());
             ps.setString(3, String.valueOf(ctphieumuonMoi.getSL()));
             ps.setString(4, ctphieumuonCu.getMaPM());
+            ps.setString(5, ctphieumuonCu.getMasach());
 
             int n = ps.executeUpdate();
             if (n != 0) {
