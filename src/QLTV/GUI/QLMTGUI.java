@@ -338,6 +338,67 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                 }
             }
         }
+        if (e.getSource() == btTimKiemPT) {
+            int vtkey = Integer.parseInt(String.valueOf(cbDSKhoaTKPT.getSelectedIndex()));
+            String tukhoa = txKhoaTKPT.getText();
+            if (tukhoa.equals("") == true) {
+                JOptionPane.showMessageDialog(null, "Xin mời nhập từ khóa", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            } else if (vtkey == 0) {
+                JOptionPane.showMessageDialog(null, "Xin mời lựa chọn khóa tìm kiếm", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            } else {
+                QLTRABUS qltrabus = new QLTRABUS();
+                if (vtkey == 1) {
+                    PHIEUTRASACH kq = qltrabus.timTheoMa(tukhoa);
+                    modelMuon.setRowCount(0);
+                    if (kq != null) {
+                        ShowOnTablePM(kq);
+                        tblQLMuon.setModel(modelMuon);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu phù hợp", "Lỗi",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+                if (vtkey == 2) {
+                    ArrayList<PHIEUMUON> kq = qlsachbus.timTheoSLtong(tukhoa);
+                    modelMuon.setRowCount(0);
+                    if (kq.size() == 0) {
+                        JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu phù hợp", "Lỗi",
+                                JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        for (PHIEUMUON pm : kq) {
+                            ShowOnTablePM(pm);
+                        }
+                        tblQLMuon.setModel(modelMuon);
+                    }
+                }
+                if (vtkey == 3) {
+                    ArrayList<PHIEUMUON> kq = qlsachbus.timTheoTinhTrangMuon(tukhoa.trim());
+                    modelMuon.setRowCount(0);
+                    if (kq.size() == 0) {
+                        JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu phù hợp", "Lỗi",
+                                JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        for (PHIEUMUON pm : kq) {
+                            ShowOnTablePM(pm);
+                        }
+                        tblQLMuon.setModel(modelMuon);
+                    }
+                }
+                if (vtkey == 4) {
+                    ArrayList<PHIEUMUON> kq = qlsachbus.timTheoMaDG(tukhoa.trim());
+                    modelMuon.setRowCount(0);
+                    if (kq.size() == 0) {
+                        JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu phù hợp", "Lỗi",
+                                JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        for (PHIEUMUON pm : kq) {
+                            ShowOnTablePM(pm);
+                        }
+                        tblQLMuon.setModel(modelMuon);
+                    }
+                }
+            }
+        }
         if (e.getSource() == btShowAll) {
             int index = tabbedPane.getSelectedIndex();
             if (index == 0) {
@@ -1888,8 +1949,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             txKhoaTKPT.setFont(new Font("Arial", Font.PLAIN, 15));
             txKhoaTKPT.setBounds(250, 110, 150, 30);
 
-            String[] dsKhoaTK = { "", "Mã phiếu trả", "Ngày trả", "Tình trạng sách", "Tiền thuê", "Thành tiền",
-                    "Mã phiếu mượn" };
+            String[] dsKhoaTK = { "", "Mã phiếu trả", "Tình trạng sách", "Tiền thuê", "Thành tiền", "Mã phiếu mượn" };
             cbDSKhoaTKPT = new JComboBox<>(dsKhoaTK);
             cbDSKhoaTKPT.setFont(new Font("Arial", Font.BOLD, 13));
             cbDSKhoaTKPT.setBounds(250, 60, 120, 30);
