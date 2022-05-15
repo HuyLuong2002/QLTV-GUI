@@ -616,12 +616,12 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                 if (kiemtra == 0) {
                     // Đưa dữ liệu lên table
                     header = new Vector<String>();
-                    header.add("Mã phiếu mượn");
-                    header.add("Ngày mượn");
-                    header.add("Số lượng tổng");
+                    header.add("Mã phiếu trả");
                     header.add("Ngày trả");
-                    header.add("Tình trạng mượn");
-                    header.add("Mã độc giả");
+                    header.add("Tình trạng sách");
+                    header.add("Tiền thuê");
+                    header.add("Thành tiền");
+                    header.add("Mã phiếu mượn");
                     if (modelTra.getRowCount() == 0) {
                         modelTra = new DefaultTableModel(header, 0);
                     }
@@ -2407,7 +2407,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                     if (songaymuon <= 15)
                         ThanhTien = pt.getTienthue() * songaymuon;
                     else
-                        ThanhTien = pt.getThanhtien() * songaymuon + (pt.getTienthue() + 2000) * songaymuon;
+                        ThanhTien = pt.getTienthue() * songaymuon + (pt.getTienthue() + 2000) * songaymuon;
                 }
             }
         }
