@@ -31,7 +31,7 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
     JPanel pnTable;
     JButton btLuaChon, btTimKiemPM, btTimKiemPT, btTimKiemHD, btTimKiemDG, btLuaChonCTPT,
             btLuaChonCTHDTP, btLuaChonSachPT, btLuaChonSachHD;
-    JButton btLuaChonInPM, btTimKiemInPM, btLuaChonCTPM, btTimKiemSach, btLuaChonSach, btLuaChonMaDG, btLuaChonInHD, btTimKiemInHD;
+    JButton btLuaChonInPM, btTimKiemInPM, btLuaChonCTPM, btTimKiemSach, btLuaChonSach, btLuachonPM_Tra, btLuaChonMaDG, btLuaChonInHD, btTimKiemInHD;
     JTable table;
     DefaultTableModel model;
     Vector<String> header;
@@ -75,6 +75,27 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
         pnTable.setBounds(40, 100, 600, 300);
 
         setTitleCTPM();
+        setTable();
+        addTTPMOnTable();
+        myTable.setValueCellCenter(model, table);
+
+        this.add(pnTable);
+        this.setVisible(true);
+    }
+
+    public void setHoTroNhapPM_TRA() {
+        MyTable myTable = new MyTable();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setSize(700, 600);
+        this.setTitle("Lựa chọn thông tin");
+        this.setLayout(null);
+        this.setLocationRelativeTo(null);
+
+        pnTable = new JPanel();
+        pnTable.setLayout(new GridLayout(1, 1));
+        pnTable.setBounds(40, 100, 600, 300);
+
+        setTitlePM_TRA();
         setTable();
         addTTPMOnTable();
         myTable.setValueCellCenter(model, table);
@@ -281,6 +302,40 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
 
         this.add(lbHoTro);
         this.add(btLuaChonCTPM);
+        this.add(lbTuKhoaTK);
+        this.add(txKhoaTK);
+        this.add(btTimKiemPM);
+    }
+
+    public void setTitlePM_TRA() {
+        lbHoTro = new JLabel("LỰA CHỌN PHIẾU MƯỢN");
+        lbHoTro.setFont(new Font("Arial", Font.BOLD, 20));
+        lbHoTro.setBounds(210, 0, 320, 50);
+
+        btLuachonPM_Tra = new JButton("Chọn");
+        btLuachonPM_Tra.setFont(new Font("Arial", Font.BOLD, 15));
+        btLuachonPM_Tra.setBounds(560, 420, 80, 30);
+        btLuachonPM_Tra.setBackground(Color.cyan);
+        btLuachonPM_Tra.setBorder(new RoundedBorder(10));
+        btLuachonPM_Tra.addActionListener(this);
+
+        lbTuKhoaTK = new JLabel("Nhập từ khóa tìm kiếm:");
+        lbTuKhoaTK.setFont(new Font("Arial", Font.BOLD, 20));
+        lbTuKhoaTK.setBounds(40, 20, 250, 100);
+
+        txKhoaTK = new JTextField();
+        txKhoaTK.setFont(new Font("Arial", Font.PLAIN, 15));
+        txKhoaTK.setBounds(270, 55, 150, 30);
+
+        btTimKiemPM = new JButton("Tìm kiếm");
+        btTimKiemPM.setFont(new Font("Arial", Font.BOLD, 15));
+        btTimKiemPM.setBounds(430, 55, 100, 30);
+        btTimKiemPM.setBackground(Color.cyan);
+        btTimKiemPM.setBorder(new RoundedBorder(10));
+        btTimKiemPM.addActionListener(this);
+
+        this.add(lbHoTro);
+        this.add(btLuachonPM_Tra);
         this.add(lbTuKhoaTK);
         this.add(txKhoaTK);
         this.add(btTimKiemPM);
@@ -842,6 +897,13 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
             int i = table.getSelectedRow();
             if (i >= 0) {
                 QLMTGUI.txCTPMMaPM.setText(String.valueOf(model.getValueAt(i, 0)));
+            }
+            this.dispose();
+        }
+        if (e.getSource() == btLuachonPM_Tra) {
+            int i = table.getSelectedRow();
+            if (i >= 0) {
+                QLMTGUI.txMaPMTra.setText(String.valueOf(model.getValueAt(i, 0)));
             }
             this.dispose();
         }

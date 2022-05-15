@@ -69,8 +69,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             btSuaCTHD;
     JTextField txMaPM, txSLtong, txKhoaTK;
     public static JTextField txCTPMMaPM, txCTPMMaSach, txCTPMSL, txCTPTMaPT, txCTPTMaSach, txCTHDMaHD, txCTHDMaSach,
-            txCTHDSL,
-            txCTHDDonGia, txCTPTSL, txMaDG;
+            txCTHDSL, txCTHDDonGia, txCTPTSL, txMaDG, txMaPMTra;
     JComboBox<String> cbTinhTrangMuon, cbDSKhoaTK;
     JLabel lbLCTKPM, lbTuKhoaTKPM, lbLCTKPT, lbTuKhoaTKPT,
             lbLCTKHD, lbTuKhoaTKHD;
@@ -79,7 +78,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             btHoTroNhapMaPT, btHoTroNhapMaHD, btShowAll,
             btTimKiemPM, btLocPM, btInPM, btTimKiemPT, btLocPT, btInPT,
             btTimKiemHDTP, btLocHDTP, btInHDTP;
-    JTextField txKhoaTKPM, txKhoaTKPT, txKhoaTKHDTP, txMaPT, txTienThue, txThanhTien, txMaPMTra, txMaHD, txMaHD_DG,
+    JTextField txKhoaTKPM, txKhoaTKPT, txKhoaTKHDTP, txMaPT, txTienThue, txThanhTien, txMaHD, txMaHD_DG,
             txSLTongHD, txTienPhat;
     JComboBox<String> cbTinhTrangTra, cbDSKhoaTKPM, cbDSKhoaTKPT, cbDSKhoaTKHDTP;
 
@@ -855,7 +854,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         }
         if(e.getSource() == btHoTroNhapPM_Tra){
             HoTroNhap hoTroNhapMaPM_Tra = new HoTroNhap();
-            hoTroNhapMaPM_Tra.setHoTroNhapCTPM();
+            hoTroNhapMaPM_Tra.setHoTroNhapPM_TRA();
         }
     }
 
