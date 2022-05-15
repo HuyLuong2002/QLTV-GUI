@@ -592,11 +592,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                 } catch (Exception e1) {
                     System.out.println(e1);
                 }
-<<<<<<< HEAD
-                if(kt == 0){
-=======
                 if (kt == 0) {
->>>>>>> 285f11dbac0600ae60bcca245f4497d9cc2b9292
                     modelCTMuon.setValueAt(ctphieumuon.getMaPM(), i, 0);
                     modelCTMuon.setValueAt(ctphieumuon.getMasach(), i, 1);
                     modelCTMuon.setValueAt(ctphieumuon.getSL(), i, 2);

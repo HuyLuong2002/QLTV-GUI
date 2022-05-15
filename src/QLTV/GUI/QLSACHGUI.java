@@ -460,7 +460,11 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
             if (pnPN != null) {
                 pnPN.setVisible(false);
             }
-            pnThongKe = bctk.BangBaoCaoThongKe();
+            try {
+                pnThongKe = bctk.BangBaoCaoThongKe();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
             this.add(pnThongKe);
         }
         if (e.getSource() == btMenu) {
