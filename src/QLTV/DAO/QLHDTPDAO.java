@@ -42,7 +42,7 @@ public class QLHDTPDAO {
         return dshdtp;
     }
 
-    public void them(HDTIENPHAT hdtienphat) {
+    public int them(HDTIENPHAT hdtienphat) {
         try {
             String qry = "INSERT INTO HDTIENPHAT VALUES (?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(qry);
@@ -56,9 +56,11 @@ public class QLHDTPDAO {
                 JOptionPane.showMessageDialog(null, "Thêm dữ liệu thành công", "Thông báo",
                         JOptionPane.INFORMATION_MESSAGE);
             }
+            return 0;
         } catch (SQLException e) {
             System.out.println(e);
             JOptionPane.showMessageDialog(null, "Thêm dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return -1;
         }
     }
 

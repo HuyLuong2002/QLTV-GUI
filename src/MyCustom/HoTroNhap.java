@@ -29,9 +29,9 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
     JLabel lbHoTro, lbTuKhoaTK;
     JTextField txKhoaTK;
     JPanel pnTable;
-    JButton btLuaChon, btTimKiemPM, btTimKiemPT, btTimKiemHD, btLuaChonCTPT,
+    JButton btLuaChon, btTimKiemPM, btTimKiemPT, btTimKiemHD, btTimKiemDG, btLuaChonCTPT,
             btLuaChonCTHDTP, btLuaChonSachPT, btLuaChonSachHD;
-    JButton btLuaChonInPM, btTimKiemInPM, btLuaChonCTPM, btTimKiemSach, btLuaChonSach, btLuaChonInHD, btTimKiemInHD;
+    JButton btLuaChonInPM, btTimKiemInPM, btLuaChonCTPM, btTimKiemSach, btLuaChonSach, btLuaChonMaDG, btLuaChonInHD, btTimKiemInHD;
     JTable table;
     DefaultTableModel model;
     Vector<String> header;
@@ -160,6 +160,25 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
         setTitleSach();
         setTable();
         addTTSachOnTable();
+
+        this.add(pnTable);
+        this.setVisible(true);
+    }
+
+    public void setHoTroNhapMaDG() {
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setSize(700, 600);
+        this.setTitle("Lựa chọn thông tin");
+        this.setLayout(null);
+        this.setLocationRelativeTo(null);
+
+        pnTable = new JPanel();
+        pnTable.setLayout(new GridLayout(1, 1));
+        pnTable.setBounds(40, 100, 600, 300);
+
+        setTitleMaDG();
+        setTable();
+        addTTDGOnTable();
 
         this.add(pnTable);
         this.setVisible(true);
@@ -369,6 +388,40 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
         this.add(btTimKiemSach);
     }
 
+    public void setTitleMaDG() {
+        lbHoTro = new JLabel("LỰA CHỌN MÃ ĐỘC GIẢ");
+        lbHoTro.setFont(new Font("Arial", Font.BOLD, 20));
+        lbHoTro.setBounds(210, 0, 320, 50);
+
+        btLuaChonMaDG = new JButton("Chọn");
+        btLuaChonMaDG.setFont(new Font("Arial", Font.BOLD, 15));
+        btLuaChonMaDG.setBounds(560, 420, 80, 30);
+        btLuaChonMaDG.setBackground(Color.cyan);
+        btLuaChonMaDG.setBorder(new RoundedBorder(10));
+        btLuaChonMaDG.addActionListener(this);
+
+        lbTuKhoaTK = new JLabel("Nhập từ khóa tìm kiếm:");
+        lbTuKhoaTK.setFont(new Font("Arial", Font.BOLD, 20));
+        lbTuKhoaTK.setBounds(40, 20, 250, 100);
+
+        txKhoaTK = new JTextField();
+        txKhoaTK.setFont(new Font("Arial", Font.PLAIN, 15));
+        txKhoaTK.setBounds(270, 55, 150, 30);
+
+        btTimKiemDG = new JButton("Tìm kiếm");
+        btTimKiemDG.setFont(new Font("Arial", Font.BOLD, 15));
+        btTimKiemDG.setBounds(430, 55, 100, 30);
+        btTimKiemDG.setBackground(Color.cyan);
+        btTimKiemDG.setBorder(new RoundedBorder(10));
+        btTimKiemDG.addActionListener(this);
+
+        this.add(lbHoTro);
+        this.add(btLuaChonMaDG);
+        this.add(lbTuKhoaTK);
+        this.add(txKhoaTK);
+        this.add(btTimKiemDG);
+    }
+
     public void setTable() {
         table = new JTable();
         pane = new JScrollPane(table);
@@ -474,6 +527,27 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
         }
         table.setModel(model);
     }
+    public void addTTDGOnTable() {
+        Vector<String> header = new Vector<String>();
+        header.add("Mã độc giả");
+        header.add("Tên độc giả");
+        header.add("Địa chỉ");
+        header.add("Email");
+        header.add("Tình trạng thuê");
+        model = new DefaultTableModel(header, 0);
+        QLNVBUS qldocgiabus = new QLNVBUS();
+        if (QLNVBUS.dsdg == null) {
+            try {
+                qldocgiabus.docDS();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        }
+        for (DOCGIA docgia : QLNVBUS.dsdg) {
+            ShowOnTableDG(docgia);
+        }
+        table.setModel(model);
+    }
 
     public void ShowOnTableSach(SACH sach) {
         Vector<String> row = new Vector<String>();
@@ -485,6 +559,16 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
         row.add(String.valueOf(sach.getSLtong()));
         row.add(String.valueOf(sach.getSL()));
         row.add(String.format("%,d", sach.getDongia()));
+        model.addRow(row);
+    }
+
+    public void ShowOnTableDG(DOCGIA docgia) {
+        Vector<String> row = new Vector<String>();
+        row.add(docgia.getMaDG().trim());
+        row.add(docgia.getTenDG().trim());
+        row.add(docgia.getDiachi().trim());
+        row.add(docgia.getMail().trim());
+        row.add(docgia.getTinhtrangthue().trim());
         model.addRow(row);
     }
 

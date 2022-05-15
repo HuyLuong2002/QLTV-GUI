@@ -18,18 +18,22 @@ public class QLCTTRABUS {
     }
 
     public int them(CHITIETPHIEUTRA ctphieutra) throws Exception {
+        int kt = 0;
         QLCTTRADAO data = new QLCTTRADAO();
-        data.them(ctphieutra);
-        dsctpt.add(ctphieutra);
-        return 1;
+        kt = data.them(ctphieutra);
+        if(kt == 0){
+            dsctpt.add(ctphieutra);
+        }
+        return kt;
     }
 
-    public int sua(CHITIETPHIEUTRA phieutramoi, CHITIETPHIEUTRA phieutracu, int i) throws Exception {
+    public int sua(CHITIETPHIEUTRA phieutramoi, String MaPTCTPTCu, String MasachCTPTCu, int i) throws Exception {
         // Truy cập vào database
         int kt = 0;
         QLCTTRADAO data = new QLCTTRADAO();
-        kt = data.sua(phieutramoi, phieutracu);
-        dsctpt.set(i, phieutramoi);
+        kt = data.sua(phieutramoi, MaPTCTPTCu, MasachCTPTCu);
+        if(kt == 0)
+            dsctpt.set(i, phieutramoi);
         return kt;
     }
 }

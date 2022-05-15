@@ -71,19 +71,24 @@ public class QLMUONBUS {
             return -1;
         } else {
             // Truy cập vào database
+            int kt = 0;
             QLMUONDAO data = new QLMUONDAO();
-            data.them(phieumuon);
-            dspm.add(phieumuon);
-            return 1;
+            kt = data.them(phieumuon);
+            if (kt == 0){
+                dspm.add(phieumuon);
+            }
+            return kt;
         }
     }
 
     public int sua(PHIEUMUON phieumuonmoi, PHIEUMUON phieumuoncu, int i) throws Exception {
         // Truy cập vào database
-        int kt = 0;
+        int kt = -1;
         QLMUONDAO data = new QLMUONDAO();
         kt = data.sua(phieumuonmoi, phieumuoncu);
-        dspm.set(i, phieumuonmoi);
+        if(kt == 0){
+            dspm.set(i, phieumuonmoi);
+        }
         return kt;
     }
     public int KTMa(String MaPmMoi) {
