@@ -61,7 +61,7 @@ public class QLCTMUONDAO {
         }
     }
 
-    public int sua(CHITIETPHIEUMUON ctphieumuonMoi, String MaPMCTPMCu, String MasachCTPMCu){
+    public int sua(CHITIETPHIEUMUON ctphieumuonMoi, String MaPMCTPMCu, String MasachCTPMCu) {
         try {
             String qry = "UPDATE CHITIETPHIEUMUON SET MAPM= ?, MASACH= ?, SL= ?" + " WHERE MAPM= ? AND MASACH= ?";
             PreparedStatement ps = conn.prepareStatement(qry);
@@ -83,4 +83,5 @@ public class QLCTMUONDAO {
             return -1;
         }
     }
+
 }
