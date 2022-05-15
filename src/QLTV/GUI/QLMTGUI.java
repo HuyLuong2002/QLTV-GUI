@@ -67,10 +67,10 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
     JButton btThoat, btSuaPM, btThemPM, btXoa, btHoanTac,
             btSuaCTPM, btThemCTPM, btThemPT, btSuaPT, btThemCTPT, btSuaCTPT, btThemHDTP, btSuaHDTP, btThemCTHD,
             btSuaCTHD;
-    JTextField txMaPM, txSLtong, txMaDG, txKhoaTK;
+    JTextField txMaPM, txSLtong, txKhoaTK;
     public static JTextField txCTPMMaPM, txCTPMMaSach, txCTPMSL, txCTPTMaPT, txCTPTMaSach, txCTHDMaHD, txCTHDMaSach,
             txCTHDSL,
-            txCTHDDonGia, txCTPTSL;
+            txCTHDDonGia, txCTPTSL, txMaDG;
     JComboBox<String> cbTinhTrangMuon, cbDSKhoaTK;
     JLabel lbLCTKPM, lbTuKhoaTKPM, lbLCTKPT, lbTuKhoaTKPT,
             lbLCTKHD, lbTuKhoaTKHD;
@@ -280,7 +280,8 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btTimKiemPM) {
             int vtkey = Integer.parseInt(String.valueOf(cbDSKhoaTKPM.getSelectedIndex()));
-            String tukhoa = txKhoaTKPM.getText();
+            String Tukhoa = txKhoaTKPM.getText();
+            String tukhoa = Tukhoa.replaceAll("\\s\\s", " ").trim();
             if (tukhoa.equals("") == true) {
                 JOptionPane.showMessageDialog(null, "Xin mời nhập từ khóa", "Lỗi", JOptionPane.ERROR_MESSAGE);
             } else if (vtkey == 0) {
@@ -288,7 +289,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             } else {
                 QLMUONBUS qlsachbus = new QLMUONBUS();
                 if (vtkey == 1) {
-                    PHIEUMUON kq = qlsachbus.timTheoMa(tukhoa.trim());
+                    PHIEUMUON kq = qlsachbus.timTheoMa(tukhoa.replaceAll("\\s+", " ").trim());
                     modelMuon.setRowCount(0);
                     if (kq != null) {
                         ShowOnTablePM(kq);
@@ -299,7 +300,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                     }
                 }
                 if (vtkey == 2) {
-                    ArrayList<PHIEUMUON> kq = qlsachbus.timTheoSLtong(tukhoa.trim());
+                    ArrayList<PHIEUMUON> kq = qlsachbus.timTheoSLtong(tukhoa.replaceAll("\\s+", " ").trim());
                     modelMuon.setRowCount(0);
                     if (kq.size() == 0) {
                         JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu phù hợp", "Lỗi",
@@ -849,7 +850,12 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             hoTroNhapMaSachHD.setHoTroNhapMasach();
         }
         if (e.getSource() == btHoTroNhapMaDG){
-
+            HoTroNhap hoTroNhapMaDG = new HoTroNhap();
+            hoTroNhapMaDG.setHoTroNhapMaDG();
+        }
+        if(e.getSource() == btHoTroNhapPM_Tra){
+            HoTroNhap hoTroNhapMaPM_Tra = new HoTroNhap();
+            hoTroNhapMaPM_Tra.setHoTroNhapCTPM();
         }
     }
 
@@ -1737,6 +1743,13 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         btSuaPT.setBorder(new RoundedBorder(10));
         btSuaPT.addActionListener(this);
 
+        btHoTroNhapPM_Tra = new JButton("...");
+        btHoTroNhapPM_Tra.setFont(new Font("Arial", Font.BOLD, 15));
+        btHoTroNhapPM_Tra.setBounds(340, 290, 40, 30);
+        btHoTroNhapPM_Tra.setBackground(Color.cyan);
+        btHoTroNhapPM_Tra.setBorder(new RoundedBorder(10));
+        btHoTroNhapPM_Tra.addActionListener(this);
+
         pnNhapPT.add(lbNhapTra);
         pnNhapPT.add(lbMaPT);
         pnNhapPT.add(lbNgayTraPT);
@@ -1753,6 +1766,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         pnNhapPT.add(datePickerNgayBDPT);
         pnNhapPT.add(btThemPT);
         pnNhapPT.add(btSuaPT);
+        pnNhapPT.add(btHoTroNhapPM_Tra);    
     }
 
     public void setInputCTPT() {
@@ -2394,9 +2408,6 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
 
     public int TinhThanhTien() {
         int ThanhTien = 0;
-        // QLMUONBUS qlmuonbus = new QLMUONBUS();
-        // ArrayList<PHIEUMUON> kq = new ArrayList<PHIEUMUON>();
-        // kq = qlmuonbus.getNgayMuon();
         for (PHIEUMUON pm : QLMUONBUS.dspm) {
             String MaPM = pm.getMaPM();
             for (PHIEUTRASACH pt : QLTRABUS.dspt) {

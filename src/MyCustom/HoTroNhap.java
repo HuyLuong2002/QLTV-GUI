@@ -719,6 +719,33 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
                 }
             }
         }
+        if (e.getSource() == btTimKiemDG) {
+            String tukhoa = txKhoaTK.getText();
+            if (tukhoa.equals("") == true) {
+                model.setRowCount(0);
+                for (DOCGIA docgia : QLNVBUS.dsdg) {
+                    ShowOnTableDG(docgia);
+                }
+            } else {
+                model.setRowCount(0);
+                ArrayList<DOCGIA> kq = new ArrayList<DOCGIA>();
+                for (DOCGIA docgia : QLNVBUS.dsdg) {
+                    if (tukhoa.indexOf(docgia.getMaDG().trim()) >= 0 || tukhoa.indexOf(docgia.getTenDG()) >= 0
+                            || tukhoa.indexOf(docgia.getMail()) >= 0 || tukhoa.indexOf(docgia.getDiachi()) >= 0
+                            || tukhoa.indexOf(docgia.getTinhtrangthue()) >= 0) {
+                        kq.add(docgia);
+                    }
+                }
+                if (kq.size() == 0) {
+                    JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    for (DOCGIA docgia : kq) {
+                        ShowOnTableDG(docgia);
+                    }
+                    table.setModel(model);
+                }
+            }
+        }
         if (e.getSource() == btTimKiemSach) {
             String tukhoa = txKhoaTK.getText();
             if (tukhoa.equals("") == true) {
@@ -838,6 +865,13 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
                 QLMTGUI.txCTPMMaSach.setText(String.valueOf(model.getValueAt(i, 0)));
                 QLMTGUI.txCTPTMaSach.setText(String.valueOf(model.getValueAt(i, 0)));
                 QLMTGUI.txCTHDMaSach.setText(String.valueOf(model.getValueAt(i, 0)));
+            }
+            this.dispose();
+        }
+        if (e.getSource() == btLuaChonMaDG) {
+            int i = table.getSelectedRow();
+            if (i >= 0) {
+                QLMTGUI.txMaDG.setText(String.valueOf(model.getValueAt(i, 0)));
             }
             this.dispose();
         }

@@ -31,11 +31,9 @@ public class QLMUONBUS {
         return kq;
     }
 
-
-
     public PHIEUMUON timTheoMa(String MaPM) {
         for (PHIEUMUON pm : dspm)
-            if (pm.getMaPM().trim().equals(MaPM))
+            if (pm.getMaPM().replaceAll("\\s\\s+", " ").trim().equals(MaPM))
                 return pm;
         return null;
     }
