@@ -50,6 +50,7 @@ import QLTV.DTO.PHIEUMUON;
 import QLTV.DTO.PHIEUTRASACH;
 
 public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
+    public static String NgayTra;
     JPanel pnMuonTra, pnTabMuon, pnTabTra, pnTabTienPhat, pnShowAll, pnMuon, pnCTMuon, pnNhapPM,
             pnTimKiemPM, pnLocPM, pnNhapPT, pnTimKiemPT, pnLocPT, pnTra, pnCTTra, pnHDTP, pnCTHDTP, pnNhapHDTP,
             pnTimKiemHDTP, pnLocHDTP;
@@ -69,8 +70,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             btSuaCTHD;
     JTextField txMaPM, txSLtong, txKhoaTK;
     public static JTextField txCTPMMaPM, txCTPMMaSach, txCTPMSL, txCTPTMaPT, txCTPTMaSach, txCTHDMaHD, txCTHDMaSach,
-            txCTHDSL,
-            txCTHDDonGia, txCTPTSL, txMaDG;
+            txCTHDSL, txCTHDDonGia, txCTPTSL, txMaDG, txMaPMTra;
     JComboBox<String> cbTinhTrangMuon, cbDSKhoaTK;
     JLabel lbLCTKPM, lbTuKhoaTKPM, lbLCTKPT, lbTuKhoaTKPT,
             lbLCTKHD, lbTuKhoaTKHD;
@@ -79,8 +79,9 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             btHoTroNhapMaPT, btHoTroNhapMaHD, btShowAll,
             btTimKiemPM, btLocPM, btInPM, btTimKiemPT, btLocPT, btInPT,
             btTimKiemHDTP, btLocHDTP, btInHDTP;
-    JTextField txKhoaTKPM, txKhoaTKPT, txKhoaTKHDTP, txMaPT, txTienThue, txThanhTien, txMaPMTra, txMaHD, txMaHD_DG,
+    JTextField txKhoaTKPM, txKhoaTKPT, txKhoaTKHDTP, txMaPT, txTienThue, txMaHD, txMaHD_DG,
             txSLTongHD, txTienPhat;
+    public static JTextField txThanhTien;
     JComboBox<String> cbTinhTrangTra, cbDSKhoaTKPM, cbDSKhoaTKPT, cbDSKhoaTKHDTP;
 
     TitledBorder titleMuon, titleTra, titleHDTP, titleCTHDTP;
@@ -855,7 +856,9 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         }
         if(e.getSource() == btHoTroNhapPM_Tra){
             HoTroNhap hoTroNhapMaPM_Tra = new HoTroNhap();
-            hoTroNhapMaPM_Tra.setHoTroNhapCTPM();
+            NgayTra = datePickerNgayBDPT.getJFormattedTextField().getText();
+            hoTroNhapMaPM_Tra.setHoTroNhapPM_TRA();
+            
         }
     }
 
@@ -933,7 +936,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                     cbTinhTrangMuon.setSelectedIndex(2);
                 }
                 txTienThue.setText(String.valueOf(ptTextField.getTienthue()).trim());
-                txThanhTien.setText(String.valueOf(ptTextField.getThanhtien()).trim());
+                txThanhTien.setText(String.format("%,d",ptTextField.getThanhtien()).trim());
                 txMaPMTra.setText(ptTextField.getMaPM().trim());
             }
         }
@@ -2374,10 +2377,10 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         phieutrasach.setNgaytra(datePickerNgayBDPT.getJFormattedTextField().getText());
         String TinhTrangSach = (String) cbTinhTrangTra.getSelectedItem();
         phieutrasach.setTinhtrangsach(TinhTrangSach.replaceAll("\\s+", " ").trim());
+        
         String TienThue = RemoveCommaInString(txTienThue);
         phieutrasach.setTienthue(Integer.parseInt(TienThue));
 
-        txThanhTien.setText(String.valueOf(TinhThanhTien()));
         String ThanhTien = RemoveCommaInString(txThanhTien);
         phieutrasach.setThanhtien(Integer.parseInt(ThanhTien));
 
@@ -2406,24 +2409,6 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         chitiethdtienphat.setDongia(Integer.parseInt(DonGia));
     }
 
-    public int TinhThanhTien() {
-        int ThanhTien = 0;
-        for (PHIEUMUON pm : QLMUONBUS.dspm) {
-            String MaPM = pm.getMaPM();
-            for (PHIEUTRASACH pt : QLTRABUS.dspt) {
-                if (pt.getMaPM().equals(MaPM)) {
-                    String tmp[] = pt.getNgaytra().split("-");
-                    String tmp1[] = pm.getNgaymuon().split("-");
-                    int songaymuon = Integer.parseInt(tmp[2]) - Integer.parseInt(tmp1[2]);
-                    if (songaymuon <= 15)
-                        ThanhTien = pt.getTienthue() * songaymuon;
-                    else
-                        ThanhTien = pt.getTienthue() * songaymuon + (pt.getTienthue() + 2000) * songaymuon;
-                }
-            }
-        }
-        return ThanhTien;
-    }
 
     public String RemoveCommaInString(JTextField Tien) {
         String tmp[] = Tien.getText().split(",");
