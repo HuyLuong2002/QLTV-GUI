@@ -67,10 +67,13 @@ public class QLTRABUS {
             return -1;
         } else {
             // Truy cập vào database
+            int kt = 0;
             QLTRADAO data = new QLTRADAO();
-            data.them(phieutrasach);
-            dspt.add(phieutrasach);
-            return 1;
+            kt = data.them(phieutrasach);
+            if(kt == 0){
+                dspt.add(phieutrasach);
+            }
+            return kt;
         }
     }
 
@@ -79,7 +82,9 @@ public class QLTRABUS {
         int kt = 0;
         QLTRADAO data = new QLTRADAO();
         kt=data.sua(phieutramoi, phieutracu);
-        dspt.set(i, phieutramoi);
+        if(kt == 0){
+            dspt.set(i, phieutramoi);
+        }
         return kt;
     }
     public int KTMa(String MaPtMoi) {

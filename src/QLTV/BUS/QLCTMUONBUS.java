@@ -34,10 +34,12 @@ public class QLCTMUONBUS {
 
     public int sua(CHITIETPHIEUMUON phieumuonmoi, String MaPMCTPMCu, String MasachCTPMCu, int i) throws Exception {
         // Truy cập vào database
-        int kt = 0;
+        int kt = -1;
         QLCTMUONDAO data = new QLCTMUONDAO();
         kt = data.sua(phieumuonmoi, MaPMCTPMCu, MasachCTPMCu);
-        dsctpm.set(i, phieumuonmoi);
+        if(kt == 0){
+            dsctpm.set(i, phieumuonmoi);
+        }
         return kt;
     }
 

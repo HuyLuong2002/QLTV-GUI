@@ -42,35 +42,38 @@ public class QLCTHDTPDAO {
         return dscthdtp;
     }
 
-    public void them(CHITIETHDTIENPHAT chitiethdtienphat) {
+    public int them(CHITIETHDTIENPHAT chitiethdtienphat) {
         try {
             String qry = "INSERT INTO CHITIETHDTIENPHAT VALUES (?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(qry);
             ps.setString(1, chitiethdtienphat.getMaHD());
             ps.setString(2, chitiethdtienphat.getMasach());
             ps.setString(3, String.valueOf(chitiethdtienphat.getSL()));
-            ps.setString(3, String.valueOf(chitiethdtienphat.getDongia()));
+            ps.setString(4, String.valueOf(chitiethdtienphat.getDongia()));
 
             int n = ps.executeUpdate();
             if (n != 0) {
                 JOptionPane.showMessageDialog(null, "Thêm dữ liệu thành công", "Thông báo",
                         JOptionPane.INFORMATION_MESSAGE);
             }
+            return 0;
         } catch (SQLException e) {
             System.out.println(e);
             JOptionPane.showMessageDialog(null, "Thêm dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return -1;
         }
     }
 
-    public int sua(CHITIETHDTIENPHAT chitiethdtienphatMoi, CHITIETHDTIENPHAT chitiethdtienphatCu){
+    public int sua(CHITIETHDTIENPHAT chitiethdtienphatMoi, String MaHDCu, String MaSachCu){
         try {
-            String qry = "UPDATE CHITIETPHIEUTRA SET MAHD= ?, MASACH= ?, SL= ?, DONGIA= ?" + " WHERE MAPT= ?";
+            String qry = "UPDATE CHITIETHDTIENPHAT SET MAHD= ?, MASACH= ?, SL= ?, DONGIA= ?" + " WHERE MAHD=? AND MASACH= ?";
             PreparedStatement ps = conn.prepareStatement(qry);
             ps.setString(1, chitiethdtienphatMoi.getMaHD());
             ps.setString(2, chitiethdtienphatMoi.getMasach());
             ps.setString(3, String.valueOf(chitiethdtienphatMoi.getSL()));
             ps.setString(4, String.valueOf(chitiethdtienphatMoi.getDongia()));
-            ps.setString(5, chitiethdtienphatCu.getMaHD());
+            ps.setString(5, MaHDCu);
+            ps.setString(6, MaSachCu);
 
             int n = ps.executeUpdate();
             if (n != 0) {

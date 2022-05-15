@@ -45,7 +45,7 @@ public class QLTRADAO {
         return dstra;
     }
 
-    public void them(PHIEUTRASACH phieutrasach) {
+    public int them(PHIEUTRASACH phieutrasach) {
         try {
             String qry = "INSERT INTO PHIEUTRASACH VALUES (?,?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(qry);
@@ -61,9 +61,11 @@ public class QLTRADAO {
                 JOptionPane.showMessageDialog(null, "Thêm dữ liệu thành công", "Thông báo",
                         JOptionPane.INFORMATION_MESSAGE);
             }
+            return 0;
         } catch (SQLException e) {
             System.out.println(e);
             JOptionPane.showMessageDialog(null, "Thêm dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return -1;
         }
     }
 

@@ -46,14 +46,6 @@ public class QLSACHDAO {
 
     public void them(SACH sach) {
         try {
-            // String qry = "insert into SACH values  (" + "'" + sach.getMasach() + "'"
-            //         + "," + "N'" + sach.getTensach() + "'" + "," + "'" + sach.getMaNXB() + "'" + ","
-            //         + "'" + sach.getMaTG() + "'" + "," + "'" + sach.getNamXB() + "'" + ","
-            //         + "N'" + String.valueOf(sach.getSLtong()) + "'" + "," + "'"
-            //         + String.valueOf(sach.getSL()) + "'" + "," + "'" + String.valueOf(sach.getDongia()) + "'"
-            //         + ")";
-            // st = conn.createStatement();
-            // st.executeUpdate(qry);
             String qry = "INSERT INTO SACH VALUES (?,?,?,?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(qry);
             ps.setString(1, sach.getMasach());

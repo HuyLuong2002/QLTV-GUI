@@ -20,18 +20,21 @@ public class QLCTHDTPBUS {
     }
 
     public int them(CHITIETHDTIENPHAT chitiethdtienphat) throws Exception {
+        int kt = 0;
         QLCTHDTPDAO data = new QLCTHDTPDAO();
-        data.them(chitiethdtienphat);
-        dscthdtp.add(chitiethdtienphat);
-        return 1;
+        kt = data.them(chitiethdtienphat);
+        if(kt == 0)
+            dscthdtp.add(chitiethdtienphat);
+        return kt;
     }
 
-    public int sua(CHITIETHDTIENPHAT chitiethdtienphatMoi, CHITIETHDTIENPHAT chitiethdtienphatCu, int i) throws Exception {
+    public int sua(CHITIETHDTIENPHAT chitiethdtienphatMoi, String MaHDCu, String MaSachCu, int i) throws Exception {
         // Truy cập vào database
         int kt = 0;
         QLCTHDTPDAO data = new QLCTHDTPDAO();
-        kt = data.sua(chitiethdtienphatMoi, chitiethdtienphatCu);
-        dscthdtp.set(i, chitiethdtienphatMoi);
+        kt = data.sua(chitiethdtienphatMoi, MaHDCu, MaSachCu);
+        if(kt == 0)
+            dscthdtp.set(i, chitiethdtienphatMoi);
         return kt;
     }
 }

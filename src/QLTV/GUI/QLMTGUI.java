@@ -75,7 +75,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
     JLabel lbLCTKPM, lbTuKhoaTKPM, lbLCTKPT, lbTuKhoaTKPT,
             lbLCTKHD, lbTuKhoaTKHD;
     JButton btMenu, btSach, btMT, btQLNV, btDangXuat, btNhapSach, btMenuTimKiem, btThongKe;
-    JButton btHoTroNhapMaPM, btHoTroNhapMasachPM, btHoTroNhapMasachPT, btHoTroNhapMasachHD,
+    JButton btHoTroNhapMaPM, btHoTroNhapMaDG, btHoTroNhapPM_Tra, btHoTroNhapMasachPM, btHoTroNhapMasachPT, btHoTroNhapMasachHD,
             btHoTroNhapMaPT, btHoTroNhapMaHD, btShowAll,
             btTimKiemPM, btLocPM, btInPM, btTimKiemPT, btLocPT, btInPT,
             btTimKiemHDTP, btLocHDTP, btInHDTP;
@@ -288,7 +288,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             } else {
                 QLMUONBUS qlsachbus = new QLMUONBUS();
                 if (vtkey == 1) {
-                    PHIEUMUON kq = qlsachbus.timTheoMa(tukhoa);
+                    PHIEUMUON kq = qlsachbus.timTheoMa(tukhoa.trim());
                     modelMuon.setRowCount(0);
                     if (kq != null) {
                         ShowOnTablePM(kq);
@@ -299,7 +299,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                     }
                 }
                 if (vtkey == 2) {
-                    ArrayList<PHIEUMUON> kq = qlsachbus.timTheoSLtong(tukhoa);
+                    ArrayList<PHIEUMUON> kq = qlsachbus.timTheoSLtong(tukhoa.trim());
                     modelMuon.setRowCount(0);
                     if (kq.size() == 0) {
                         JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu phù hợp", "Lỗi",
@@ -349,7 +349,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             } else {
                 QLTRABUS qltrabus = new QLTRABUS();
                 if (vtkey == 1) {
-                    PHIEUTRASACH kq = qltrabus.timTheoMaPT(tukhoa);
+                    PHIEUTRASACH kq = qltrabus.timTheoMaPT(tukhoa.trim());
                     modelTra.setRowCount(0);
                     if (kq != null) {
                         ShowOnTablePT(kq);
@@ -360,7 +360,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                     }
                 }
                 if (vtkey == 2) {
-                    ArrayList<PHIEUTRASACH> kq = qltrabus.timTheoTinhTrangSach(tukhoa);
+                    ArrayList<PHIEUTRASACH> kq = qltrabus.timTheoTinhTrangSach(tukhoa.trim());
                     modelTra.setRowCount(0);
                     if (kq.size() == 0) {
                         JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu phù hợp", "Lỗi",
@@ -400,59 +400,61 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         }
         if (e.getSource() == btTimKiemHDTP) {
             int vtkey = Integer.parseInt(String.valueOf(cbDSKhoaTKHDTP.getSelectedIndex()));
-            String tukhoa = txKhoaTKPT.getText();
+            String tukhoa = txKhoaTKHDTP.getText();
             if (tukhoa.equals("") == true) {
                 JOptionPane.showMessageDialog(null, "Xin mời nhập từ khóa", "Lỗi", JOptionPane.ERROR_MESSAGE);
             } else if (vtkey == 0) {
                 JOptionPane.showMessageDialog(null, "Xin mời lựa chọn khóa tìm kiếm", "Lỗi", JOptionPane.ERROR_MESSAGE);
             } else {
-                QLTRABUS qltrabus = new QLTRABUS();
+                QLHDTPBUS qlhoadonbus = new QLHDTPBUS();
                 if (vtkey == 1) {
-                    PHIEUTRASACH kq = qltrabus.timTheoMaPT(tukhoa);
-                    modelTra.setRowCount(0);
+                   HDTIENPHAT kq = qlhoadonbus.timTheoMaHD(tukhoa);
+                    modelHDTP.setRowCount(0);
                     if (kq != null) {
-                        ShowOnTablePT(kq);
-                        tblQLTra.setModel(modelTra);
+                        ShowOnTableHD(kq);
+                        tblQLHDTP.setModel(modelHDTP);
                     } else {
                         JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu phù hợp", "Lỗi",
                                 JOptionPane.ERROR_MESSAGE);
                     }
                 }
                 if (vtkey == 2) {
-                    ArrayList<PHIEUTRASACH> kq = qltrabus.timTheoTinhTrangSach(tukhoa);
-                    modelTra.setRowCount(0);
+                    ArrayList<HDTIENPHAT> kq = qlhoadonbus.timTheoMaDG(tukhoa);
+                    modelHDTP.setRowCount(0);
                     if (kq.size() == 0) {
                         JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu phù hợp", "Lỗi",
                                 JOptionPane.ERROR_MESSAGE);
                     } else {
-                        for (PHIEUTRASACH pt : kq) {
-                            ShowOnTablePT(pt);
+                        for (HDTIENPHAT hd : kq) {
+                            ShowOnTableHD(hd);
                         }
-                        tblQLTra.setModel(modelTra);
+                        tblQLHDTP.setModel(modelHDTP);
                     }
                 }
                 if (vtkey == 3) {
-                    ArrayList<PHIEUTRASACH> kq = qltrabus.timTheoThanhTien(tukhoa.trim());
-                    modelTra.setRowCount(0);
+                    ArrayList<HDTIENPHAT> kq = qlhoadonbus.timTheoSLtong(tukhoa.trim());
+                    modelHDTP.setRowCount(0);
                     if (kq.size() == 0) {
                         JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu phù hợp", "Lỗi",
                                 JOptionPane.ERROR_MESSAGE);
                     } else {
-                        for (PHIEUTRASACH pt : kq) {
-                            ShowOnTablePT(pt);
+                        for (HDTIENPHAT hd : kq) {
+                            ShowOnTableHD(hd);
                         }
-                        tblQLTra.setModel(modelTra);
+                        tblQLHDTP.setModel(modelHDTP);
                     }
                 }
                 if (vtkey == 4) {
-                    PHIEUTRASACH kq = qltrabus.timTheoMaPM(tukhoa.trim());
-                    modelTra.setRowCount(0);
-                    if (kq == null) {
+                    ArrayList<HDTIENPHAT> kq = qlhoadonbus.timTheoTienPhat(tukhoa.trim());
+                    modelHDTP.setRowCount(0);
+                    if (kq.size() == 0) {
                         JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu phù hợp", "Lỗi",
                                 JOptionPane.ERROR_MESSAGE);
                     } else {
-                        ShowOnTablePT(kq);
-                        tblQLTra.setModel(modelTra);
+                        for(HDTIENPHAT hd : kq){
+                            ShowOnTableHD(hd);
+                        }
+                        tblQLHDTP.setModel(modelHDTP);
                     }
                 }
             }
@@ -495,13 +497,13 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                 getInfoTextFieldPM(phieumuon);
                 // Truy cập vào bus
                 QLMUONBUS qlphieumuonbus = new QLMUONBUS();
-                int kiemtra = 0;
+                int kiemtra = -1;
                 try {
                     kiemtra = qlphieumuonbus.them(phieumuon);
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
-                if (kiemtra == 1) {
+                if (kiemtra == 0) {
                     // Đưa dữ liệu lên table
                     header = new Vector<String>();
                     header.add("Mã phiếu mượn");
@@ -554,7 +556,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                 } else {
                     // Truy cập vào bus
                     QLCTMUONBUS qlctphieumuonbus = new QLCTMUONBUS();
-                    int kiemtra = 0;
+                    int kiemtra = -1;
                     try {
                         kiemtra = qlctphieumuonbus.them(ctphieumuon);
                     } catch (Exception e1) {
@@ -573,7 +575,6 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                         tblQLCTMuon.setModel(modelCTMuon);
                     }
                 }
-
             } catch (Exception e1) {
                 System.out.println(e1);
             }
@@ -592,11 +593,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                 } catch (Exception e1) {
                     System.out.println(e1);
                 }
-<<<<<<< HEAD
                 if(kt == 0){
-=======
-                if (kt == 0) {
->>>>>>> 285f11dbac0600ae60bcca245f4497d9cc2b9292
                     modelCTMuon.setValueAt(ctphieumuon.getMaPM(), i, 0);
                     modelCTMuon.setValueAt(ctphieumuon.getMasach(), i, 1);
                     modelCTMuon.setValueAt(ctphieumuon.getSL(), i, 2);
@@ -610,13 +607,13 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                 getInfoTextFieldPT(phieutra);
                 // Truy cập vào bus
                 QLTRABUS qlphieutrabus = new QLTRABUS();
-                int kiemtra = 0;
+                int kiemtra = -1;
                 try {
                     kiemtra = qlphieutrabus.them(phieutra);
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
-                if (kiemtra == 1) {
+                if (kiemtra == 0) {
                     // Đưa dữ liệu lên table
                     header = new Vector<String>();
                     header.add("Mã phiếu mượn");
@@ -662,28 +659,33 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             }
         }
         if (e.getSource() == btThemCTPT) {
+            int i = tblQLTra.getSelectedRow();
             try {
                 CHITIETPHIEUTRA ctphieutra = new CHITIETPHIEUTRA();
                 getInfoTextFieldCTPT(ctphieutra);
-                // Truy cập vào bus
-                QLCTTRABUS qlctphieutrabus = new QLCTTRABUS();
-                int kiemtra = 0;
-                try {
-                    kiemtra = qlctphieutrabus.them(ctphieutra);
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
-                if (kiemtra == 1) {
-                    // Đưa dữ liệu lên table
-                    header = new Vector<String>();
-                    header.add("Mã phiếu trả");
-                    header.add("Mã sách");
-                    header.add("SL");
-                    if (modelCTTra.getRowCount() == 0) {
-                        modelCTTra = new DefaultTableModel(header, 0);
+                if (!ctphieutra.getMaPT().trim().equals(String.valueOf(modelTra.getValueAt(i, 0)))) {
+                    JOptionPane.showMessageDialog(null, "Mã phiếu trả tại bảng chi tiết khác với mã phiếu trả","Lỗi",JOptionPane.ERROR_MESSAGE);
+                } else {
+                        // Truy cập vào bus
+                    QLCTTRABUS qlctphieutrabus = new QLCTTRABUS();
+                    int kiemtra = 0;
+                    try {
+                        kiemtra = qlctphieutrabus.them(ctphieutra);
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
                     }
-                    ShowOnTableCTPT(ctphieutra);
-                    tblQLCTTra.setModel(modelCTTra);
+                    if (kiemtra == 1) {
+                        // Đưa dữ liệu lên table
+                        header = new Vector<String>();
+                        header.add("Mã phiếu trả");
+                        header.add("Mã sách");
+                        header.add("SL");
+                        if (modelCTTra.getRowCount() == 0) {
+                            modelCTTra = new DefaultTableModel(header, 0);
+                        }
+                        ShowOnTableCTPT(ctphieutra);
+                        tblQLCTTra.setModel(modelCTTra);
+                    }
                 }
             } catch (Exception e1) {
                 System.out.println(e1);
@@ -694,18 +696,19 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             int kt = -1;
             if (i >= 0) {
                 CHITIETPHIEUTRA ctphieutra = new CHITIETPHIEUTRA();
-                CHITIETPHIEUTRA MaCTPTCu = QLCTTRABUS.dsctpt.set(i, ctphieutra);
+                String MaCTPTCu = String.valueOf(modelCTTra.getValueAt(i, 0));
+                String MaSachCTPTCu = String.valueOf(modelCTTra.getValueAt(i, 1));
                 getInfoTextFieldCTPT(ctphieutra);
                 try {
                     QLCTTRABUS qlctphieutrabus = new QLCTTRABUS();
-                    kt = qlctphieutrabus.sua(ctphieutra, MaCTPTCu, i);
+                    kt = qlctphieutrabus.sua(ctphieutra, MaCTPTCu, MaSachCTPTCu, i);
                 } catch (Exception e1) {
                     System.out.println(e1);
                 }
                 if (kt == 0) {
-                    modelTra.setValueAt(ctphieutra.getMaPT(), i, 0);
-                    modelTra.setValueAt(ctphieutra.getMasach(), i, 1);
-                    modelTra.setValueAt(ctphieutra.getSL(), i, 2);
+                    modelCTTra.setValueAt(ctphieutra.getMaPT(), i, 0);
+                    modelCTTra.setValueAt(ctphieutra.getMasach(), i, 1);
+                    modelCTTra.setValueAt(ctphieutra.getSL(), i, 2);
                     tblQLCTTra.setModel(modelCTTra);
                 }
             }
@@ -716,13 +719,13 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                 getInfoTextFieldHD(hdtienphat);
                 // Truy cập vào bus
                 QLHDTPBUS qlhoadonbus = new QLHDTPBUS();
-                int kiemtra = 0;
+                int kiemtra = -1;
                 try {
                     kiemtra = qlhoadonbus.them(hdtienphat);
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
-                if (kiemtra == 1) {
+                if (kiemtra == 0) {
                     // Đưa dữ liệu lên table
                     header = new Vector<String>();
                     header.add("Mã hóa đơn");
@@ -762,29 +765,34 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             }
         }
         if (e.getSource() == btThemCTHD) {
+            int i = tblQLHDTP.getSelectedRow();
             try {
                 CHITIETHDTIENPHAT chitiethdtienphat = new CHITIETHDTIENPHAT();
                 getInfoTextFieldCTHD(chitiethdtienphat);
-                // Truy cập vào bus
-                QLCTHDTPBUS qlcthoadonbus = new QLCTHDTPBUS();
-                int kiemtra = 0;
-                try {
-                    kiemtra = qlcthoadonbus.them(chitiethdtienphat);
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
-                if (kiemtra == 1) {
-                    // Đưa dữ liệu lên table
-                    header = new Vector<String>();
-                    header.add("Mã phiếu trả");
-                    header.add("Mã sách");
-                    header.add("Số lượng");
-                    header.add("Đơn giá");
-                    if (modelCTTra.getRowCount() == 0) {
-                        modelCTTra = new DefaultTableModel(header, 0);
+                if (!chitiethdtienphat.getMaHD().trim().equals(String.valueOf(modelHDTP.getValueAt(i, 0)))) {
+                    JOptionPane.showMessageDialog(null, "Mã hóa đơn tại bảng chi tiết khác với mã hóa đơn","Lỗi",JOptionPane.ERROR_MESSAGE);
+                } else{
+                        // Truy cập vào bus
+                    QLCTHDTPBUS qlcthoadonbus = new QLCTHDTPBUS();
+                    int kiemtra = 0;
+                    try {
+                        kiemtra = qlcthoadonbus.them(chitiethdtienphat);
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
                     }
-                    ShowOnTableCTHD(chitiethdtienphat);
-                    tblQLCTTra.setModel(modelCTTra);
+                    if (kiemtra == 0) {
+                        // Đưa dữ liệu lên table
+                        header = new Vector<String>();
+                        header.add("Mã phiếu trả");
+                        header.add("Mã sách");
+                        header.add("Số lượng");
+                        header.add("Đơn giá");
+                        if (modelCTHDTP.getRowCount() == 0) {
+                            modelCTHDTP = new DefaultTableModel(header, 0);
+                        }
+                        ShowOnTableCTHD(chitiethdtienphat);
+                        tblQLCTHDTP.setModel(modelCTHDTP);
+                    }
                 }
             } catch (Exception e1) {
                 System.out.println(e1);
@@ -795,22 +803,26 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             int kt = -1;
             if (i >= 0) {
                 CHITIETHDTIENPHAT chitiethdtienphat = new CHITIETHDTIENPHAT();
-                CHITIETHDTIENPHAT MaCTHDCu = QLCTHDTPBUS.dscthdtp.set(i, chitiethdtienphat);
+                String MaCTHDCu = String.valueOf(modelCTHDTP.getValueAt(i, 0));
+                String MaSachCTHDCu = String.valueOf(modelCTHDTP.getValueAt(i, 1));
                 getInfoTextFieldCTHD(chitiethdtienphat);
                 try {
                     QLCTHDTPBUS qlcthoadonbus = new QLCTHDTPBUS();
-                    kt = qlcthoadonbus.sua(chitiethdtienphat, MaCTHDCu, i);
+                    kt = qlcthoadonbus.sua(chitiethdtienphat, MaCTHDCu, MaSachCTHDCu,i);
                 } catch (Exception e1) {
                     System.out.println(e1);
                 }
                 if (kt == 0) {
-                    modelTra.setValueAt(chitiethdtienphat.getMaHD(), i, 0);
-                    modelTra.setValueAt(chitiethdtienphat.getMasach(), i, 1);
-                    modelTra.setValueAt(chitiethdtienphat.getSL(), i, 2);
-                    modelTra.setValueAt(chitiethdtienphat.getDongia(), i, 3);
-                    tblQLCTTra.setModel(modelCTTra);
+                    modelCTHDTP.setValueAt(chitiethdtienphat.getMaHD(), i, 0);
+                    modelCTHDTP.setValueAt(chitiethdtienphat.getMasach(), i, 1);
+                    modelCTHDTP.setValueAt(chitiethdtienphat.getSL(), i, 2);
+                    modelCTHDTP.setValueAt(chitiethdtienphat.getDongia(), i, 3);
+                    tblQLCTHDTP.setModel(modelCTHDTP);
                 }
             }
+        }
+        if(e.getSource() == btLocPM){
+
         }
         if (e.getSource() == btHoTroNhapMaPM) {
             HoTroNhap hoTroNhapMaPM = new HoTroNhap();
@@ -835,6 +847,9 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         if (e.getSource() == btHoTroNhapMasachHD) {
             HoTroNhap hoTroNhapMaSachHD = new HoTroNhap();
             hoTroNhapMaSachHD.setHoTroNhapMasach();
+        }
+        if (e.getSource() == btHoTroNhapMaDG){
+            
         }
     }
 
@@ -1219,57 +1234,57 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
 
     public void ShowOnTablePM(PHIEUMUON pm) {
         Vector<String> row = new Vector<String>();
-        row.add(pm.getMaPM().trim());
-        row.add(pm.getNgaymuon().trim());
-        row.add(String.valueOf(pm.getSLtong()));
-        row.add(pm.getNgaytra().trim());
-        row.add(pm.getTinhTrangMuon().trim());
-        row.add(pm.getMaDG().trim());
+        row.add(pm.getMaPM().replaceAll("\\s+", " ").trim());
+        row.add(pm.getNgaymuon().replaceAll("\\s+", " ").trim());
+        row.add(String.valueOf(pm.getSLtong()).replaceAll("\\s+", " ").trim());
+        row.add(pm.getNgaytra().replaceAll("\\s+", " ").trim());
+        row.add(pm.getTinhTrangMuon().replaceAll("\\s+", " ").trim());
+        row.add(pm.getMaDG().replaceAll("\\s+", " ").trim());
         modelMuon.addRow(row);
     }
 
     public void ShowOnTableCTPM(CHITIETPHIEUMUON ctpm) {
         Vector<String> row = new Vector<String>();
-        row.add(ctpm.getMaPM().trim());
-        row.add(ctpm.getMasach().trim());
-        row.add(String.valueOf(ctpm.getSL()));
+        row.add(ctpm.getMaPM().replaceAll("\\s+", " ").trim());
+        row.add(ctpm.getMasach().replaceAll("\\s+", " ").trim());
+        row.add(String.valueOf(ctpm.getSL()).replaceAll("\\s+", " ").trim());
         modelCTMuon.addRow(row);
     }
 
     public void ShowOnTableHD(HDTIENPHAT hd) {
         Vector<String> row = new Vector<String>();
-        row.add(hd.getMaHD().trim());
-        row.add(hd.getMaDG().trim());
-        row.add(String.valueOf(hd.getSL()));
-        row.add(String.format("%,d", hd.getTienphat()));
+        row.add(hd.getMaHD().replaceAll("\\s+", " ").trim());
+        row.add(hd.getMaDG().replaceAll("\\s+", " ").trim());
+        row.add(String.valueOf(hd.getSL()).replaceAll("\\s+", " ").trim());
+        row.add(String.format("%,d", hd.getTienphat()).replaceAll("\\s+", " ").trim());
         modelHDTP.addRow(row);
     }
 
     public void ShowOnTableCTHD(CHITIETHDTIENPHAT cthd) {
         Vector<String> row = new Vector<String>();
-        row.add(cthd.getMaHD().trim());
-        row.add(cthd.getMasach().trim());
-        row.add(String.valueOf(cthd.getSL()));
-        row.add(String.format("%,d", cthd.getDongia()));
+        row.add(cthd.getMaHD().replaceAll("\\s+", " ").trim());
+        row.add(cthd.getMasach().replaceAll("\\s+", " ").trim());
+        row.add(String.valueOf(cthd.getSL()).trim());
+        row.add(String.format("%,d", cthd.getDongia()).trim());
         modelCTHDTP.addRow(row);
     }
 
     public void ShowOnTablePT(PHIEUTRASACH pt) {
         Vector<String> row = new Vector<String>();
-        row.add(pt.getMaPT().trim());
-        row.add(pt.getNgaytra().trim());
-        row.add(pt.getTinhtrangsach().trim());
-        row.add(String.format("%,d", pt.getTienthue()));
-        row.add(String.format("%,d", pt.getThanhtien()));
-        row.add(pt.getMaPM().trim());
+        row.add(pt.getMaPT().replaceAll("\\s+", " ").trim());
+        row.add(pt.getNgaytra().replaceAll("\\s+", " ").trim());
+        row.add(pt.getTinhtrangsach().replaceAll("\\s+", " ").trim());
+        row.add(String.format("%,d", pt.getTienthue()).replaceAll("\\s+", " ").trim());
+        row.add(String.format("%,d", pt.getThanhtien()).replaceAll("\\s+", " ").trim());
+        row.add(pt.getMaPM().replaceAll("\\s+", " ").trim());
         modelTra.addRow(row);
     }
 
     public void ShowOnTableCTPT(CHITIETPHIEUTRA ctpt) {
         Vector<String> row = new Vector<String>();
-        row.add(ctpt.getMaPT().trim());
-        row.add(ctpt.getMasach().trim());
-        row.add(String.valueOf(ctpt.getSL()));
+        row.add(ctpt.getMaPT().replaceAll("\\s+", " ").trim());
+        row.add(ctpt.getMasach().replaceAll("\\s+", " ").trim());
+        row.add(String.valueOf(ctpt.getSL()).replaceAll("\\s+", " ").trim());
         modelCTTra.addRow(row);
     }
 
@@ -1476,6 +1491,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         txMaDG.setBounds(175, 290, 150, 30);
         txMaDG.setFont(new Font("Arial", Font.PLAIN, 15));
         txMaDG.addMouseListener(this);
+        txMaDG.setEditable(false);
 
         // set up ComboBox
         String[] dsTinhTrangMuon = { "", "Đang mượn", "Hết mượn" };
@@ -1534,6 +1550,13 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         btHoanTac.setBorder(new RoundedBorder(10));
         btHoanTac.addActionListener(this);
 
+        btHoTroNhapMaDG = new JButton("...");
+        btHoTroNhapMaDG.setFont(new Font("Arial", Font.BOLD, 15));
+        btHoTroNhapMaDG.setBounds(340, 290, 40, 30);
+        btHoTroNhapMaDG.setBackground(Color.cyan);
+        btHoTroNhapMaDG.setBorder(new RoundedBorder(10));
+        btHoTroNhapMaDG.addActionListener(this);
+
         pnNhapPM.add(lbNhapPM);
         pnNhapPM.add(lbMaPM);
         pnNhapPM.add(lbNgayMuon);
@@ -1552,6 +1575,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
 
         pnNhapPM.add(btThemPM);
         pnNhapPM.add(btSuaPM);
+        pnNhapPM.add(btHoTroNhapMaDG);
     }
 
     public void setInputCTPM() {
@@ -1685,6 +1709,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         txMaPMTra.setBounds(175, 290, 150, 30);
         txMaPMTra.setFont(new Font("Arial", Font.PLAIN, 15));
         txMaPMTra.addMouseListener(this);
+        txMaPMTra.setEditable(false);
 
         // Set date picker1
         modelNgayBDPT = new UtilDateModel();
@@ -2315,48 +2340,56 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
     }
 
     public void getInfoTextFieldPM(PHIEUMUON phieumuon) {
-        phieumuon.setMaPM(txMaPM.getText().trim());
+        phieumuon.setMaPM(txMaPM.getText().replaceAll("\\s+", " ").trim());
         phieumuon.setNgaymuon(datePickerNgayBDPM.getJFormattedTextField().getText());
-        phieumuon.setSLtong(Integer.parseInt(txSLtong.getText().trim()));
+        phieumuon.setSLtong(Integer.parseInt(txSLtong.getText().replaceAll("\\s+", " ").trim()));
         phieumuon.setNgaytra(datePickerNgayKTPM.getJFormattedTextField().getText());
         String TinhTrangMuon = (String) cbTinhTrangMuon.getSelectedItem();
-        phieumuon.setTinhTrangMuon(TinhTrangMuon);
-        phieumuon.setMaDG(txMaDG.getText().trim());
+        phieumuon.setTinhTrangMuon(TinhTrangMuon.replaceAll("\\s+", " ").trim());
+        phieumuon.setMaDG(txMaDG.getText().replaceAll("\\s+", " ").trim());
     }
 
     public void getInfoTextFieldCTPM(CHITIETPHIEUMUON ctphieumuon) {
-        ctphieumuon.setMaPM(txCTPMMaPM.getText().trim());
-        ctphieumuon.setMasach(txCTPMMaSach.getText().trim());
-        ctphieumuon.setSL(Integer.parseInt(txCTPMSL.getText().trim()));
+        ctphieumuon.setMaPM(txCTPMMaPM.getText().replaceAll("\\s+", " ").trim());
+        ctphieumuon.setMasach(txCTPMMaSach.getText().replaceAll("\\s+", " ").trim());
+        ctphieumuon.setSL(Integer.parseInt(txCTPMSL.getText().replaceAll("\\s+", " ").trim()));
     }
 
     public void getInfoTextFieldPT(PHIEUTRASACH phieutrasach) {
-        phieutrasach.setMaPT(txMaPT.getText().trim());
+        phieutrasach.setMaPT(txMaPT.getText().replaceAll("\\s+", " ").trim());
         phieutrasach.setNgaytra(datePickerNgayBDPT.getJFormattedTextField().getText());
         String TinhTrangSach = (String) cbTinhTrangTra.getSelectedItem();
-        phieutrasach.setTinhtrangsach(TinhTrangSach.trim());
-        phieutrasach.setTienthue(Integer.parseInt(txTienThue.getText().trim()));
-        phieutrasach.setMaPM(txMaPMTra.getText().trim());
+        phieutrasach.setTinhtrangsach(TinhTrangSach.replaceAll("\\s+", " ").trim());
+        String TienThue = RemoveCommaInString(txTienThue);
+        phieutrasach.setTienthue(Integer.parseInt(TienThue));
+
+        txThanhTien.setText(String.valueOf(TinhThanhTien()));
+        String ThanhTien = RemoveCommaInString(txThanhTien);
+        phieutrasach.setThanhtien(Integer.parseInt(ThanhTien));
+
+        phieutrasach.setMaPM(txMaPMTra.getText().replaceAll("\\s+", " ").trim());
     }
 
     public void getInfoTextFieldCTPT(CHITIETPHIEUTRA ctphieutra) {
-        ctphieutra.setMaPT(txCTPTMaPT.getText().trim());
-        ctphieutra.setMasach(txCTPTMaSach.getText().trim());
-        ctphieutra.setSL(Integer.parseInt(txCTPTSL.getText().trim()));
+        ctphieutra.setMaPT(txCTPTMaPT.getText().replaceAll("\\s+", " ").trim());
+        ctphieutra.setMasach(txCTPTMaSach.getText().replaceAll("\\s+", " ").trim());
+        ctphieutra.setSL(Integer.parseInt(txCTPTSL.getText().replaceAll("\\s+", " ").trim()));
     }
 
     public void getInfoTextFieldHD(HDTIENPHAT hdtienphat) {
-        hdtienphat.setMaHD(txMaHD.getText().trim());
-        hdtienphat.setMaDG(txMaHD_DG.getText().trim());
-        hdtienphat.setSL(Integer.parseInt(txSLTongHD.getText().trim()));
-        hdtienphat.setTienphat(Integer.parseInt(txTienPhat.getText().trim()));
+        hdtienphat.setMaHD(txMaHD.getText().replaceAll("\\s+", " ").trim());
+        hdtienphat.setMaDG(txMaHD_DG.getText().replaceAll("\\s+", " ").trim());
+        hdtienphat.setSL(Integer.parseInt(txSLTongHD.getText().replaceAll("\\s+", " ").trim()));
+        String TienPhat = RemoveCommaInString(txTienPhat);
+        hdtienphat.setTienphat(Integer.parseInt(TienPhat));
     }
 
     public void getInfoTextFieldCTHD(CHITIETHDTIENPHAT chitiethdtienphat) {
-        chitiethdtienphat.setMaHD(txCTHDMaHD.getText().trim());
-        chitiethdtienphat.setMasach(txCTHDMaSach.getText().trim());
-        chitiethdtienphat.setSL(Integer.parseInt(txCTHDSL.getText().trim()));
-        chitiethdtienphat.setDongia(Integer.parseInt(txCTHDDonGia.getText().trim()));
+        chitiethdtienphat.setMaHD(txCTHDMaHD.getText().replaceAll("\\s+", " ").trim());
+        chitiethdtienphat.setMasach(txCTHDMaSach.getText().replaceAll("\\s+", " ").trim());
+        chitiethdtienphat.setSL(Integer.parseInt(txCTHDSL.getText().replaceAll("\\s+", " ").trim()));
+        String DonGia = RemoveCommaInString(txCTHDDonGia);
+        chitiethdtienphat.setDongia(Integer.parseInt(DonGia));
     }
 
     public int TinhThanhTien() {
@@ -2379,5 +2412,14 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             }
         }
         return ThanhTien;
+    }
+
+    public String RemoveCommaInString(JTextField Tien) {
+        String tmp[] = Tien.getText().split(",");
+        String Dongia = "";
+        for (int i = 0; i < tmp.length; i++) {
+            Dongia = Dongia + tmp[i];
+        }
+        return Dongia;
     }
 }

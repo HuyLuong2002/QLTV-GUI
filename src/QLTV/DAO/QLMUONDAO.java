@@ -45,7 +45,6 @@ public class QLMUONDAO {
     public ArrayList<PHIEUMUON> getPMTheoQuy1(String year) {
         ArrayList<PHIEUMUON> kq = new ArrayList<PHIEUMUON>();
         try {
-
             String qry = "select * from PHIEUMUON WHERE NGAYMUON >= '" + year + "/01/01'" +
                     "AND NGAYMUON <= '" + year + "/03/31'";
             st = conn.createStatement();
@@ -137,7 +136,7 @@ public class QLMUONDAO {
         }
         return kq;
     }
-    public void them(PHIEUMUON phieumuon) {
+    public int them(PHIEUMUON phieumuon) {
         try {
             String qry = "INSERT INTO PHIEUMUON VALUES (?,?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(qry);
@@ -153,9 +152,11 @@ public class QLMUONDAO {
                 JOptionPane.showMessageDialog(null, "Thêm dữ liệu thành công", "Thông báo",
                         JOptionPane.INFORMATION_MESSAGE);
             }
+            return 0;
         } catch (SQLException e) {
             System.out.println(e);
             JOptionPane.showMessageDialog(null, "Thêm dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return -1;
         }
     }
 
