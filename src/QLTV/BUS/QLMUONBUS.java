@@ -33,7 +33,7 @@ public class QLMUONBUS {
 
     public PHIEUMUON timTheoMa(String MaPM) {
         for (PHIEUMUON pm : dspm)
-            if (pm.getMaPM().replaceAll("\\s\\s+", " ").trim().equals(MaPM))
+            if (pm.getMaPM().replaceAll("\\s", "").equals(MaPM))
                 return pm;
         return null;
     }
