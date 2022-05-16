@@ -56,7 +56,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             pnTimKiemHDTP, pnLocHDTP;
 
     JLabel lbHome, lbMaPM, lbNgayMuon, lbSLtong, lbNgayTra, lbTinhTrangMuon,
-            lbMaDG, lbLCTK, lbTuKhoaTK, lbNhapPM, lbNhapCTPM, lbCTPMMaPM, lbCTPMMaSach, lbCTPMSL;
+            lbMaDG, lbLCTK, lbTuKhoaTK, lbNhapPM, lbNhapCTPM, lbCTPMMaPM, lbCTPMMaSach, lbCTPMSL, lbKQTK;
 
     JLabel lbNhapTra, lbNhapCTPT, lbCTPTMaPT, lbCTPTMaSach, lbMaPT, lbNgayTraPT,
             lbTinhTrangSach, lbTienThue, lbThanhTien, lbMaPMTra;
@@ -142,6 +142,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             pnShowAll = new JPanel();
             pnShowAll.setBounds(5, 353, 1135, 50);
             pnShowAll.setLayout(null);
+            pnShowAll.setBackground(ColorPurple);
 
             pnNhapPM = new JPanel();
             pnNhapPM.setLayout(null);
@@ -281,8 +282,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btTimKiemPM) {
             int vtkey = Integer.parseInt(String.valueOf(cbDSKhoaTKPM.getSelectedIndex()));
-            String Tukhoa = txKhoaTKPM.getText();
-            String tukhoa = Tukhoa.replaceAll("\\s\\s", " ").trim();
+            String tukhoa = txKhoaTKPM.getText().replaceAll("\\s", "").trim();
             if (tukhoa.equals("") == true) {
                 JOptionPane.showMessageDialog(null, "Xin mời nhập từ khóa", "Lỗi", JOptionPane.ERROR_MESSAGE);
             } else if (vtkey == 0) {
@@ -290,7 +290,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             } else {
                 QLMUONBUS qlsachbus = new QLMUONBUS();
                 if (vtkey == 1) {
-                    PHIEUMUON kq = qlsachbus.timTheoMa(tukhoa.replaceAll("\\s+", " ").trim());
+                    PHIEUMUON kq = qlsachbus.timTheoMa(tukhoa);
                     modelMuon.setRowCount(0);
                     if (kq != null) {
                         ShowOnTablePM(kq);
@@ -301,7 +301,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                     }
                 }
                 if (vtkey == 2) {
-                    ArrayList<PHIEUMUON> kq = qlsachbus.timTheoSLtong(tukhoa.replaceAll("\\s+", " ").trim());
+                    ArrayList<PHIEUMUON> kq = qlsachbus.timTheoSLtong(tukhoa);
                     modelMuon.setRowCount(0);
                     if (kq.size() == 0) {
                         JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu phù hợp", "Lỗi",
@@ -314,7 +314,8 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                     }
                 }
                 if (vtkey == 3) {
-                    ArrayList<PHIEUMUON> kq = qlsachbus.timTheoTinhTrangMuon(tukhoa.trim());
+                    String Tukhoa = txKhoaTKPM.getText().replaceAll("\\s", " ").trim();
+                    ArrayList<PHIEUMUON> kq = qlsachbus.timTheoTinhTrangMuon(Tukhoa);
                     modelMuon.setRowCount(0);
                     if (kq.size() == 0) {
                         JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu phù hợp", "Lỗi",
@@ -327,7 +328,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                     }
                 }
                 if (vtkey == 4) {
-                    ArrayList<PHIEUMUON> kq = qlsachbus.timTheoMaDG(tukhoa.trim());
+                    ArrayList<PHIEUMUON> kq = qlsachbus.timTheoMaDG(tukhoa);
                     modelMuon.setRowCount(0);
                     if (kq.size() == 0) {
                         JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu phù hợp", "Lỗi",
@@ -343,7 +344,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         }
         if (e.getSource() == btTimKiemPT) {
             int vtkey = Integer.parseInt(String.valueOf(cbDSKhoaTKPT.getSelectedIndex()));
-            String tukhoa = txKhoaTKPT.getText();
+            String tukhoa = txKhoaTKPT.getText().replaceAll("\\s", "").trim();
             if (tukhoa.equals("") == true) {
                 JOptionPane.showMessageDialog(null, "Xin mời nhập từ khóa", "Lỗi", JOptionPane.ERROR_MESSAGE);
             } else if (vtkey == 0) {
@@ -351,7 +352,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             } else {
                 QLTRABUS qltrabus = new QLTRABUS();
                 if (vtkey == 1) {
-                    PHIEUTRASACH kq = qltrabus.timTheoMaPT(tukhoa.trim());
+                    PHIEUTRASACH kq = qltrabus.timTheoMaPT(tukhoa);
                     modelTra.setRowCount(0);
                     if (kq != null) {
                         ShowOnTablePT(kq);
@@ -362,7 +363,8 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                     }
                 }
                 if (vtkey == 2) {
-                    ArrayList<PHIEUTRASACH> kq = qltrabus.timTheoTinhTrangSach(tukhoa.trim());
+                    String Tukhoa = txKhoaTKPT.getText().replaceAll("\\s", " ").trim();
+                    ArrayList<PHIEUTRASACH> kq = qltrabus.timTheoTinhTrangSach(Tukhoa);
                     modelTra.setRowCount(0);
                     if (kq.size() == 0) {
                         JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu phù hợp", "Lỗi",
@@ -375,7 +377,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                     }
                 }
                 if (vtkey == 3) {
-                    ArrayList<PHIEUTRASACH> kq = qltrabus.timTheoThanhTien(tukhoa.trim());
+                    ArrayList<PHIEUTRASACH> kq = qltrabus.timTheoThanhTien(tukhoa);
                     modelTra.setRowCount(0);
                     if (kq.size() == 0) {
                         JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu phù hợp", "Lỗi",
@@ -388,7 +390,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                     }
                 }
                 if (vtkey == 4) {
-                    PHIEUTRASACH kq = qltrabus.timTheoMaPM(tukhoa.trim());
+                    PHIEUTRASACH kq = qltrabus.timTheoMaPM(tukhoa);
                     modelTra.setRowCount(0);
                     if (kq == null) {
                         JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu phù hợp", "Lỗi",
@@ -402,7 +404,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         }
         if (e.getSource() == btTimKiemHDTP) {
             int vtkey = Integer.parseInt(String.valueOf(cbDSKhoaTKHDTP.getSelectedIndex()));
-            String tukhoa = txKhoaTKHDTP.getText();
+            String tukhoa = txKhoaTKHDTP.getText().replaceAll("\\s", "").trim();
             if (tukhoa.equals("") == true) {
                 JOptionPane.showMessageDialog(null, "Xin mời nhập từ khóa", "Lỗi", JOptionPane.ERROR_MESSAGE);
             } else if (vtkey == 0) {
@@ -434,7 +436,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                     }
                 }
                 if (vtkey == 3) {
-                    ArrayList<HDTIENPHAT> kq = qlhoadonbus.timTheoSLtong(tukhoa.trim());
+                    ArrayList<HDTIENPHAT> kq = qlhoadonbus.timTheoSLtong(tukhoa);
                     modelHDTP.setRowCount(0);
                     if (kq.size() == 0) {
                         JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu phù hợp", "Lỗi",
@@ -447,7 +449,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                     }
                 }
                 if (vtkey == 4) {
-                    ArrayList<HDTIENPHAT> kq = qlhoadonbus.timTheoTienPhat(tukhoa.trim());
+                    ArrayList<HDTIENPHAT> kq = qlhoadonbus.timTheoTienPhat(tukhoa);
                     modelHDTP.setRowCount(0);
                     if (kq.size() == 0) {
                         JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu phù hợp", "Lỗi",
@@ -824,7 +826,40 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             }
         }
         if(e.getSource() == btLocPM){
-
+            String tmp = datePickerNgayBDMuon.getJFormattedTextField().getText().replaceAll("-", "");
+            String tmp1 = datePickerNgayKTMuon.getJFormattedTextField().getText().replaceAll("-", "");
+            int BDMuon = Integer.parseInt(tmp);
+            int KTMuon = Integer.parseInt(tmp1);
+            QLMUONBUS qlmuonbus = new QLMUONBUS();
+            ArrayList<PHIEUMUON> kq = qlmuonbus.LocPM(BDMuon, KTMuon);
+            modelMuon.setRowCount(0);
+            if(kq.size() == 0){
+                JOptionPane.showMessageDialog(null, "Kết quả lọc không thỏa điều kiện", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+            else {
+                for(PHIEUMUON pm : kq){
+                    ShowOnTablePM(pm);
+                }
+                tblQLMuon.setModel(modelMuon);
+                JOptionPane.showMessageDialog(null, "Kết quả lọc: " + modelMuon.getRowCount() +" Phiếu mượn có ngày mượn thỏa!");
+            }
+        }
+        if(e.getSource() == btLocPT){
+            String tmp = datePickerNgayBDTra.getJFormattedTextField().getText().replaceAll("-", "");
+            String tmp1 = datePickerNgayKTTra.getJFormattedTextField().getText().replaceAll("-", "");
+            int BDTra = Integer.parseInt(tmp);
+            int KTTra = Integer.parseInt(tmp1);
+            QLTRABUS qltrabus = new QLTRABUS();
+            ArrayList<PHIEUTRASACH> kq = qltrabus.LocPT(BDTra, KTTra);
+            modelTra.setRowCount(0);
+            if(kq.size() == 0)
+                JOptionPane.showMessageDialog(null, "Kết quả lọc không thỏa điều kiện", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            else {
+                for(PHIEUTRASACH pt : kq)
+                    ShowOnTablePT(pt);
+                tblQLTra.setModel(modelTra);
+                JOptionPane.showMessageDialog(null, "Kết quả lọc: " + modelTra.getRowCount() + " Phiếu trả có ngày trả thỏa!");
+            }
         }
         if (e.getSource() == btHoTroNhapMaPM) {
             HoTroNhap hoTroNhapMaPM = new HoTroNhap();
@@ -858,7 +893,6 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             HoTroNhap hoTroNhapMaPM_Tra = new HoTroNhap();
             NgayTra = datePickerNgayBDPT.getJFormattedTextField().getText();
             hoTroNhapMaPM_Tra.setHoTroNhapPM_TRA();
-            
         }
     }
 
@@ -935,9 +969,9 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                 if (ptTextField.getTinhtrangsach().equals("Hư tổn")) {
                     cbTinhTrangMuon.setSelectedIndex(2);
                 }
-                txTienThue.setText(String.valueOf(ptTextField.getTienthue()).trim());
-                txThanhTien.setText(String.format("%,d",ptTextField.getThanhtien()).trim());
-                txMaPMTra.setText(ptTextField.getMaPM().trim());
+                txTienThue.setText(String.format("%,d", ptTextField.getTienthue()));
+                txThanhTien.setText(String.format("%,d", ptTextField.getThanhtien()));
+                txMaPMTra.setText(ptTextField.getMaPM());
             }
         }
         if (e.getSource() == tblQLHDTP) {
@@ -962,8 +996,8 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                 ptTextField = QLHDTPBUS.dshdtp.get(i);
                 txMaHD.setText(ptTextField.getMaHD().trim());
                 txMaHD_DG.setText(ptTextField.getMaDG().trim());
-                txSLTongHD.setText(String.valueOf(ptTextField.getSL()).trim());
-                txTienPhat.setText(String.valueOf(ptTextField.getTienphat()).trim());
+                txSLTongHD.setText(String.format("%,d",ptTextField.getSL()));
+                txTienPhat.setText(String.format("%,d", ptTextField.getTienphat()));
             }
         }
         if (e.getSource() == tblQLCTMuon) {
@@ -1243,20 +1277,20 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
 
     public void ShowOnTablePM(PHIEUMUON pm) {
         Vector<String> row = new Vector<String>();
-        row.add(pm.getMaPM().replaceAll("\\s+", " ").trim());
-        row.add(pm.getNgaymuon().replaceAll("\\s+", " ").trim());
-        row.add(String.valueOf(pm.getSLtong()).replaceAll("\\s+", " ").trim());
-        row.add(pm.getNgaytra().replaceAll("\\s+", " ").trim());
-        row.add(pm.getTinhTrangMuon().replaceAll("\\s+", " ").trim());
-        row.add(pm.getMaDG().replaceAll("\\s+", " ").trim());
+        row.add(pm.getMaPM().replaceAll("\\s", "").trim());
+        row.add(pm.getNgaymuon().replaceAll("\\s", "").trim());
+        row.add(String.valueOf(pm.getSLtong()).replaceAll("\\s", "").trim());
+        row.add(pm.getNgaytra().replaceAll("\\s", "").trim());
+        row.add(pm.getTinhTrangMuon().replaceAll("\\s", "").trim());
+        row.add(pm.getMaDG().replaceAll("\\s", "").trim());
         modelMuon.addRow(row);
     }
 
     public void ShowOnTableCTPM(CHITIETPHIEUMUON ctpm) {
         Vector<String> row = new Vector<String>();
-        row.add(ctpm.getMaPM().replaceAll("\\s+", " ").trim());
-        row.add(ctpm.getMasach().replaceAll("\\s+", " ").trim());
-        row.add(String.valueOf(ctpm.getSL()).replaceAll("\\s+", " ").trim());
+        row.add(ctpm.getMaPM().replaceAll("\\s", "").trim());
+        row.add(ctpm.getMasach().replaceAll("\\s", "").trim());
+        row.add(String.valueOf(ctpm.getSL()).replaceAll("\\s", "").trim());
         modelCTMuon.addRow(row);
     }
 
@@ -2408,7 +2442,6 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         String DonGia = RemoveCommaInString(txCTHDDonGia);
         chitiethdtienphat.setDongia(Integer.parseInt(DonGia));
     }
-
 
     public String RemoveCommaInString(JTextField Tien) {
         String tmp[] = Tien.getText().split(",");

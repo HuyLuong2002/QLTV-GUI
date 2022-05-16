@@ -20,20 +20,21 @@ public class QLMUONBUS {
         dspm = data.docDS();
     }
 
-    public ArrayList<PHIEUMUON> getNgayMuon(){
-        ArrayList<PHIEUMUON> kq = new ArrayList<PHIEUMUON>();
-        try {
-            QLMUONDAO data = new QLMUONDAO();
-            kq = data.docDS();
-        } catch (Exception e) {
-            System.out.println(e);
+
+
+    public ArrayList<PHIEUMUON> LocPM(int BDMuon, int KTMuon){
+       ArrayList<PHIEUMUON> kq = new ArrayList<PHIEUMUON>();
+       for(PHIEUMUON pm : dspm) {
+            if(Integer.parseInt(pm.getNgaymuon().replaceAll("-", "")) >= BDMuon
+            && Integer.parseInt(pm.getNgaymuon().replaceAll("-", "")) <= KTMuon)
+                kq.add(pm);
         }
         return kq;
     }
 
     public PHIEUMUON timTheoMa(String MaPM) {
         for (PHIEUMUON pm : dspm)
-            if (pm.getMaPM().replaceAll("\\s\\s+", " ").trim().equals(MaPM))
+            if (pm.getMaPM().replaceAll("\\s", "").equals(MaPM))
                 return pm;
         return null;
     }
