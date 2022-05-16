@@ -902,15 +902,17 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
             this.dispose();
         }
         if (e.getSource() == btLuachonPM_Tra) {
-            PHIEUTRASACH pt = new PHIEUTRASACH();
             int i = table.getSelectedRow();
             if (i >= 0) {
                 QLMTGUI.txMaPMTra.setText(String.valueOf(model.getValueAt(i, 0)));
-                String tmp[] = QLMUONBUS.dspm.get(i).getNgaymuon().split("-");
-                String tmp1[] = QLMTGUI.NgayTra.split("-");
-                ThanhTien = pt.getTienthue() * (Integer.parseInt(tmp1[2]) - Integer.parseInt(tmp[2]));
+                QLMUONBUS qlbus = new QLMUONBUS();
+                try {
+                    ThanhTien = qlbus.TinhTienThue(i);
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
             }
-            QLMTGUI.txThanhTien.setText(String.format("%,d",HoTroNhap.ThanhTien));
+            QLMTGUI.txThanhTien.setText(String.format("%,d",ThanhTien));
             this.dispose();
         }
         if (e.getSource() == btLuaChonCTPT) {

@@ -136,6 +136,23 @@ public class QLMUONDAO {
         }
         return kq;
     }
+
+    public int TinhTienThue(String NgayMuon, String NgayTra){
+        int songay=0;
+        try {
+            String qry = "SELECT DATEDIFF(day," + "'" + NgayMuon + "'," + "'" + NgayTra + "')";
+            st = conn.createStatement();
+            rs = st.executeQuery(qry);
+            while (rs.next()) {
+                songay = Integer.parseInt(rs.getString(1));
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return songay;
+    }
+
     public int them(PHIEUMUON phieumuon) {
         try {
             String qry = "INSERT INTO PHIEUMUON VALUES (?,?,?,?,?,?)";

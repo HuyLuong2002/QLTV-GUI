@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import QLTV.DAO.QLMUONDAO;
 import QLTV.DTO.PHIEUMUON;
+import QLTV.DTO.PHIEUTRASACH;
+import QLTV.GUI.QLMTGUI;
 
 public class QLMUONBUS {
     public static ArrayList<PHIEUMUON> dspm;
@@ -20,13 +22,11 @@ public class QLMUONBUS {
         dspm = data.docDS();
     }
 
-
-
-    public ArrayList<PHIEUMUON> LocPM(int BDMuon, int KTMuon){
-       ArrayList<PHIEUMUON> kq = new ArrayList<PHIEUMUON>();
-       for(PHIEUMUON pm : dspm) {
-            if(Integer.parseInt(pm.getNgaymuon().replaceAll("-", "")) >= BDMuon
-            && Integer.parseInt(pm.getNgaymuon().replaceAll("-", "")) <= KTMuon)
+    public ArrayList<PHIEUMUON> LocPM(int BDMuon, int KTMuon) {
+        ArrayList<PHIEUMUON> kq = new ArrayList<PHIEUMUON>();
+        for (PHIEUMUON pm : dspm) {
+            if (Integer.parseInt(pm.getNgaymuon().replaceAll("-", "")) >= BDMuon
+                    && Integer.parseInt(pm.getNgaymuon().replaceAll("-", "")) <= KTMuon)
                 kq.add(pm);
         }
         return kq;
@@ -73,7 +73,7 @@ public class QLMUONBUS {
             int kt = 0;
             QLMUONDAO data = new QLMUONDAO();
             kt = data.them(phieumuon);
-            if (kt == 0){
+            if (kt == 0) {
                 dspm.add(phieumuon);
             }
             return kt;
@@ -85,11 +85,12 @@ public class QLMUONBUS {
         int kt = -1;
         QLMUONDAO data = new QLMUONDAO();
         kt = data.sua(phieumuonmoi, phieumuoncu);
-        if(kt == 0){
+        if (kt == 0) {
             dspm.set(i, phieumuonmoi);
         }
         return kt;
     }
+
     public int KTMa(String MaPmMoi) {
         for (PHIEUMUON phieumuon : dspm)
             if (phieumuon.getMaPM().trim().equals(MaPmMoi)) {
@@ -103,5 +104,22 @@ public class QLMUONBUS {
             return 0;
         }
         return 1;
+    }
+
+    public int TinhTienThue(int vtPM) throws Exception {
+        int ThanhTien = 0;
+        QLMUONDAO data = new QLMUONDAO();
+        String NgayMuon = dspm.get(vtPM).getNgaymuon();
+        int songaymuon = data.TinhTienThue(NgayMuon, QLMTGUI.NgayTra);
+        if (songaymuon > 0 && songaymuon <= 15) {
+            ThanhTien = PHIEUTRASACH.Tienthue * songaymuon;
+        }
+        else if(songaymuon > 15 && songaymuon <= 30 || songaymuon > 15 && songaymuon <= 31){
+            ThanhTien = (PHIEUTRASACH.Tienthue + 2000) * songaymuon; 
+        }
+        else{
+            ThanhTien = 0;
+        }
+        return ThanhTien;
     }
 }
