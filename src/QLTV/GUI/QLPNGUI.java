@@ -364,34 +364,6 @@ public class QLPNGUI implements ActionListener, MouseListener {
         pnCTPN.setBorder(titlePN);
     }
 
-    public void setTablePN() {
-        // ----set up table----
-        tblQLPN = new JTable();
-        JScrollPane pane = new JScrollPane(tblQLPN);
-        pane.setAutoscrolls(true);
-        tblQLPN.setRowHeight(20);
-        tblQLPN.setFont(new Font(null, 0, 13));
-        tblQLPN.setBackground(Color.LIGHT_GRAY);
-        tblQLPN.addMouseListener(this);
-        tblQLPN.setDefaultEditor(Object.class, null);
-        tblQLPN.setSelectionBackground(Color.GREEN);
-        pnPN.add(pane);
-    }
-
-    public void setTableCTPN() {
-        // ----set up table----
-        tblQLCTPN = new JTable();
-        JScrollPane pane = new JScrollPane(tblQLCTPN);
-        pane.setAutoscrolls(true);
-        tblQLCTPN.setRowHeight(20);
-        tblQLCTPN.setFont(new Font(null, 0, 13));
-        tblQLCTPN.setBackground(Color.LIGHT_GRAY);
-        tblQLCTPN.addMouseListener(this);
-        tblQLCTPN.setDefaultEditor(Object.class, null);
-        tblQLCTPN.setSelectionBackground(Color.GREEN);
-        pnCTPN.add(pane);
-    }
-
     public void getDBPhieuNhap() {
         try {
             QLPNBUS qlbus = new QLPNBUS();
@@ -445,7 +417,7 @@ public class QLPNGUI implements ActionListener, MouseListener {
         row.add(pn.getMaPN().replaceAll("\\s", "").trim());
         row.add(pn.getNgaynhap().replaceAll("\\s", "").trim());
         row.add(String.valueOf(pn.getSLTong()).replaceAll("\\s", "").trim());
-        row.add(String.format("%,d",pn.getDongia()));
+        row.add(String.format("%,d",pn.getDongia()).trim());
         row.add(pn.getMaNV().replaceAll("\\s", "").trim());
         row.add(pn.getMaNCC().replaceAll("\\s", "").trim());
         modelPN.addRow(row);
@@ -468,6 +440,34 @@ public class QLPNGUI implements ActionListener, MouseListener {
         btShowAll.addActionListener(this);
 
         pnShowAll.add(btShowAll);
+    }
+
+    public void setTablePN() {
+        // ----set up table----
+        tblQLPN = new JTable();
+        JScrollPane pane = new JScrollPane(tblQLPN);
+        pane.setAutoscrolls(true);
+        tblQLPN.setRowHeight(20);
+        tblQLPN.setFont(new Font(null, 0, 13));
+        tblQLPN.setBackground(Color.LIGHT_GRAY);
+        tblQLPN.addMouseListener(this);
+        tblQLPN.setDefaultEditor(Object.class, null);
+        tblQLPN.setSelectionBackground(Color.GREEN);
+        pnPN.add(pane);
+    }
+
+    public void setTableCTPN() {
+        // ----set up table----
+        tblQLCTPN = new JTable();
+        JScrollPane pane = new JScrollPane(tblQLCTPN);
+        pane.setAutoscrolls(true);
+        tblQLCTPN.setRowHeight(20);
+        tblQLCTPN.setFont(new Font(null, 0, 13));
+        tblQLCTPN.setBackground(Color.LIGHT_GRAY);
+        tblQLCTPN.addMouseListener(this);
+        tblQLCTPN.setDefaultEditor(Object.class, null);
+        tblQLCTPN.setSelectionBackground(Color.GREEN);
+        pnCTPN.add(pane);
     }
 
     public void setInputNhap() {
