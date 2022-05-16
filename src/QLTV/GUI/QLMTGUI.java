@@ -56,7 +56,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             pnTimKiemHDTP, pnLocHDTP;
 
     JLabel lbHome, lbMaPM, lbNgayMuon, lbSLtong, lbNgayTra, lbTinhTrangMuon,
-            lbMaDG, lbLCTK, lbTuKhoaTK, lbNhapPM, lbNhapCTPM, lbCTPMMaPM, lbCTPMMaSach, lbCTPMSL;
+            lbMaDG, lbLCTK, lbTuKhoaTK, lbNhapPM, lbNhapCTPM, lbCTPMMaPM, lbCTPMMaSach, lbCTPMSL, lbKQTK;
 
     JLabel lbNhapTra, lbNhapCTPT, lbCTPTMaPT, lbCTPTMaSach, lbMaPT, lbNgayTraPT,
             lbTinhTrangSach, lbTienThue, lbThanhTien, lbMaPMTra;
@@ -142,6 +142,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             pnShowAll = new JPanel();
             pnShowAll.setBounds(5, 353, 1135, 50);
             pnShowAll.setLayout(null);
+            pnShowAll.setBackground(ColorPurple);
 
             pnNhapPM = new JPanel();
             pnNhapPM.setLayout(null);
@@ -825,7 +826,40 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             }
         }
         if(e.getSource() == btLocPM){
-
+            String tmp = datePickerNgayBDMuon.getJFormattedTextField().getText().replaceAll("-", "");
+            String tmp1 = datePickerNgayKTMuon.getJFormattedTextField().getText().replaceAll("-", "");
+            int BDMuon = Integer.parseInt(tmp);
+            int KTMuon = Integer.parseInt(tmp1);
+            QLMUONBUS qlmuonbus = new QLMUONBUS();
+            ArrayList<PHIEUMUON> kq = qlmuonbus.LocPM(BDMuon, KTMuon);
+            modelMuon.setRowCount(0);
+            if(kq.size() == 0){
+                JOptionPane.showMessageDialog(null, "Kết quả lọc không thỏa điều kiện", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+            else {
+                for(PHIEUMUON pm : kq){
+                    ShowOnTablePM(pm);
+                }
+                tblQLMuon.setModel(modelMuon);
+                JOptionPane.showMessageDialog(null, "Kết quả lọc: " + modelMuon.getRowCount() +" Phiếu mượn có ngày mượn thỏa!");
+            }
+        }
+        if(e.getSource() == btLocPT){
+            String tmp = datePickerNgayBDTra.getJFormattedTextField().getText().replaceAll("-", "");
+            String tmp1 = datePickerNgayKTTra.getJFormattedTextField().getText().replaceAll("-", "");
+            int BDTra = Integer.parseInt(tmp);
+            int KTTra = Integer.parseInt(tmp1);
+            QLTRABUS qltrabus = new QLTRABUS();
+            ArrayList<PHIEUTRASACH> kq = qltrabus.LocPT(BDTra, KTTra);
+            modelTra.setRowCount(0);
+            if(kq.size() == 0)
+                JOptionPane.showMessageDialog(null, "Kết quả lọc không thỏa điều kiện", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            else {
+                for(PHIEUTRASACH pt : kq)
+                    ShowOnTablePT(pt);
+                tblQLTra.setModel(modelTra);
+                JOptionPane.showMessageDialog(null, "Kết quả lọc: " + modelTra.getRowCount() + " Phiếu trả có ngày trả thỏa!");
+            }
         }
         if (e.getSource() == btHoTroNhapMaPM) {
             HoTroNhap hoTroNhapMaPM = new HoTroNhap();
@@ -859,7 +893,6 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             HoTroNhap hoTroNhapMaPM_Tra = new HoTroNhap();
             NgayTra = datePickerNgayBDPT.getJFormattedTextField().getText();
             hoTroNhapMaPM_Tra.setHoTroNhapPM_TRA();
-            
         }
     }
 
@@ -1244,20 +1277,20 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
 
     public void ShowOnTablePM(PHIEUMUON pm) {
         Vector<String> row = new Vector<String>();
-        row.add(pm.getMaPM().replaceAll("\\s+", " ").trim());
-        row.add(pm.getNgaymuon().replaceAll("\\s+", " ").trim());
-        row.add(String.valueOf(pm.getSLtong()).replaceAll("\\s+", " ").trim());
-        row.add(pm.getNgaytra().replaceAll("\\s+", " ").trim());
-        row.add(pm.getTinhTrangMuon().replaceAll("\\s+", " ").trim());
-        row.add(pm.getMaDG().replaceAll("\\s+", " ").trim());
+        row.add(pm.getMaPM().replaceAll("\\s", "").trim());
+        row.add(pm.getNgaymuon().replaceAll("\\s", "").trim());
+        row.add(String.valueOf(pm.getSLtong()).replaceAll("\\s", "").trim());
+        row.add(pm.getNgaytra().replaceAll("\\s", "").trim());
+        row.add(pm.getTinhTrangMuon().replaceAll("\\s", "").trim());
+        row.add(pm.getMaDG().replaceAll("\\s", "").trim());
         modelMuon.addRow(row);
     }
 
     public void ShowOnTableCTPM(CHITIETPHIEUMUON ctpm) {
         Vector<String> row = new Vector<String>();
-        row.add(ctpm.getMaPM().replaceAll("\\s+", " ").trim());
-        row.add(ctpm.getMasach().replaceAll("\\s+", " ").trim());
-        row.add(String.valueOf(ctpm.getSL()).replaceAll("\\s+", " ").trim());
+        row.add(ctpm.getMaPM().replaceAll("\\s", "").trim());
+        row.add(ctpm.getMasach().replaceAll("\\s", "").trim());
+        row.add(String.valueOf(ctpm.getSL()).replaceAll("\\s", "").trim());
         modelCTMuon.addRow(row);
     }
 
@@ -2409,7 +2442,6 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         String DonGia = RemoveCommaInString(txCTHDDonGia);
         chitiethdtienphat.setDongia(Integer.parseInt(DonGia));
     }
-
 
     public String RemoveCommaInString(JTextField Tien) {
         String tmp[] = Tien.getText().split(",");

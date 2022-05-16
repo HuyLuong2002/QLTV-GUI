@@ -33,10 +33,12 @@ public class QLSACHBUS {
             return -1;
         } else {
             // Truy cập vào database
+            int kt = 0;
             QLSACHDAO data = new QLSACHDAO();
-            data.them(sach);
-            dssach.add(sach);
-            return 1;
+            kt = data.them(sach);
+            if(kt == 0)
+                dssach.add(sach);
+            return kt;
         }
     }
 
@@ -58,11 +60,15 @@ public class QLSACHBUS {
         }
     }
 
-    public void sua(SACH sachmoi, SACH sachcu, int i) throws Exception {
+    public int sua(SACH sachmoi, SACH sachcu, int i) throws Exception {
         // Truy cập vào database
+        int kt = 0;
         QLSACHDAO data = new QLSACHDAO();
-        data.sua(sachmoi, sachcu);
-        dssach.set(i, sachmoi);
+        kt = data.sua(sachmoi, sachcu);
+        if(kt == 0){
+            dssach.set(i, sachmoi);
+        }
+        return kt;
     }
 
     public void xoa(String MaSV, int i) throws Exception {

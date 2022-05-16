@@ -44,7 +44,7 @@ public class QLSACHDAO {
         return dssach;
     }
 
-    public void them(SACH sach) {
+    public int them(SACH sach) {
         try {
             String qry = "INSERT INTO SACH VALUES (?,?,?,?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(qry);
@@ -62,9 +62,11 @@ public class QLSACHDAO {
                 JOptionPane.showMessageDialog(null, "Thêm dữ liệu thành công", "Thông báo",
                         JOptionPane.INFORMATION_MESSAGE);
             }
+            return 0;
         } catch (SQLException e) {
             System.out.println(e);
             JOptionPane.showMessageDialog(null, "Thêm dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return -1;
         }
     }
 
@@ -100,22 +102,37 @@ public class QLSACHDAO {
         }
     }
 
-    public void sua(SACH sachmoi, SACH sachcu) {
+    public int sua(SACH sachmoi, SACH sachcu) {
         try {
-            String qry = "update SACH set " + "MASACH=" + "'" + sachmoi.getMasach() + "'" +
-                    ",TENSACH=" + "N'" + sachmoi.getTensach() + "'" + ",MANXB=" + "'" + sachmoi.getMaNXB() + "'" +
-                    ",MATG=" + "'" + sachmoi.getMaTG() + "'" + ",NAMXB=" + "'" + sachmoi.getNamXB() + "'" +
-                    ",SLTONG=" + "'" + sachmoi.getSLtong() + "'" + ",SL=" + "'" + sachmoi.getSL() + "'" +
-                    ",DONGIA=" + "'" + sachmoi.getDongia() + "'" + " " + "where MASACH='" + sachcu.getMasach()
-                    + "'";
-            st = conn.createStatement();
-            st.executeUpdate(qry);
-            if (st != null) {
+            // String qry = "update SACH set " + "MASACH=" + "'" + sachmoi.getMasach() + "'" +
+            //         ",TENSACH=" + "N'" + sachmoi.getTensach() + "'" + ",MANXB=" + "'" + sachmoi.getMaNXB() + "'" +
+            //         ",MATG=" + "'" + sachmoi.getMaTG() + "'" + ",NAMXB=" + "'" + sachmoi.getNamXB() + "'" +
+            //         ",SLTONG=" + "'" + sachmoi.getSLtong() + "'" + ",SL=" + "'" + sachmoi.getSL() + "'" +
+            //         ",DONGIA=" + "'" + sachmoi.getDongia() + "'" + " " + "where MASACH='" + sachcu.getMasach()
+            //         + "'";
+            // st = conn.createStatement();
+            // st.executeUpdate(qry);
+            String qry = "UPDATE SACH SET MASACH= ?, TENSACH= ?, MANXB= ?, MATG= ?, NAMXB= ?, SLTONG= ?, SL= ?, DONGIA= ? WHERE MASACH= ?";
+            PreparedStatement ps = conn.prepareStatement(qry);
+            ps.setString(1, sachmoi.getMasach());
+            ps.setString(2, sachmoi.getTensach());
+            ps.setString(3, sachmoi.getMaNXB());
+            ps.setString(4, sachmoi.getMaTG());
+            ps.setString(5, sachmoi.getNamXB());
+            ps.setString(6, String.valueOf(sachmoi.getSLtong()));
+            ps.setString(7, String.valueOf(sachmoi.getSL()));
+            ps.setString(8, String.valueOf(sachcu.getDongia()));
+            ps.setString(9, sachcu.getMasach());
+
+            int n = ps.executeUpdate();
+            if (n != 0) {
                 JOptionPane.showMessageDialog(null, "Sửa dữ liệu thành công", "Thông báo",
                         JOptionPane.INFORMATION_MESSAGE);
             }
+            return 0;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Sửa dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return -1;
         }
     }
 

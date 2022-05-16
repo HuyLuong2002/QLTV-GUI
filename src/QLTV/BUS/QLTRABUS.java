@@ -22,6 +22,16 @@ public class QLTRABUS {
         dspt = data.docDSPT();
     }
 
+    public ArrayList<PHIEUTRASACH> LocPT(int BDTra, int KTTra){
+        ArrayList<PHIEUTRASACH> kq = new ArrayList<PHIEUTRASACH>();
+        for(PHIEUTRASACH pt : dspt) {
+             if(Integer.parseInt(pt.getNgaytra().replaceAll("-", "")) >= BDTra
+             && Integer.parseInt(pt.getNgaytra().replaceAll("-", "")) <= KTTra)
+                kq.add(pt);
+        }
+        return kq;
+     }
+
     public PHIEUTRASACH timTheoMaPT(String MaPT) {
         for (PHIEUTRASACH pt : dspt)
             if (pt.getMaPT().trim().equals(MaPT))

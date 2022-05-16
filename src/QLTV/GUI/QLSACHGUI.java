@@ -147,13 +147,13 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
                 getInfoTextField(sach);
                 // Truy cập vào bus
                 QLSACHBUS qlsachbus = new QLSACHBUS();
-                int kiemtra = 0;
+                int kiemtra = -1;
                 try {
                     kiemtra = qlsachbus.them(sach);
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
-                if (kiemtra == 1) {
+                if (kiemtra == 0) {
                     // Đưa dữ liệu lên table
                     header = new Vector<String>();
                     header.add("Mã sách");
@@ -175,14 +175,18 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
             }
         } else if (e.getSource() == btSua) {
             int i = tblQLSACH.getSelectedRow();
-
+            int kt = -1;
             if (i >= 0) {
                 SACH sach = new SACH();
                 SACH masachCu = QLSACHBUS.dssach.set(i, sach);
                 getInfoTextField(sach);
                 try {
                     QLSACHBUS qlsachbus = new QLSACHBUS();
-                    qlsachbus.sua(sach, masachCu, i);
+                    kt = qlsachbus.sua(sach, masachCu, i);
+                } catch (Exception e1) {
+                    System.out.println(e1);
+                }
+                if(kt == 0){
                     model.setValueAt(sach.getMasach(), i, 0);
                     model.setValueAt(sach.getTensach(), i, 1);
                     model.setValueAt(sach.getMaNXB(), i, 2);
@@ -192,8 +196,6 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
                     model.setValueAt(sach.getSL(), i, 6);
                     model.setValueAt(String.format("%,d", sach.getDongia()), i, 7);
                     tblQLSACH.setModel(model);
-                } catch (Exception e1) {
-                    System.out.println(e1);
                 }
             }
         } else if (e.getSource() == btXoa) {
