@@ -29,8 +29,8 @@ public class QLNCCDAO {
             rs = st.executeQuery(qry);
             while (rs.next()) {
                 NHACUNGCAP ncc = new NHACUNGCAP();
-                ncc.setId(rs.getString(1));
-                ncc.setName(rs.getString(2));
+                ncc.setMaNCC(rs.getString(1));
+                ncc.setTenNCC(rs.getString(2));
                 dsncc.add(ncc);
             }
         } catch (SQLException e) {
@@ -42,8 +42,8 @@ public class QLNCCDAO {
 
     public void them(NHACUNGCAP ncc) {
         try {
-            String qry = "insert into NHACUNGCAP values  (" + "'" + ncc.getId().trim() + "'"
-                    + "," + "N'" + ncc.getName() + "'" + ")";
+            String qry = "insert into NHACUNGCAP values  (" + "'" + ncc.getMaNCC().trim() + "'"
+                    + "," + "N'" + ncc.getTenNCC() + "'" + ")";
             st = conn.createStatement();
             st.executeUpdate(qry);
             if (st != null) {
@@ -58,8 +58,8 @@ public class QLNCCDAO {
 
     public void hoantacXoa(NHACUNGCAP ncc) {
         try {
-            String qry = "insert into NHACUNGCAP values  (" + "'" + ncc.getId() + "'"
-                    + "," + "N'" + ncc.getName() + "'" + ")";
+            String qry = "insert into NHACUNGCAP values  (" + "'" + ncc.getMaNCC() + "'"
+                    + "," + "N'" + ncc.getTenNCC() + "'" + ")";
             st = conn.createStatement();
             st.executeUpdate(qry);
         } catch (SQLException e) {
@@ -70,8 +70,8 @@ public class QLNCCDAO {
 
     public int sua(NHACUNGCAP nccmoi, NHACUNGCAP ncccu) {
         try {
-            String qry = "update NHACUNGCAP set " + "MANCC=" + "'" + nccmoi.getId() + "'" +
-                    ",TENNCC=" + "N'" + ncccu.getName() + "'" + " " + "where MANCC='" + ncccu.getId()
+            String qry = "update NHACUNGCAP set " + "MANCC=" + "'" + nccmoi.getMaNCC() + "'" +
+                    ",TENNCC=" + "N'" + ncccu.getTenNCC() + "'" + " " + "where MANCC='" + ncccu.getMaNCC()
                     + "'";
             st = conn.createStatement();
             st.executeUpdate(qry);

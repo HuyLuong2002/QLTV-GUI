@@ -9,28 +9,28 @@ package QLTV.DTO;
  * @author MSI
  */
 public class NHACUNGCAP {
-    public String id;
-    public String name;
+    public String MaNCC;
+    public String TenNCC;
 
-    public void setId(String id) {
-        this.id = id;
+    public void setMaNCC(String MaNCC) {
+        this.MaNCC = MaNCC;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTenNCC(String TenNCC) {
+        this.TenNCC = TenNCC;
     }
 
-    public String getId() {
-        return id;
+    public String getMaNCC() {
+        return MaNCC;
     }
 
-    public String getName() {
-        return name;
+    public String getTenNCC() {
+        return TenNCC;
     }
 
-    public NHACUNGCAP(String id, String name) {
-        this.id = id;
-        this.name = name;
+    public NHACUNGCAP(String MaNCC, String TenNCC) {
+        this.MaNCC = MaNCC;
+        this.TenNCC = TenNCC;
     }
 
     public NHACUNGCAP() {

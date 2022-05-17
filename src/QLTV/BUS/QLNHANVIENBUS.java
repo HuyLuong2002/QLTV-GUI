@@ -44,6 +44,7 @@ public class QLNHANVIENBUS {
     }
 
     public void xoa(String MaNV, int i) throws Exception {
+        int kt = -1;
         QLNHANVIENDAO data = new QLNHANVIENDAO();
         data.xoa(MaNV);
         dsnhanvien.remove(i);

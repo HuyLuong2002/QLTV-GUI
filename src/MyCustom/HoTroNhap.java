@@ -15,23 +15,30 @@ import javax.swing.table.DefaultTableModel;
 
 import QLTV.BUS.QLHDTPBUS;
 import QLTV.BUS.QLMUONBUS;
+import QLTV.BUS.QLNCCBUS;
+import QLTV.BUS.QLNHANVIENBUS;
 import QLTV.BUS.QLNVBUS;
+import QLTV.BUS.QLPNBUS;
 import QLTV.BUS.QLSACHBUS;
 import QLTV.BUS.QLTRABUS;
 import QLTV.DTO.DOCGIA;
 import QLTV.DTO.HDTIENPHAT;
+import QLTV.DTO.NHACUNGCAP;
+import QLTV.DTO.NHANVIEN;
 import QLTV.DTO.PHIEUMUON;
+import QLTV.DTO.PHIEUNHAP;
 import QLTV.DTO.PHIEUTRASACH;
 import QLTV.DTO.SACH;
 import QLTV.GUI.QLMTGUI;
+import QLTV.GUI.QLPNGUI;
 
 public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
     public static int ThanhTien=0;
     JLabel lbHoTro, lbTuKhoaTK;
     JTextField txKhoaTK;
     JPanel pnTable;
-    JButton btLuaChon, btTimKiemPM, btTimKiemPT, btTimKiemHD, btTimKiemDG, btLuaChonCTPT,
-            btLuaChonCTHDTP, btLuaChonSachPT, btLuaChonSachHD;
+    JButton btLuaChon, btTimKiemPM, btTimKiemPT, btTimKiemHD, btTimKiemDG, btTimKiemPN, btTimKiemNV, btTimKiemNCC,
+            btLuaChonCTPT, btLuaChonCTHDTP, btLuaChonSachPT, btLuaChonSachHD, btLuaChonMaPN, btLuaChonMaNV, btLuaChonMaNCC;
     JButton btLuaChonInPM, btTimKiemInPM, btLuaChonCTPM, btTimKiemSach, btLuaChonSach, btLuachonPM_Tra, btLuaChonMaDG, btLuaChonInHD, btTimKiemInHD;
     JTable table;
     DefaultTableModel model;
@@ -201,6 +208,63 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
         setTitleMaDG();
         setTable();
         addTTDGOnTable();
+
+        this.add(pnTable);
+        this.setVisible(true);
+    }
+
+    public void setHoTroNhapMaPN() {
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setSize(700, 600);
+        this.setTitle("Lựa chọn thông tin");
+        this.setLayout(null);
+        this.setLocationRelativeTo(null);
+
+        pnTable = new JPanel();
+        pnTable.setLayout(new GridLayout(1, 1));
+        pnTable.setBounds(40, 100, 600, 300);
+
+        setTitleMaPN();
+        setTable();
+        addTTPNOnTable();
+
+        this.add(pnTable);
+        this.setVisible(true);
+    }
+
+    public void setHoTroNhapMaNV() {
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setSize(700, 600);
+        this.setTitle("Lựa chọn thông tin");
+        this.setLayout(null);
+        this.setLocationRelativeTo(null);
+
+        pnTable = new JPanel();
+        pnTable.setLayout(new GridLayout(1, 1));
+        pnTable.setBounds(40, 100, 600, 300);
+
+        setTitleMaNV();
+        setTable();
+        addTTNVOnTable();
+
+        this.add(pnTable);
+        this.setVisible(true);
+    }
+
+    public void setHoTroNhapMaNCC() {
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setSize(700, 600);
+        this.setTitle("Lựa chọn thông tin");
+        this.setLayout(null);
+        this.setLocationRelativeTo(null);
+
+        pnTable = new JPanel();
+        pnTable.setLayout(new GridLayout(1, 1));
+        pnTable.setBounds(40, 100, 600, 300);
+
+        setTitleMaNCC();
+        setTable();
+        addTTNCCOnTable();
 
         this.add(pnTable);
         this.setVisible(true);
@@ -478,6 +542,108 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
         this.add(btTimKiemDG);
     }
 
+    public void setTitleMaPN() {
+        lbHoTro = new JLabel("LỰA CHỌN MÃ PHIẾU NHẬP");
+        lbHoTro.setFont(new Font("Arial", Font.BOLD, 20));
+        lbHoTro.setBounds(210, 0, 320, 50);
+
+        btLuaChonMaPN = new JButton("Chọn");
+        btLuaChonMaPN.setFont(new Font("Arial", Font.BOLD, 15));
+        btLuaChonMaPN.setBounds(560, 420, 80, 30);
+        btLuaChonMaPN.setBackground(Color.cyan);
+        btLuaChonMaPN.setBorder(new RoundedBorder(10));
+        btLuaChonMaPN.addActionListener(this);
+
+        lbTuKhoaTK = new JLabel("Nhập từ khóa tìm kiếm:");
+        lbTuKhoaTK.setFont(new Font("Arial", Font.BOLD, 20));
+        lbTuKhoaTK.setBounds(40, 20, 250, 100);
+
+        txKhoaTK = new JTextField();
+        txKhoaTK.setFont(new Font("Arial", Font.PLAIN, 15));
+        txKhoaTK.setBounds(270, 55, 150, 30);
+
+        btTimKiemPN = new JButton("Tìm kiếm");
+        btTimKiemPN.setFont(new Font("Arial", Font.BOLD, 15));
+        btTimKiemPN.setBounds(430, 55, 100, 30);
+        btTimKiemPN.setBackground(Color.cyan);
+        btTimKiemPN.setBorder(new RoundedBorder(10));
+        btTimKiemPN.addActionListener(this);
+
+        this.add(lbHoTro);
+        this.add(btLuaChonMaPN);
+        this.add(lbTuKhoaTK);
+        this.add(txKhoaTK);
+        this.add(btTimKiemPN);
+    }
+
+    public void setTitleMaNV() {
+        lbHoTro = new JLabel("LỰA CHỌN MÃ NHÂN VIÊN");
+        lbHoTro.setFont(new Font("Arial", Font.BOLD, 20));
+        lbHoTro.setBounds(210, 0, 320, 50);
+
+        btLuaChonMaNV = new JButton("Chọn");
+        btLuaChonMaNV.setFont(new Font("Arial", Font.BOLD, 15));
+        btLuaChonMaNV.setBounds(560, 420, 80, 30);
+        btLuaChonMaNV.setBackground(Color.cyan);
+        btLuaChonMaNV.setBorder(new RoundedBorder(10));
+        btLuaChonMaNV.addActionListener(this);
+
+        lbTuKhoaTK = new JLabel("Nhập từ khóa tìm kiếm:");
+        lbTuKhoaTK.setFont(new Font("Arial", Font.BOLD, 20));
+        lbTuKhoaTK.setBounds(40, 20, 250, 100);
+
+        txKhoaTK = new JTextField();
+        txKhoaTK.setFont(new Font("Arial", Font.PLAIN, 15));
+        txKhoaTK.setBounds(270, 55, 150, 30);
+
+        btTimKiemNV = new JButton("Tìm kiếm");
+        btTimKiemNV.setFont(new Font("Arial", Font.BOLD, 15));
+        btTimKiemNV.setBounds(430, 55, 100, 30);
+        btTimKiemNV.setBackground(Color.cyan);
+        btTimKiemNV.setBorder(new RoundedBorder(10));
+        btTimKiemNV.addActionListener(this);
+
+        this.add(lbHoTro);
+        this.add(btLuaChonMaNV);
+        this.add(lbTuKhoaTK);
+        this.add(txKhoaTK);
+        this.add(btTimKiemNV);
+    }
+
+    public void setTitleMaNCC() {
+        lbHoTro = new JLabel("LỰA CHỌN MÃ NCC");
+        lbHoTro.setFont(new Font("Arial", Font.BOLD, 20));
+        lbHoTro.setBounds(210, 0, 320, 50);
+
+        btLuaChonMaNCC = new JButton("Chọn");
+        btLuaChonMaNCC.setFont(new Font("Arial", Font.BOLD, 15));
+        btLuaChonMaNCC.setBounds(560, 420, 80, 30);
+        btLuaChonMaNCC.setBackground(Color.cyan);
+        btLuaChonMaNCC.setBorder(new RoundedBorder(10));
+        btLuaChonMaNCC.addActionListener(this);
+
+        lbTuKhoaTK = new JLabel("Nhập từ khóa tìm kiếm:");
+        lbTuKhoaTK.setFont(new Font("Arial", Font.BOLD, 20));
+        lbTuKhoaTK.setBounds(40, 20, 250, 100);
+
+        txKhoaTK = new JTextField();
+        txKhoaTK.setFont(new Font("Arial", Font.PLAIN, 15));
+        txKhoaTK.setBounds(270, 55, 150, 30);
+
+        btTimKiemNCC = new JButton("Tìm kiếm");
+        btTimKiemNCC.setFont(new Font("Arial", Font.BOLD, 15));
+        btTimKiemNCC.setBounds(430, 55, 100, 30);
+        btTimKiemNCC.setBackground(Color.cyan);
+        btTimKiemNCC.setBorder(new RoundedBorder(10));
+        btTimKiemNCC.addActionListener(this);
+
+        this.add(lbHoTro);
+        this.add(btLuaChonMaNCC);
+        this.add(lbTuKhoaTK);
+        this.add(txKhoaTK);
+        this.add(btTimKiemNCC);
+    }
+
     public void setTable() {
         table = new JTable();
         pane = new JScrollPane(table);
@@ -605,6 +771,74 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
         table.setModel(model);
     }
 
+    public void addTTPNOnTable() {
+        Vector<String> header = new Vector<String>();
+        header.add("Mã phiếu nhập");
+        header.add("Ngày nhập");
+        header.add("Số lượng tổng");
+        header.add("Đơn giá");
+        header.add("Mã nhân viên");
+        header.add("Mã NCC");
+        model = new DefaultTableModel(header, 0);
+        QLPNBUS qlPNbus = new QLPNBUS();
+        if (QLTRABUS.dspt == null) {
+            try {
+                qlPNbus.docDS();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        }
+        for (PHIEUNHAP pn : QLPNBUS.dspn) {
+            ShowOnTablePN(pn);
+        }
+        table.setModel(model);
+    }
+
+    public void addTTNVOnTable() {
+        Vector<String> header = new Vector<String>();
+        header.add("Mã nhân viên");
+        header.add("Tên nhân viên");
+        header.add("Chức vụ");
+        header.add("Lương cơ bản");
+        header.add("Phụ cấp");
+        header.add("Hệ số lượng");
+        header.add("SĐT");
+        header.add("Mail");
+
+        model = new DefaultTableModel(header, 0);
+        QLNHANVIENBUS qlnvbus = new QLNHANVIENBUS();
+        if (QLNHANVIENBUS.dsnhanvien == null) {
+            try {
+                qlnvbus.docDSNHANVIEN();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        }
+        for (NHANVIEN nv : QLNHANVIENBUS.dsnhanvien) {
+            ShowOnTableNV(nv);
+        }
+        table.setModel(model);
+    }
+
+    public void addTTNCCOnTable() {
+        Vector<String> header = new Vector<String>();
+        header.add("Mã NCC");
+        header.add("Tên NCC");
+        model = new DefaultTableModel(header, 0);
+        QLNCCBUS qlNCCbus = new QLNCCBUS();
+        if (QLNCCBUS.dsncc == null) {
+            try {
+                qlNCCbus.docDSNCC();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        }
+        for (NHACUNGCAP ncc : QLNCCBUS.dsncc) {
+            ShowOnTableNCC(ncc);
+        }
+        table.setModel(model);
+    }
+
     public void ShowOnTableSach(SACH sach) {
         Vector<String> row = new Vector<String>();
         row.add(sach.getMasach().trim());
@@ -625,6 +859,37 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
         row.add(docgia.getDiachi().trim());
         row.add(docgia.getMail().trim());
         row.add(docgia.getTinhtrangthue().trim());
+        model.addRow(row);
+    }
+
+    public void ShowOnTablePN(PHIEUNHAP phieunhap) {
+        Vector<String> row = new Vector<String>();
+        row.add(phieunhap.getMaPN().trim());
+        row.add(phieunhap.getNgaynhap().trim());
+        row.add(String.valueOf(phieunhap.getSLTong()).trim());
+        row.add(String.format("%,d", phieunhap.getDongia()));
+        row.add(phieunhap.getMaNV().trim());
+        row.add(phieunhap.getMaNCC().trim());
+        model.addRow(row);
+    }
+
+    public void ShowOnTableNCC(NHACUNGCAP NCC) {
+        Vector<String> row = new Vector<String>();
+        row.add(NCC.getMaNCC().trim());
+        row.add(NCC.getTenNCC().trim());
+        model.addRow(row);
+    }
+
+    public void ShowOnTableNV(NHANVIEN nhanvien) {
+        Vector<String> row = new Vector<String>();
+        row.add(nhanvien.getMaNV().trim());
+        row.add(nhanvien.getTenNV().trim());
+        row.add(nhanvien.getChucvu().trim());
+        row.add(String.format("%,d",nhanvien.getLuongCB()).trim());
+        row.add(String.format("%,d",nhanvien.getPhucap()).trim());
+        row.add(String.format("%,f", nhanvien.getHesoluong()).trim());
+        row.add(String.valueOf(nhanvien.getSDT()));
+        row.add(nhanvien.getMail().trim());
         model.addRow(row);
     }
 
@@ -662,7 +927,7 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btTimKiemInPM) {
-            String tukhoa = txKhoaTK.getText();
+            String tukhoa = txKhoaTK.getText().replaceAll("\\s", "").trim();
             if (tukhoa.equals("") == true) {
                 model.setRowCount(0);
                 for (PHIEUMUON pm : QLMUONBUS.dspm) {
@@ -691,7 +956,7 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
             }
         }
         if(e.getSource()==btTimKiemPM){
-            String tukhoa = txKhoaTK.getText();
+            String tukhoa = txKhoaTK.getText().replaceAll("\\s", "").trim();
             if (tukhoa.equals("") == true) {
                 model.setRowCount(0);
                 for (PHIEUMUON pm : QLMUONBUS.dspm) {
@@ -720,7 +985,7 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
             }
         }
         if (e.getSource() == btTimKiemPT) {
-            String tukhoa = txKhoaTK.getText();
+            String tukhoa = txKhoaTK.getText().replaceAll("\\s", "").trim();
             if (tukhoa.equals("") == true) {
                 model.setRowCount(0);
                 for (PHIEUTRASACH pt : QLTRABUS.dspt) {
@@ -749,7 +1014,7 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
             }
         }
         if (e.getSource() == btTimKiemHD) {
-            String tukhoa = txKhoaTK.getText();
+            String tukhoa = txKhoaTK.getText().replaceAll("\\s", "").trim();
             if (tukhoa.equals("") == true) {
                 model.setRowCount(0);
                 for (HDTIENPHAT hd : QLHDTPBUS.dshdtp) {
@@ -776,7 +1041,8 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
             }
         }
         if (e.getSource() == btTimKiemDG) {
-            String tukhoa = txKhoaTK.getText();
+            String tukhoa = txKhoaTK.getText().replaceAll("\\s", "").trim();
+            String TukhoaDG = txKhoaTK.getText().replaceAll("\\s", " ").trim();
             if (tukhoa.equals("") == true) {
                 model.setRowCount(0);
                 for (DOCGIA docgia : QLNVBUS.dsdg) {
@@ -786,9 +1052,10 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
                 model.setRowCount(0);
                 ArrayList<DOCGIA> kq = new ArrayList<DOCGIA>();
                 for (DOCGIA docgia : QLNVBUS.dsdg) {
-                    if (tukhoa.indexOf(docgia.getMaDG().trim()) >= 0 || tukhoa.indexOf(docgia.getTenDG()) >= 0
-                            || tukhoa.indexOf(docgia.getMail()) >= 0 || tukhoa.indexOf(docgia.getDiachi()) >= 0
-                            || tukhoa.indexOf(docgia.getTinhtrangthue()) >= 0) {
+                    if (tukhoa.indexOf(docgia.getMaDG().replaceAll("\\s", "").trim()) >= 0 
+                            || TukhoaDG.indexOf(docgia.getTenDG().trim()) >= 0
+                            || tukhoa.indexOf(docgia.getMail().trim()) >= 0 || tukhoa.indexOf(docgia.getDiachi().trim()) >= 0
+                            || tukhoa.indexOf(docgia.getTinhtrangthue().trim()) >= 0) {
                         kq.add(docgia);
                     }
                 }
@@ -802,8 +1069,92 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
                 }
             }
         }
+        if(e.getSource()==btTimKiemPN){
+            String tukhoa = txKhoaTK.getText().replaceAll("\\s", "").trim();
+            if (tukhoa.equals("") == true) {
+                model.setRowCount(0);
+                for (PHIEUNHAP pn : QLPNBUS.dspn) {
+                    ShowOnTablePN(pn);
+                }
+            } else {
+                model.setRowCount(0);
+                ArrayList<PHIEUNHAP> kq = new ArrayList<PHIEUNHAP>();
+                for (PHIEUNHAP pn : QLPNBUS.dspn) {
+                    if (tukhoa.indexOf(pn.getMaPN().trim()) >= 0 || tukhoa.indexOf(pn.getNgaynhap().trim()) >= 0
+                            || tukhoa.indexOf(String.valueOf(pn.getSLTong()).trim()) >= 0
+                            || tukhoa.indexOf(String.valueOf(pn.getDongia()).trim()) >= 0
+                            || tukhoa.indexOf(pn.getMaNV().trim()) >= 0
+                            || tukhoa.indexOf(pn.getMaNCC().trim()) >= 0) {
+                        kq.add(pn);
+                    }
+                }
+                if (kq.size() == 0) {
+                    JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    for (PHIEUNHAP pn : kq) {
+                        ShowOnTablePN(pn);
+                    }
+                    table.setModel(model);
+                }
+            }
+        }
+        if(e.getSource()==btTimKiemNV){
+            String tukhoa = txKhoaTK.getText().replaceAll("\\s", "").trim();
+            if (tukhoa.equals("") == true) {
+                model.setRowCount(0);
+                for (NHANVIEN nv : QLNHANVIENBUS.dsnhanvien) {
+                    ShowOnTableNV(nv);
+                }
+            } else {
+                model.setRowCount(0);
+                ArrayList<NHANVIEN> kq = new ArrayList<NHANVIEN>();
+                for (NHANVIEN nv : QLNHANVIENBUS.dsnhanvien) {
+                    if (tukhoa.indexOf(nv.getMaNV()) >= 0 || tukhoa.indexOf(nv.getTenNV().trim()) >= 0
+                            || tukhoa.indexOf(String.valueOf(nv.getLuongCB()).trim()) >= 0
+                            || tukhoa.indexOf(String.valueOf(nv.getHesoluong()).trim()) >= 0
+                            || tukhoa.indexOf(String.valueOf(nv.getPhucap()).trim()) >= 0
+                            || tukhoa.indexOf(nv.getChucvu().trim()) >= 0 || tukhoa.indexOf(String.valueOf(nv.getSDT()).trim()) >= 0
+                            || tukhoa.indexOf(nv.getMail().trim()) >= 0) {
+                        kq.add(nv);
+                    }
+                }
+                if (kq.size() == 0) {
+                    JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    for (NHANVIEN nv : kq) {
+                        ShowOnTableNV(nv);
+                    }
+                    table.setModel(model);
+                }
+            }
+        }
+        if(e.getSource()==btTimKiemNCC){
+            String tukhoa = txKhoaTK.getText().replaceAll("\\s", "").trim();
+            if (tukhoa.equals("") == true) {
+                model.setRowCount(0);
+                for (NHACUNGCAP ncc : QLNCCBUS.dsncc) {
+                    ShowOnTableNCC(ncc);
+                }
+            } else {
+                model.setRowCount(0);
+                ArrayList<NHACUNGCAP> kq = new ArrayList<NHACUNGCAP>();
+                for (NHACUNGCAP ncc : QLNCCBUS.dsncc) {
+                    if (tukhoa.indexOf(ncc.getMaNCC().trim()) >= 0 || tukhoa.indexOf(ncc.getTenNCC().trim()) >= 0) {
+                        kq.add(ncc);
+                    }
+                }
+                if (kq.size() == 0) {
+                    JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    for (NHACUNGCAP ncc : kq) {
+                        ShowOnTableNCC(ncc);
+                    }
+                    table.setModel(model);
+                }
+            }
+        }
         if (e.getSource() == btTimKiemSach) {
-            String tukhoa = txKhoaTK.getText();
+            String tukhoa = txKhoaTK.getText().replaceAll("\\s", "").trim();
             if (tukhoa.equals("") == true) {
                 model.setRowCount(0);
                 for (SACH sach : QLSACHBUS.dssach) {
@@ -833,7 +1184,7 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
             }
         }
         if (e.getSource() == btTimKiemInHD) {
-            String tukhoa = txKhoaTK.getText();
+            String tukhoa = txKhoaTK.getText().replaceAll("\\s", "").trim();
             if (tukhoa.equals("") == true) {
                 model.setRowCount(0);
                 for (HDTIENPHAT hd : QLHDTPBUS.dshdtp) {
@@ -942,6 +1293,27 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
             int i = table.getSelectedRow();
             if (i >= 0) {
                 QLMTGUI.txMaDG.setText(String.valueOf(model.getValueAt(i, 0)));
+            }
+            this.dispose();
+        }
+        if (e.getSource() == btLuaChonMaPN) {
+            int i = table.getSelectedRow();
+            if (i >= 0) {
+                QLPNGUI.txCTPNMaPN.setText(String.valueOf(model.getValueAt(i, 0)));
+            }
+            this.dispose();
+        }
+        if (e.getSource() == btLuaChonMaNV) {
+            int i = table.getSelectedRow();
+            if (i >= 0) {
+                QLPNGUI.txMaNV.setText(String.valueOf(model.getValueAt(i, 0)));
+            }
+            this.dispose();
+        }
+        if (e.getSource() == btLuaChonMaNCC) {
+            int i = table.getSelectedRow();
+            if (i >= 0) {
+                QLPNGUI.txMaNCC.setText(String.valueOf(model.getValueAt(i, 0)));
             }
             this.dispose();
         }

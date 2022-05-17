@@ -138,8 +138,8 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
                     System.out.println(e1);
                 }
                 if (kt == 0) {
-                    model.setValueAt(ncc.getId(), i, 0);
-                    model.setValueAt(ncc.getName(), i, 1);
+                    model.setValueAt(ncc.getMaNCC(), i, 0);
+                    model.setValueAt(ncc.getTenNCC(), i, 1);
                     tblQLNCC.setModel(model);
                 }
             }
@@ -287,7 +287,7 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
     }
 
     public void SapXep() {
-        QLNCCBUS.dsncc.sort(((o1, o2) -> o1.getName().compareTo(o2.getName())));
+        QLNCCBUS.dsncc.sort(((o1, o2) -> o1.getTenNCC().compareTo(o2.getTenNCC())));
         model.setRowCount(0);
         for (NHACUNGCAP ncc : QLNCCBUS.dsncc) {
             ShowOnTable(ncc);
@@ -302,8 +302,8 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
             if (i >= 0) {
                 NHACUNGCAP ncc = new NHACUNGCAP();
                 ncc = QLNCCBUS.dsncc.get(i);
-                txMaNCC.setText(ncc.getId().replaceAll("\\s", "").trim());
-                txTenNCC.setText(ncc.getName().replaceAll("\\s", "").trim());
+                txMaNCC.setText(ncc.getMaNCC().trim());
+                txTenNCC.setText(ncc.getTenNCC().trim());
             }
         }
 
@@ -531,14 +531,14 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
 
     public void ShowOnTable(NHACUNGCAP ncc) {
         Vector<String> row = new Vector<String>();
-        row.add(ncc.getId().replaceAll("\\s", "").trim());
-        row.add(ncc.getName().replaceAll("\\s", "").trim());
+        row.add(ncc.getMaNCC().trim());
+        row.add(ncc.getTenNCC().trim());
         model.addRow(row);
     }
 
     public void getInfoTextField(NHACUNGCAP ncc) {
-        ncc.setId(txMaNCC.getText().replaceAll("\\s", "").trim());
-        ncc.setName(txTenNCC.getText().replaceAll("\\s", "").trim());
+        ncc.setMaNCC(txMaNCC.getText().trim());
+        ncc.setTenNCC(txTenNCC.getText().trim());
     }
 
     public void getDatabase() {
@@ -546,7 +546,7 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
             QLNCCBUS qlnccbus = new QLNCCBUS();
             if (QLNCCBUS.dsncc == null)
                 try {
-                    qlnccbus.docdsnxb();
+                    qlnccbus.docDSNCC();
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
