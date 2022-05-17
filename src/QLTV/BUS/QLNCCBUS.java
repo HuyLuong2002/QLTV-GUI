@@ -16,7 +16,7 @@ public class QLNCCBUS {
 
     }
 
-    public void docdsnxb() throws Exception {
+    public void docDSNCC() throws Exception {
         QLNCCDAO data = new QLNCCDAO();
         if (dsncc == null)
             dsncc = new ArrayList<NHACUNGCAP>();
@@ -24,7 +24,7 @@ public class QLNCCBUS {
     }
 
     public int them(NHACUNGCAP ncc) throws Exception {
-        if (KTMa(ncc.getId().trim()) == 0) {
+        if (KTMa(ncc.getMaNCC().trim()) == 0) {
             JOptionPane.showMessageDialog(null, "Mã Nhà Xuất Bản vừa nhập bị trùng. Mời nhập lại!", "Lỗi",
                     JOptionPane.ERROR_MESSAGE);
             return -1;
@@ -55,7 +55,7 @@ public class QLNCCBUS {
     }
 
     public int hoantacXoa(NHACUNGCAP ncc) throws Exception {
-        if (KTMa(ncc.getId()) == 0) {
+        if (KTMa(ncc.getMaNCC()) == 0) {
             JOptionPane.showMessageDialog(null, "Mã Nhà Cung Cấp vừa nhập bị trùng. Mời nhập lại!", "Lỗi",
                     JOptionPane.ERROR_MESSAGE);
             return -1;
@@ -70,7 +70,7 @@ public class QLNCCBUS {
 
     public int KTMa(String MaNXBMoi) {
         for (NHACUNGCAP ncc : dsncc)
-            if (ncc.getId().trim().equals(MaNXBMoi)) {
+            if (ncc.getMaNCC().trim().equals(MaNXBMoi)) {
                 return 0;
             }
         return 1;
@@ -78,7 +78,7 @@ public class QLNCCBUS {
 
     public NHACUNGCAP timTheoMa(String MaNCC) {
         for (NHACUNGCAP ncc : dsncc)
-            if (ncc.getId().trim().equals(MaNCC))
+            if (ncc.getMaNCC().trim().equals(MaNCC))
                 return ncc;
         return null;
     }
@@ -86,7 +86,7 @@ public class QLNCCBUS {
     public ArrayList<NHACUNGCAP> timTheoTen(String TenNCC) {
         ArrayList<NHACUNGCAP> kq = new ArrayList<NHACUNGCAP>();
         for (NHACUNGCAP ncc : dsncc)
-            if (ncc.getName().indexOf(TenNCC) >= 0)
+            if (ncc.getTenNCC().indexOf(TenNCC) >= 0)
                 kq.add(ncc);
         return kq;
     }

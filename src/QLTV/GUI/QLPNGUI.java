@@ -10,6 +10,7 @@ import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
 import MyCustom.DateLabelFormatter;
+import MyCustom.HoTroNhap;
 import MyCustom.MyTable;
 import MyCustom.RoundedBorder;
 import QLTV.BUS.QLCTPNBUS;
@@ -32,8 +33,9 @@ public class QLPNGUI implements ActionListener, MouseListener {
     JLabel lbNhapPN, lbNhapCTPN, lbMaPN, lbNgayNhap, lbSLTong, lbDonGia, lbMaNV, lbMaNCC, lbCTPNMaPN, lbCTPNMaSach, lbCTPNSL,
             lbLCTKPN, lbTuKhoaTKPN, lbNgayBDLocPN, lbNgayKTLocPN;
 
-    JTextField txMaPN, txSLTong, txDonGia, txMaNV, txMaNCC, txCTPNMaPN, txCTPNMaSach, txCTPNSL, txKhoaTKPN;
+    JTextField txMaPN, txSLTong, txDonGia, txCTPNMaSach, txCTPNSL, txKhoaTKPN;
 
+    public static JTextField txCTPNMaPN, txMaNCC, txMaNV;
     JButton btLocPN, btTimKiemPN, btThemPN, btSuaPN, btThemCTPN, btSuaCTPN, btShowAll,
             btHoTroNhapMaNV, btHoTroNhapMaNCC, btHoTroNhapMasachPN, btHoTroNhapMaPN;
     Color ColorPurple;
@@ -111,12 +113,12 @@ public class QLPNGUI implements ActionListener, MouseListener {
             setTablePN();
             setTableCTPN();
             setShowAll();
-            getDBPhieuNhap();
-            getDBCTPN();
             setInputNhap();
             setInputCTPN();
             setTimKiemPN();
             setLocPN();
+            getDBPhieuNhap();
+            getDBCTPN();
             myTable.setValueCellCenter(modelPN,tblQLPN);
             myTable.setValueCellCenter(modelCTPN, tblQLCTPN);
         }
@@ -263,8 +265,9 @@ public class QLPNGUI implements ActionListener, MouseListener {
                 PHIEUNHAP phieunhap = new PHIEUNHAP();
                 PHIEUNHAP MaPNCu = QLPNBUS.dspn.set(i, phieunhap);
                 getInfoTextFieldPN(phieunhap);
+
+                QLPNBUS qlphieunhapbus = new QLPNBUS();
                 try {
-                    QLPNBUS qlphieunhapbus = new QLPNBUS();
                     kt = qlphieunhapbus.sua(phieunhap, MaPNCu, i);
                 } catch (Exception e1) {
                     System.out.println(e1);
@@ -279,7 +282,74 @@ public class QLPNGUI implements ActionListener, MouseListener {
                     tblQLPN.setModel(modelPN);
                 }
             }
-        }        
+        }
+        if (e.getSource() == btThemCTPN) {
+            int i = tblQLCTPN.getSelectedRow();
+            try {
+                CHITIETPHIEUNHAP ctphieunhap = new CHITIETPHIEUNHAP();
+                getInfoTextFieldCTPN(ctphieunhap);
+                if (!ctphieunhap.getMaPN().trim().equals(String.valueOf(modelCTPN.getValueAt(i, 0)))) {
+                    JOptionPane.showMessageDialog(null, "Mã phiếu nhập tại bảng chi tiết khác với mã phiếu nhập","Lỗi",JOptionPane.ERROR_MESSAGE);
+                } else {
+                        // Truy cập vào bus
+                    QLCTPNBUS qlctphieunhapbus = new QLCTPNBUS();
+                    int kiemtra = 0;
+                    try {
+                        kiemtra = qlctphieunhapbus.them(ctphieunhap);
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+                    if (kiemtra == 0) {
+                        // Đưa dữ liệu lên table
+                        header = new Vector<String>();
+                        header.add("Mã phiếu nhập");
+                        header.add("Mã sách");
+                        header.add("SL");
+                        if (modelCTPN.getRowCount() == 0) {
+                            modelCTPN = new DefaultTableModel(header, 0);
+                        }
+                        ShowOnTableCTPN(ctphieunhap);
+                        tblQLCTPN.setModel(modelCTPN);
+                    }
+                }
+            } catch (Exception e1) {
+                System.out.println(e1);
+            }
+        }
+        if (e.getSource() == btSuaCTPN) {
+            int i = tblQLCTPN.getSelectedRow();
+            int kt = -1;
+            if (i >= 0) {
+                CHITIETPHIEUNHAP ctphieunhap = new CHITIETPHIEUNHAP();
+                String MaCTPNCu = String.valueOf(modelCTPN.getValueAt(i, 0));
+                String MaSachCTPNCu = String.valueOf(modelCTPN.getValueAt(i, 1));
+                getInfoTextFieldCTPN(ctphieunhap);
+                try {
+                    QLCTPNBUS qlctphieutrabus = new QLCTPNBUS();
+                    kt = qlctphieutrabus.sua(ctphieunhap, MaCTPNCu, MaSachCTPNCu, i);
+                } catch (Exception e1) {
+                    System.out.println(e1);
+                }
+                if (kt == 0) {
+                    modelCTPN.setValueAt(ctphieunhap.getMaPN(), i, 0);
+                    modelCTPN.setValueAt(ctphieunhap.getMAsach(), i, 1);
+                    modelCTPN.setValueAt(ctphieunhap.getSL(), i, 2);
+                    tblQLCTPN.setModel(modelCTPN);
+                }
+            }
+        }
+        if(e.getSource() == btHoTroNhapMaPN){
+            HoTroNhap hoTroNhapMaPN = new HoTroNhap();
+            hoTroNhapMaPN.setHoTroNhapMaPN();
+        }
+        if(e.getSource() == btHoTroNhapMaNV){
+            HoTroNhap hoTroNhapMaNV = new HoTroNhap();
+            hoTroNhapMaNV.setHoTroNhapMaNV();
+        } 
+        if(e.getSource() == btHoTroNhapMaNCC){
+            HoTroNhap hoTroNhapMaNCC = new HoTroNhap();
+            hoTroNhapMaNCC.setHoTroNhapMaNCC();
+        }         
     }
 
     @Override
@@ -417,7 +487,7 @@ public class QLPNGUI implements ActionListener, MouseListener {
         row.add(pn.getMaPN().replaceAll("\\s", "").trim());
         row.add(pn.getNgaynhap().replaceAll("\\s", "").trim());
         row.add(String.valueOf(pn.getSLTong()).replaceAll("\\s", "").trim());
-        row.add(String.format("%,d",pn.getDongia()).trim());
+        row.add(String.format("%,d",pn.getDongia()).replaceAll("\\s", "").trim());
         row.add(pn.getMaNV().replaceAll("\\s", "").trim());
         row.add(pn.getMaNCC().replaceAll("\\s", "").trim());
         modelPN.addRow(row);
@@ -466,7 +536,7 @@ public class QLPNGUI implements ActionListener, MouseListener {
         tblQLCTPN.setBackground(Color.LIGHT_GRAY);
         tblQLCTPN.addMouseListener(this);
         tblQLCTPN.setDefaultEditor(Object.class, null);
-        tblQLCTPN.setSelectionBackground(Color.GREEN);
+        tblQLCTPN.setSelectionBackground(Color.ORANGE);
         pnCTPN.add(pane);
     }
 
@@ -793,7 +863,7 @@ public class QLPNGUI implements ActionListener, MouseListener {
         phieunhap.setMaNCC(txMaNCC.getText().replaceAll("\\s", "").trim());
     }
 
-    public void getInfoTextFieldCTPM(CHITIETPHIEUNHAP ctphieunhap) {
+    public void getInfoTextFieldCTPN(CHITIETPHIEUNHAP ctphieunhap) {
         ctphieunhap.setMaPN(txCTPNMaPN.getText().replaceAll("\\s", "").trim());
         ctphieunhap.setMAsach(txCTPNMaSach.getText().replaceAll("\\s", "").trim());
         ctphieunhap.setSL(Integer.parseInt(txCTPNSL.getText().replaceAll("\\s", "").trim()));

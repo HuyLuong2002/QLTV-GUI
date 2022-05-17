@@ -678,7 +678,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                     } catch (Exception e1) {
                         e1.printStackTrace();
                     }
-                    if (kiemtra == 1) {
+                    if (kiemtra == 0) {
                         // Đưa dữ liệu lên table
                         header = new Vector<String>();
                         header.add("Mã phiếu trả");
@@ -917,7 +917,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                 // Hiển thị trên textfield
                 PHIEUMUON pmTextField = new PHIEUMUON();
                 pmTextField = QLMUONBUS.dspm.get(i);
-                txMaPM.setText(pmTextField.getMaPM().trim());
+                txMaPM.setText(pmTextField.getMaPM().replaceAll("\\s", "").trim());
 
                 String tmp[] = pmTextField.getNgaymuon().split("-");
                 datePanelNgayBDPM.getModel().setDate(Integer.parseInt(tmp[0]), Integer.parseInt(tmp[1]),
@@ -934,7 +934,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                 if (pmTextField.getTinhTrangMuon().equals("Hết mượn")) {
                     cbTinhTrangMuon.setSelectedIndex(2);
                 }
-                txMaDG.setText(pmTextField.getMaDG().trim());
+                txMaDG.setText(pmTextField.getMaDG().replaceAll("\\s", "").trim());
             }
         }
         if (e.getSource() == tblQLTra) {
@@ -957,21 +957,21 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
 
                 PHIEUTRASACH ptTextField = new PHIEUTRASACH();
                 ptTextField = QLTRABUS.dspt.get(i);
-                txMaPT.setText(ptTextField.getMaPT().trim());
+                txMaPT.setText(ptTextField.getMaPT().replaceAll("\\s", "").trim());
 
                 String tmp[] = ptTextField.getNgaytra().split("-");
                 datePanelNgayBDPT.getModel().setDate(Integer.parseInt(tmp[0]), Integer.parseInt(tmp[1]),
                         Integer.parseInt(tmp[2]));
 
-                if (ptTextField.getTinhtrangsach().equals("Bình Thường")) {
-                    cbTinhTrangMuon.setSelectedIndex(1);
+                if (ptTextField.getTinhtrangsach().equals("Bình thường")) {
+                    cbTinhTrangTra.setSelectedIndex(1);
                 }
                 if (ptTextField.getTinhtrangsach().equals("Hư tổn")) {
-                    cbTinhTrangMuon.setSelectedIndex(2);
+                    cbTinhTrangTra.setSelectedIndex(2);
                 }
-                txTienThue.setText(String.format("%,d", ptTextField.getTienthue()));
-                txThanhTien.setText(String.format("%,d", ptTextField.getThanhtien()));
-                txMaPMTra.setText(ptTextField.getMaPM());
+                txTienThue.setText(String.format("%,d", ptTextField.getTienthue()).replaceAll("\\s", "").trim());
+                txThanhTien.setText(String.format("%,d", ptTextField.getThanhtien()).replaceAll("\\s", "").trim());
+                txMaPMTra.setText(ptTextField.getMaPM().replaceAll("\\s", "").trim());
             }
         }
         if (e.getSource() == tblQLHDTP) {
@@ -994,10 +994,10 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
 
                 HDTIENPHAT ptTextField = new HDTIENPHAT();
                 ptTextField = QLHDTPBUS.dshdtp.get(i);
-                txMaHD.setText(ptTextField.getMaHD().trim());
-                txMaHD_DG.setText(ptTextField.getMaDG().trim());
-                txSLTongHD.setText(String.format("%,d",ptTextField.getSL()));
-                txTienPhat.setText(String.format("%,d", ptTextField.getTienphat()));
+                txMaHD.setText(ptTextField.getMaHD().replaceAll("\\s", "").trim());
+                txMaHD_DG.setText(ptTextField.getMaDG().replaceAll("\\s", "").trim());
+                txSLTongHD.setText(String.format("%,d",ptTextField.getSL()).replaceAll("\\s", "").trim());
+                txTienPhat.setText(String.format("%,d", ptTextField.getTienphat()).replaceAll("\\s", "").trim());
             }
         }
         if (e.getSource() == tblQLCTMuon) {
@@ -1006,9 +1006,9 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                 String MaPM = String.valueOf(modelCTMuon.getValueAt(i, 0));
                 String Masach = String.valueOf(modelCTMuon.getValueAt(i, 1));
                 String SL = String.valueOf(modelCTMuon.getValueAt(i, 2));
-                txCTPMMaPM.setText(MaPM.trim());
-                txCTPMMaSach.setText(Masach.trim());
-                txCTPMSL.setText(SL.trim());
+                txCTPMMaPM.setText(MaPM.replaceAll("\\s", "").trim());
+                txCTPMMaSach.setText(Masach.replaceAll("\\s", "").trim());
+                txCTPMSL.setText(String.valueOf(SL.replaceAll("\\s", "").trim()));
             }
         }
         if (e.getSource() == tblQLCTTra) {
@@ -1017,9 +1017,9 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                 String MaPT = String.valueOf(modelCTTra.getValueAt(i, 0));
                 String Masach = String.valueOf(modelCTTra.getValueAt(i, 1));
                 String SL = String.valueOf(modelCTTra.getValueAt(i, 2));
-                txCTPTMaPT.setText(MaPT.trim());
-                txCTPTMaSach.setText(Masach.trim());
-                txCTPTSL.setText(SL.trim());
+                txCTPTMaPT.setText(MaPT.replaceAll("\\s", "").trim());
+                txCTPTMaSach.setText(Masach.replaceAll("\\s", "").trim());
+                txCTPTSL.setText(String.valueOf(SL.replaceAll("\\s", "").trim()));
             }
         }
         if (e.getSource() == tblQLCTHDTP) {
@@ -1029,10 +1029,10 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                 String Masach = String.valueOf(modelCTHDTP.getValueAt(i, 1));
                 String SL = String.valueOf(modelCTHDTP.getValueAt(i, 2));
                 String DonGia = String.valueOf(modelCTHDTP.getValueAt(i, 3));
-                txCTHDMaHD.setText(MaHD.trim());
-                txCTHDMaSach.setText(Masach.trim());
-                txCTHDSL.setText(SL.trim());
-                txCTHDDonGia.setText(DonGia.trim());
+                txCTHDMaHD.setText(MaHD.replaceAll("\\s", "").trim());
+                txCTHDMaSach.setText(Masach.replaceAll("\\s", "").trim());
+                txCTHDSL.setText(String.format("%,d", SL.replaceAll("\\s", "").trim()));
+                txCTHDDonGia.setText(String.format("%,d", DonGia.replaceAll("\\s", "").trim()));
             }
         }
         if (e.getSource() == tabbedPane) {
@@ -1279,9 +1279,9 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         Vector<String> row = new Vector<String>();
         row.add(pm.getMaPM().replaceAll("\\s", "").trim());
         row.add(pm.getNgaymuon().replaceAll("\\s", "").trim());
-        row.add(String.valueOf(pm.getSLtong()).replaceAll("\\s", "").trim());
+        row.add(String.format("%,d",pm.getSLtong()).replaceAll("\\s", "").trim());
         row.add(pm.getNgaytra().replaceAll("\\s", "").trim());
-        row.add(pm.getTinhTrangMuon().replaceAll("\\s", "").trim());
+        row.add(pm.getTinhTrangMuon());
         row.add(pm.getMaDG().replaceAll("\\s", "").trim());
         modelMuon.addRow(row);
     }
@@ -1290,44 +1290,44 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         Vector<String> row = new Vector<String>();
         row.add(ctpm.getMaPM().replaceAll("\\s", "").trim());
         row.add(ctpm.getMasach().replaceAll("\\s", "").trim());
-        row.add(String.valueOf(ctpm.getSL()).replaceAll("\\s", "").trim());
+        row.add(String.format("%,d",ctpm.getSL()).replaceAll("\\s", "").trim());
         modelCTMuon.addRow(row);
     }
 
     public void ShowOnTableHD(HDTIENPHAT hd) {
         Vector<String> row = new Vector<String>();
-        row.add(hd.getMaHD().replaceAll("\\s+", " ").trim());
-        row.add(hd.getMaDG().replaceAll("\\s+", " ").trim());
-        row.add(String.valueOf(hd.getSL()).replaceAll("\\s+", " ").trim());
-        row.add(String.format("%,d", hd.getTienphat()).replaceAll("\\s+", " ").trim());
+        row.add(hd.getMaHD().replaceAll("\\s", "").trim());
+        row.add(hd.getMaDG().replaceAll("\\s", "").trim());
+        row.add(String.format("%,d", hd.getSL()).replaceAll("\\s", "").trim());
+        row.add(String.format("%,d", hd.getTienphat()).replaceAll("\\s", "").trim());
         modelHDTP.addRow(row);
     }
 
     public void ShowOnTableCTHD(CHITIETHDTIENPHAT cthd) {
         Vector<String> row = new Vector<String>();
-        row.add(cthd.getMaHD().replaceAll("\\s+", " ").trim());
-        row.add(cthd.getMasach().replaceAll("\\s+", " ").trim());
-        row.add(String.valueOf(cthd.getSL()).trim());
-        row.add(String.format("%,d", cthd.getDongia()).trim());
+        row.add(cthd.getMaHD().replaceAll("\\s", "").trim());
+        row.add(cthd.getMasach().replaceAll("\\s", "").trim());
+        row.add(String.format("%,d",cthd.getSL()).replaceAll("\\s", "").trim());
+        row.add(String.format("%,d", cthd.getDongia()).replaceAll("\\s", "").trim());
         modelCTHDTP.addRow(row);
     }
 
     public void ShowOnTablePT(PHIEUTRASACH pt) {
         Vector<String> row = new Vector<String>();
-        row.add(pt.getMaPT().replaceAll("\\s+", " ").trim());
-        row.add(pt.getNgaytra().replaceAll("\\s+", " ").trim());
-        row.add(pt.getTinhtrangsach().replaceAll("\\s+", " ").trim());
-        row.add(String.format("%,d", pt.getTienthue()).replaceAll("\\s+", " ").trim());
-        row.add(String.format("%,d", pt.getThanhtien()).replaceAll("\\s+", " ").trim());
-        row.add(pt.getMaPM().replaceAll("\\s+", " ").trim());
+        row.add(pt.getMaPT().replaceAll("\\s", "").trim());
+        row.add(pt.getNgaytra().replaceAll("\\s", "").trim());
+        row.add(pt.getTinhtrangsach());
+        row.add(String.format("%,d", pt.getTienthue()).replaceAll("\\s", "").trim());
+        row.add(String.format("%,d", pt.getThanhtien()).replaceAll("\\s", "").trim());
+        row.add(pt.getMaPM().replaceAll("\\s", "").trim());
         modelTra.addRow(row);
     }
 
     public void ShowOnTableCTPT(CHITIETPHIEUTRA ctpt) {
         Vector<String> row = new Vector<String>();
-        row.add(ctpt.getMaPT().replaceAll("\\s+", " ").trim());
-        row.add(ctpt.getMasach().replaceAll("\\s+", " ").trim());
-        row.add(String.valueOf(ctpt.getSL()).replaceAll("\\s+", " ").trim());
+        row.add(ctpt.getMaPT().replaceAll("\\s", "").trim());
+        row.add(ctpt.getMasach().replaceAll("\\s", "").trim());
+        row.add(String.format("%,d",ctpt.getSL()).replaceAll("\\s", "").trim());
         modelCTTra.addRow(row);
     }
 
@@ -2391,56 +2391,56 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
     }
 
     public void getInfoTextFieldPM(PHIEUMUON phieumuon) {
-        phieumuon.setMaPM(txMaPM.getText().replaceAll("\\s+", " ").trim());
+        phieumuon.setMaPM(txMaPM.getText().replaceAll("\\s", "").trim());
         phieumuon.setNgaymuon(datePickerNgayBDPM.getJFormattedTextField().getText());
-        phieumuon.setSLtong(Integer.parseInt(txSLtong.getText().replaceAll("\\s+", " ").trim()));
+        phieumuon.setSLtong(Integer.parseInt(txSLtong.getText().replaceAll("\\s", "").trim()));
         phieumuon.setNgaytra(datePickerNgayKTPM.getJFormattedTextField().getText());
         String TinhTrangMuon = (String) cbTinhTrangMuon.getSelectedItem();
-        phieumuon.setTinhTrangMuon(TinhTrangMuon.replaceAll("\\s+", " ").trim());
-        phieumuon.setMaDG(txMaDG.getText().replaceAll("\\s+", " ").trim());
+        phieumuon.setTinhTrangMuon(TinhTrangMuon);
+        phieumuon.setMaDG(txMaDG.getText().replaceAll("\\s", "").trim());
     }
 
     public void getInfoTextFieldCTPM(CHITIETPHIEUMUON ctphieumuon) {
-        ctphieumuon.setMaPM(txCTPMMaPM.getText().replaceAll("\\s+", " ").trim());
-        ctphieumuon.setMasach(txCTPMMaSach.getText().replaceAll("\\s+", " ").trim());
-        ctphieumuon.setSL(Integer.parseInt(txCTPMSL.getText().replaceAll("\\s+", " ").trim()));
+        ctphieumuon.setMaPM(txCTPMMaPM.getText().replaceAll("\\s", "").trim());
+        ctphieumuon.setMasach(txCTPMMaSach.getText().replaceAll("\\s", "").trim());
+        ctphieumuon.setSL(Integer.parseInt(txCTPMSL.getText().replaceAll("\\s", "").trim()));
     }
 
     public void getInfoTextFieldPT(PHIEUTRASACH phieutrasach) {
-        phieutrasach.setMaPT(txMaPT.getText().replaceAll("\\s+", " ").trim());
+        phieutrasach.setMaPT(txMaPT.getText().replaceAll("\\s", "").trim());
         phieutrasach.setNgaytra(datePickerNgayBDPT.getJFormattedTextField().getText());
         String TinhTrangSach = (String) cbTinhTrangTra.getSelectedItem();
-        phieutrasach.setTinhtrangsach(TinhTrangSach.replaceAll("\\s+", " ").trim());
+        phieutrasach.setTinhtrangsach(TinhTrangSach);
         
         String TienThue = RemoveCommaInString(txTienThue);
-        phieutrasach.setTienthue(Integer.parseInt(TienThue));
+        phieutrasach.setTienthue(Integer.parseInt(TienThue.replaceAll("\\s", "").trim()));
 
         String ThanhTien = RemoveCommaInString(txThanhTien);
-        phieutrasach.setThanhtien(Integer.parseInt(ThanhTien));
+        phieutrasach.setThanhtien(Integer.parseInt(ThanhTien.replaceAll("\\s", "").trim()));
 
-        phieutrasach.setMaPM(txMaPMTra.getText().replaceAll("\\s+", " ").trim());
+        phieutrasach.setMaPM(txMaPMTra.getText().replaceAll("\\s", "").trim());
     }
 
     public void getInfoTextFieldCTPT(CHITIETPHIEUTRA ctphieutra) {
-        ctphieutra.setMaPT(txCTPTMaPT.getText().replaceAll("\\s+", " ").trim());
-        ctphieutra.setMasach(txCTPTMaSach.getText().replaceAll("\\s+", " ").trim());
-        ctphieutra.setSL(Integer.parseInt(txCTPTSL.getText().replaceAll("\\s+", " ").trim()));
+        ctphieutra.setMaPT(txCTPTMaPT.getText().replaceAll("\\s", "").trim());
+        ctphieutra.setMasach(txCTPTMaSach.getText().replaceAll("\\s", "").trim());
+        ctphieutra.setSL(Integer.parseInt(txCTPTSL.getText().replaceAll("\\s", "").trim()));
     }
 
     public void getInfoTextFieldHD(HDTIENPHAT hdtienphat) {
-        hdtienphat.setMaHD(txMaHD.getText().replaceAll("\\s+", " ").trim());
-        hdtienphat.setMaDG(txMaHD_DG.getText().replaceAll("\\s+", " ").trim());
-        hdtienphat.setSL(Integer.parseInt(txSLTongHD.getText().replaceAll("\\s+", " ").trim()));
+        hdtienphat.setMaHD(txMaHD.getText().replaceAll("\\s", "").trim());
+        hdtienphat.setMaDG(txMaHD_DG.getText().replaceAll("\\s", "").trim());
+        hdtienphat.setSL(Integer.parseInt(txSLTongHD.getText().replaceAll("\\s", "").trim()));
         String TienPhat = RemoveCommaInString(txTienPhat);
-        hdtienphat.setTienphat(Integer.parseInt(TienPhat));
+        hdtienphat.setTienphat(Integer.parseInt(TienPhat.replaceAll("\\s", "").trim()));
     }
 
     public void getInfoTextFieldCTHD(CHITIETHDTIENPHAT chitiethdtienphat) {
-        chitiethdtienphat.setMaHD(txCTHDMaHD.getText().replaceAll("\\s+", " ").trim());
-        chitiethdtienphat.setMasach(txCTHDMaSach.getText().replaceAll("\\s+", " ").trim());
-        chitiethdtienphat.setSL(Integer.parseInt(txCTHDSL.getText().replaceAll("\\s+", " ").trim()));
+        chitiethdtienphat.setMaHD(txCTHDMaHD.getText().replaceAll("\\s", "").trim());
+        chitiethdtienphat.setMasach(txCTHDMaSach.getText().replaceAll("\\s", "").trim());
+        chitiethdtienphat.setSL(Integer.parseInt(txCTHDSL.getText().replaceAll("\\s", "").trim()));
         String DonGia = RemoveCommaInString(txCTHDDonGia);
-        chitiethdtienphat.setDongia(Integer.parseInt(DonGia));
+        chitiethdtienphat.setDongia(Integer.parseInt(DonGia.replaceAll("\\s", "").trim()));
     }
 
     public String RemoveCommaInString(JTextField Tien) {
