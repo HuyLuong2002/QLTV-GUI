@@ -140,13 +140,12 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             pnCTMuon.setLayout(new GridLayout(1, 1));
 
             pnShowAll = new JPanel();
-            pnShowAll.setBounds(5, 353, 1135, 50);
+            pnShowAll.setBounds(5, 353, 1135, 40);
             pnShowAll.setLayout(null);
-            pnShowAll.setBackground(ColorPurple);
 
             pnNhapPM = new JPanel();
             pnNhapPM.setLayout(null);
-            pnNhapPM.setBounds(5, 405, 1135, 370);
+            pnNhapPM.setBounds(5, 395, 1135, 380);
 
             pnTimKiemPM = new JPanel();
             pnTimKiemPM.setLayout(null);
@@ -169,7 +168,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             pnNhapPT = new JPanel();
             pnNhapPT.setLayout(null);
             pnNhapPT.setVisible(false);
-            pnNhapPT.setBounds(5, 405, 1135, 370);
+            pnNhapPT.setBounds(5, 395, 1135, 380);
 
             pnTimKiemPT = new JPanel();
             pnTimKiemPT.setLayout(null);
@@ -192,7 +191,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             pnNhapHDTP = new JPanel();
             pnNhapHDTP.setLayout(null);
             pnNhapHDTP.setVisible(false);
-            pnNhapHDTP.setBounds(5, 405, 1135, 370);
+            pnNhapHDTP.setBounds(5, 395, 1135, 380);
 
             pnTimKiemHDTP = new JPanel();
             pnTimKiemHDTP.setLayout(null);
@@ -1383,21 +1382,21 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
     public void setShowAll() {
         btShowAll = new JButton("Hiển thị tất cả");
         btShowAll.setFont(new Font("Arial", Font.BOLD, 15));
-        btShowAll.setBounds(1000, 10, 130, 30);
+        btShowAll.setBounds(1000, 5, 130, 30);
         btShowAll.setBackground(Color.cyan);
         btShowAll.setBorder(new RoundedBorder(10));
         btShowAll.addActionListener(this);
 
         btInPM = new JButton("In phiếu mượn");
         btInPM.setFont(new Font("Arial", Font.BOLD, 15));
-        btInPM.setBounds(0, 10, 130, 30);
+        btInPM.setBounds(0, 5, 130, 30);
         btInPM.setBackground(Color.cyan);
         btInPM.setBorder(new RoundedBorder(10));
         btInPM.addActionListener(this);
 
         btInHDTP = new JButton("In hóa đơn");
         btInHDTP.setFont(new Font("Arial", Font.BOLD, 15));
-        btInHDTP.setBounds(0, 10, 130, 30);
+        btInHDTP.setBounds(0, 5, 130, 30);
         btInHDTP.setBackground(Color.cyan);
         btInHDTP.setBorder(new RoundedBorder(10));
         btInHDTP.addActionListener(this);
@@ -1567,14 +1566,14 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
 
         btThemPM = new JButton("Thêm");
         btThemPM.setFont(new Font("Arial", Font.BOLD, 15));
-        btThemPM.setBounds(95, 325, 80, 30);
+        btThemPM.setBounds(95, 330, 80, 30);
         btThemPM.setBackground(Color.cyan);
         btThemPM.setBorder(new RoundedBorder(10));
         btThemPM.addActionListener(this);
 
         btSuaPM = new JButton("Sửa");
         btSuaPM.setFont(new Font("Arial", Font.BOLD, 15));
-        btSuaPM.setBounds(245, 325, 80, 30);
+        btSuaPM.setBounds(245, 330, 80, 30);
         btSuaPM.setBackground(Color.cyan);
         btSuaPM.setBorder(new RoundedBorder(10));
         btSuaPM.addActionListener(this);
@@ -1768,14 +1767,14 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
 
         btThemPT = new JButton("Thêm");
         btThemPT.setFont(new Font("Arial", Font.BOLD, 15));
-        btThemPT.setBounds(95, 325, 80, 30);
+        btThemPT.setBounds(95, 330, 80, 30);
         btThemPT.setBackground(Color.cyan);
         btThemPT.setBorder(new RoundedBorder(10));
         btThemPT.addActionListener(this);
 
         btSuaPT = new JButton("Sửa");
         btSuaPT.setFont(new Font("Arial", Font.BOLD, 15));
-        btSuaPT.setBounds(245, 325, 80, 30);
+        btSuaPT.setBounds(245, 330, 80, 30);
         btSuaPT.setBackground(Color.cyan);
         btSuaPT.setBorder(new RoundedBorder(10));
         btSuaPT.addActionListener(this);

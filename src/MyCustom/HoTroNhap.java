@@ -1041,8 +1041,8 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
             }
         }
         if (e.getSource() == btTimKiemDG) {
-            String tukhoa = txKhoaTK.getText().replaceAll("\\s", "").trim();
-            String TukhoaDG = txKhoaTK.getText().replaceAll("\\s", " ").trim();
+            String tukhoa = txKhoaTK.getText().replaceAll("\\s+", "").trim();
+            String TukhoaDG = txKhoaTK.getText().replaceAll("\\s+", " ").trim();
             if (tukhoa.equals("") == true) {
                 model.setRowCount(0);
                 for (DOCGIA docgia : QLNVBUS.dsdg) {

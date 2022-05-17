@@ -275,7 +275,7 @@ public QLNVGUI() {
     public void setShowAll() {
         btShowAll = new JButton("Hiển thị tất cả");
         btShowAll.setFont(new Font("Arial", Font.BOLD, 15));
-        btShowAll.setBounds(1000, 10, 130, 30);
+        btShowAll.setBounds(1000, 5, 130, 30);
         btShowAll.setBackground(Color.cyan);
         btShowAll.setBorder(new RoundedBorder(10));
         btShowAll.addActionListener(this);
