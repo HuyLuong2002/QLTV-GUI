@@ -21,10 +21,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import org.jdatepicker.impl.JDatePanelImpl;
@@ -120,6 +118,8 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
 
     public QLMTGUI() {
     }
+
+    MyTable TT = new MyTable();
 
     public JPanel setMTGUI() {
         if (pnMuonTra == null) {
@@ -973,7 +973,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
 
                 PHIEUTRASACH ptTextField = new PHIEUTRASACH();
                 ptTextField = QLTRABUS.dspt.get(i);
-                txMaPT.setText(ptTextField.getMaPT().replaceAll("\\s", "").trim());
+                txMaPT.setText(ptTextField.getMaPT().replaceAll("\\s+", "").trim());
 
                 String tmp[] = ptTextField.getNgaytra().split("-");
                 datePanelNgayBDPT.getModel().setDate(Integer.parseInt(tmp[0]), Integer.parseInt(tmp[1]),
@@ -985,9 +985,9 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                 if (ptTextField.getTinhtrangsach().equals("Hư tổn")) {
                     cbTinhTrangTra.setSelectedIndex(2);
                 }
-                txTienThue.setText(String.format("%,d", ptTextField.getTienthue()).replaceAll("\\s", "").trim());
-                txThanhTien.setText(String.format("%,d", ptTextField.getThanhtien()).replaceAll("\\s", "").trim());
-                txMaPMTra.setText(ptTextField.getMaPM().replaceAll("\\s", "").trim());
+                txTienThue.setText(String.format("%,d", ptTextField.getTienthue()).replaceAll("\\s+", "").trim());
+                txThanhTien.setText(String.format("%,d", ptTextField.getThanhtien()).replaceAll("\\s+", "").trim());
+                txMaPMTra.setText(ptTextField.getMaPM().replaceAll("\\s+", "").trim());
             }
         }
         if (e.getSource() == tblQLHDTP) {
@@ -1010,10 +1010,10 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
 
                 HDTIENPHAT ptTextField = new HDTIENPHAT();
                 ptTextField = QLHDTPBUS.dshdtp.get(i);
-                txMaHD.setText(ptTextField.getMaHD().replaceAll("\\s", "").trim());
-                txMaHD_DG.setText(ptTextField.getMaDG().replaceAll("\\s", "").trim());
-                txSLTongHD.setText(String.format("%,d",ptTextField.getSL()).replaceAll("\\s", "").trim());
-                txTienPhat.setText(String.format("%,d", ptTextField.getTienphat()).replaceAll("\\s", "").trim());
+                txMaHD.setText(ptTextField.getMaHD().replaceAll("\\s+", "").trim());
+                txMaHD_DG.setText(ptTextField.getMaDG().replaceAll("\\s+", "").trim());
+                txSLTongHD.setText(String.format("%,d",ptTextField.getSL()).replaceAll("\\s+", "").trim());
+                txTienPhat.setText(String.format("%,d", ptTextField.getTienphat()).replaceAll("\\s+", "").trim());
             }
         }
         if (e.getSource() == tblQLCTMuon) {
@@ -1022,9 +1022,9 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                 String MaPM = String.valueOf(modelCTMuon.getValueAt(i, 0));
                 String Masach = String.valueOf(modelCTMuon.getValueAt(i, 1));
                 String SL = String.valueOf(modelCTMuon.getValueAt(i, 2));
-                txCTPMMaPM.setText(MaPM.replaceAll("\\s", "").trim());
-                txCTPMMaSach.setText(Masach.replaceAll("\\s", "").trim());
-                txCTPMSL.setText(String.valueOf(SL.replaceAll("\\s", "").trim()));
+                txCTPMMaPM.setText(MaPM.trim());
+                txCTPMMaSach.setText(Masach.trim());
+                txCTPMSL.setText(String.valueOf(SL.trim()));
             }
         }
         if (e.getSource() == tblQLCTTra) {
@@ -1033,9 +1033,9 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                 String MaPT = String.valueOf(modelCTTra.getValueAt(i, 0));
                 String Masach = String.valueOf(modelCTTra.getValueAt(i, 1));
                 String SL = String.valueOf(modelCTTra.getValueAt(i, 2));
-                txCTPTMaPT.setText(MaPT.replaceAll("\\s", "").trim());
-                txCTPTMaSach.setText(Masach.replaceAll("\\s", "").trim());
-                txCTPTSL.setText(String.valueOf(SL.replaceAll("\\s", "").trim()));
+                txCTPTMaPT.setText(MaPT.trim());
+                txCTPTMaSach.setText(Masach.trim());
+                txCTPTSL.setText(String.valueOf(SL.trim()));
             }
         }
         if (e.getSource() == tblQLCTHDTP) {
@@ -1045,10 +1045,10 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                 String Masach = String.valueOf(modelCTHDTP.getValueAt(i, 1));
                 String SL = String.valueOf(modelCTHDTP.getValueAt(i, 2));
                 String DonGia = String.valueOf(modelCTHDTP.getValueAt(i, 3));
-                txCTHDMaHD.setText(MaHD.replaceAll("\\s", "").trim());
-                txCTHDMaSach.setText(Masach.replaceAll("\\s", "").trim());
-                txCTHDSL.setText(String.format("%,d", SL.replaceAll("\\s", "").trim()));
-                txCTHDDonGia.setText(String.format("%,d", DonGia.replaceAll("\\s", "").trim()));
+                txCTHDMaHD.setText(MaHD.trim());
+                txCTHDMaSach.setText(Masach.trim());
+                txCTHDSL.setText(String.valueOf(SL.trim()));
+                txCTHDDonGia.setText(String.valueOf(DonGia.trim()));
             }
         }
         if (e.getSource() == tabbedPane) {
@@ -2404,18 +2404,10 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         }
     }
 
-    public void setValueCellCenter(DefaultTableModel model, JTable table) {
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-        for (int i = 0; i < model.getColumnCount(); i++) {
-            table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
-        }
-    }
-
     public void getInfoTextFieldPM(PHIEUMUON phieumuon) {
         phieumuon.setMaPM(txMaPM.getText().replaceAll("\\s+", "").trim());
         phieumuon.setNgaymuon(datePickerNgayBDPM.getJFormattedTextField().getText());
-        phieumuon.setSLtong(Integer.parseInt(txSLtong.getText().trim()));
+        phieumuon.setSLtong(Integer.parseInt(txSLtong.getText().replaceAll("\\s+", "").trim()));
         phieumuon.setNgaytra(datePickerNgayKTPM.getJFormattedTextField().getText());
         String TinhTrangMuon = (String) cbTinhTrangMuon.getSelectedItem();
         phieumuon.setTinhTrangMuon(TinhTrangMuon);
@@ -2425,7 +2417,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
     public void getInfoTextFieldCTPM(CHITIETPHIEUMUON ctphieumuon) {
         ctphieumuon.setMaPM(txCTPMMaPM.getText().replaceAll("\\s+", "").trim());
         ctphieumuon.setMasach(txCTPMMaSach.getText().replaceAll("\\s+", "").trim());
-        ctphieumuon.setSL(Integer.parseInt(txCTPMSL.getText().trim()));
+        ctphieumuon.setSL(Integer.parseInt(txCTPMSL.getText().replaceAll("\\s+", "").trim()));
     }
 
     public void getInfoTextFieldPT(PHIEUTRASACH phieutrasach) {
@@ -2433,11 +2425,10 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         phieutrasach.setNgaytra(datePickerNgayBDPT.getJFormattedTextField().getText());
         String TinhTrangSach = (String) cbTinhTrangTra.getSelectedItem();
         phieutrasach.setTinhtrangsach(TinhTrangSach);
-        
-        String TienThue = RemoveCommaInString(txTienThue);
-        phieutrasach.setTienthue(Integer.parseInt(TienThue.trim()));
+        String Tienthue = TT.RemoveCommaInString(txTienThue);
+        phieutrasach.setTienthue(Integer.parseInt(Tienthue));
 
-        String ThanhTien = RemoveCommaInString(txThanhTien);
+        String ThanhTien = TT.RemoveCommaInString(txThanhTien);
         phieutrasach.setThanhtien(Integer.parseInt(ThanhTien.trim()));
 
         phieutrasach.setMaPM(txMaPMTra.getText().replaceAll("\\s+", "").trim());
@@ -2453,7 +2444,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         hdtienphat.setMaHD(txMaHD.getText().replaceAll("\\s+", "").trim());
         hdtienphat.setMaDG(txMaHD_DG.getText().replaceAll("\\s+", "").trim());
         hdtienphat.setSL(Integer.parseInt(txSLTongHD.getText().trim()));
-        String TienPhat = RemoveCommaInString(txTienPhat);
+        String TienPhat = TT.RemoveCommaInString(txTienPhat);
         hdtienphat.setTienphat(Integer.parseInt(TienPhat.trim()));
     }
 
@@ -2461,16 +2452,8 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         chitiethdtienphat.setMaHD(txCTHDMaHD.getText().replaceAll("\\s+", "").trim());
         chitiethdtienphat.setMasach(txCTHDMaSach.getText().replaceAll("\\s+", "").trim());
         chitiethdtienphat.setSL(Integer.parseInt(txCTHDSL.getText().trim()));
-        String DonGia = RemoveCommaInString(txCTHDDonGia);
+        String DonGia = TT.RemoveCommaInString(txCTHDDonGia);
         chitiethdtienphat.setDongia(Integer.parseInt(DonGia.trim()));
     }
 
-    public String RemoveCommaInString(JTextField Tien) {
-        String tmp[] = Tien.getText().split(",");
-        String Dongia = "";
-        for (int i = 0; i < tmp.length; i++) {
-            Dongia = Dongia + tmp[i];
-        }
-        return Dongia;
-    }
 }

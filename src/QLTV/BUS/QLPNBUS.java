@@ -33,7 +33,7 @@ public class QLPNBUS {
 
     public PHIEUNHAP timTheoMa(String MaPN) {
         for (PHIEUNHAP pn : dspn)
-            if (pn.getMaPN().replaceAll("\\s", "").equals(MaPN))
+            if (pn.getMaPN().toLowerCase().toLowerCase().replaceAll("\\s+", "").equals(MaPN))
                 return pn;
         return null;
     }
@@ -41,7 +41,7 @@ public class QLPNBUS {
     public ArrayList<PHIEUNHAP> timTheoSLtong(String SLtong) {
         ArrayList<PHIEUNHAP> kq = new ArrayList<PHIEUNHAP>();
         for (PHIEUNHAP pn : dspn)
-            if (String.valueOf(pn.getSLTong()).indexOf(SLtong) >= 0)
+            if (String.valueOf(pn.getSLTong()).trim().indexOf(SLtong) >= 0)
                 kq.add(pn);
         return kq;
     }
@@ -49,7 +49,7 @@ public class QLPNBUS {
     public ArrayList<PHIEUNHAP> timTheoDonGia(String DonGia) {
         ArrayList<PHIEUNHAP> kq = new ArrayList<PHIEUNHAP>();
         for (PHIEUNHAP pn : dspn)
-            if (String.valueOf(pn.getDongia()).indexOf(DonGia) >= 0)
+            if (String.valueOf(pn.getDongia()).trim().indexOf(DonGia) >= 0)
                 kq.add(pn);
         return kq;
     }
@@ -57,7 +57,7 @@ public class QLPNBUS {
     public ArrayList<PHIEUNHAP> timTheoMaNV(String MaNV) {
         ArrayList<PHIEUNHAP> kq = new ArrayList<PHIEUNHAP>();
         for (PHIEUNHAP pn : dspn)
-            if (String.valueOf(pn.getMaNV()).indexOf(MaNV) >= 0)
+            if (String.valueOf(pn.getMaNV().toLowerCase().replaceAll("\\s+", "").trim()).indexOf(MaNV) >= 0)
                 kq.add(pn);
         return kq;
     }
@@ -65,7 +65,7 @@ public class QLPNBUS {
     public ArrayList<PHIEUNHAP> timTheoMaNCC(String MaNCC) {
         ArrayList<PHIEUNHAP> kq = new ArrayList<PHIEUNHAP>();
         for (PHIEUNHAP pn : dspn)
-            if (String.valueOf(pn.getMaNCC()).indexOf(MaNCC) >= 0)
+            if (String.valueOf(pn.getMaNCC().toLowerCase().replaceAll("\\s+", "").trim()).indexOf(MaNCC) >= 0)
                 kq.add(pn);
         return kq;
     }
@@ -99,7 +99,7 @@ public class QLPNBUS {
     }
     public int KTMa(String MaPNMoi) {
         for (PHIEUNHAP phieunhap : dspn)
-            if (phieunhap.getMaPN().replaceAll("\\s", "").trim().equals(MaPNMoi)) {
+            if (phieunhap.getMaPN().replaceAll("\\s+", "").trim().equals(MaPNMoi)) {
                 return 0;
             }
         return 1;

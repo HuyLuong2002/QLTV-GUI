@@ -64,7 +64,7 @@ public class QLCTPNDAO {
 
     public int sua(CHITIETPHIEUNHAP ctpnMoi, String MaCTPNCu, String MaCTPNSachCu){
         try {
-            String qry = "UPDATE CHITIETPHIEUNHAP SET MAPN= ?, MASACH= ?, SL= ?, TIENTHUE= ?" + " WHERE MAPN= ? AND MASACH= ?";
+            String qry = "UPDATE CHITIETPHIEUNHAP SET MAPN= ?, MASACH= ?, SL= ?" + " WHERE MAPN= ? AND MASACH= ?";
             PreparedStatement ps = conn.prepareStatement(qry);
             ps.setString(1, ctpnMoi.getMaPN());
             ps.setString(2, ctpnMoi.getMAsach());

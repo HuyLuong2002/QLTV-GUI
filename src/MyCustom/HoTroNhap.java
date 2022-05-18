@@ -927,7 +927,7 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btTimKiemInPM) {
-            String tukhoa = txKhoaTK.getText().replaceAll("\\s", "").trim();
+            String tukhoa = txKhoaTK.getText().replaceAll("\\s+", "").toLowerCase().trim();
             if (tukhoa.equals("") == true) {
                 model.setRowCount(0);
                 for (PHIEUMUON pm : QLMUONBUS.dspm) {
@@ -937,11 +937,12 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
                 model.setRowCount(0);
                 ArrayList<PHIEUMUON> kq = new ArrayList<PHIEUMUON>();
                 for (PHIEUMUON pm : QLMUONBUS.dspm) {
-                    if (tukhoa.indexOf(pm.getMaPM().trim()) >= 0 || tukhoa.indexOf(pm.getNgaymuon()) >= 0
+                    if (tukhoa.indexOf(pm.getMaPM().replaceAll("\\s+", "").toLowerCase().trim()) >= 0 
+                            || tukhoa.indexOf(pm.getNgaymuon()) >= 0
                             || tukhoa.indexOf(pm.getNgaytra()) >= 0
                             || tukhoa.indexOf(String.valueOf(pm.getSLtong())) >= 0
-                            || tukhoa.indexOf(pm.getTinhTrangMuon().trim()) >= 0
-                            || tukhoa.indexOf(pm.getMaDG().trim()) >= 0) {
+                            || tukhoa.indexOf(pm.getTinhTrangMuon().replaceAll("\\s+", "").toLowerCase().trim()) >= 0
+                            || tukhoa.indexOf(pm.getMaDG().replaceAll("\\s+", "").toLowerCase().trim()) >= 0) {
                         kq.add(pm);
                     }
                 }
@@ -966,11 +967,12 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
                 model.setRowCount(0);
                 ArrayList<PHIEUMUON> kq = new ArrayList<PHIEUMUON>();
                 for (PHIEUMUON pm : QLMUONBUS.dspm) {
-                    if (tukhoa.indexOf(pm.getMaPM().trim()) >= 0 || tukhoa.indexOf(pm.getNgaymuon()) >= 0
+                    if (tukhoa.indexOf(pm.getMaPM().replaceAll("\\s+", "").toLowerCase().trim()) >= 0 
+                            || tukhoa.indexOf(pm.getNgaymuon()) >= 0
                             || tukhoa.indexOf(pm.getNgaytra()) >= 0
                             || tukhoa.indexOf(String.valueOf(pm.getSLtong())) >= 0
-                            || tukhoa.indexOf(pm.getTinhTrangMuon().trim()) >= 0
-                            || tukhoa.indexOf(pm.getMaDG().trim()) >= 0) {
+                            || tukhoa.indexOf(pm.getTinhTrangMuon().replaceAll("\\s+", "").toLowerCase().trim()) >= 0
+                            || tukhoa.indexOf(pm.getMaDG().replaceAll("\\s+", "").toLowerCase().trim()) >= 0) {
                         kq.add(pm);
                     }
                 }
@@ -985,7 +987,7 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
             }
         }
         if (e.getSource() == btTimKiemPT) {
-            String tukhoa = txKhoaTK.getText().replaceAll("\\s", "").trim();
+            String tukhoa = txKhoaTK.getText().replaceAll("\\s+", "").toLowerCase().trim();
             if (tukhoa.equals("") == true) {
                 model.setRowCount(0);
                 for (PHIEUTRASACH pt : QLTRABUS.dspt) {
@@ -995,11 +997,12 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
                 model.setRowCount(0);
                 ArrayList<PHIEUTRASACH> kq = new ArrayList<PHIEUTRASACH>();
                 for (PHIEUTRASACH pt : QLTRABUS.dspt) {
-                    if (tukhoa.indexOf(pt.getMaPT().trim()) >= 0 || tukhoa.indexOf(pt.getNgaytra()) >= 0
+                    if (tukhoa.indexOf(pt.getMaPT().replaceAll("\\s+", "").toLowerCase().trim()) >= 0 
+                            || tukhoa.indexOf(pt.getNgaytra()) >= 0
                             || tukhoa.indexOf(String.valueOf(pt.getTienthue())) >= 0
                             || tukhoa.indexOf(String.valueOf(pt.getTienthue())) >= 0
-                            || tukhoa.indexOf(pt.getTinhtrangsach().trim()) >= 0
-                            || tukhoa.indexOf(pt.getMaPM().trim()) >= 0) {
+                            || tukhoa.indexOf(pt.getTinhtrangsach().replaceAll("\\s+", "").toLowerCase().trim()) >= 0
+                            || tukhoa.indexOf(pt.getMaPM().replaceAll("\\s+", "").toLowerCase().trim()) >= 0) {
                         kq.add(pt);
                     }
                 }
@@ -1014,7 +1017,7 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
             }
         }
         if (e.getSource() == btTimKiemHD) {
-            String tukhoa = txKhoaTK.getText().replaceAll("\\s", "").trim();
+            String tukhoa = txKhoaTK.getText().replaceAll("\\s+", "").toLowerCase().trim();
             if (tukhoa.equals("") == true) {
                 model.setRowCount(0);
                 for (HDTIENPHAT hd : QLHDTPBUS.dshdtp) {
@@ -1024,9 +1027,10 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
                 model.setRowCount(0);
                 ArrayList<HDTIENPHAT> kq = new ArrayList<HDTIENPHAT>();
                 for (HDTIENPHAT hd : QLHDTPBUS.dshdtp) {
-                    if (tukhoa.indexOf(hd.getMaHD().trim()) >= 0 || tukhoa.indexOf(hd.getMaDG()) >= 0
-                            || tukhoa.indexOf(String.valueOf(hd.getTienphat())) >= 0
-                            || tukhoa.indexOf(String.valueOf(hd.getSL())) >= 0) {
+                    if (tukhoa.indexOf(hd.getMaHD().replaceAll("\\s+", "").toLowerCase().trim()) >= 0 
+                            || tukhoa.indexOf(hd.getMaDG().replaceAll("\\s+", "").toLowerCase().trim()) >= 0
+                            || tukhoa.indexOf(String.valueOf(hd.getTienphat()).trim()) >= 0
+                            || tukhoa.indexOf(String.valueOf(hd.getSL()).trim()) >= 0) {
                         kq.add(hd);
                     }
                 }
@@ -1041,8 +1045,7 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
             }
         }
         if (e.getSource() == btTimKiemDG) {
-            String tukhoa = txKhoaTK.getText().replaceAll("\\s+", "").trim();
-            String TukhoaDG = txKhoaTK.getText().replaceAll("\\s+", " ").trim();
+            String tukhoa = txKhoaTK.getText().replaceAll("\\s+", "").toLowerCase().trim();
             if (tukhoa.equals("") == true) {
                 model.setRowCount(0);
                 for (DOCGIA docgia : QLNVBUS.dsdg) {
@@ -1052,10 +1055,11 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
                 model.setRowCount(0);
                 ArrayList<DOCGIA> kq = new ArrayList<DOCGIA>();
                 for (DOCGIA docgia : QLNVBUS.dsdg) {
-                    if (tukhoa.indexOf(docgia.getMaDG().replaceAll("\\s", "").trim()) >= 0 
-                            || TukhoaDG.indexOf(docgia.getTenDG().trim()) >= 0
-                            || tukhoa.indexOf(docgia.getMail().trim()) >= 0 || tukhoa.indexOf(docgia.getDiachi().trim()) >= 0
-                            || tukhoa.indexOf(docgia.getTinhtrangthue().trim()) >= 0) {
+                    if (tukhoa.indexOf(docgia.getMaDG().replaceAll("\\s+", "").toLowerCase().trim()) >= 0 
+                            || tukhoa.indexOf(docgia.getTenDG().replaceAll("\\s+", "").toLowerCase().trim()) >= 0
+                            || tukhoa.indexOf(docgia.getMail().replaceAll("\\s+", "").toLowerCase().trim()) >= 0 
+                            || tukhoa.indexOf(docgia.getDiachi().replaceAll("\\s+", "").toLowerCase().trim()) >= 0
+                            || tukhoa.indexOf(docgia.getTinhtrangthue().replaceAll("\\s+", "").toLowerCase().trim()) >= 0) {
                         kq.add(docgia);
                     }
                 }
@@ -1070,7 +1074,7 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
             }
         }
         if(e.getSource()==btTimKiemPN){
-            String tukhoa = txKhoaTK.getText().replaceAll("\\s", "").trim();
+            String tukhoa = txKhoaTK.getText().replaceAll("\\s+", "").toLowerCase().trim();
             if (tukhoa.equals("") == true) {
                 model.setRowCount(0);
                 for (PHIEUNHAP pn : QLPNBUS.dspn) {
@@ -1080,11 +1084,12 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
                 model.setRowCount(0);
                 ArrayList<PHIEUNHAP> kq = new ArrayList<PHIEUNHAP>();
                 for (PHIEUNHAP pn : QLPNBUS.dspn) {
-                    if (tukhoa.indexOf(pn.getMaPN().trim()) >= 0 || tukhoa.indexOf(pn.getNgaynhap().trim()) >= 0
+                    if (tukhoa.indexOf(pn.getMaPN().replaceAll("\\s+", "").toLowerCase().trim()) >= 0 
+                            || tukhoa.indexOf(pn.getNgaynhap().trim()) >= 0
                             || tukhoa.indexOf(String.valueOf(pn.getSLTong()).trim()) >= 0
                             || tukhoa.indexOf(String.valueOf(pn.getDongia()).trim()) >= 0
-                            || tukhoa.indexOf(pn.getMaNV().trim()) >= 0
-                            || tukhoa.indexOf(pn.getMaNCC().trim()) >= 0) {
+                            || tukhoa.indexOf(pn.getMaNV().replaceAll("\\s+", "").toLowerCase().trim()) >= 0
+                            || tukhoa.indexOf(pn.getMaNCC().replaceAll("\\s+", "").toLowerCase().trim()) >= 0) {
                         kq.add(pn);
                     }
                 }
@@ -1099,7 +1104,9 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
             }
         }
         if(e.getSource()==btTimKiemNV){
-            String tukhoa = txKhoaTK.getText().replaceAll("\\s", "").trim();
+            String tukhoa = txKhoaTK.getText().replaceAll("\\s+", "").toLowerCase().trim();
+            String tennv = txKhoaTK.getText().replaceAll("\\s+", " ").toLowerCase().trim();
+
             if (tukhoa.equals("") == true) {
                 model.setRowCount(0);
                 for (NHANVIEN nv : QLNHANVIENBUS.dsnhanvien) {
@@ -1109,12 +1116,13 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
                 model.setRowCount(0);
                 ArrayList<NHANVIEN> kq = new ArrayList<NHANVIEN>();
                 for (NHANVIEN nv : QLNHANVIENBUS.dsnhanvien) {
-                    if (tukhoa.indexOf(nv.getMaNV()) >= 0 || tukhoa.indexOf(nv.getTenNV().trim()) >= 0
+                    if (tukhoa.indexOf(nv.getMaNV().replaceAll("\\s+", "").toLowerCase().trim()) >= 0 
+                            || tennv.indexOf(nv.getTenNV().replaceAll("\\s+", " ").toLowerCase().trim()) >= 0
                             || tukhoa.indexOf(String.valueOf(nv.getLuongCB()).trim()) >= 0
                             || tukhoa.indexOf(String.valueOf(nv.getHesoluong()).trim()) >= 0
                             || tukhoa.indexOf(String.valueOf(nv.getPhucap()).trim()) >= 0
-                            || tukhoa.indexOf(nv.getChucvu().trim()) >= 0 || tukhoa.indexOf(String.valueOf(nv.getSDT()).trim()) >= 0
-                            || tukhoa.indexOf(nv.getMail().trim()) >= 0) {
+                            || tukhoa.indexOf(nv.getChucvu().replaceAll("\\s+", "").toLowerCase().trim()) >= 0 || tukhoa.indexOf(String.valueOf(nv.getSDT()).trim()) >= 0
+                            || tukhoa.indexOf(nv.getMail().replaceAll("\\s+", "").toLowerCase().trim()) >= 0) {
                         kq.add(nv);
                     }
                 }
@@ -1129,7 +1137,7 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
             }
         }
         if(e.getSource()==btTimKiemNCC){
-            String tukhoa = txKhoaTK.getText().replaceAll("\\s", "").trim();
+            String tukhoa = txKhoaTK.getText().replaceAll("\\s+", "").toLowerCase().trim();
             if (tukhoa.equals("") == true) {
                 model.setRowCount(0);
                 for (NHACUNGCAP ncc : QLNCCBUS.dsncc) {
@@ -1139,7 +1147,8 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
                 model.setRowCount(0);
                 ArrayList<NHACUNGCAP> kq = new ArrayList<NHACUNGCAP>();
                 for (NHACUNGCAP ncc : QLNCCBUS.dsncc) {
-                    if (tukhoa.indexOf(ncc.getMaNCC().trim()) >= 0 || tukhoa.indexOf(ncc.getTenNCC().trim()) >= 0) {
+                    if (tukhoa.indexOf(ncc.getMaNCC().replaceAll("\\s+", "").toLowerCase().trim()) >= 0 
+                        || tukhoa.indexOf(ncc.getTenNCC().replaceAll("\\s+", "").toLowerCase().trim()) >= 0) {
                         kq.add(ncc);
                     }
                 }
