@@ -24,7 +24,7 @@ public class QLHDTPBUS {
 
     public HDTIENPHAT timTheoMaHD(String MaHD) {
         for (HDTIENPHAT hd : dshdtp)
-            if (hd.getMaHD().trim().equals(MaHD))
+            if (hd.getMaHD().toLowerCase().trim().equals(MaHD))
                 return hd;
         return null;
     }
@@ -32,7 +32,7 @@ public class QLHDTPBUS {
     public ArrayList<HDTIENPHAT> timTheoMaDG(String MaDG) {
         ArrayList<HDTIENPHAT> kq = new ArrayList<HDTIENPHAT>();
         for (HDTIENPHAT hd : dshdtp)
-            if (String.valueOf(hd.getMaDG().trim()).indexOf(MaDG) >= 0)
+            if (String.valueOf(hd.getMaDG().toLowerCase().trim()).indexOf(MaDG) >= 0)
                 kq.add(hd);
         return kq;
     }

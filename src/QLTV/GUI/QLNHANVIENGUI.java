@@ -28,6 +28,7 @@ import javax.swing.table.DefaultTableModel;
 import MyCustom.LoginPage;
 import MyCustom.Menu;
 import MyCustom.RoundedBorder;
+import MyCustom.MyColor;
 import QLTV.BUS.QLNHANVIENBUS;
 import QLTV.DTO.NHANVIEN;
 
@@ -47,17 +48,12 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
     DefaultTableModel model;
     Vector<String> header;
 
-    Color ColorOcean, ColorPurple;
-
     public QLNHANVIENGUI() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(1400, 800);
         this.setTitle("Quản lý thông tin nhân viên");
         this.setLayout(null);
         this.setLocationRelativeTo(null);
-
-        ColorOcean = new Color(0, 139, 139);
-        ColorPurple = new Color(255, 20, 147);
 
         pnTTnhanvien = new JPanel();
         pnNhapTTnhanvien = new JPanel();
@@ -66,17 +62,23 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
         pnTimKiem = new JPanel();
         pnTTnhanvien.setLayout(new GridLayout(3, 1, 0, -300));
         pnTTnhanvien.setBounds(242, 0, 1142, 400);
+        pnTTnhanvien.setBackground(MyColor.ColorBlue);
+
         pnShowAll.setLayout(null);
         pnShowAll.setBounds(242, 402, 1142, 30);
+        pnShowAll.setBackground(MyColor.ColorBlue);
+
         pnNhapTTnhanvien.setLayout(null);
         pnNhapTTnhanvien.setBounds(242, 415, 720, 550);
+        pnNhapTTnhanvien.setBackground(MyColor.ColorBlue);
+
         pnMenu.setLayout(new GridLayout(9, 1));
         pnMenu.setBounds(0, 178, 240, 590);
-        pnMenu.setBackground(ColorOcean);
+        pnMenu.setBackground(MyColor.ColorOcean);
+
         pnTimKiem.setLayout(null);
         pnTimKiem.setBounds(970, 440, 410, 300);
-
-
+        pnTimKiem.setBackground(MyColor.ColorBlue);
 
         // add components
         this.add(pnMenu);
@@ -216,7 +218,7 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
         } else if (e.getSource() == btMenuTimKiem) { // Của button Tìm kiếm nhân viên, để hiện thị
             // khung tìm kiếm
             OffBTBgSelected();
-            btMenuTimKiem.setBackground(ColorPurple);
+            btMenuTimKiem.setBackground(MyColor.ColorLightBlue);
             setTimKiem();
         } else if (e.getSource() == btSearch) {
             int vtkey = Integer.parseInt(String.valueOf(comboBoxDSKhoaTK.getSelectedIndex()));
@@ -264,7 +266,7 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
         if (e.getSource() == btMenu) {
             OffBTBgSelected();
             OffPageQLSACH(false);
-            btMenu.setBackground(ColorOcean);
+            btMenu.setBackground(MyColor.ColorOcean);
         }
         if (e.getSource() == btMenu) {
             this.dispose();
@@ -292,7 +294,7 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
         if (e.getSource() == btNhanvien) {
             OffPageQLSACH(true);
             OffBTBgSelected();
-            btNhanvien.setBackground(ColorPurple);
+            btNhanvien.setBackground(MyColor.ColorLightBlue);
         }
     }
 
@@ -303,8 +305,8 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
             if (i >= 0) {
                 NHANVIEN nhanvien = new NHANVIEN();
                 nhanvien = QLNHANVIENBUS.dsnhanvien.get(i);
-                txMaNV.setText(nhanvien.getMaNV().trim());
-                txTenNV.setText(nhanvien.getTenNV().trim());
+                txMaNV.setText(nhanvien.getMaNV().replaceAll("\\s", "").trim());
+                txTenNV.setText(nhanvien.getTenNV().replaceAll("\\s", "").trim());
                 txChucvu.setText(String.valueOf(nhanvien.getChucvu()));
                 txLuongCB.setText(String.format("%,d", nhanvien.getLuongCB()));
                 txPhucap.setText(String.format("%,d", nhanvien.getPhucap()));
@@ -443,29 +445,29 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
         // JbuttonThem
         btThem = new JButton("Thêm");
         btThem.setFont(new Font("Arial", Font.BOLD, 15));
-        btThem.setBounds(10, 305, 80, 30);
-        btThem.setBackground(Color.cyan);
+        btThem.setBounds(10, 265, 80, 30);
+        btThem.setBackground(MyColor.ColorButton);
         btThem.setBorder(new RoundedBorder(10));
         btThem.addActionListener(this);
         // JbuttonSua
         btSua = new JButton("Sửa");
         btSua.setFont(new Font("Arial", Font.BOLD, 15));
-        btSua.setBounds(110, 305, 80, 30);
-        btSua.setBackground(Color.cyan);
+        btSua.setBounds(110, 265, 80, 30);
+        btSua.setBackground(MyColor.ColorButton);
         btSua.setBorder(new RoundedBorder(10));
         btSua.addActionListener(this);
         // JbuttonXoa
         btXoa = new JButton("Xóa");
         btXoa.setFont(new Font("Arial", Font.BOLD, 15));
-        btXoa.setBounds(210, 305, 80, 30);
-        btXoa.setBackground(Color.cyan);
+        btXoa.setBounds(210, 265, 80, 30);
+        btXoa.setBackground(MyColor.ColorButton);
         btXoa.setBorder(new RoundedBorder(10));
         btXoa.addActionListener(this);
         // JbuttonHoanTac
         btHoanTac = new JButton("Hoàn tác");
         btHoanTac.setFont(new Font("Arial", Font.BOLD, 15));
-        btHoanTac.setBounds(310, 305, 90, 30);
-        btHoanTac.setBackground(Color.cyan);
+        btHoanTac.setBounds(310, 265, 90, 30);
+        btHoanTac.setBackground(MyColor.ColorButton);
         btHoanTac.setBorder(new RoundedBorder(10));
         btHoanTac.addActionListener(this);
 
@@ -520,7 +522,7 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
 
         btMenu = new JButton("Menu");
         btMenu.setFont(new Font("Arial", Font.BOLD, 20));
-        btMenu.setBackground(ColorOcean);
+        btMenu.setBackground(MyColor.ColorOcean);
         btMenu.setIcon(iconMenu);
         btMenu.setHorizontalAlignment(SwingConstants.LEFT);
         btMenu.setBorder(BorderFactory.createEmptyBorder());
@@ -528,7 +530,7 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
 
         btMenuTimKiem = new JButton("Tìm kiếm nhân viên");
         btMenuTimKiem.setFont(new Font("Arial", Font.BOLD, 20));
-        btMenuTimKiem.setBackground(ColorOcean);
+        btMenuTimKiem.setBackground(MyColor.ColorOcean);
         btMenuTimKiem.setIcon(iconSearch);
         btMenuTimKiem.setHorizontalAlignment(SwingConstants.LEFT);
         btMenuTimKiem.setBorder(BorderFactory.createEmptyBorder());
@@ -536,7 +538,7 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
 
         btNhanvien = new JButton("Thông tin nhân viên");
         btNhanvien.setFont(new Font("Arial", Font.BOLD, 20));
-        btNhanvien.setBackground(ColorPurple);
+        btNhanvien.setBackground(MyColor.ColorLightBlue);
         btNhanvien.setIcon(iconBook);
         btNhanvien.setHorizontalAlignment(SwingConstants.LEFT);
         btNhanvien.setBorder(BorderFactory.createEmptyBorder());
@@ -545,7 +547,7 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
         // JButton Đăng xuất
         btDangXuat = new JButton("Đăng xuất");
         btDangXuat.setFont(new Font("Arial", Font.BOLD, 20));
-        btDangXuat.setBackground(ColorOcean);
+        btDangXuat.setBackground(MyColor.ColorOcean);
         btDangXuat.setIcon(iconLogout);
         btDangXuat.setHorizontalAlignment(SwingConstants.LEFT);
         btDangXuat.setBorder(BorderFactory.createEmptyBorder());
@@ -553,7 +555,7 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
         // JButton thoát
         btThoat = new JButton("Thoát");
         btThoat.setFont(new Font("Arial", Font.BOLD, 20));
-        btThoat.setBackground(ColorOcean);
+        btThoat.setBackground(MyColor.ColorOcean);
         btThoat.setIcon(iconExited);
         btThoat.setHorizontalAlignment(SwingConstants.LEFT);
         btThoat.setBorder(BorderFactory.createEmptyBorder());
@@ -584,7 +586,9 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
         pane.setAutoscrolls(true);
         tblQLNHANVIEN.setRowHeight(30);
         tblQLNHANVIEN.setFont(new Font(null, 0, 13));
-        tblQLNHANVIEN.setBackground(Color.LIGHT_GRAY);
+        tblQLNHANVIEN.setBackground(MyColor.ColorLightGray);
+        tblQLNHANVIEN.getTableHeader().setBackground(MyColor.ColorSilver);
+        tblQLNHANVIEN.setSelectionBackground(MyColor.Color);
         tblQLNHANVIEN.addMouseListener(this);
         tblQLNHANVIEN.setDefaultEditor(Object.class, null);
 
@@ -599,14 +603,14 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
         btShowAll = new JButton("Hiển thị tất cả");
         btShowAll.setFont(new Font("Arial", Font.BOLD, 15));
         btShowAll.setBounds(1010, 0, 130, 30);
-        btShowAll.setBackground(Color.cyan);
+        btShowAll.setBackground(MyColor.ColorButton);
         btShowAll.setBorder(new RoundedBorder(10));
         btShowAll.addActionListener(this);
 
         btSapXep = new JButton("Sắp xếp theo tên");
         btSapXep.setFont(new Font("Arial", Font.BOLD, 15));
         btSapXep.setBounds(830, 0, 150, 30);
-        btSapXep.setBackground(Color.cyan);
+        btSapXep.setBackground(MyColor.ColorButton);
         btSapXep.setBorder(new RoundedBorder(10));
         btSapXep.addActionListener(this);
 
@@ -616,28 +620,28 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
 
     public void ShowOnTable(NHANVIEN nhanvien) {
         Vector<String> row = new Vector<String>();
-        row.add(nhanvien.getMaNV().trim());
-        row.add(nhanvien.getTenNV().trim());
+        row.add(nhanvien.getMaNV().replaceAll("\\s", "").trim());
+        row.add(nhanvien.getTenNV().replaceAll("\\s", "").trim());
         row.add(String.valueOf(nhanvien.getChucvu()));
         row.add(String.format("%,d", nhanvien.getLuongCB()));
         row.add(String.format("%,d", nhanvien.getPhucap()));
         row.add(String.valueOf(nhanvien.getHesoluong()));
         row.add(String.valueOf(nhanvien.getSDT()));
-        row.add(nhanvien.getMail().trim());
+        row.add(nhanvien.getMail().replaceAll("\\s", "").trim());
         model.addRow(row);
     }
 
     public void getInfoTextField(NHANVIEN nhanvien) {
         String luongCB = RemoveCommaInString(txLuongCB);
         String phucap = RemoveCommaInString(txPhucap);
-        nhanvien.setMaNV(txMaNV.getText().trim());
-        nhanvien.setTenNV(txTenNV.getText().trim());
-        nhanvien.setChucvu(String.valueOf(txChucvu.getText().trim()));
+        nhanvien.setMaNV(txMaNV.getText().replaceAll("\\s", "").trim());
+        nhanvien.setTenNV(txTenNV.getText().replaceAll("\\s", "").trim());
+        nhanvien.setChucvu(String.valueOf(txChucvu.getText().replaceAll("\\s", "").trim()));
         nhanvien.setLuongCB(Integer.parseInt(luongCB));
         nhanvien.setPhucap(Integer.parseInt(phucap));
-        nhanvien.setHesoluong(Double.parseDouble(txHesoluong.getText().trim()));
-        nhanvien.setSDT(Integer.parseInt(txSDT.getText().trim()));
-        nhanvien.setMail(txEmail.getText().trim());
+        nhanvien.setHesoluong(Double.parseDouble(txHesoluong.getText().replaceAll("\\s", "").trim()));
+        nhanvien.setSDT(Integer.parseInt(txSDT.getText().replaceAll("\\s", "").trim()));
+        nhanvien.setMail(txEmail.getText().replaceAll("\\s", "").trim());
     }
 
     public String RemoveCommaInString(JTextField DonGia) {
@@ -679,11 +683,11 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
     }
 
     public void OffBTBgSelected() {
-        btNhanvien.setBackground(ColorOcean);
-        btMenu.setBackground(ColorOcean);
-        btMenuTimKiem.setBackground(ColorOcean);
-        btDangXuat.setBackground(ColorOcean);
-        btThoat.setBackground(ColorOcean);
+        btNhanvien.setBackground(MyColor.ColorOcean);
+        btMenu.setBackground(MyColor.ColorOcean);
+        btMenuTimKiem.setBackground(MyColor.ColorOcean);
+        btDangXuat.setBackground(MyColor.ColorOcean);
+        btThoat.setBackground(MyColor.ColorOcean);
     }
 
     public void setTimKiem() {
@@ -702,7 +706,7 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
             btSearch = new JButton("Tìm kiếm");
             btSearch.setFont(new Font("Arial", Font.BOLD, 15));
             btSearch.setBounds(315, 165, 90, 30);
-            btSearch.setBackground(Color.cyan);
+            btSearch.setBackground(MyColor.ColorButton);
             btSearch.setBorder(new RoundedBorder(10));
             btSearch.addActionListener(this);
 

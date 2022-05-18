@@ -25,9 +25,12 @@ import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+// import org.apache.poi.hssf.util.HSSFColor.YELLOW;
+
 import MyCustom.LoginPage;
 import MyCustom.Menu;
 import MyCustom.RoundedBorder;
+import MyCustom.MyColor;
 import QLTV.BUS.QLTHELOAIBUS;
 import QLTV.DTO.THELOAI;
 
@@ -47,18 +50,12 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
     DefaultTableModel model;
     Vector<String> header;
 
-    Color ColorOcean, ColorPurple;
-
     public QLTHELOAIGUI() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(1400, 800);
         this.setTitle("Quản lý thông tin thể loại");
         this.setLayout(null);
         this.setLocationRelativeTo(null);
-
-        // Color
-        ColorOcean = new Color(0, 139, 139);
-        ColorPurple = new Color(255, 20, 147);
 
         pnTTTheLoai = new JPanel();
         pnNhapTTTL = new JPanel();
@@ -67,15 +64,23 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
         pnTimKiem = new JPanel();
         pnTTTheLoai.setLayout(new GridLayout(3, 1, 0, -300));
         pnTTTheLoai.setBounds(242, 0, 1142, 400);
+        pnTTTheLoai.setBackground(MyColor.ColorBlue);
+
         pnShowAll.setLayout(null);
         pnShowAll.setBounds(242, 402, 1142, 30);
+        pnShowAll.setBackground(MyColor.ColorBlue);
+
         pnNhapTTTL.setLayout(null);
         pnNhapTTTL.setBounds(242, 415, 720, 550);
+        pnNhapTTTL.setBackground(MyColor.ColorBlue);
+
         pnMenu.setLayout(new GridLayout(9, 1));
         pnMenu.setBounds(0, 178, 240, 590);
-        pnMenu.setBackground(ColorOcean);
+        pnMenu.setBackground(MyColor.ColorOcean);
+
         pnTimKiem.setLayout(null);
         pnTimKiem.setBounds(970, 440, 410, 300);
+        pnTimKiem.setBackground(MyColor.ColorBlue);
 
         // add components
         this.add(pnMenu);
@@ -207,7 +212,7 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
         } else if (e.getSource() == btMenuTimKiem) { // Của button Tìm kiếm thể loại, để hiện thị
             // khung tìm kiếm
             OffBTBgSelected();
-            btMenuTimKiem.setBackground(ColorPurple);
+            btMenuTimKiem.setBackground(MyColor.ColorLightBlue);
             setTimKiem();
         } else if (e.getSource() == btSearch) {
             int vtkey = Integer.parseInt(String.valueOf(comboBoxDSKhoaTK.getSelectedIndex()));
@@ -271,7 +276,7 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
         if (e.getSource() == bttheloai) {
             OffPageQLSACH(true);
             OffBTBgSelected();
-            bttheloai.setBackground(ColorPurple);
+            bttheloai.setBackground(MyColor.ColorLightBlue);
         }
 
         if (e.getSource() == btThoat) {
@@ -302,8 +307,8 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
             if (i >= 0) {
                 THELOAI theloai = new THELOAI();
                 theloai = QLTHELOAIBUS.dstheloai.get(i);
-                txMaTL.setText(theloai.getMaTL().trim());
-                txTenTL.setText(theloai.getTenTL().trim());
+                txMaTL.setText(theloai.getMaTL().replaceAll("\\s", "").trim());
+                txTenTL.setText(theloai.getTenTL().replaceAll("\\s", "").trim());
                 txSLTL.setText(String.valueOf(theloai.getSLTL()));
             }
         }
@@ -387,28 +392,28 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
         btThem = new JButton("Thêm");
         btThem.setFont(new Font("Arial", Font.BOLD, 15));
         btThem.setBounds(20, 160, 80, 30);
-        btThem.setBackground(Color.cyan);
+        btThem.setBackground(MyColor.ColorButton);
         btThem.setBorder(new RoundedBorder(10));
         btThem.addActionListener(this);
         // JbuttonSua
         btSua = new JButton("Sửa");
         btSua.setFont(new Font("Arial", Font.BOLD, 15));
         btSua.setBounds(120, 160, 80, 30);
-        btSua.setBackground(Color.cyan);
+        btSua.setBackground(MyColor.ColorButton);
         btSua.setBorder(new RoundedBorder(10));
         btSua.addActionListener(this);
         // JbuttonXoa
         btXoa = new JButton("Xóa");
         btXoa.setFont(new Font("Arial", Font.BOLD, 15));
         btXoa.setBounds(220, 160, 80, 30);
-        btXoa.setBackground(Color.cyan);
+        btXoa.setBackground(MyColor.ColorButton);
         btXoa.setBorder(new RoundedBorder(10));
         btXoa.addActionListener(this);
         // JbuttonHoanTac
         btHoanTac = new JButton("Hoàn tác");
         btHoanTac.setFont(new Font("Arial", Font.BOLD, 15));
         btHoanTac.setBounds(320, 160, 90, 30);
-        btHoanTac.setBackground(Color.cyan);
+        btHoanTac.setBackground(MyColor.ColorButton);
         btHoanTac.setBorder(new RoundedBorder(10));
         btHoanTac.addActionListener(this);
 
@@ -452,7 +457,7 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
 
         btMenu = new JButton("Menu");
         btMenu.setFont(new Font("Arial", Font.BOLD, 20));
-        btMenu.setBackground(ColorOcean);
+        btMenu.setBackground(MyColor.ColorOcean);
         btMenu.setIcon(iconMenu);
         btMenu.setHorizontalAlignment(SwingConstants.LEFT);
         btMenu.setBorder(BorderFactory.createEmptyBorder());
@@ -460,7 +465,7 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
 
         bttheloai = new JButton("Thông tin thể loại");
         bttheloai.setFont(new Font("Arial", Font.BOLD, 20));
-        bttheloai.setBackground(ColorPurple);
+        bttheloai.setBackground(MyColor.ColorLightBlue);
         bttheloai.setIcon(iconPubCompany);
         bttheloai.setHorizontalAlignment(SwingConstants.LEFT);
         bttheloai.setBorder(BorderFactory.createEmptyBorder());
@@ -468,7 +473,7 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
 
         btMenuTimKiem = new JButton("Tìm kiếm thể loại");
         btMenuTimKiem.setFont(new Font("Arial", Font.BOLD, 20));
-        btMenuTimKiem.setBackground(ColorOcean);
+        btMenuTimKiem.setBackground(MyColor.ColorOcean);
         btMenuTimKiem.setIcon(iconSearch);
         btMenuTimKiem.setHorizontalAlignment(SwingConstants.LEFT);
         btMenuTimKiem.setBorder(BorderFactory.createEmptyBorder());
@@ -477,7 +482,7 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
         // JButton Đăng xuất
         btDangXuat = new JButton("Đăng xuất");
         btDangXuat.setFont(new Font("Arial", Font.BOLD, 20));
-        btDangXuat.setBackground(ColorOcean);
+        btDangXuat.setBackground(MyColor.ColorOcean);
         btDangXuat.setIcon(iconLogout);
         btDangXuat.setHorizontalAlignment(SwingConstants.LEFT);
         btDangXuat.setBorder(BorderFactory.createEmptyBorder());
@@ -485,7 +490,7 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
         // JButton thoát
         btThoat = new JButton("Thoát");
         btThoat.setFont(new Font("Arial", Font.BOLD, 20));
-        btThoat.setBackground(ColorOcean);
+        btThoat.setBackground(MyColor.ColorOcean);
         btThoat.setIcon(iconExited);
         btThoat.setHorizontalAlignment(SwingConstants.LEFT);
         btThoat.setBorder(BorderFactory.createEmptyBorder());
@@ -516,10 +521,11 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
         pane.setAutoscrolls(true);
         tblQLTHELOAI.setRowHeight(30);
         tblQLTHELOAI.setFont(new Font(null, 0, 13));
-        tblQLTHELOAI.setBackground(Color.LIGHT_GRAY);
+        tblQLTHELOAI.setBackground(MyColor.ColorLightGray);
+        tblQLTHELOAI.getTableHeader().setBackground(MyColor.ColorSilver);
         tblQLTHELOAI.addMouseListener(this);
         tblQLTHELOAI.setDefaultEditor(Object.class, null);
-        tblQLTHELOAI.setSelectionBackground(Color.GREEN);
+        tblQLTHELOAI.setSelectionBackground(MyColor.Color);
 
         this.add(pnTTTheLoai);
         pnTTTheLoai.add(lbTTTL);
@@ -532,14 +538,14 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
         btShowAll = new JButton("Hiển thị tất cả");
         btShowAll.setFont(new Font("Arial", Font.BOLD, 15));
         btShowAll.setBounds(1010, 0, 130, 30);
-        btShowAll.setBackground(Color.cyan);
+        btShowAll.setBackground(MyColor.ColorButton);
         btShowAll.setBorder(new RoundedBorder(10));
         btShowAll.addActionListener(this);
 
         btSapXep = new JButton("Sắp xếp theo tên");
         btSapXep.setFont(new Font("Arial", Font.BOLD, 15));
         btSapXep.setBounds(830, 0, 150, 30);
-        btSapXep.setBackground(Color.cyan);
+        btSapXep.setBackground(MyColor.ColorButton);
         btSapXep.setBorder(new RoundedBorder(10));
         btSapXep.addActionListener(this);
 
@@ -549,15 +555,15 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
 
     public void ShowOnTable(THELOAI theloai) {
         Vector<String> row = new Vector<String>();
-        row.add(theloai.getMaTL().trim());
-        row.add(theloai.getTenTL().trim());
+        row.add(theloai.getMaTL().replaceAll("\\s", "").trim());
+        row.add(theloai.getTenTL().replaceAll("\\s", "").trim());
         row.add(String.valueOf(theloai.getSLTL()));
         model.addRow(row);
     }
 
     public void getInfoTextField(THELOAI theloai) {
-        theloai.setMaTL(txMaTL.getText().trim());
-        theloai.setTenTL(txTenTL.getText().trim());
+        theloai.setMaTL(txMaTL.getText().replaceAll("\\s", "").trim());
+        theloai.setTenTL(txTenTL.getText().replaceAll("\\s", "").trim());
         theloai.setSLTL(Integer.valueOf(txSLTL.getText()));
     }
 
@@ -586,11 +592,11 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
     }
 
     public void OffBTBgSelected() {
-        bttheloai.setBackground(ColorOcean);
-        btMenu.setBackground(ColorOcean);
-        btMenuTimKiem.setBackground(ColorOcean);
-        btDangXuat.setBackground(ColorOcean);
-        btThoat.setBackground(ColorOcean);
+        bttheloai.setBackground(MyColor.ColorOcean);
+        btMenu.setBackground(MyColor.ColorOcean);
+        btMenuTimKiem.setBackground(MyColor.ColorOcean);
+        btDangXuat.setBackground(MyColor.ColorOcean);
+        btThoat.setBackground(MyColor.ColorOcean);
     }
 
     public void setTimKiem() {
@@ -609,7 +615,7 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
             btSearch = new JButton("Tìm kiếm");
             btSearch.setFont(new Font("Arial", Font.BOLD, 15));
             btSearch.setBounds(315, 165, 90, 30);
-            btSearch.setBackground(Color.cyan);
+            btSearch.setBackground(MyColor.ColorButton);
             btSearch.setBorder(new RoundedBorder(10));
             btSearch.addActionListener(this);
 

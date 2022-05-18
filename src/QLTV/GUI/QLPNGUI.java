@@ -13,6 +13,7 @@ import MyCustom.DateLabelFormatter;
 import MyCustom.HoTroNhap;
 import MyCustom.MyTable;
 import MyCustom.RoundedBorder;
+import MyCustom.MyColor;
 import QLTV.BUS.QLCTPNBUS;
 import QLTV.BUS.QLPNBUS;
 import QLTV.DTO.CHITIETPHIEUNHAP;
@@ -38,7 +39,6 @@ public class QLPNGUI implements ActionListener, MouseListener {
     public static JTextField txCTPNMaPN, txMaNCC, txMaNV;
     JButton btLocPN, btTimKiemPN, btThemPN, btSuaPN, btThemCTPN, btSuaCTPN, btShowAll,
             btHoTroNhapMaNV, btHoTroNhapMaNCC, btHoTroNhapMasachPN, btHoTroNhapMaPN;
-    Color ColorPurple;
     TitledBorder titlePN;
 
     JComboBox<String> cbDSKhoaTKPN;
@@ -63,41 +63,46 @@ public class QLPNGUI implements ActionListener, MouseListener {
     }
 
     public JPanel setPNGUI() {
-        ColorPurple = new Color(255, 20, 147);
         if (pnPhieuNhap == null) {
             MyTable myTable = new MyTable();
             pnPhieuNhap = new JPanel();
             pnPhieuNhap.setBounds(240, 0, 1145, 800);
             pnPhieuNhap.setLayout(null);
+            pnPhieuNhap.setBackground(MyColor.ColorBlue);
 
             // panel tab nhập phiếu
             pnNhapPhieu = new JPanel();
             pnNhapPhieu.setBounds(5, 5, 1138, 350);
             pnNhapPhieu.setLayout(new GridLayout(1, 2, 5, 0));
+            pnNhapPhieu.setBackground(MyColor.ColorBlue);
 
             pnPN = new JPanel();
             pnPN.setLayout(new GridLayout(1, 1));
+            pnPN.setBackground(MyColor.ColorBlue);
 
             pnCTPN = new JPanel();
             pnCTPN.setLayout(new GridLayout(1, 1));
+            pnCTPN.setBackground(MyColor.ColorBlue);
 
             pnShowAll = new JPanel();
             pnShowAll.setBounds(5, 353, 1135, 40);
             pnShowAll.setLayout(null);
-            pnShowAll.setBackground(Color.CYAN);
+            pnShowAll.setBackground(MyColor.ColorBlue);
 
             pnNhapPN = new JPanel();
             pnNhapPN.setLayout(null);
             pnNhapPN.setBounds(5, 395, 1135, 380);
-            pnNhapPN.setBackground(ColorPurple);
+            pnNhapPN.setBackground(MyColor.ColorBlue);
 
             pnTimKiemPN = new JPanel();
             pnTimKiemPN.setLayout(null);
             pnTimKiemPN.setBounds(720, 155, 413, 200);
+            pnTimKiemPN.setBackground(MyColor.ColorBlue);
 
             pnLocPN = new JPanel();
             pnLocPN.setLayout(null);
             pnLocPN.setBounds(720, 0, 300, 155);
+            pnLocPN.setBackground(MyColor.ColorBlue);
 
             pnPhieuNhap.add(pnNhapPhieu);
             pnPhieuNhap.add(pnNhapPN);
@@ -373,16 +378,16 @@ public class QLPNGUI implements ActionListener, MouseListener {
                 // Hiển thị trên textfield
                 PHIEUNHAP pnTextField = new PHIEUNHAP();
                 pnTextField = QLPNBUS.dspn.get(i);
-                txMaPN.setText(pnTextField.getMaPN().trim());
+                txMaPN.setText(pnTextField.getMaPN().replaceAll("\\s", "").trim());
 
                 String tmp[] = pnTextField.getNgaynhap().split("-");
                 datePanelNgayBDPN.getModel().setDate(Integer.parseInt(tmp[0]), Integer.parseInt(tmp[1]),
                         Integer.parseInt(tmp[2]));
 
-                txSLTong.setText(String.valueOf(pnTextField.getSLTong()).trim());
+                txSLTong.setText(String.valueOf(pnTextField.getSLTong()).replaceAll("\\s", "").trim());
                 txDonGia.setText(String.format("%,d", pnTextField.getDongia()));
-                txMaNV.setText(pnTextField.getMaNV().trim());
-                txMaNCC.setText(pnTextField.getMaNCC().trim());
+                txMaNV.setText(pnTextField.getMaNV().replaceAll("\\s", "").trim());
+                txMaNCC.setText(pnTextField.getMaNCC().replaceAll("\\s", "").trim());
             }
         }
         if (e.getSource() == tblQLCTPN) {
@@ -391,9 +396,9 @@ public class QLPNGUI implements ActionListener, MouseListener {
                 String MaPM = String.valueOf(modelCTPN.getValueAt(i, 0));
                 String Masach = String.valueOf(modelCTPN.getValueAt(i, 1));
                 String SL = String.valueOf(modelCTPN.getValueAt(i, 2));
-                txCTPNMaPN.setText(MaPM.trim());
-                txCTPNMaSach.setText(Masach.trim());
-                txCTPNSL.setText(SL.trim());
+                txCTPNMaPN.setText(MaPM.replaceAll("\\s", "").trim());
+                txCTPNMaSach.setText(Masach.replaceAll("\\s", "").trim());
+                txCTPNSL.setText(SL.replaceAll("\\s", "").trim());
             }
         }
     }
@@ -505,7 +510,7 @@ public class QLPNGUI implements ActionListener, MouseListener {
         btShowAll = new JButton("Hiển thị tất cả");
         btShowAll.setFont(new Font("Arial", Font.BOLD, 15));
         btShowAll.setBounds(1000, 5, 130, 30);
-        btShowAll.setBackground(Color.cyan);
+        btShowAll.setBackground(MyColor.ColorButton);
         btShowAll.setBorder(new RoundedBorder(10));
         btShowAll.addActionListener(this);
 
@@ -519,10 +524,11 @@ public class QLPNGUI implements ActionListener, MouseListener {
         pane.setAutoscrolls(true);
         tblQLPN.setRowHeight(20);
         tblQLPN.setFont(new Font(null, 0, 13));
-        tblQLPN.setBackground(Color.LIGHT_GRAY);
+        tblQLPN.setBackground(MyColor.ColorLightGray);
         tblQLPN.addMouseListener(this);
         tblQLPN.setDefaultEditor(Object.class, null);
-        tblQLPN.setSelectionBackground(Color.GREEN);
+        tblQLPN.setSelectionBackground(MyColor.Color);
+        tblQLPN.getTableHeader().setBackground(MyColor.ColorSilver);
         pnPN.add(pane);
     }
 
@@ -533,10 +539,11 @@ public class QLPNGUI implements ActionListener, MouseListener {
         pane.setAutoscrolls(true);
         tblQLCTPN.setRowHeight(20);
         tblQLCTPN.setFont(new Font(null, 0, 13));
-        tblQLCTPN.setBackground(Color.LIGHT_GRAY);
+        tblQLCTPN.setBackground(MyColor.ColorLightGray);
         tblQLCTPN.addMouseListener(this);
         tblQLCTPN.setDefaultEditor(Object.class, null);
-        tblQLCTPN.setSelectionBackground(Color.ORANGE);
+        tblQLCTPN.setSelectionBackground(MyColor.Color2);
+        tblQLCTPN.getTableHeader().setBackground(MyColor.ColorSilver);
         pnCTPN.add(pane);
     }
 
@@ -617,28 +624,28 @@ public class QLPNGUI implements ActionListener, MouseListener {
         btThemPN = new JButton("Thêm");
         btThemPN.setFont(new Font("Arial", Font.BOLD, 15));
         btThemPN.setBounds(95, 330, 80, 30);
-        btThemPN.setBackground(Color.cyan);
+        btThemPN.setBackground(MyColor.ColorButton);
         btThemPN.setBorder(new RoundedBorder(10));
         btThemPN.addActionListener(this);
 
         btSuaPN = new JButton("Sửa");
         btSuaPN.setFont(new Font("Arial", Font.BOLD, 15));
         btSuaPN.setBounds(245, 330, 80, 30);
-        btSuaPN.setBackground(Color.cyan);
+        btSuaPN.setBackground(MyColor.ColorButton);
         btSuaPN.setBorder(new RoundedBorder(10));
         btSuaPN.addActionListener(this);
 
         btHoTroNhapMaNV = new JButton("...");
         btHoTroNhapMaNV.setFont(new Font("Arial", Font.BOLD, 15));
         btHoTroNhapMaNV.setBounds(340, 245, 40, 30);
-        btHoTroNhapMaNV.setBackground(Color.cyan);
+        btHoTroNhapMaNV.setBackground(MyColor.ColorButton);
         btHoTroNhapMaNV.setBorder(new RoundedBorder(10));
         btHoTroNhapMaNV.addActionListener(this);
 
         btHoTroNhapMaNCC = new JButton("...");
         btHoTroNhapMaNCC.setFont(new Font("Arial", Font.BOLD, 15));
         btHoTroNhapMaNCC.setBounds(340, 290, 40, 30);
-        btHoTroNhapMaNCC.setBackground(Color.cyan);
+        btHoTroNhapMaNCC.setBackground(MyColor.ColorButton);
         btHoTroNhapMaNCC.setBorder(new RoundedBorder(10));
         btHoTroNhapMaNCC.addActionListener(this);
 
@@ -697,28 +704,28 @@ public class QLPNGUI implements ActionListener, MouseListener {
         btThemCTPN = new JButton("Thêm");
         btThemCTPN.setFont(new Font("Arial", Font.BOLD, 15));
         btThemCTPN.setBounds(390, 200, 80, 30);
-        btThemCTPN.setBackground(Color.cyan);
+        btThemCTPN.setBackground(MyColor.ColorButton);
         btThemCTPN.setBorder(new RoundedBorder(10));
         btThemCTPN.addActionListener(this);
 
         btSuaCTPN = new JButton("Sửa");
         btSuaCTPN.setFont(new Font("Arial", Font.BOLD, 15));
         btSuaCTPN.setBounds(550, 200, 80, 30);
-        btSuaCTPN.setBackground(Color.cyan);
+        btSuaCTPN.setBackground(MyColor.ColorButton);
         btSuaCTPN.setBorder(new RoundedBorder(10));
         btSuaCTPN.addActionListener(this);
 
         btHoTroNhapMaPN = new JButton("...");
         btHoTroNhapMaPN.setFont(new Font("Arial", Font.BOLD, 15));
         btHoTroNhapMaPN.setBounds(660, 65, 40, 30);
-        btHoTroNhapMaPN.setBackground(Color.cyan);
+        btHoTroNhapMaPN.setBackground(MyColor.ColorButton);
         btHoTroNhapMaPN.setBorder(new RoundedBorder(10));
         btHoTroNhapMaPN.addActionListener(this);
 
         btHoTroNhapMasachPN = new JButton("...");
         btHoTroNhapMasachPN.setFont(new Font("Arial", Font.BOLD, 15));
         btHoTroNhapMasachPN.setBounds(660, 110, 40, 30);
-        btHoTroNhapMasachPN.setBackground(Color.cyan);
+        btHoTroNhapMasachPN.setBackground(MyColor.ColorButton);
         btHoTroNhapMasachPN.setBorder(new RoundedBorder(10));
         btHoTroNhapMasachPN.addActionListener(this);
 
@@ -778,7 +785,7 @@ public class QLPNGUI implements ActionListener, MouseListener {
             btTimKiemPN = new JButton("Tìm kiếm");
             btTimKiemPN.setFont(new Font("Arial", Font.BOLD, 15));
             btTimKiemPN.setBounds(300, 155, 100, 30);
-            btTimKiemPN.setBackground(Color.cyan);
+            btTimKiemPN.setBackground(MyColor.ColorButton);
             btTimKiemPN.setBorder(new RoundedBorder(10));
             btTimKiemPN.addActionListener(this);
 
@@ -842,7 +849,7 @@ public class QLPNGUI implements ActionListener, MouseListener {
             btLocPN = new JButton("Lọc");
             btLocPN.setFont(new Font("Arial", Font.BOLD, 15));
             btLocPN.setBounds(210, 115, 80, 30);
-            btLocPN.setBackground(Color.cyan);
+            btLocPN.setBackground(MyColor.ColorButton);
             btLocPN.setBorder(new RoundedBorder(10));
             btLocPN.addActionListener(this);
         }

@@ -34,16 +34,17 @@ public class QLTRABUS {
 
     public PHIEUTRASACH timTheoMaPT(String MaPT) {
         for (PHIEUTRASACH pt : dspt)
-            if (pt.getMaPT().trim().equals(MaPT))
+            if (pt.getMaPT().toLowerCase().trim().equals(MaPT))
                 return pt;
         return null;
     }
 
-    public PHIEUTRASACH timTheoMaPM(String MaPM) {
+    public ArrayList<PHIEUTRASACH> timTheoMaPM(String MaPM) {
+        ArrayList<PHIEUTRASACH> kq = new ArrayList<PHIEUTRASACH>();
         for (PHIEUTRASACH pt : dspt)
-            if (pt.getMaPM().trim().equals(MaPM))
-                return pt;
-        return null;
+            if (pt.getMaPM().toLowerCase().trim().equals(MaPM))
+                kq.add(pt);
+        return kq;
     }
 
     public ArrayList<PHIEUTRASACH> timTheoNgayTra(String Ngaytra) {
@@ -57,7 +58,7 @@ public class QLTRABUS {
     public ArrayList<PHIEUTRASACH> timTheoTinhTrangSach(String TinhTrangSach) {
         ArrayList<PHIEUTRASACH> kq = new ArrayList<PHIEUTRASACH>();
         for (PHIEUTRASACH pt : dspt)
-            if (String.valueOf(pt.getTinhtrangsach().trim()).indexOf(TinhTrangSach) >= 0)
+            if (String.valueOf(pt.getTinhtrangsach().toLowerCase().replaceAll("\\s+", " ").trim()).indexOf(TinhTrangSach) >= 0)
                 kq.add(pt);
         return kq;
     }

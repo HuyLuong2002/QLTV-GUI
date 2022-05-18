@@ -34,7 +34,7 @@ public class QLMUONBUS {
 
     public PHIEUMUON timTheoMa(String MaPM) {
         for (PHIEUMUON pm : dspm)
-            if (pm.getMaPM().replaceAll("\\s", "").equals(MaPM))
+            if (pm.getMaPM().toLowerCase().trim().equals(MaPM))
                 return pm;
         return null;
     }
@@ -50,7 +50,7 @@ public class QLMUONBUS {
     public ArrayList<PHIEUMUON> timTheoTinhTrangMuon(String TinhTrangMuon) {
         ArrayList<PHIEUMUON> kq = new ArrayList<PHIEUMUON>();
         for (PHIEUMUON pm : dspm)
-            if (String.valueOf(pm.getTinhTrangMuon().trim()).indexOf(TinhTrangMuon) >= 0)
+            if (String.valueOf(pm.getTinhTrangMuon().toLowerCase().replaceAll("\\s+", "").trim()).indexOf(TinhTrangMuon) >= 0)
                 kq.add(pm);
         return kq;
     }
@@ -58,7 +58,7 @@ public class QLMUONBUS {
     public ArrayList<PHIEUMUON> timTheoMaDG(String MaDG) {
         ArrayList<PHIEUMUON> kq = new ArrayList<PHIEUMUON>();
         for (PHIEUMUON pm : dspm)
-            if (String.valueOf(pm.getMaDG().trim()).indexOf(MaDG) >= 0)
+            if (String.valueOf(pm.getMaDG().toLowerCase().trim()).indexOf(MaDG) >= 0)
                 kq.add(pm);
         return kq;
     }

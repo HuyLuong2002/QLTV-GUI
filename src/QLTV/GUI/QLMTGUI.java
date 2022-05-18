@@ -36,6 +36,7 @@ import MyCustom.DateLabelFormatter;
 import MyCustom.HoTroNhap;
 import MyCustom.MyTable;
 import MyCustom.RoundedBorder;
+import MyCustom.MyColor;
 import QLTV.BUS.QLCTHDTPBUS;
 import QLTV.BUS.QLCTMUONBUS;
 import QLTV.BUS.QLCTTRABUS;
@@ -105,8 +106,6 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
     JDatePanelImpl datePanelNgayBDHDTP, datePanelNgayKTHDTP;
     JDatePickerImpl datePickerNgayBDHDTP, datePickerNgayKTHDTP;
 
-    Color ColorPurple;
-
     UtilDateModel modelNgayBDPT;
     Properties pNgayBDPT;
     JDatePanelImpl datePanelNgayBDPT;
@@ -123,83 +122,102 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
     }
 
     public JPanel setMTGUI() {
-        ColorPurple = new Color(255, 20, 147);
         if (pnMuonTra == null) {
             pnMuonTra = new JPanel();
             pnMuonTra.setBounds(240, 0, 1145, 800);
             pnMuonTra.setLayout(null);
+            pnMuonTra.setBackground(MyColor.ColorBlue);
 
             // panel tab mượn
             pnTabMuon = new JPanel();
             pnTabMuon.setLayout(new GridLayout(1, 2, 5, 0));
+            pnTabMuon.setBackground(MyColor.ColorBlue);
 
             pnMuon = new JPanel();
             pnMuon.setLayout(new GridLayout(1, 1));
+            pnMuon.setBackground(MyColor.ColorBlue);
 
             pnCTMuon = new JPanel();
             pnCTMuon.setLayout(new GridLayout(1, 1));
+            pnCTMuon.setBackground(MyColor.ColorBlue);
 
             pnShowAll = new JPanel();
             pnShowAll.setBounds(5, 353, 1135, 40);
             pnShowAll.setLayout(null);
+            pnShowAll.setBackground(MyColor.ColorBlue);
 
             pnNhapPM = new JPanel();
             pnNhapPM.setLayout(null);
-            pnNhapPM.setBounds(5, 395, 1135, 380);
+            pnNhapPM.setBounds(5, 405, 1135, 370);
+            pnNhapPM.setBackground(MyColor.ColorBlue);
 
             pnTimKiemPM = new JPanel();
             pnTimKiemPM.setLayout(null);
             pnTimKiemPM.setBounds(720, 155, 413, 200);
+            pnTimKiemPM.setBackground(MyColor.ColorBlue);
 
             pnLocPM = new JPanel();
             pnLocPM.setLayout(null);
             pnLocPM.setBounds(720, 0, 300, 155);
+            pnLocPM.setBackground(MyColor.ColorBlue);
 
             // panel tab trả
             pnTabTra = new JPanel();
             pnTabTra.setLayout(new GridLayout(1, 2, 5, 0));
+            pnTabTra.setBackground(MyColor.ColorBlue);
 
             pnTra = new JPanel();
             pnTra.setLayout(new GridLayout(1, 1));
+            pnTra.setBackground(MyColor.ColorBlue);
 
             pnCTTra = new JPanel();
             pnCTTra.setLayout(new GridLayout(1, 1));
+            pnCTTra.setBackground(MyColor.ColorBlue);
 
             pnNhapPT = new JPanel();
             pnNhapPT.setLayout(null);
             pnNhapPT.setVisible(false);
-            pnNhapPT.setBounds(5, 395, 1135, 380);
+            pnNhapPT.setBounds(5, 405, 1135, 370);
+            pnNhapPT.setBackground(MyColor.ColorBlue);
 
             pnTimKiemPT = new JPanel();
             pnTimKiemPT.setLayout(null);
             pnTimKiemPT.setBounds(720, 155, 413, 200);
+            pnTimKiemPT.setBackground(MyColor.ColorBlue);
 
             pnLocPT = new JPanel();
             pnLocPT.setLayout(null);
             pnLocPT.setBounds(720, 0, 300, 155);
+            pnLocPT.setBackground(MyColor.ColorBlue);
 
             // panel tab tiền phạt
             pnTabTienPhat = new JPanel();
             pnTabTienPhat.setLayout(new GridLayout(1, 2, 5, 0));
+            pnTabTienPhat.setBackground(MyColor.ColorBlue);
 
             pnHDTP = new JPanel();
             pnHDTP.setLayout(new GridLayout(1, 1));
+            pnHDTP.setBackground(MyColor.ColorBlue);
 
             pnCTHDTP = new JPanel();
             pnCTHDTP.setLayout(new GridLayout(1, 1));
+            pnCTHDTP.setBackground(MyColor.ColorBlue);
 
             pnNhapHDTP = new JPanel();
             pnNhapHDTP.setLayout(null);
             pnNhapHDTP.setVisible(false);
-            pnNhapHDTP.setBounds(5, 395, 1135, 380);
+            pnNhapHDTP.setBounds(5, 405, 1135, 370);
+            pnNhapHDTP.setBackground(MyColor.ColorBlue);
 
             pnTimKiemHDTP = new JPanel();
             pnTimKiemHDTP.setLayout(null);
             pnTimKiemHDTP.setBounds(720, 155, 413, 200);
+            pnTimKiemHDTP.setBackground(MyColor.ColorBlue);
 
             pnLocHDTP = new JPanel();
             pnLocHDTP.setLayout(null);
             pnLocHDTP.setBounds(720, 0, 300, 155);
+            pnLocHDTP.setBackground(MyColor.ColorBlue);
 
             tabbedPane = new JTabbedPane();
             tabbedPane.addTab("Mượn sách", pnTabMuon);
@@ -281,7 +299,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btTimKiemPM) {
             int vtkey = Integer.parseInt(String.valueOf(cbDSKhoaTKPM.getSelectedIndex()));
-            String tukhoa = txKhoaTKPM.getText().replaceAll("\\s", "").trim();
+            String tukhoa = txKhoaTKPM.getText().toLowerCase().replaceAll("\\s+", "").trim();
             if (tukhoa.equals("") == true) {
                 JOptionPane.showMessageDialog(null, "Xin mời nhập từ khóa", "Lỗi", JOptionPane.ERROR_MESSAGE);
             } else if (vtkey == 0) {
@@ -313,8 +331,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                     }
                 }
                 if (vtkey == 3) {
-                    String Tukhoa = txKhoaTKPM.getText().replaceAll("\\s", " ").trim();
-                    ArrayList<PHIEUMUON> kq = qlsachbus.timTheoTinhTrangMuon(Tukhoa);
+                    ArrayList<PHIEUMUON> kq = qlsachbus.timTheoTinhTrangMuon(tukhoa);
                     modelMuon.setRowCount(0);
                     if (kq.size() == 0) {
                         JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu phù hợp", "Lỗi",
@@ -343,7 +360,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         }
         if (e.getSource() == btTimKiemPT) {
             int vtkey = Integer.parseInt(String.valueOf(cbDSKhoaTKPT.getSelectedIndex()));
-            String tukhoa = txKhoaTKPT.getText().replaceAll("\\s", "").trim();
+            String tukhoa = txKhoaTKPT.getText().toLowerCase().replaceAll("\\s+", "").trim();
             if (tukhoa.equals("") == true) {
                 JOptionPane.showMessageDialog(null, "Xin mời nhập từ khóa", "Lỗi", JOptionPane.ERROR_MESSAGE);
             } else if (vtkey == 0) {
@@ -362,8 +379,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                     }
                 }
                 if (vtkey == 2) {
-                    String Tukhoa = txKhoaTKPT.getText().replaceAll("\\s", " ").trim();
-                    ArrayList<PHIEUTRASACH> kq = qltrabus.timTheoTinhTrangSach(Tukhoa);
+                    ArrayList<PHIEUTRASACH> kq = qltrabus.timTheoTinhTrangSach(tukhoa);
                     modelTra.setRowCount(0);
                     if (kq.size() == 0) {
                         JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu phù hợp", "Lỗi",
@@ -389,13 +405,14 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                     }
                 }
                 if (vtkey == 4) {
-                    PHIEUTRASACH kq = qltrabus.timTheoMaPM(tukhoa);
+                    ArrayList<PHIEUTRASACH> kq = qltrabus.timTheoMaPM(tukhoa);
                     modelTra.setRowCount(0);
-                    if (kq == null) {
+                    if (kq.size() == 0) {
                         JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu phù hợp", "Lỗi",
                                 JOptionPane.ERROR_MESSAGE);
                     } else {
-                        ShowOnTablePT(kq);
+                        for(PHIEUTRASACH pt : kq)
+                            ShowOnTablePT(pt);
                         tblQLTra.setModel(modelTra);
                     }
                 }
@@ -403,7 +420,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         }
         if (e.getSource() == btTimKiemHDTP) {
             int vtkey = Integer.parseInt(String.valueOf(cbDSKhoaTKHDTP.getSelectedIndex()));
-            String tukhoa = txKhoaTKHDTP.getText().replaceAll("\\s", "").trim();
+            String tukhoa = txKhoaTKHDTP.getText().toLowerCase().replaceAll("\\s+", "").trim();
             if (tukhoa.equals("") == true) {
                 JOptionPane.showMessageDialog(null, "Xin mời nhập từ khóa", "Lỗi", JOptionPane.ERROR_MESSAGE);
             } else if (vtkey == 0) {
@@ -1276,57 +1293,57 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
 
     public void ShowOnTablePM(PHIEUMUON pm) {
         Vector<String> row = new Vector<String>();
-        row.add(pm.getMaPM().replaceAll("\\s", "").trim());
-        row.add(pm.getNgaymuon().replaceAll("\\s", "").trim());
-        row.add(String.format("%,d",pm.getSLtong()).replaceAll("\\s", "").trim());
-        row.add(pm.getNgaytra().replaceAll("\\s", "").trim());
+        row.add(pm.getMaPM().replaceAll("\\s+", "").trim());
+        row.add(pm.getNgaymuon().replaceAll("\\s+", "").trim());
+        row.add(String.format("%,d",pm.getSLtong()).replaceAll("\\s+", "").trim());
+        row.add(pm.getNgaytra().replaceAll("\\s+", "").trim());
         row.add(pm.getTinhTrangMuon());
-        row.add(pm.getMaDG().replaceAll("\\s", "").trim());
+        row.add(pm.getMaDG().replaceAll("\\s+", "").trim());
         modelMuon.addRow(row);
     }
 
     public void ShowOnTableCTPM(CHITIETPHIEUMUON ctpm) {
         Vector<String> row = new Vector<String>();
-        row.add(ctpm.getMaPM().replaceAll("\\s", "").trim());
-        row.add(ctpm.getMasach().replaceAll("\\s", "").trim());
-        row.add(String.format("%,d",ctpm.getSL()).replaceAll("\\s", "").trim());
+        row.add(ctpm.getMaPM().replaceAll("\\s+", "").trim());
+        row.add(ctpm.getMasach().replaceAll("\\s+", "").trim());
+        row.add(String.format("%,d",ctpm.getSL()).replaceAll("\\s+", "").trim());
         modelCTMuon.addRow(row);
     }
 
     public void ShowOnTableHD(HDTIENPHAT hd) {
         Vector<String> row = new Vector<String>();
-        row.add(hd.getMaHD().replaceAll("\\s", "").trim());
-        row.add(hd.getMaDG().replaceAll("\\s", "").trim());
-        row.add(String.format("%,d", hd.getSL()).replaceAll("\\s", "").trim());
-        row.add(String.format("%,d", hd.getTienphat()).replaceAll("\\s", "").trim());
+        row.add(hd.getMaHD().replaceAll("\\s+", "").trim());
+        row.add(hd.getMaDG().replaceAll("\\s+", "").trim());
+        row.add(String.format("%,d", hd.getSL()).replaceAll("\\s+", "").trim());
+        row.add(String.format("%,d", hd.getTienphat()).replaceAll("\\s+", "").trim());
         modelHDTP.addRow(row);
     }
 
     public void ShowOnTableCTHD(CHITIETHDTIENPHAT cthd) {
         Vector<String> row = new Vector<String>();
-        row.add(cthd.getMaHD().replaceAll("\\s", "").trim());
-        row.add(cthd.getMasach().replaceAll("\\s", "").trim());
-        row.add(String.format("%,d",cthd.getSL()).replaceAll("\\s", "").trim());
-        row.add(String.format("%,d", cthd.getDongia()).replaceAll("\\s", "").trim());
+        row.add(cthd.getMaHD().replaceAll("\\s+", "").trim());
+        row.add(cthd.getMasach().replaceAll("\\s+", "").trim());
+        row.add(String.format("%,d",cthd.getSL()).replaceAll("\\s+", "").trim());
+        row.add(String.format("%,d", cthd.getDongia()).replaceAll("\\s+", "").trim());
         modelCTHDTP.addRow(row);
     }
 
     public void ShowOnTablePT(PHIEUTRASACH pt) {
         Vector<String> row = new Vector<String>();
-        row.add(pt.getMaPT().replaceAll("\\s", "").trim());
-        row.add(pt.getNgaytra().replaceAll("\\s", "").trim());
+        row.add(pt.getMaPT().replaceAll("\\s+", "").trim());
+        row.add(pt.getNgaytra().replaceAll("\\s+", "").trim());
         row.add(pt.getTinhtrangsach());
-        row.add(String.format("%,d", pt.getTienthue()).replaceAll("\\s", "").trim());
-        row.add(String.format("%,d", pt.getThanhtien()).replaceAll("\\s", "").trim());
-        row.add(pt.getMaPM().replaceAll("\\s", "").trim());
+        row.add(String.format("%,d", pt.getTienthue()).replaceAll("\\s+", "").trim());
+        row.add(String.format("%,d", pt.getThanhtien()).replaceAll("\\s+", "").trim());
+        row.add(pt.getMaPM().replaceAll("\\s+", "").trim());
         modelTra.addRow(row);
     }
 
     public void ShowOnTableCTPT(CHITIETPHIEUTRA ctpt) {
         Vector<String> row = new Vector<String>();
-        row.add(ctpt.getMaPT().replaceAll("\\s", "").trim());
-        row.add(ctpt.getMasach().replaceAll("\\s", "").trim());
-        row.add(String.format("%,d",ctpt.getSL()).replaceAll("\\s", "").trim());
+        row.add(ctpt.getMaPT().replaceAll("\\s+", "").trim());
+        row.add(ctpt.getMasach().replaceAll("\\s+", "").trim());
+        row.add(String.format("%,d",ctpt.getSL()).replaceAll("\\s+", "").trim());
         modelCTTra.addRow(row);
     }
 
@@ -1382,22 +1399,22 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
     public void setShowAll() {
         btShowAll = new JButton("Hiển thị tất cả");
         btShowAll.setFont(new Font("Arial", Font.BOLD, 15));
-        btShowAll.setBounds(1000, 5, 130, 30);
-        btShowAll.setBackground(Color.cyan);
+        btShowAll.setBounds(1000, 10, 130, 30);
+        btShowAll.setBackground(MyColor.ColorButton);
         btShowAll.setBorder(new RoundedBorder(10));
         btShowAll.addActionListener(this);
 
         btInPM = new JButton("In phiếu mượn");
         btInPM.setFont(new Font("Arial", Font.BOLD, 15));
-        btInPM.setBounds(0, 5, 130, 30);
-        btInPM.setBackground(Color.cyan);
+        btInPM.setBounds(0, 10, 130, 30);
+        btInPM.setBackground(MyColor.ColorButton);
         btInPM.setBorder(new RoundedBorder(10));
         btInPM.addActionListener(this);
 
         btInHDTP = new JButton("In hóa đơn");
         btInHDTP.setFont(new Font("Arial", Font.BOLD, 15));
-        btInHDTP.setBounds(0, 5, 130, 30);
-        btInHDTP.setBackground(Color.cyan);
+        btInHDTP.setBounds(0, 10, 130, 30);
+        btInHDTP.setBackground(MyColor.ColorButton);
         btInHDTP.setBorder(new RoundedBorder(10));
         btInHDTP.addActionListener(this);
 
@@ -1413,10 +1430,11 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         pane.setAutoscrolls(true);
         tblQLMuon.setRowHeight(20);
         tblQLMuon.setFont(new Font(null, 0, 13));
-        tblQLMuon.setBackground(Color.LIGHT_GRAY);
+        tblQLMuon.setBackground(MyColor.ColorLightGray);
+        tblQLMuon.getTableHeader().setBackground(MyColor.ColorSilver);
         tblQLMuon.addMouseListener(this);
         tblQLMuon.setDefaultEditor(Object.class, null);
-        tblQLMuon.setSelectionBackground(Color.GREEN);
+        tblQLMuon.setSelectionBackground(MyColor.Color);
         pnMuon.add(pane);
     }
 
@@ -1427,10 +1445,11 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         pane.setAutoscrolls(true);
         tblQLCTMuon.setRowHeight(20);
         tblQLCTMuon.setFont(new Font(null, 0, 13));
-        tblQLCTMuon.setBackground(Color.LIGHT_GRAY);
+        tblQLCTMuon.setBackground(MyColor.ColorLightGray);
+        tblQLCTMuon.getTableHeader().setBackground(MyColor.ColorSilver);
         tblQLCTMuon.addMouseListener(this);
         tblQLCTMuon.setDefaultEditor(Object.class, null);
-        tblQLCTMuon.setSelectionBackground(Color.ORANGE);
+        tblQLCTMuon.setSelectionBackground(MyColor.Color2);
         pnCTMuon.add(pane);
     }
 
@@ -1441,10 +1460,11 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         pane.setAutoscrolls(true);
         tblQLTra.setRowHeight(20);
         tblQLTra.setFont(new Font(null, 0, 13));
-        tblQLTra.setBackground(Color.LIGHT_GRAY);
+        tblQLTra.setBackground(MyColor.ColorLightGray);
+        tblQLTra.getTableHeader().setBackground(MyColor.ColorSilver);
         tblQLTra.addMouseListener(this);
         tblQLTra.setDefaultEditor(Object.class, null);
-        tblQLTra.setSelectionBackground(Color.GREEN);
+        tblQLTra.setSelectionBackground(MyColor.Color);
         pnTra.add(pane);
     }
 
@@ -1455,10 +1475,11 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         pane.setAutoscrolls(true);
         tblQLCTTra.setRowHeight(20);
         tblQLCTTra.setFont(new Font(null, 0, 13));
-        tblQLCTTra.setBackground(Color.LIGHT_GRAY);
+        tblQLCTTra.setBackground(MyColor.ColorLightGray);
+        tblQLCTTra.getTableHeader().setBackground(MyColor.ColorSilver);
         tblQLCTTra.addMouseListener(this);
         tblQLCTTra.setDefaultEditor(Object.class, null);
-        tblQLCTTra.setSelectionBackground(Color.ORANGE);
+        tblQLCTTra.setSelectionBackground(MyColor.Color2);
         pnCTTra.add(pane);
     }
 
@@ -1469,10 +1490,11 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         pane.setAutoscrolls(true);
         tblQLHDTP.setRowHeight(20);
         tblQLHDTP.setFont(new Font(null, 0, 13));
-        tblQLHDTP.setBackground(Color.LIGHT_GRAY);
+        tblQLHDTP.setBackground(MyColor.ColorLightGray);
+        tblQLHDTP.getTableHeader().setBackground(MyColor.ColorSilver);
         tblQLHDTP.addMouseListener(this);
         tblQLHDTP.setDefaultEditor(Object.class, null);
-        tblQLHDTP.setSelectionBackground(Color.GREEN);
+        tblQLHDTP.setSelectionBackground(MyColor.Color);
         pnHDTP.add(pane);
     }
 
@@ -1483,10 +1505,11 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         pane.setAutoscrolls(true);
         tblQLCTHDTP.setRowHeight(20);
         tblQLCTHDTP.setFont(new Font(null, 0, 13));
-        tblQLCTHDTP.setBackground(Color.LIGHT_GRAY);
+        tblQLCTHDTP.setBackground(MyColor.ColorLightGray);
+        tblQLCTHDTP.getTableHeader().setBackground(MyColor.ColorSilver);
         tblQLCTHDTP.addMouseListener(this);
         tblQLCTHDTP.setDefaultEditor(Object.class, null);
-        tblQLCTHDTP.setSelectionBackground(Color.ORANGE);
+        tblQLCTHDTP.setSelectionBackground(MyColor.Color2);
         pnCTHDTP.add(pane);
     }
 
@@ -1566,36 +1589,36 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
 
         btThemPM = new JButton("Thêm");
         btThemPM.setFont(new Font("Arial", Font.BOLD, 15));
-        btThemPM.setBounds(95, 330, 80, 30);
-        btThemPM.setBackground(Color.cyan);
+        btThemPM.setBounds(95, 325, 80, 30);
+        btThemPM.setBackground(MyColor.ColorButton);
         btThemPM.setBorder(new RoundedBorder(10));
         btThemPM.addActionListener(this);
 
         btSuaPM = new JButton("Sửa");
         btSuaPM.setFont(new Font("Arial", Font.BOLD, 15));
-        btSuaPM.setBounds(245, 330, 80, 30);
-        btSuaPM.setBackground(Color.cyan);
+        btSuaPM.setBounds(245, 325, 80, 30);
+        btSuaPM.setBackground(MyColor.ColorButton);
         btSuaPM.setBorder(new RoundedBorder(10));
         btSuaPM.addActionListener(this);
 
         btXoa = new JButton("Xóa");
         btXoa.setFont(new Font("Arial", Font.BOLD, 15));
         btXoa.setBounds(210, 305, 80, 30);
-        btXoa.setBackground(Color.cyan);
+        btXoa.setBackground(MyColor.ColorButton);
         btXoa.setBorder(new RoundedBorder(10));
         btXoa.addActionListener(this);
 
         btHoanTac = new JButton("Hoàn tác");
         btHoanTac.setFont(new Font("Arial", Font.BOLD, 15));
         btHoanTac.setBounds(310, 305, 90, 30);
-        btHoanTac.setBackground(Color.cyan);
+        btHoanTac.setBackground(MyColor.ColorButton);
         btHoanTac.setBorder(new RoundedBorder(10));
         btHoanTac.addActionListener(this);
 
         btHoTroNhapMaDG = new JButton("...");
         btHoTroNhapMaDG.setFont(new Font("Arial", Font.BOLD, 15));
         btHoTroNhapMaDG.setBounds(340, 290, 40, 30);
-        btHoTroNhapMaDG.setBackground(Color.cyan);
+        btHoTroNhapMaDG.setBackground(MyColor.ColorButton);
         btHoTroNhapMaDG.setBorder(new RoundedBorder(10));
         btHoTroNhapMaDG.addActionListener(this);
 
@@ -1654,28 +1677,28 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         btThemCTPM = new JButton("Thêm");
         btThemCTPM.setFont(new Font("Arial", Font.BOLD, 15));
         btThemCTPM.setBounds(390, 200, 80, 30);
-        btThemCTPM.setBackground(Color.cyan);
+        btThemCTPM.setBackground(MyColor.ColorButton);
         btThemCTPM.setBorder(new RoundedBorder(10));
         btThemCTPM.addActionListener(this);
 
         btSuaCTPM = new JButton("Sửa");
         btSuaCTPM.setFont(new Font("Arial", Font.BOLD, 15));
         btSuaCTPM.setBounds(550, 200, 80, 30);
-        btSuaCTPM.setBackground(Color.cyan);
+        btSuaCTPM.setBackground(MyColor.ColorButton);
         btSuaCTPM.setBorder(new RoundedBorder(10));
         btSuaCTPM.addActionListener(this);
 
         btHoTroNhapMaPM = new JButton("...");
         btHoTroNhapMaPM.setFont(new Font("Arial", Font.BOLD, 15));
         btHoTroNhapMaPM.setBounds(660, 65, 40, 30);
-        btHoTroNhapMaPM.setBackground(Color.cyan);
+        btHoTroNhapMaPM.setBackground(MyColor.ColorButton);
         btHoTroNhapMaPM.setBorder(new RoundedBorder(10));
         btHoTroNhapMaPM.addActionListener(this);
 
         btHoTroNhapMasachPM = new JButton("...");
         btHoTroNhapMasachPM.setFont(new Font("Arial", Font.BOLD, 15));
         btHoTroNhapMasachPM.setBounds(660, 110, 40, 30);
-        btHoTroNhapMasachPM.setBackground(Color.cyan);
+        btHoTroNhapMasachPM.setBackground(MyColor.ColorButton);
         btHoTroNhapMasachPM.setBorder(new RoundedBorder(10));
         btHoTroNhapMasachPM.addActionListener(this);
 
@@ -1767,22 +1790,22 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
 
         btThemPT = new JButton("Thêm");
         btThemPT.setFont(new Font("Arial", Font.BOLD, 15));
-        btThemPT.setBounds(95, 330, 80, 30);
-        btThemPT.setBackground(Color.cyan);
+        btThemPT.setBounds(95, 325, 80, 30);
+        btThemPT.setBackground(MyColor.ColorButton);
         btThemPT.setBorder(new RoundedBorder(10));
         btThemPT.addActionListener(this);
 
         btSuaPT = new JButton("Sửa");
         btSuaPT.setFont(new Font("Arial", Font.BOLD, 15));
-        btSuaPT.setBounds(245, 330, 80, 30);
-        btSuaPT.setBackground(Color.cyan);
+        btSuaPT.setBounds(245, 325, 80, 30);
+        btSuaPT.setBackground(MyColor.ColorButton);
         btSuaPT.setBorder(new RoundedBorder(10));
         btSuaPT.addActionListener(this);
 
         btHoTroNhapPM_Tra = new JButton("...");
         btHoTroNhapPM_Tra.setFont(new Font("Arial", Font.BOLD, 15));
         btHoTroNhapPM_Tra.setBounds(340, 290, 40, 30);
-        btHoTroNhapPM_Tra.setBackground(Color.cyan);
+        btHoTroNhapPM_Tra.setBackground(MyColor.ColorButton);
         btHoTroNhapPM_Tra.setBorder(new RoundedBorder(10));
         btHoTroNhapPM_Tra.addActionListener(this);
 
@@ -1839,28 +1862,28 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         btThemCTPT = new JButton("Thêm");
         btThemCTPT.setFont(new Font("Arial", Font.BOLD, 15));
         btThemCTPT.setBounds(390, 200, 80, 30);
-        btThemCTPT.setBackground(Color.cyan);
+        btThemCTPT.setBackground(MyColor.ColorButton);
         btThemCTPT.setBorder(new RoundedBorder(10));
         btThemCTPT.addActionListener(this);
 
         btSuaCTPT = new JButton("Sửa");
         btSuaCTPT.setFont(new Font("Arial", Font.BOLD, 15));
         btSuaCTPT.setBounds(550, 200, 80, 30);
-        btSuaCTPT.setBackground(Color.cyan);
+        btSuaCTPT.setBackground(MyColor.ColorButton);
         btSuaCTPT.setBorder(new RoundedBorder(10));
         btSuaCTPT.addActionListener(this);
 
         btHoTroNhapMaPT = new JButton("...");
         btHoTroNhapMaPT.setFont(new Font("Arial", Font.BOLD, 15));
         btHoTroNhapMaPT.setBounds(660, 65, 40, 30);
-        btHoTroNhapMaPT.setBackground(Color.cyan);
+        btHoTroNhapMaPT.setBackground(MyColor.ColorButton);
         btHoTroNhapMaPT.setBorder(new RoundedBorder(10));
         btHoTroNhapMaPT.addActionListener(this);
 
         btHoTroNhapMasachPT = new JButton("...");
         btHoTroNhapMasachPT.setFont(new Font("Arial", Font.BOLD, 15));
         btHoTroNhapMasachPT.setBounds(660, 110, 40, 30);
-        btHoTroNhapMasachPT.setBackground(Color.cyan);
+        btHoTroNhapMasachPT.setBackground(MyColor.ColorButton);
         btHoTroNhapMasachPT.setBorder(new RoundedBorder(10));
         btHoTroNhapMasachPT.addActionListener(this);
 
@@ -1924,14 +1947,14 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         btThemHDTP = new JButton("Thêm");
         btThemHDTP.setFont(new Font("Arial", Font.BOLD, 15));
         btThemHDTP.setBounds(95, 250, 80, 30);
-        btThemHDTP.setBackground(Color.cyan);
+        btThemHDTP.setBackground(MyColor.ColorButton);
         btThemHDTP.setBorder(new RoundedBorder(10));
         btThemHDTP.addActionListener(this);
 
         btSuaHDTP = new JButton("Sửa");
         btSuaHDTP.setFont(new Font("Arial", Font.BOLD, 15));
         btSuaHDTP.setBounds(245, 250, 80, 30);
-        btSuaHDTP.setBackground(Color.cyan);
+        btSuaHDTP.setBackground(MyColor.ColorButton);
         btSuaHDTP.setBorder(new RoundedBorder(10));
         btSuaHDTP.addActionListener(this);
 
@@ -1993,28 +2016,28 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         btThemCTHD = new JButton("Thêm");
         btThemCTHD.setFont(new Font("Arial", Font.BOLD, 15));
         btThemCTHD.setBounds(390, 250, 80, 30);
-        btThemCTHD.setBackground(Color.cyan);
+        btThemCTHD.setBackground(MyColor.ColorButton);
         btThemCTHD.setBorder(new RoundedBorder(10));
         btThemCTHD.addActionListener(this);
 
         btSuaCTHD = new JButton("Sửa");
         btSuaCTHD.setFont(new Font("Arial", Font.BOLD, 15));
         btSuaCTHD.setBounds(550, 250, 80, 30);
-        btSuaCTHD.setBackground(Color.cyan);
+        btSuaCTHD.setBackground(MyColor.ColorButton);
         btSuaCTHD.setBorder(new RoundedBorder(10));
         btSuaCTHD.addActionListener(this);
 
         btHoTroNhapMaHD = new JButton("...");
         btHoTroNhapMaHD.setFont(new Font("Arial", Font.BOLD, 15));
         btHoTroNhapMaHD.setBounds(660, 65, 40, 30);
-        btHoTroNhapMaHD.setBackground(Color.cyan);
+        btHoTroNhapMaHD.setBackground(MyColor.ColorButton);
         btHoTroNhapMaHD.setBorder(new RoundedBorder(10));
         btHoTroNhapMaHD.addActionListener(this);
 
         btHoTroNhapMasachHD = new JButton("...");
         btHoTroNhapMasachHD.setFont(new Font("Arial", Font.BOLD, 15));
         btHoTroNhapMasachHD.setBounds(660, 110, 40, 30);
-        btHoTroNhapMasachHD.setBackground(Color.cyan);
+        btHoTroNhapMasachHD.setBackground(MyColor.ColorButton);
         btHoTroNhapMasachHD.setBorder(new RoundedBorder(10));
         btHoTroNhapMasachHD.addActionListener(this);
 
@@ -2076,7 +2099,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             btTimKiemPM = new JButton("Tìm kiếm");
             btTimKiemPM.setFont(new Font("Arial", Font.BOLD, 15));
             btTimKiemPM.setBounds(300, 155, 100, 30);
-            btTimKiemPM.setBackground(Color.cyan);
+            btTimKiemPM.setBackground(MyColor.ColorButton);
             btTimKiemPM.setBorder(new RoundedBorder(10));
             btTimKiemPM.addActionListener(this);
 
@@ -2129,7 +2152,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             btTimKiemPT = new JButton("Tìm kiếm");
             btTimKiemPT.setFont(new Font("Arial", Font.BOLD, 15));
             btTimKiemPT.setBounds(300, 155, 100, 30);
-            btTimKiemPT.setBackground(Color.cyan);
+            btTimKiemPT.setBackground(MyColor.ColorButton);
             btTimKiemPT.setBorder(new RoundedBorder(10));
             btTimKiemPT.addActionListener(this);
 
@@ -2182,7 +2205,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             btTimKiemHDTP = new JButton("Tìm kiếm");
             btTimKiemHDTP.setFont(new Font("Arial", Font.BOLD, 15));
             btTimKiemHDTP.setBounds(300, 155, 100, 30);
-            btTimKiemHDTP.setBackground(Color.cyan);
+            btTimKiemHDTP.setBackground(MyColor.ColorButton);
             btTimKiemHDTP.setBorder(new RoundedBorder(10));
             btTimKiemHDTP.addActionListener(this);
 
@@ -2246,7 +2269,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             btLocPM = new JButton("Lọc");
             btLocPM.setFont(new Font("Arial", Font.BOLD, 15));
             btLocPM.setBounds(210, 115, 80, 30);
-            btLocPM.setBackground(Color.cyan);
+            btLocPM.setBackground(MyColor.ColorButton);
             btLocPM.setBorder(new RoundedBorder(10));
             btLocPM.addActionListener(this);
         }
@@ -2284,7 +2307,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             btLocPT = new JButton("Lọc");
             btLocPT.setFont(new Font("Arial", Font.BOLD, 15));
             btLocPT.setBounds(210, 115, 80, 30);
-            btLocPT.setBackground(Color.cyan);
+            btLocPT.setBackground(MyColor.ColorButton);
             btLocPT.setBorder(new RoundedBorder(10));
             btLocPT.addActionListener(this);
 
@@ -2346,7 +2369,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             btLocHDTP = new JButton("Lọc");
             btLocHDTP.setFont(new Font("Arial", Font.BOLD, 15));
             btLocHDTP.setBounds(210, 115, 80, 30);
-            btLocHDTP.setBackground(Color.cyan);
+            btLocHDTP.setBackground(MyColor.ColorButton);
             btLocHDTP.setBorder(new RoundedBorder(10));
             btLocHDTP.addActionListener(this);
 
@@ -2390,56 +2413,56 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
     }
 
     public void getInfoTextFieldPM(PHIEUMUON phieumuon) {
-        phieumuon.setMaPM(txMaPM.getText().replaceAll("\\s", "").trim());
+        phieumuon.setMaPM(txMaPM.getText().replaceAll("\\s+", "").trim());
         phieumuon.setNgaymuon(datePickerNgayBDPM.getJFormattedTextField().getText());
-        phieumuon.setSLtong(Integer.parseInt(txSLtong.getText().replaceAll("\\s", "").trim()));
+        phieumuon.setSLtong(Integer.parseInt(txSLtong.getText().trim()));
         phieumuon.setNgaytra(datePickerNgayKTPM.getJFormattedTextField().getText());
         String TinhTrangMuon = (String) cbTinhTrangMuon.getSelectedItem();
         phieumuon.setTinhTrangMuon(TinhTrangMuon);
-        phieumuon.setMaDG(txMaDG.getText().replaceAll("\\s", "").trim());
+        phieumuon.setMaDG(txMaDG.getText().replaceAll("\\s+", "").trim());
     }
 
     public void getInfoTextFieldCTPM(CHITIETPHIEUMUON ctphieumuon) {
-        ctphieumuon.setMaPM(txCTPMMaPM.getText().replaceAll("\\s", "").trim());
-        ctphieumuon.setMasach(txCTPMMaSach.getText().replaceAll("\\s", "").trim());
-        ctphieumuon.setSL(Integer.parseInt(txCTPMSL.getText().replaceAll("\\s", "").trim()));
+        ctphieumuon.setMaPM(txCTPMMaPM.getText().replaceAll("\\s+", "").trim());
+        ctphieumuon.setMasach(txCTPMMaSach.getText().replaceAll("\\s+", "").trim());
+        ctphieumuon.setSL(Integer.parseInt(txCTPMSL.getText().trim()));
     }
 
     public void getInfoTextFieldPT(PHIEUTRASACH phieutrasach) {
-        phieutrasach.setMaPT(txMaPT.getText().replaceAll("\\s", "").trim());
+        phieutrasach.setMaPT(txMaPT.getText().replaceAll("\\s+", "").trim());
         phieutrasach.setNgaytra(datePickerNgayBDPT.getJFormattedTextField().getText());
         String TinhTrangSach = (String) cbTinhTrangTra.getSelectedItem();
         phieutrasach.setTinhtrangsach(TinhTrangSach);
         
         String TienThue = RemoveCommaInString(txTienThue);
-        phieutrasach.setTienthue(Integer.parseInt(TienThue.replaceAll("\\s", "").trim()));
+        phieutrasach.setTienthue(Integer.parseInt(TienThue.trim()));
 
         String ThanhTien = RemoveCommaInString(txThanhTien);
-        phieutrasach.setThanhtien(Integer.parseInt(ThanhTien.replaceAll("\\s", "").trim()));
+        phieutrasach.setThanhtien(Integer.parseInt(ThanhTien.trim()));
 
-        phieutrasach.setMaPM(txMaPMTra.getText().replaceAll("\\s", "").trim());
+        phieutrasach.setMaPM(txMaPMTra.getText().replaceAll("\\s+", "").trim());
     }
 
     public void getInfoTextFieldCTPT(CHITIETPHIEUTRA ctphieutra) {
-        ctphieutra.setMaPT(txCTPTMaPT.getText().replaceAll("\\s", "").trim());
-        ctphieutra.setMasach(txCTPTMaSach.getText().replaceAll("\\s", "").trim());
-        ctphieutra.setSL(Integer.parseInt(txCTPTSL.getText().replaceAll("\\s", "").trim()));
+        ctphieutra.setMaPT(txCTPTMaPT.getText().replaceAll("\\s+", "").trim());
+        ctphieutra.setMasach(txCTPTMaSach.getText().replaceAll("\\s+", "").trim());
+        ctphieutra.setSL(Integer.parseInt(txCTPTSL.getText().trim()));
     }
 
     public void getInfoTextFieldHD(HDTIENPHAT hdtienphat) {
-        hdtienphat.setMaHD(txMaHD.getText().replaceAll("\\s", "").trim());
-        hdtienphat.setMaDG(txMaHD_DG.getText().replaceAll("\\s", "").trim());
-        hdtienphat.setSL(Integer.parseInt(txSLTongHD.getText().replaceAll("\\s", "").trim()));
+        hdtienphat.setMaHD(txMaHD.getText().replaceAll("\\s+", "").trim());
+        hdtienphat.setMaDG(txMaHD_DG.getText().replaceAll("\\s+", "").trim());
+        hdtienphat.setSL(Integer.parseInt(txSLTongHD.getText().trim()));
         String TienPhat = RemoveCommaInString(txTienPhat);
-        hdtienphat.setTienphat(Integer.parseInt(TienPhat.replaceAll("\\s", "").trim()));
+        hdtienphat.setTienphat(Integer.parseInt(TienPhat.trim()));
     }
 
     public void getInfoTextFieldCTHD(CHITIETHDTIENPHAT chitiethdtienphat) {
-        chitiethdtienphat.setMaHD(txCTHDMaHD.getText().replaceAll("\\s", "").trim());
-        chitiethdtienphat.setMasach(txCTHDMaSach.getText().replaceAll("\\s", "").trim());
-        chitiethdtienphat.setSL(Integer.parseInt(txCTHDSL.getText().replaceAll("\\s", "").trim()));
+        chitiethdtienphat.setMaHD(txCTHDMaHD.getText().replaceAll("\\s+", "").trim());
+        chitiethdtienphat.setMasach(txCTHDMaSach.getText().replaceAll("\\s+", "").trim());
+        chitiethdtienphat.setSL(Integer.parseInt(txCTHDSL.getText().trim()));
         String DonGia = RemoveCommaInString(txCTHDDonGia);
-        chitiethdtienphat.setDongia(Integer.parseInt(DonGia.replaceAll("\\s", "").trim()));
+        chitiethdtienphat.setDongia(Integer.parseInt(DonGia.trim()));
     }
 
     public String RemoveCommaInString(JTextField Tien) {

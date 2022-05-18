@@ -15,6 +15,7 @@ public class MyColor {
             // Color = new Color(85,85,85),
             Color = new Color(204,255,255), 
             ColorButton = new Color(255,215,0),
+            Color2 = new Color(7,255,217),
             // ColorButton = new Color(10,215,228),
             // ColorButton = new Color(10,190,228),
             ColorLightGray = new Color(192,192,192);

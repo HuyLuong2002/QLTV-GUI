@@ -10,48 +10,44 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import MyCustom.MSSQLConnect;
-import QLTV.DTO.DOCGIA;
+import QLTV.DTO.PHIEUTHEODOIMT;
 
-public class QLNVDAO {
+public class QLPHIEUTHEODOIDAO {
     Connection conn = null;
     Statement st = null;
     ResultSet rs = null;
 
-    public QLNVDAO() throws Exception {
+    public QLPHIEUTHEODOIDAO() throws Exception {
         MSSQLConnect connect = new MSSQLConnect();
         conn = connect.getConnection();
     }
 
-    public ArrayList<DOCGIA> docDS() {
-        ArrayList<DOCGIA> dsdg = new ArrayList<DOCGIA>();
+    public ArrayList<PHIEUTHEODOIMT> docDS() {
+        ArrayList<PHIEUTHEODOIMT> dsptd = new ArrayList<PHIEUTHEODOIMT>();
         try {
-            String qry = "select * from DOCGIA";
+            String qry = "select * from PHIEUTHEODOIMT";
             st = conn.createStatement();
             rs = st.executeQuery(qry);
             while (rs.next()) {
-                DOCGIA dg = new DOCGIA();
-                dg.setMaDG(rs.getString(1));
-                dg.setTenDG(rs.getString(2));
-                dg.setDiachi(rs.getString(3));
-                dg.setMail(rs.getString(4));
-                dg.setTinhtrangthue(rs.getString(5));
-                dsdg.add(dg);
+                PHIEUTHEODOIMT ptd = new PHIEUTHEODOIMT();
+                ptd.setMaDG(rs.getString(1));
+                ptd.setTongmuon(Integer.parseInt(rs.getString(2)));
+                ptd.setTiencoc(Integer.parseInt(rs.getString(3)));
+                dsptd.add(ptd);
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Đọc dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
-        return dsdg;
+        return dsptd;
     }
 
-    public int themDG(DOCGIA docgia) {
+    public int them(PHIEUTHEODOIMT ptd) {
         try {
-            String qry = "INSERT INTO DOCGIA VALUES (?,?,?,?,?)";
+            String qry = "INSERT INTO PHIEUTHEODOIMT VALUES (?,?,?)";
             PreparedStatement ps = conn.prepareStatement(qry);
-            ps.setString(1, docgia.getMaDG());
-            ps.setString(2, docgia.getTenDG());
-            ps.setString(3, docgia.getDiachi());
-            ps.setString(4, docgia.getMail());
-            ps.setString(5, docgia.getTinhtrangthue());
+            ps.setString(1, ptd.getMaDG());
+            ps.setString(2, String.valueOf(ptd.getTongmuon()));
+            ps.setString(3, String.valueOf(ptd.getTiencoc()));
 
             int n = ps.executeUpdate();
             if (n != 0) {
@@ -66,31 +62,10 @@ public class QLNVDAO {
         }
     }
 
-    public int hoantacXoa(DOCGIA docgia) {
+    public int sua(PHIEUTHEODOIMT ptdmoi, PHIEUTHEODOIMT ptdcu, int i) {
         try {
-            String qry = "INSERT INTO DOCGIA VALUES (?,?,?,?,?)";
-            PreparedStatement ps = conn.prepareStatement(qry);
-            ps.setString(1, docgia.getMaDG().trim());
-            ps.setString(2, docgia.getTenDG().trim()); 
-            ps.setString(3, docgia.getDiachi().trim());
-            ps.setString(4, docgia.getMail().trim());
-            ps.setString(5, docgia.getTinhtrangthue());
-
-            ps.executeUpdate();
-
-            return 0;
-        } catch (SQLException e) {
-            System.out.println(e);
-            return -1;
-        }
-    }
-
-    public int suaDG(DOCGIA docgiamoi, DOCGIA docgiacu,int i) {
-        try {
-            String qry = "update DOCGIA set " + "MADG=" + "'" + docgiamoi.getMaDG().trim() + "'" +
-                    ",TENDG=" + "N'" + docgiamoi.getTenDG().trim() + "'" + ",DIACHI=" + "N'" + docgiamoi.getDiachi().trim() + "'" +
-                    ",EMAIL=" + "'" + docgiamoi.getMail().trim() + "'" + ",TINHTRANGTHUE=" + "N'" + docgiamoi.getTinhtrangthue().trim() + 
-                    "'" + " where MADG='" + docgiacu.getMaDG().trim() + "'";
+            String qry = "update PHIEUTHEODOIMT set " + "MADG=" + "'" + ptdmoi.getMaDG().trim() + "'" +
+                    ",TONGMUON=" + ptdmoi.getTongmuon() + ",TIENCOC=" + ptdmoi.getTiencoc() + " where MADG='" + ptdcu.getMaDG().trim() + "'";
             st = conn.createStatement();
             st.executeUpdate(qry);
             if (st != null) {
@@ -105,9 +80,9 @@ public class QLNVDAO {
         }
     }
 
-    public int xoaDG(String MaDG) {
+    public int xoa(String MaDG) {
         try {
-            String qry = "delete from DOCGIA where MADG='" + MaDG + "'";
+            String qry = "delete from PHIEUTHEODOIMT where MADG='" + MaDG + "'";
             st = conn.createStatement();
             st.executeUpdate(qry);
             if (st != null) {
@@ -121,4 +96,23 @@ public class QLNVDAO {
             return -1;
         }
     }
+
+    public int hoantacXoa(PHIEUTHEODOIMT ptd) {
+        try {
+            String qry = "INSERT INTO PHIEUTHEODOIMT VALUES (?,?,?)";
+            PreparedStatement ps = conn.prepareStatement(qry);
+            ps.setString(1, ptd.getMaDG());
+            ps.setString(2, String.valueOf(ptd.getTongmuon()));
+            ps.setString(3, String.valueOf(ptd.getTiencoc()));
+
+
+            ps.executeUpdate();
+
+            return 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+            return -1;
+        }
+    }
+
 }
