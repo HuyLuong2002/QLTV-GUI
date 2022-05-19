@@ -42,11 +42,13 @@ import MyCustom.DocGhiFileExcel;
 import MyCustom.LoginPage;
 import MyCustom.Menu;
 import MyCustom.MyColor;
+import MyCustom.MyTable;
 import MyCustom.RoundedBorder;
 import QLTV.BUS.QLSACHBUS;
 import QLTV.DTO.SACH;
 
 public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
+    MyTable myTable = new MyTable();
     JPanel pnTTSach, pnNhapTTSach, pnShowAll, pnMenu, pnTimKiem, pnLoc;
     JPanel pnMT, pnPN, pnThongKe, pnQLNV, pnLibrary;
     JLabel lbHome, lbTTSach, lbMasach, lbTensach, lbMaNXB, lbMaTG, lbNamXB, lbSLtong, lbSL, lbDongia, lbLCTK,
@@ -865,7 +867,6 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
 
     public void setMenu() {
         // Set menu side left
-        ImageIcon iconHome = new ImageIcon("images\\home.png");
         ImageIcon iconMenu = new ImageIcon("images\\menu.png");
         ImageIcon iconBook = new ImageIcon("images\\book.png");
         ImageIcon iconSearch = new ImageIcon("images\\search.png");
@@ -874,10 +875,6 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         ImageIcon iconNS = new ImageIcon("images\\cart.png");
         ImageIcon iconLogout = new ImageIcon("images\\logout.png");
         ImageIcon iconExited = new ImageIcon("images\\exit.png");
-
-        lbHome = new JLabel();
-        lbHome.setHorizontalAlignment(SwingConstants.CENTER);
-        lbHome.setIcon(iconHome);
 
         btMenu = new JButton("Menu");
         btMenu.setFont(new Font("Arial", Font.BOLD, 20));
@@ -953,7 +950,6 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         btThoat.addActionListener(this);
 
         // add Menu button
-        // pnMenu.add(lbHome);
         pnMenu.add(btMenu);
         pnMenu.add(btSach);
         pnMenu.add(btMenuTimKiem);
@@ -1029,7 +1025,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         sach.setNamXB(txNamXB.getText());
         sach.setSLtong(Integer.parseInt(txSLtong.getText()));
         sach.setSL(Integer.parseInt(txSL.getText()));
-        String tmpDonGia = RemoveCommaInString(txDongia);
+        String tmpDonGia = myTable.RemoveCommaInString(txDongia);
         sach.setDongia(Integer.parseInt(tmpDonGia));
     }
 
@@ -1243,12 +1239,4 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         tblQLSACH.setModel(model);
     }
 
-    public String RemoveCommaInString(JTextField DonGia) {
-        String tmp[] = DonGia.getText().split(",");
-        String Dongia = "";
-        for (int i = 0; i < tmp.length; i++) {
-            Dongia = Dongia + tmp[i];
-        }
-        return Dongia;
-    }
 }

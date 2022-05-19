@@ -81,7 +81,7 @@ public class QLNHANVIENDAO {
             ps.setString(7, String.valueOf(nhanvien.getSDT()));
             ps.setString(8, nhanvien.getMail());
 
-            int n = ps.executeUpdate();
+            ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
             JOptionPane.showMessageDialog(null, "Hoàn tác dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);

@@ -49,42 +49,52 @@ public class QLNVGUI extends JFrame implements MouseListener, ActionListener {
             pnQLNV = new JPanel();
             pnQLNV.setBounds(240, 0, 1145, 800);
             pnQLNV.setLayout(null);
+            pnQLNV.setBackground(MyColor.ColorBlue);
 
             // panel tab độc giả
             pnTabDG = new JPanel();
             pnTabDG.setLayout(new GridLayout(1, 1, 0, 0));
+            pnTabDG.setBackground(MyColor.ColorBlue);
 
             // panel tab theo dõi mượn trả
             pnTabTheoDoiMT = new JPanel();
             pnTabTheoDoiMT.setLayout(new GridLayout(1, 1, 0, 0));
+            pnTabTheoDoiMT.setBackground(MyColor.ColorBlue);
 
             pnDG = new JPanel();
             pnDG.setLayout(new GridLayout(1, 1));
+            pnDG.setBackground(MyColor.ColorBlue);
 
             pnTDMT = new JPanel();
             pnTDMT.setLayout(new GridLayout(1, 1));
             pnTDMT.setVisible(false);
+            pnTDMT.setBackground(MyColor.ColorBlue);
 
             pnShowAll = new JPanel();
             pnShowAll.setBounds(5, 358, 1135, 50);
             pnShowAll.setLayout(null);
+            pnShowAll.setBackground(MyColor.ColorBlue);
 
             pnNhapDG = new JPanel();
             pnNhapDG.setLayout(null);
             pnNhapDG.setBounds(5, 410, 1137, 370);
+            pnNhapDG.setBackground(MyColor.ColorBlue);
 
             pnNhapTDMT = new JPanel();
             pnNhapTDMT.setLayout(null);
             pnNhapTDMT.setBounds(5, 410, 1137, 370);
             pnNhapTDMT.setVisible(false);
+            pnNhapTDMT.setBackground(MyColor.ColorBlue);
 
             pnTimKiemDG = new JPanel();
             pnTimKiemDG.setLayout(null);
             pnTimKiemDG.setBounds(570, 0, 567, 200);
+            pnTimKiemDG.setBackground(MyColor.ColorBlue);
 
             pnTimKiemTDMT = new JPanel();
             pnTimKiemTDMT.setLayout(null);
             pnTimKiemTDMT.setBounds(570, 0, 567, 200);
+            pnTimKiemTDMT.setBackground(MyColor.ColorBlue);
 
             tabbedPane = new JTabbedPane();
             tabbedPane.addTab("Độc giả", pnTabDG);
@@ -212,10 +222,11 @@ public class QLNVGUI extends JFrame implements MouseListener, ActionListener {
         pane.setAutoscrolls(true);
         tblQLDG.setRowHeight(20);
         tblQLDG.setFont(new Font(null, 0, 13));
-        tblQLDG.setBackground(Color.LIGHT_GRAY);
+        tblQLDG.setBackground(MyColor.ColorLightGray);
         tblQLDG.addMouseListener(this);
         tblQLDG.setDefaultEditor(Object.class, null);
-        tblQLDG.setSelectionBackground(Color.GREEN);
+        tblQLDG.setSelectionBackground(MyColor.Color);
+        tblQLDG.getTableHeader().setBackground(MyColor.ColorSilver);
         pnDG.add(pane);
     }
 
@@ -226,10 +237,11 @@ public class QLNVGUI extends JFrame implements MouseListener, ActionListener {
         pane.setAutoscrolls(true);
         tblQLTDMT.setRowHeight(20);
         tblQLTDMT.setFont(new Font(null, 0, 13));
-        tblQLTDMT.setBackground(Color.LIGHT_GRAY);
+        tblQLTDMT.setBackground(MyColor.ColorLightGray);
         tblQLTDMT.addMouseListener(this);
         tblQLTDMT.setDefaultEditor(Object.class, null);
-        tblQLTDMT.setSelectionBackground(Color.GREEN);
+        tblQLTDMT.setSelectionBackground(MyColor.Color);
+        tblQLTDMT.getTableHeader().setBackground(MyColor.ColorSilver);
         pnTDMT.add(pane);
     }
 
@@ -366,28 +378,28 @@ public class QLNVGUI extends JFrame implements MouseListener, ActionListener {
         btThemDG = new JButton("Thêm");
         btThemDG.setFont(new Font("Arial", Font.BOLD, 15));
         btThemDG.setBounds(20, 230, 80, 30);
-        btThemDG.setBackground(Color.cyan);
+        btThemDG.setBackground(MyColor.ColorButton);
         btThemDG.setBorder(new RoundedBorder(10));
         btThemDG.addActionListener(this);
         // JbuttonSua
         btSuaDG = new JButton("Sửa");
         btSuaDG.setFont(new Font("Arial", Font.BOLD, 15));
         btSuaDG.setBounds(120, 230, 80, 30);
-        btSuaDG.setBackground(Color.cyan);
+        btSuaDG.setBackground(MyColor.ColorButton);
         btSuaDG.setBorder(new RoundedBorder(10));
         btSuaDG.addActionListener(this);
         // JbuttonXoa
         btXoaDG = new JButton("Xóa");
         btXoaDG.setFont(new Font("Arial", Font.BOLD, 15));
         btXoaDG.setBounds(220, 230, 80, 30);
-        btXoaDG.setBackground(Color.cyan);
+        btXoaDG.setBackground(MyColor.ColorButton);
         btXoaDG.setBorder(new RoundedBorder(10));
         btXoaDG.addActionListener(this);
         // JbuttonHoanTac
         btHoanTac = new JButton("Hoàn tác");
         btHoanTac.setFont(new Font("Arial", Font.BOLD, 15));
         btHoanTac.setBounds(320, 230, 100, 30);
-        btHoanTac.setBackground(Color.cyan);
+        btHoanTac.setBackground(MyColor.ColorButton);
         btHoanTac.setBorder(new RoundedBorder(10));
         btHoanTac.addActionListener(this);
 
@@ -440,28 +452,28 @@ public class QLNVGUI extends JFrame implements MouseListener, ActionListener {
         btThemTDMT = new JButton("Thêm");
         btThemTDMT.setFont(new Font("Arial", Font.BOLD, 15));
         btThemTDMT.setBounds(20, 160, 80, 30);
-        btThemTDMT.setBackground(Color.cyan);
+        btThemTDMT.setBackground(MyColor.ColorButton);
         btThemTDMT.setBorder(new RoundedBorder(10));
         btThemTDMT.addActionListener(this);
         // JbuttonSua
         btSuaTDMT = new JButton("Sửa");
         btSuaTDMT.setFont(new Font("Arial", Font.BOLD, 15));
         btSuaTDMT.setBounds(120, 160, 80, 30);
-        btSuaTDMT.setBackground(Color.cyan);
+        btSuaTDMT.setBackground(MyColor.ColorButton);
         btSuaTDMT.setBorder(new RoundedBorder(10));
         btSuaTDMT.addActionListener(this);
         // JbuttonXoa
         btXoaTDMT = new JButton("Xóa");
         btXoaTDMT.setFont(new Font("Arial", Font.BOLD, 15));
         btXoaTDMT.setBounds(220, 160, 80, 30);
-        btXoaTDMT.setBackground(Color.cyan);
+        btXoaTDMT.setBackground(MyColor.ColorButton);
         btXoaTDMT.setBorder(new RoundedBorder(10));
         btXoaTDMT.addActionListener(this);
         // JbuttonHoanTac
         btHoanTacTDMT = new JButton("Hoàn tác");
         btHoanTacTDMT.setFont(new Font("Arial", Font.BOLD, 15));
         btHoanTacTDMT.setBounds(320, 160, 100, 30);
-        btHoanTacTDMT.setBackground(Color.cyan);
+        btHoanTacTDMT.setBackground(MyColor.ColorButton);
         btHoanTacTDMT.setBorder(new RoundedBorder(10));
         btHoanTacTDMT.addActionListener(this);
 
@@ -483,14 +495,14 @@ public class QLNVGUI extends JFrame implements MouseListener, ActionListener {
         btShowAll = new JButton("Hiển thị tất cả");
         btShowAll.setFont(new Font("Arial", Font.BOLD, 15));
         btShowAll.setBounds(1000, 5, 130, 30);
-        btShowAll.setBackground(Color.cyan);
+        btShowAll.setBackground(MyColor.ColorButton);
         btShowAll.setBorder(new RoundedBorder(10));
         btShowAll.addActionListener(this);
 
         btSapXep = new JButton("Sắp xếp theo tên");
         btSapXep.setFont(new Font("Arial", Font.BOLD, 15));
         btSapXep.setBounds(820, 10, 150, 30);
-        btSapXep.setBackground(Color.cyan);
+        btSapXep.setBackground(MyColor.ColorButton);
         btSapXep.setBorder(new RoundedBorder(10));
         btSapXep.addActionListener(this);
 

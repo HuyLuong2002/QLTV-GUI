@@ -1,7 +1,6 @@
 package QLTV.GUI;
 
 import java.awt.Color;
-// import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -22,6 +21,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
@@ -34,7 +34,7 @@ import QLTV.DTO.NXB;
 
 public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
     JPanel pnTTNXB, pnNhapTTNXB, pnShowAll, pnMenu, pnTimKiem;
-    JLabel lbHome, lbTTNXB, lbMaNXB, lbTenNXB, lbLCTK, lbTuKhoaTK, lbKQTK;
+    JLabel lbHome, lbTTNXB, lbMaNXB, lbTenNXB, lbLCTK, lbTuKhoaTK;
     JLabel lbTKMaNXB;
     JTextField txMaNXB, txTenNXB, txKhoaTK;
     JButton btThem, btnxb, btSua, btXoa, btHoanTac, btMenuTimKiem, btShowAll, btThongKe;
@@ -60,7 +60,7 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
         pnShowAll = new JPanel();
         pnMenu = new JPanel();
         pnTimKiem = new JPanel();
-        pnTTNXB.setLayout(new GridLayout(3, 1, 0, -300));
+        pnTTNXB.setLayout(new GridLayout(2, 1, 0, -300));
         pnTTNXB.setBounds(242, 0, 1142, 400);
         pnTTNXB.setBackground(MyColor.ColorBlue);
 
@@ -77,7 +77,7 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
         pnMenu.setBackground(MyColor.ColorOcean);
 
         pnTimKiem.setLayout(null);
-        pnTimKiem.setBounds(970, 440, 410, 300);
+        pnTimKiem.setBounds(962, 430, 423, 332);
         pnTimKiem.setBackground(MyColor.ColorBlue);
 
         // add components
@@ -212,8 +212,6 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
         } else if (e.getSource() == btSearch) {
             int vtkey = Integer.parseInt(String.valueOf(comboBoxDSKhoaTK.getSelectedIndex()));
             String tukhoa = txKhoaTK.getText();
-            lbKQTK.setFont(new Font("Arial", Font.BOLD, 20));
-            lbKQTK.setForeground(Color.red);
             if (tukhoa.equals("") == true) {
                 JOptionPane.showMessageDialog(null, "Xin mời nhập từ khóa", "Lỗi", JOptionPane.ERROR_MESSAGE);
             } else if (vtkey == 0) {
@@ -224,28 +222,25 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
                     NXB kq = qlnxbbus.timTheoMa(tukhoa);
                     model.setRowCount(0);
                     if (kq == null) {
-                        lbKQTK.setText("Kết quả tìm kiếm: Không tìm thấy");
+                        JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
                     } else {
                         ShowOnTable(kq);
-                        lbKQTK.setText("Kết quả tìm kiếm: Tìm thấy " + model.getRowCount() + " NXB");
                         tblQLNXB.setModel(model);
                     }
                 } else if (vtkey == 2) {
                     ArrayList<NXB> kq = qlnxbbus.timTheoTen(tukhoa);
                     model.setRowCount(0);
                     if (kq.size() == 0) {
-                        lbKQTK.setText("Kết quả tìm kiếm: Không tìm thấy");
+                        JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
                     } else {
                         for (NXB nxb : kq) {
                             ShowOnTable(nxb);
                         }
-                        lbKQTK.setText("Kết quả tìm kiếm: Tìm thấy " + model.getRowCount() + " NXB");
                         tblQLNXB.setModel(model);
                     }
                 }
             }
         } else if (e.getSource() == btShowAll) {
-            lbKQTK.setText("");
             model.setRowCount(0);
             for (NXB nxb : QLNXBBUS.dsnxb) {
                 ShowOnTable(nxb);
@@ -302,8 +297,8 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
             if (i >= 0) {
                 NXB nxb = new NXB();
                 nxb = QLNXBBUS.dsnxb.get(i);
-                txMaNXB.setText(nxb.getMaNXB().replaceAll("\\s", "").trim());
-                txTenNXB.setText(nxb.getTenNXB().replaceAll("\\s", "").trim());
+                txMaNXB.setText(nxb.getMaNXB().replaceAll("\\s+", " ").trim());
+                txTenNXB.setText(nxb.getTenNXB().replaceAll("\\s+", " ").trim());
             }
         }
 
@@ -364,7 +359,7 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
         // JTextField Khóa tìm kiếm
         txKhoaTK = new JTextField();
         txKhoaTK.setFont(new Font("Arial", Font.PLAIN, 15));
-        txKhoaTK.setBounds(245, 125, 160, 30);
+        txKhoaTK.setBounds(250, 125, 160, 30);
         txKhoaTK.addMouseListener(this);
 
         // JbuttonThem
@@ -400,7 +395,7 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
         String[] dsKhoaTK = { "", "Mã NXB", "Tên NXB" };
         comboBoxDSKhoaTK = new JComboBox<>(dsKhoaTK);
         comboBoxDSKhoaTK.setFont(new Font("Arial", Font.BOLD, 13));
-        comboBoxDSKhoaTK.setBounds(245, 75, 100, 30);
+        comboBoxDSKhoaTK.setBounds(250, 75, 100, 30);
         comboBoxDSKhoaTK.addActionListener(this);
 
         lbLCTK.setVisible(false);
@@ -428,9 +423,6 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
         ImageIcon iconSearch = new ImageIcon("images\\search.png");
         ImageIcon iconLogout = new ImageIcon("images\\logout.png");
         ImageIcon iconExited = new ImageIcon("images\\exit.png");
-
-        lbHome = new JLabel();
-        lbHome.setHorizontalAlignment(SwingConstants.CENTER);
 
         btMenu = new JButton("Menu");
         btMenu.setFont(new Font("Arial", Font.BOLD, 20));
@@ -474,7 +466,6 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
         btThoat.addActionListener(this);
 
         // add Menu button
-        pnMenu.add(lbHome);
         pnMenu.add(btMenu);
         pnMenu.add(btnxb);
         pnMenu.add(btMenuTimKiem);
@@ -488,10 +479,6 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
         lbTTNXB.setFont(new Font("Arial", Font.BOLD, 30));
         lbTTNXB.setHorizontalAlignment(SwingConstants.CENTER);
         lbTTNXB.setVerticalAlignment(SwingConstants.TOP);
-        // labelKQTK
-        lbKQTK = new JLabel();
-        lbKQTK.setHorizontalAlignment(SwingConstants.CENTER);
-        lbKQTK.setVerticalAlignment(SwingConstants.TOP);
         // ----set up table----
         tblQLNXB = new JTable();
         pane = new JScrollPane(tblQLNXB);
@@ -506,7 +493,6 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
 
         this.add(pnTTNXB);
         pnTTNXB.add(lbTTNXB);
-        pnTTNXB.add(lbKQTK);
         pnTTNXB.add(pane);
     }
 
@@ -532,14 +518,14 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
 
     public void ShowOnTable(NXB nxb) {
         Vector<String> row = new Vector<String>();
-        row.add(nxb.getMaNXB().replaceAll("\\s", "").trim());
-        row.add(nxb.getTenNXB().replaceAll("\\s", "").trim());
+        row.add(nxb.getMaNXB().replaceAll("\\s+", " ").trim());
+        row.add(nxb.getTenNXB().replaceAll("\\s+", " ").trim());
         model.addRow(row);
     }
 
     public void getInfoTextField(NXB nxb) {
-        nxb.setMaNXB(txMaNXB.getText().replaceAll("\\s", "").trim());
-        nxb.setTenNXB(txTenNXB.getText().replaceAll("\\s", "").trim());
+        nxb.setMaNXB(txMaNXB.getText().replaceAll("\\s+", " ").trim());
+        nxb.setTenNXB(txTenNXB.getText().replaceAll("\\s+", " ").trim());
     }
 
     public void getDatabase() {
@@ -581,7 +567,9 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
             txKhoaTK.setVisible(true);
 
             TitledBorder titleTK;
-            titleTK = BorderFactory.createTitledBorder("Tìm kiếm");
+            Border blackline;
+            blackline = BorderFactory.createLineBorder(Color.black);
+            titleTK = BorderFactory.createTitledBorder(blackline,"Tìm kiếm");
             titleTK.setTitleFont(new Font("Arial", Font.BOLD, 28));
             titleTK.setTitleJustification(TitledBorder.CENTER);
             pnTimKiem.setBorder(titleTK);

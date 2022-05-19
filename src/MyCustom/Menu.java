@@ -1,6 +1,5 @@
 package MyCustom;
 
-import java.awt.Color;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.ImageIcon;
@@ -73,11 +72,11 @@ public class Menu extends JFrame implements ActionListener {
         labelLibrary.setIcon(new ImageIcon("images\\user_login1.png"));
         labelLibrary.setBounds(55, 25, 125, 125);
 
-        btSach = new JButton("Quản lý Sách");
-        btNXB = new JButton("Nhà Xuất Bản");
-        btTheLoai = new JButton("Quản lý Thể loại");
-        btTacGia = new JButton("Quản lý Tác giả");
-        btNhanvien = new JButton("Quản lý Nhân viên");
+        btSach = new JButton("Quản lý sách");
+        btNXB = new JButton("Nhà xuất bản");
+        btTheLoai = new JButton("Quản lý thể loại");
+        btTacGia = new JButton("Quản lý tác giả");
+        btNhanvien = new JButton("Quản lý nhân viên");
         btNhaCC = new JButton("Nhà cung cấp");
         btDangXuat = new JButton("Đăng xuất");
         btThoat = new JButton("Thoát");

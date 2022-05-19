@@ -1,7 +1,6 @@
 package QLTV.GUI;
 
 import java.awt.Color;
-// import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -22,11 +21,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
-
-// import org.apache.poi.hssf.util.HSSFColor.YELLOW;
-
 import MyCustom.LoginPage;
 import MyCustom.Menu;
 import MyCustom.RoundedBorder;
@@ -36,7 +33,7 @@ import QLTV.DTO.THELOAI;
 
 public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListener {
     JPanel pnTTTheLoai, pnNhapTTTL, pnShowAll, pnMenu, pnTimKiem;
-    JLabel lbHome, lbTTTL, lbMaTL, lbTenTL, lbSLTL, lbLCTK, lbTuKhoaTK, lbKQTK;
+    JLabel lbHome, lbTTTL, lbMaTL, lbTenTL, lbSLTL, lbLCTK, lbTuKhoaTK;
     JLabel lbTKMaTL;
     JTextField txMaTL, txTenTL, txSLTL, txKhoaTK;
     JButton btThem, bttheloai, btSua, btXoa, btHoanTac, btMenuTimKiem, btShowAll;
@@ -62,7 +59,7 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
         pnShowAll = new JPanel();
         pnMenu = new JPanel();
         pnTimKiem = new JPanel();
-        pnTTTheLoai.setLayout(new GridLayout(3, 1, 0, -300));
+        pnTTTheLoai.setLayout(new GridLayout(2, 1, 0, -300));
         pnTTTheLoai.setBounds(242, 0, 1142, 400);
         pnTTTheLoai.setBackground(MyColor.ColorBlue);
 
@@ -79,7 +76,7 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
         pnMenu.setBackground(MyColor.ColorOcean);
 
         pnTimKiem.setLayout(null);
-        pnTimKiem.setBounds(970, 440, 410, 300);
+        pnTimKiem.setBounds(962, 430, 423, 332);
         pnTimKiem.setBackground(MyColor.ColorBlue);
 
         // add components
@@ -217,8 +214,6 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
         } else if (e.getSource() == btSearch) {
             int vtkey = Integer.parseInt(String.valueOf(comboBoxDSKhoaTK.getSelectedIndex()));
             String tukhoa = txKhoaTK.getText();
-            lbKQTK.setFont(new Font("Arial", Font.BOLD, 20));
-            lbKQTK.setForeground(Color.red);
             if (tukhoa.equals("") == true) {
                 JOptionPane.showMessageDialog(null, "Xin mời nhập từ khóa", "Lỗi", JOptionPane.ERROR_MESSAGE);
             } else if (vtkey == 0) {
@@ -229,28 +224,25 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
                     THELOAI kq = qltheloaibus.timTheoMa(tukhoa);
                     model.setRowCount(0);
                     if (kq == null) {
-                        lbKQTK.setText("Kết quả tìm kiếm: Không tìm thấy");
+                        JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
                     } else {
                         ShowOnTable(kq);
-                        lbKQTK.setText("Kết quả tìm kiếm: Tìm thấy " + model.getRowCount() + " THELOAI");
                         tblQLTHELOAI.setModel(model);
                     }
                 } else if (vtkey == 2) {
                     ArrayList<THELOAI> kq = qltheloaibus.timTheoTen(tukhoa);
                     model.setRowCount(0);
                     if (kq.size() == 0) {
-                        lbKQTK.setText("Kết quả tìm kiếm: Không tìm thấy");
+                        JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
                     } else {
                         for (THELOAI theloai : kq) {
                             ShowOnTable(theloai);
                         }
-                        lbKQTK.setText("Kết quả tìm kiếm: Tìm thấy " + model.getRowCount() + " THELOAI");
                         tblQLTHELOAI.setModel(model);
                     }
                 }
             }
         } else if (e.getSource() == btShowAll) {
-            lbKQTK.setText("");
             model.setRowCount(0);
             for (THELOAI theloai : QLTHELOAIBUS.dstheloai) {
                 ShowOnTable(theloai);
@@ -307,8 +299,8 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
             if (i >= 0) {
                 THELOAI theloai = new THELOAI();
                 theloai = QLTHELOAIBUS.dstheloai.get(i);
-                txMaTL.setText(theloai.getMaTL().replaceAll("\\s", "").trim());
-                txTenTL.setText(theloai.getTenTL().replaceAll("\\s", "").trim());
+                txMaTL.setText(theloai.getMaTL().replaceAll("\\s+", " ").trim());
+                txTenTL.setText(theloai.getTenTL().replaceAll("\\s+", " ").trim());
                 txSLTL.setText(String.valueOf(theloai.getSLTL()));
             }
         }
@@ -446,6 +438,7 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
 
     public void setMenu() {
         // Set menu side left
+        ImageIcon iconHome = new ImageIcon("images\\home.png");
         ImageIcon iconMenu = new ImageIcon("images\\menu.png");
         ImageIcon iconPubCompany = new ImageIcon("images\\company-building-icon.png");
         ImageIcon iconSearch = new ImageIcon("images\\search.png");
@@ -454,6 +447,7 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
 
         lbHome = new JLabel();
         lbHome.setHorizontalAlignment(SwingConstants.CENTER);
+        lbHome.setIcon(iconHome);
 
         btMenu = new JButton("Menu");
         btMenu.setFont(new Font("Arial", Font.BOLD, 20));
@@ -497,7 +491,6 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
         btThoat.addActionListener(this);
 
         // add Menu button
-        pnMenu.add(lbHome);
         pnMenu.add(btMenu);
         pnMenu.add(bttheloai);
         pnMenu.add(btMenuTimKiem);
@@ -511,10 +504,6 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
         lbTTTL.setFont(new Font("Arial", Font.BOLD, 30));
         lbTTTL.setHorizontalAlignment(SwingConstants.CENTER);
         lbTTTL.setVerticalAlignment(SwingConstants.TOP);
-        // labelKQTK
-        lbKQTK = new JLabel();
-        lbKQTK.setHorizontalAlignment(SwingConstants.CENTER);
-        lbKQTK.setVerticalAlignment(SwingConstants.TOP);
         // ----set up table----
         tblQLTHELOAI = new JTable();
         pane = new JScrollPane(tblQLTHELOAI);
@@ -529,7 +518,6 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
 
         this.add(pnTTTheLoai);
         pnTTTheLoai.add(lbTTTL);
-        pnTTTheLoai.add(lbKQTK);
         pnTTTheLoai.add(pane);
     }
 
@@ -555,15 +543,15 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
 
     public void ShowOnTable(THELOAI theloai) {
         Vector<String> row = new Vector<String>();
-        row.add(theloai.getMaTL().replaceAll("\\s", "").trim());
-        row.add(theloai.getTenTL().replaceAll("\\s", "").trim());
+        row.add(theloai.getMaTL().replaceAll("\\s+", " ").trim());
+        row.add(theloai.getTenTL().replaceAll("\\s+", " ").trim());
         row.add(String.valueOf(theloai.getSLTL()));
         model.addRow(row);
     }
 
     public void getInfoTextField(THELOAI theloai) {
-        theloai.setMaTL(txMaTL.getText().replaceAll("\\s", "").trim());
-        theloai.setTenTL(txTenTL.getText().replaceAll("\\s", "").trim());
+        theloai.setMaTL(txMaTL.getText().replaceAll("\\s+", " ").trim());
+        theloai.setTenTL(txTenTL.getText().replaceAll("\\s+", " ").trim());
         theloai.setSLTL(Integer.valueOf(txSLTL.getText()));
     }
 
@@ -607,7 +595,9 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
             txKhoaTK.setVisible(true);
 
             TitledBorder titleTK;
-            titleTK = BorderFactory.createTitledBorder("Tìm kiếm");
+            Border blackline;
+            blackline = BorderFactory.createLineBorder(Color.black);
+            titleTK = BorderFactory.createTitledBorder(blackline,"Tìm kiếm");
             titleTK.setTitleFont(new Font("Arial", Font.BOLD, 28));
             titleTK.setTitleJustification(TitledBorder.CENTER);
             pnTimKiem.setBorder(titleTK);
