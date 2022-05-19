@@ -50,7 +50,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
     JPanel pnTTSach, pnNhapTTSach, pnShowAll, pnMenu, pnTimKiem, pnLoc;
     JPanel pnMT, pnPN, pnThongKe, pnQLNV, pnLibrary;
     JLabel lbHome, lbTTSach, lbMasach, lbTensach, lbMaNXB, lbMaTG, lbNamXB, lbSLtong, lbSL, lbDongia, lbLCTK,
-            lbTuKhoaTK, lbKQTK;
+            lbTuKhoaTK;
     JLabel lbTKNam, lbTKSL, lbNgayBD, lbNgayKT, lbLibrary;
     JTextField txMasach, txTensach, txMaNXB, txMaTG, txNamXB, txSLtong, txSL, txDongia, txKhoaTK;
     JTextField txTKNam, txTKSL;
@@ -95,7 +95,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         lbLibrary.setIcon(new ImageIcon("images\\user_login.png"));
         lbLibrary.setBounds(55, 25, 125, 125);
 
-        pnTTSach.setLayout(new GridLayout(3, 1, 0, -300));
+        pnTTSach.setLayout(new GridLayout(2, 1, 0, -300));
         pnTTSach.setBackground(MyColor.ColorBlue);
         pnTTSach.setBounds(242, 0, 1142, 400);
 
@@ -116,7 +116,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
 
         pnLoc.setLayout(null);
         pnLoc.setBackground(MyColor.ColorBlue);
-        pnLoc.setBounds(410, 105, 300, 180);
+        pnLoc.setBounds(380, 105, 300, 180);
 
         pnLibrary.setBackground(MyColor.ColorOcean);
         // add components
@@ -283,8 +283,6 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
             }
         } else if (e.getSource() == btTK) {
             // btTK là của tìm kiếm nâng cao
-            lbKQTK.setFont(new Font("Arial", Font.BOLD, 20));
-            lbKQTK.setForeground(Color.red);
             String NamXB = txTKNam.getText();
             String SL = txTKSL.getText();
             if (NamXB.equals("") == true || SL.equals("") == true) {
@@ -296,25 +294,23 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
                 ArrayList<SACH> kq = qlsachbus.timNamXBHoacSL(NamXB, SL);
                 model.setRowCount(0);
                 if (kq.size() == 0) {
-                    lbKQTK.setText("Kết quả tìm kiếm: Không tìm thấy");
+                    JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
                 } else {
                     for (SACH sach : kq) {
                         ShowOnTable(sach);
                     }
                 }
-                lbKQTK.setText("Kết quả tìm kiếm: Tìm thấy " + model.getRowCount() + " SV");
                 tblQLSACH.setModel(model);
             } else if (vtkey == 10) {
                 ArrayList<SACH> kq = qlsachbus.timNamXBVaSL(NamXB, SL);
                 model.setRowCount(0);
                 if (kq.size() == 0) {
-                    lbKQTK.setText("Kết quả tìm kiếm: Không tìm thấy");
+                    JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu", "Lỗi", JOptionPane.ERROR_MESSAGE);                    JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
                 } else {
                     for (SACH sach : kq) {
                         ShowOnTable(sach);
                     }
                 }
-                lbKQTK.setText("Kết quả tìm kiếm: Tìm thấy " + model.getRowCount() + " SV");
                 tblQLSACH.setModel(model);
             }
         } else if (e.getSource() == btMenuTimKiem) { // Của button Tìm kiếm sách, để hiện thị
@@ -333,8 +329,6 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
                 int dongia = Integer.parseInt(tukhoa);
                 txKhoaTK.setText(String.format("%,d", dongia));
             }
-            lbKQTK.setFont(new Font("Arial", Font.BOLD, 20));
-            lbKQTK.setForeground(Color.red);
             if (tukhoa.equals("") == true) {
                 JOptionPane.showMessageDialog(null, "Xin mời nhập từ khóa", "Lỗi", JOptionPane.ERROR_MESSAGE);
             } else if (vtkey == 0) {
@@ -345,100 +339,91 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
                     SACH kq = qlsachbus.timTheoMa(tukhoa);
                     model.setRowCount(0);
                     if (kq == null) {
-                        lbKQTK.setText("Kết quả tìm kiếm: Không tìm thấy");
+                        JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
                     } else {
                         ShowOnTable(kq);
-                        lbKQTK.setText("Kết quả tìm kiếm: Tìm thấy " + model.getRowCount() + " SV");
                         tblQLSACH.setModel(model);
                     }
                 } else if (vtkey == 2) {
                     ArrayList<SACH> kq = qlsachbus.timTheoTen(tukhoa);
                     model.setRowCount(0);
                     if (kq.size() == 0) {
-                        lbKQTK.setText("Kết quả tìm kiếm: Không tìm thấy");
+                        JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
                     } else {
                         for (SACH sach : kq) {
                             ShowOnTable(sach);
                         }
-                        lbKQTK.setText("Kết quả tìm kiếm: Tìm thấy " + model.getRowCount() + " SV");
                         tblQLSACH.setModel(model);
                     }
                 } else if (vtkey == 3) {
                     ArrayList<SACH> kq = qlsachbus.timTheoMaNXB(tukhoa);
                     model.setRowCount(0);
                     if (kq.size() == 0) {
-                        lbKQTK.setText("Kết quả tìm kiếm: Không tìm thấy");
+                        JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
                     } else {
                         for (SACH sach : kq) {
                             ShowOnTable(sach);
                         }
-                        lbKQTK.setText("Kết quả tìm kiếm: Tìm thấy " + model.getRowCount() + " SV");
                         tblQLSACH.setModel(model);
                     }
                 } else if (vtkey == 4) {
                     ArrayList<SACH> kq = qlsachbus.timTheoMaTG(tukhoa);
                     model.setRowCount(0);
                     if (kq.size() == 0) {
-                        lbKQTK.setText("Kết quả tìm kiếm: Không tìm thấy");
+                        JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
                     } else {
                         for (SACH sach : kq) {
                             ShowOnTable(sach);
                         }
-                        lbKQTK.setText("Kết quả tìm kiếm: Tìm thấy " + model.getRowCount() + " SV");
                         tblQLSACH.setModel(model);
                     }
                 } else if (vtkey == 5) {
                     ArrayList<SACH> kq = qlsachbus.timTheoNamXB(tukhoa);
                     model.setRowCount(0);
                     if (kq.size() == 0) {
-                        lbKQTK.setText("Kết quả tìm kiếm: Không tìm thấy");
+                        JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
                     } else {
                         for (SACH sach : kq) {
                             ShowOnTable(sach);
                         }
-                        lbKQTK.setText("Kết quả tìm kiếm: Tìm thấy " + model.getRowCount() + " SV");
                         tblQLSACH.setModel(model);
                     }
                 } else if (vtkey == 6) {
                     ArrayList<SACH> kq = qlsachbus.timTheoSLtong(tukhoa);
                     model.setRowCount(0);
                     if (kq.size() == 0) {
-                        lbKQTK.setText("Kết quả tìm kiếm: Không tìm thấy");
+                        JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
                     } else {
                         for (SACH sach : kq) {
                             ShowOnTable(sach);
                         }
-                        lbKQTK.setText("Kết quả tìm kiếm: Tìm thấy " + model.getRowCount() + " SV");
                         tblQLSACH.setModel(model);
                     }
                 } else if (vtkey == 7) {
                     ArrayList<SACH> kq = qlsachbus.timTheoSL(tukhoa);
                     model.setRowCount(0);
                     if (kq.size() == 0) {
-                        lbKQTK.setText("Kết quả tìm kiếm: Không tìm thấy");
+                        JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
                     } else {
                         for (SACH sach : kq) {
                             ShowOnTable(sach);
                         }
-                        lbKQTK.setText("Kết quả tìm kiếm: Tìm thấy " + model.getRowCount() + " SV");
                         tblQLSACH.setModel(model);
                     }
                 } else if (vtkey == 8) {
                     ArrayList<SACH> kq = qlsachbus.timTheoDonGia(tukhoa);
                     model.setRowCount(0);
                     if (kq.size() == 0) {
-                        lbKQTK.setText("Kết quả tìm kiếm: Không tìm thấy");
+                        JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
                     } else {
                         for (SACH sach : kq) {
                             ShowOnTable(sach);
                         }
-                        lbKQTK.setText("Kết quả tìm kiếm: Tìm thấy " + model.getRowCount() + " SV");
                         tblQLSACH.setModel(model);
                     }
                 }
             }
         } else if (e.getSource() == btShowAll) {
-            lbKQTK.setText("");
             model.setRowCount(0);
             for (SACH sach : QLSACHBUS.dssach) {
                 ShowOnTable(sach);
@@ -524,8 +509,6 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
             }
         }
         if (e.getSource() == btLoc) {
-            lbKQTK.setFont(new Font("Arial", Font.BOLD, 20));
-            lbKQTK.setForeground(Color.red);
             String tmp[] = datePickerNgayBD.getJFormattedTextField().getText().split("-");
             String tmp1[] = datePickerNgayKT.getJFormattedTextField().getText().split("-");
             int NamBD = Integer.parseInt(tmp[0]);
@@ -534,12 +517,11 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
             ArrayList<SACH> kq = qlsachbus.loc(NamBD, NamKT);
             model.setRowCount(0);
             if (kq.size() == 0) {
-                lbKQTK.setText("Kết quả lọc: Không thỏa điều kiện");
+                JOptionPane.showMessageDialog(null, "Lọc dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
             } else {
                 for (SACH sach : kq) {
                     ShowOnTable(sach);
                 }
-                lbKQTK.setText("Kết quả lọc: " + model.getRowCount() + " SV");
                 tblQLSACH.setModel(model);
             }
         }
@@ -801,7 +783,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         btThem = new JButton("Thêm");
         btThem.setFont(new Font("Arial", Font.BOLD, 15));
         btThem.setBounds(10, 305, 80, 30);
-        btThem.setBackground(Color.PINK);
+        btThem.setBackground(MyColor.ColorButton);
         btThem.setBorder(new RoundedBorder(10));
         btThem.addActionListener(this);
         // JbuttonSua
@@ -815,30 +797,30 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         btXoa = new JButton("Xóa");
         btXoa.setFont(new Font("Arial", Font.BOLD, 15));
         btXoa.setBounds(210, 305, 80, 30);
-        btXoa.setBackground(Color.cyan);
+        btXoa.setBackground(MyColor.ColorButton);
         btXoa.setBorder(new RoundedBorder(10));
         btXoa.addActionListener(this);
         // JbuttonHoanTac
         btHoanTac = new JButton("Hoàn tác");
         btHoanTac.setFont(new Font("Arial", Font.BOLD, 15));
         btHoanTac.setBounds(310, 305, 90, 30);
-        btHoanTac.setBackground(Color.cyan);
+        btHoanTac.setBackground(MyColor.ColorButton);
         btHoanTac.setBorder(new RoundedBorder(10));
         btHoanTac.addActionListener(this);
 
         // Jbutton nhập excel
         btNhapExcel = new JButton("Nhập Excel");
         btNhapExcel.setFont(new Font("Arial", Font.BOLD, 15));
-        btNhapExcel.setBounds(470, 305, 120, 30);
-        btNhapExcel.setBackground(Color.cyan);
+        btNhapExcel.setBounds(440, 305, 120, 30);
+        btNhapExcel.setBackground(MyColor.ColorButton);
         btNhapExcel.setBorder(new RoundedBorder(10));
         btNhapExcel.addActionListener(this);
 
         // Jbutton xuất excel
         btXuatExcel = new JButton("Xuất Excel");
         btXuatExcel.setFont(new Font("Arial", Font.BOLD, 15));
-        btXuatExcel.setBounds(610, 305, 100, 30);
-        btXuatExcel.setBackground(Color.cyan);
+        btXuatExcel.setBounds(580, 305, 100, 30);
+        btXuatExcel.setBackground(MyColor.ColorButton);
         btXuatExcel.setBorder(new RoundedBorder(10));
         btXuatExcel.addActionListener(this);
 
@@ -989,10 +971,6 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         lbTTSach.setFont(new Font("Arial", Font.BOLD, 35));
         lbTTSach.setHorizontalAlignment(SwingConstants.CENTER);
         lbTTSach.setVerticalAlignment(SwingConstants.TOP);
-        // labelKQTK
-        lbKQTK = new JLabel();
-        lbKQTK.setHorizontalAlignment(SwingConstants.CENTER);
-        lbKQTK.setVerticalAlignment(SwingConstants.TOP);
         // ----set up table----
         tblQLSACH = new JTable();
         pane = new JScrollPane(tblQLSACH);
@@ -1007,7 +985,6 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
 
         this.add(pnTTSach);
         pnTTSach.add(lbTTSach);
-        pnTTSach.add(lbKQTK);
         pnTTSach.add(pane);
     }
 
@@ -1016,14 +993,14 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         btShowAll = new JButton("Hiển thị tất cả");
         btShowAll.setFont(new Font("Arial", Font.BOLD, 15));
         btShowAll.setBounds(1010, 0, 130, 30);
-        btShowAll.setBackground(Color.cyan);
+        btShowAll.setBackground(MyColor.ColorButton);
         btShowAll.setBorder(new RoundedBorder(10));
         btShowAll.addActionListener(this);
 
         btSapXep = new JButton("Sắp xếp theo tên");
         btSapXep.setFont(new Font("Arial", Font.BOLD, 15));
         btSapXep.setBounds(830, 0, 150, 30);
-        btSapXep.setBackground(Color.cyan);
+        btSapXep.setBackground(MyColor.ColorButton);
         btSapXep.setBorder(new RoundedBorder(10));
         btSapXep.addActionListener(this);
 
@@ -1118,7 +1095,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
             btSearch = new JButton("Tìm kiếm");
             btSearch.setFont(new Font("Arial", Font.BOLD, 15));
             btSearch.setBounds(315, 165, 90, 30);
-            btSearch.setBackground(Color.cyan);
+            btSearch.setBackground(MyColor.ColorButton);
             btSearch.setBorder(new RoundedBorder(10));
             btSearch.addActionListener(this);
 
@@ -1206,7 +1183,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         btLoc = new JButton("Lọc");
         btLoc.setFont(new Font("Arial", Font.BOLD, 15));
         btLoc.setBounds(210, 120, 80, 30);
-        btLoc.setBackground(Color.cyan);
+        btLoc.setBackground(MyColor.ColorButton);
         btLoc.setBorder(new RoundedBorder(10));
         btLoc.addActionListener(this);
 
@@ -1256,16 +1233,6 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         pnShowAll.setVisible(x);
         pnTTSach.setVisible(x);
     }
-
-    // public void setHoTroInput(){
-    // btHoTroInput = new JButton("...");
-    // btHoTroInput.setFont(new Font("Arial", Font.BOLD, 15));
-    // btHoTroInput.setBounds(475, 30, 30, 35);
-    // btHoTroInput.setBackground(Color.cyan);
-    // btHoTroInput.setBorder(new RoundedBorder(10));
-    // btHoTroInput.addActionListener(this);
-    // pnNhapTTSach.add(btHoTroInput);
-    // }
 
     public void SapXep() {
         QLSACHBUS.dssach.sort(((o1, o2) -> o1.getTensach().compareTo(o2.getTensach())));
