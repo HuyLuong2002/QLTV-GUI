@@ -55,7 +55,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
     public static String NgayTra;
     JPanel pnMuonTra, pnTabMuon, pnTabTra, pnTabTienPhat, pnShowAll, pnMuon, pnCTMuon, pnNhapPM,
             pnTimKiemPM, pnLocPM, pnNhapPT, pnTimKiemPT, pnLocPT, pnTra, pnCTTra, pnHDTP, pnCTHDTP, pnNhapHDTP,
-            pnTimKiemHDTP, pnLocHDTP;
+            pnTimKiemHDTP;
 
     JLabel lbHome, lbMaPM, lbNgayMuon, lbSLtong, lbNgayTra, lbTinhTrangMuon,
             lbMaDG, lbLCTK, lbTuKhoaTK, lbNhapPM, lbNhapCTPM, lbCTPMMaPM, lbCTPMMaSach, lbCTPMSL, lbKQTK;
@@ -66,7 +66,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
     JLabel lbNhapHDTP, lbNhapCTHDTP, lbCTPTSL, lbMaHD, lbMaHD_DG, lbSLTongHD, lbTienPhat,
             lbCTHDMaHD, lbCTHDMaSach, lbCTHDSL, lbCTHDDonGia;
 
-    JLabel lbNgayBDLocPM, lbNgayKTLocPM, lbNgayBDLocPT, lbNgayKTLocPT, lbNgayBDLocHD, lbNgayKTLocHD;
+    JLabel lbNgayBDLocPM, lbNgayKTLocPM, lbNgayBDLocPT, lbNgayKTLocPT;
     JButton btThoat, btSuaPM, btThemPM, btXoa, btHoanTac,
             btSuaCTPM, btThemCTPM, btThemPT, btSuaPT, btThemCTPT, btSuaCTPT, btThemHDTP, btSuaHDTP, btThemCTHD,
             btSuaCTHD;
@@ -81,7 +81,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             btHoTroNhapMasachHD,
             btHoTroNhapMaPT, btHoTroNhapMaHD, btShowAll,
             btTimKiemPM, btLocPM, btInPM, btTimKiemPT, btLocPT, btInPT,
-            btTimKiemHDTP, btLocHDTP, btInHDTP;
+            btTimKiemHDTP, btInHDTP;
     JTextField txKhoaTKPM, txKhoaTKPT, txKhoaTKHDTP, txMaPT, txTienThue, txMaHD, txMaHD_DG,
             txSLTongHD, txTienPhat;
     public static JTextField txThanhTien;
@@ -102,11 +102,6 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
     Properties pNgayBDTra, pNgayKTTra;
     JDatePanelImpl datePanelNgayBDTra, datePanelNgayKTTra;
     JDatePickerImpl datePickerNgayBDTra, datePickerNgayKTTra;
-
-    UtilDateModel modelNgayBDHDTP, modelNgayKTHDTP;
-    Properties pNgayBDHDTP, pNgayKTHDTP;
-    JDatePanelImpl datePanelNgayBDHDTP, datePanelNgayKTHDTP;
-    JDatePickerImpl datePickerNgayBDHDTP, datePickerNgayKTHDTP;
 
     UtilDateModel modelNgayBDPT;
     Properties pNgayBDPT;
@@ -213,13 +208,9 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
 
             pnTimKiemHDTP = new JPanel();
             pnTimKiemHDTP.setLayout(null);
-            pnTimKiemHDTP.setBounds(720, 155, 413, 200);
+            pnTimKiemHDTP.setBounds(720, 0, 413, 332);
             pnTimKiemHDTP.setBackground(MyColor.ColorBlue);
 
-            pnLocHDTP = new JPanel();
-            pnLocHDTP.setLayout(null);
-            pnLocHDTP.setBounds(720, 0, 300, 155);
-            pnLocHDTP.setBackground(MyColor.ColorBlue);
 
             tabbedPane = new JTabbedPane();
             tabbedPane.addTab("Mượn sách", pnTabMuon);
@@ -250,7 +241,6 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             pnNhapPT.add(pnLocPT);
 
             pnNhapHDTP.add(pnTimKiemHDTP);
-            pnNhapHDTP.add(pnLocHDTP);
 
             // Phiếu mượn, chi tiết mượn
             setTitlePM();
@@ -286,7 +276,6 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             setInputHDTP();
             setInputCTHDTP();
             setTimKiemHDTP();
-            setLocHDTP();
             getDBHDTP();
             getDBCTHDTP();
             myTable.setValueCellCenter(modelHDTP, tblQLHDTP);
@@ -663,11 +652,12 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             int kt = -1;
             if (i >= 0) {
                 PHIEUTRASACH phieutrasach = new PHIEUTRASACH();
-                PHIEUTRASACH MaPTCu = QLTRABUS.dspt.set(i, phieutrasach);
-                getInfoTextFieldPT(phieutrasach);
+                PHIEUTRASACH MaPTCu = QLTRABUS.dspt.get(i);   // Lấy thông tin cũ
+                getInfoTextFieldPT(phieutrasach);             // Lấy thông tin mới
                 try {
                     QLTRABUS qlphieutrabus = new QLTRABUS();
                     kt = qlphieutrabus.sua(phieutrasach, MaPTCu, i);
+                    // Set trong câu truy vấn
                 } catch (Exception e1) {
                     System.out.println(e1);
                 }
@@ -675,12 +665,10 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                     modelTra.setValueAt(phieutrasach.getMaPT(), i, 0);
                     modelTra.setValueAt(phieutrasach.getNgaytra(), i, 1);
                     modelTra.setValueAt(phieutrasach.getTinhtrangsach(), i, 2);
-                    modelTra.setValueAt(phieutrasach.getTienthue(), i, 3);
-                    modelTra.setValueAt(phieutrasach.getThanhtien(), i, 4);
+                    modelTra.setValueAt(String.format("%,d", phieutrasach.getTienthue()), i, 3);
+                    modelTra.setValueAt(String.format("%,d", phieutrasach.getThanhtien()), i, 4);
                     modelTra.setValueAt(phieutrasach.getMaPM(), i, 5);
                     tblQLTra.setModel(modelTra);
-                } else {
-
                 }
             }
         }
@@ -787,7 +775,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                     modelHDTP.setValueAt(hdtienphat.getMaHD(), i, 0);
                     modelHDTP.setValueAt(hdtienphat.getMaDG(), i, 1);
                     modelHDTP.setValueAt(hdtienphat.getSL(), i, 2);
-                    modelHDTP.setValueAt(hdtienphat.getTienphat(), i, 3);
+                    modelHDTP.setValueAt(String.format("%,d", hdtienphat.getTienphat()), i, 3);
                     tblQLHDTP.setModel(modelHDTP);
                 }
             }
@@ -845,7 +833,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                     modelCTHDTP.setValueAt(chitiethdtienphat.getMaHD(), i, 0);
                     modelCTHDTP.setValueAt(chitiethdtienphat.getMasach(), i, 1);
                     modelCTHDTP.setValueAt(chitiethdtienphat.getSL(), i, 2);
-                    modelCTHDTP.setValueAt(chitiethdtienphat.getDongia(), i, 3);
+                    modelCTHDTP.setValueAt(String.format("%,d", chitiethdtienphat.getDongia()), i, 3);
                     tblQLCTHDTP.setModel(modelCTHDTP);
                 }
             }
@@ -2352,68 +2340,6 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             pnLocPT.add(btLocPT);
             pnLocPT.add(datePickerNgayBDTra);
             pnLocPT.add(datePickerNgayKTTra);
-        }
-    }
-
-    public void setLocHDTP() {
-        if (btLocHDTP == null) {
-            if (lbNgayBDLocHD != null || lbNgayKTLocHD != null || datePickerNgayBDHDTP != null
-                    || datePickerNgayKTHDTP != null) {
-                lbNgayBDLocHD.setVisible(true);
-                lbNgayKTLocHD.setVisible(true);
-                datePickerNgayBDHDTP.setVisible(true);
-                datePickerNgayKTHDTP.setVisible(true);
-            }
-            // set Border
-            TitledBorder titleLoc;
-            Border blackline;
-            blackline = BorderFactory.createLineBorder(Color.black);
-            titleLoc = BorderFactory.createTitledBorder(blackline, "Lọc dữ liệu");
-            titleLoc.setTitleFont(new Font("Arial", Font.BOLD, 25));
-            titleLoc.setTitleJustification(TitledBorder.CENTER);
-            lbNgayBDLocHD = new JLabel("Ngày bắt đầu: ");
-            lbNgayBDLocHD.setFont(new Font("Arial", Font.BOLD, 18));
-            lbNgayBDLocHD.setBounds(5, 15, 150, 80);
-
-            lbNgayKTLocHD = new JLabel("Ngày kết thúc: ");
-            lbNgayKTLocHD.setFont(new Font("Arial", Font.BOLD, 18));
-            lbNgayKTLocHD.setBounds(5, 55, 150, 80);
-
-            btLocHDTP = new JButton("Lọc");
-            btLocHDTP.setFont(new Font("Arial", Font.BOLD, 15));
-            btLocHDTP.setBounds(210, 115, 80, 30);
-            btLocHDTP.setBackground(MyColor.ColorButton);
-            btLocHDTP.setBorder(new RoundedBorder(10));
-            btLocHDTP.addActionListener(this);
-
-            // Set date picker1
-            modelNgayBDHDTP = new UtilDateModel();
-            modelNgayBDHDTP.setSelected(true);
-            pNgayBDHDTP = new Properties();
-            pNgayBDHDTP.put("text.today", "Today");
-            pNgayBDHDTP.put("text.month", "Month");
-            pNgayBDHDTP.put("text.year", "Year");
-            datePanelNgayBDHDTP = new JDatePanelImpl(modelNgayBDHDTP, pNgayBDHDTP);
-            datePickerNgayBDHDTP = new JDatePickerImpl(datePanelNgayBDTra, new DateLabelFormatter());
-            datePickerNgayBDHDTP.setBounds(140, 40, 150, 30);
-
-            // Set date picker1
-            modelNgayKTHDTP = new UtilDateModel();
-            modelNgayKTHDTP.setSelected(true);
-            pNgayKTHDTP = new Properties();
-            pNgayKTHDTP.put("text.today", "Today");
-            pNgayKTHDTP.put("text.month", "Month");
-            pNgayKTHDTP.put("text.year", "Year");
-            datePanelNgayKTHDTP = new JDatePanelImpl(modelNgayKTHDTP, pNgayKTHDTP);
-            datePickerNgayKTHDTP = new JDatePickerImpl(datePanelNgayKTHDTP, new DateLabelFormatter());
-            datePickerNgayKTHDTP.setBounds(140, 80, 150, 30);
-
-            pnLocHDTP.setBorder(titleLoc);
-            pnLocHDTP.add(lbNgayBDLocHD);
-            pnLocHDTP.add(lbNgayKTLocHD);
-            pnLocHDTP.add(btLocHDTP);
-            pnLocHDTP.add(datePickerNgayBDHDTP);
-            pnLocHDTP.add(datePickerNgayKTHDTP);
         }
     }
 
