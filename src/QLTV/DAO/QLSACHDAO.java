@@ -86,7 +86,7 @@ public class QLSACHDAO {
         }
     }
 
-    public void hoantacXoa(SACH sach) {
+    public int hoantacXoa(SACH sach) {
         try {
             String qry = "insert into SACH values  (" + "'" + sach.getMasach() + "'"
                     + "," + "N'" + sach.getTensach() + "'" + "," + "'" + sach.getMaNXB() + "'" + ","
@@ -96,22 +96,16 @@ public class QLSACHDAO {
                     + ")";
             st = conn.createStatement();
             st.executeUpdate(qry);
+            return 0;
         } catch (SQLException e) {
             System.out.println(e);
             JOptionPane.showMessageDialog(null, "Thêm dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return -1;
         }
     }
 
     public int sua(SACH sachmoi, SACH sachcu) {
         try {
-            // String qry = "update SACH set " + "MASACH=" + "'" + sachmoi.getMasach() + "'" +
-            //         ",TENSACH=" + "N'" + sachmoi.getTensach() + "'" + ",MANXB=" + "'" + sachmoi.getMaNXB() + "'" +
-            //         ",MATG=" + "'" + sachmoi.getMaTG() + "'" + ",NAMXB=" + "'" + sachmoi.getNamXB() + "'" +
-            //         ",SLTONG=" + "'" + sachmoi.getSLtong() + "'" + ",SL=" + "'" + sachmoi.getSL() + "'" +
-            //         ",DONGIA=" + "'" + sachmoi.getDongia() + "'" + " " + "where MASACH='" + sachcu.getMasach()
-            //         + "'";
-            // st = conn.createStatement();
-            // st.executeUpdate(qry);
             String qry = "UPDATE SACH SET MASACH= ?, TENSACH= ?, MANXB= ?, MATG= ?, NAMXB= ?, SLTONG= ?, SL= ?, DONGIA= ? WHERE MASACH= ?";
             PreparedStatement ps = conn.prepareStatement(qry);
             ps.setString(1, sachmoi.getMasach());

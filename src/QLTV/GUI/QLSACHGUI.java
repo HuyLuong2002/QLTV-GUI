@@ -229,13 +229,13 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
             } else {
                 for (SACH sach : QLSACHBUS.htXoa) {
                     QLSACHBUS qlsachbus = new QLSACHBUS();
-                    int kiemtra = 0;
+                    int kiemtra = -1;
                     try {
                         kiemtra = qlsachbus.hoantacXoa(sach);
                     } catch (Exception e1) {
                         e1.printStackTrace();
                     }
-                    if (kiemtra == 1) {
+                    if (kiemtra == 0) {
                         // Đưa dữ liệu lên table
                         header = new Vector<String>();
                         header.add("Mã sách");
@@ -251,7 +251,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
                         }
                         ShowOnTable(sach);
                         ktHT = 1;
-                    } else if (kiemtra == 0) {
+                    } else if (kiemtra == -1) {
                         JOptionPane.showMessageDialog(null, "Hoàn tác dữ liệu thất bại", "Lỗi",
                                 JOptionPane.ERROR_MESSAGE);
                         ktHT = 0;
@@ -283,7 +283,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
                     btThongKe.setVisible(true);
                 }
             }
-        } else if (e.getSource() == btTK) {
+        } else if (e.getSource() == btTK) { // Tìm Kiếm nâng cao
             // btTK là của tìm kiếm nâng cao
             String NamXB = txTKNam.getText();
             String SL = txTKSL.getText();
@@ -324,9 +324,9 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
             }
             OffPageQLSACH(true);
             setTimKiem();
-        } else if (e.getSource() == btSearch) {
+        } else if (e.getSource() == btSearch) { // Tìm kiếm cơ bản
             int vtkey = Integer.parseInt(String.valueOf(comboBoxDSKhoaTK.getSelectedIndex()));
-            String tukhoa = txKhoaTK.getText();
+            String tukhoa = txKhoaTK.getText().replaceAll("\\s+", "").toLowerCase().trim();
             if (vtkey == 8) {
                 int dongia = Integer.parseInt(tukhoa);
                 txKhoaTK.setText(String.format("%,d", dongia));
