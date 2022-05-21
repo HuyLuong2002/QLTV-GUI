@@ -128,7 +128,7 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
             int kt = -1;
             if (i >= 0) {
                 NXB nxb = new NXB();
-                NXB manxbcu = QLNXBBUS.dsnxb.set(i, nxb);
+                NXB manxbcu = QLNXBBUS.dsnxb.get(i);
                 getInfoTextField(nxb);
                 try {
                     QLNXBBUS qlnxbbus = new QLNXBBUS();

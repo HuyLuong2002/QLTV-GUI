@@ -39,18 +39,22 @@ public class QLNCCBUS {
 
     public int sua(NHACUNGCAP nccmoi, NHACUNGCAP ncccu, int i) throws Exception {
         // Truy cập vào database
-        int kt = 0;
+        int kt = -1;
         QLNCCDAO data = new QLNCCDAO();
         kt = data.sua(nccmoi, ncccu);
-        dsncc.set(i, nccmoi);
+        if (kt == 0) {
+            dsncc.set(i, nccmoi);
+        }
         return kt;
     }
 
     public int xoa(String MaSV, int i) throws Exception {
-        int kt = 0;
+        int kt = -1;
         QLNCCDAO data = new QLNCCDAO();
         kt = data.xoa(MaSV);
-        dsncc.remove(i);
+        if (kt == 0) {
+            dsncc.remove(i);
+        }
         return kt;
     }
 
@@ -61,9 +65,12 @@ public class QLNCCBUS {
             return -1;
         } else {
             // Truy cập vào database
+            int kt = -1;
             QLNCCDAO data = new QLNCCDAO();
             data.hoantacXoa(ncc);
-            dsncc.add(ncc);
+            if (kt == 0) {
+                dsncc.add(ncc);
+            }
             return 1;
         }
     }

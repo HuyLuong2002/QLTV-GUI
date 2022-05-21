@@ -647,7 +647,7 @@ public class QLNVGUI extends JFrame implements MouseListener, ActionListener {
             int kt = -1;
             if (i >= 0) {
                 DOCGIA docgia = new DOCGIA();
-                DOCGIA madocgiacu = QLNVBUS.dsdg.set(i, docgia);
+                DOCGIA madocgiacu = QLNVBUS.dsdg.get(i);
                 getInfoTextFieldDG(docgia);
                 try {
                     QLNVBUS qlnvbus = new QLNVBUS();

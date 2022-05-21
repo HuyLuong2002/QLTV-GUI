@@ -268,7 +268,7 @@ public class QLPNGUI implements ActionListener, MouseListener {
             int kt = -1;
             if (i >= 0) {
                 PHIEUNHAP phieunhap = new PHIEUNHAP();
-                PHIEUNHAP MaPNCu = QLPNBUS.dspn.set(i, phieunhap);
+                PHIEUNHAP MaPNCu = QLPNBUS.dspn.get(i);
                 getInfoTextFieldPN(phieunhap);
 
                 QLPNBUS qlphieunhapbus = new QLPNBUS();

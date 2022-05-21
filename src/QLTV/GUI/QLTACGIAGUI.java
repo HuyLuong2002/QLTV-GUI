@@ -125,19 +125,21 @@ public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener
             }
         } else if (e.getSource() == btSua) {
             int i = tblQLTACGIA.getSelectedRow();
-
+            int kt = 0;
             if (i >= 0) {
                 TACGIA tacgia = new TACGIA();
-                TACGIA matacgiacu = QLTACGIABUS.dstacgia.set(i, tacgia);
+                TACGIA matacgiacu = QLTACGIABUS.dstacgia.get(i);
                 getInfoTextField(tacgia);
                 try {
                     QLTACGIABUS QLTACGIABUS = new QLTACGIABUS();
-                    QLTACGIABUS.sua(tacgia, matacgiacu, i);
+                    kt = QLTACGIABUS.sua(tacgia, matacgiacu, i);
+                } catch (Exception e1) {
+                    System.out.println(e1);
+                }
+                if (kt == 0) {
                     model.setValueAt(tacgia.getMaTacGia(), i, 0);
                     model.setValueAt(tacgia.getTenTacGia(), i, 1);
                     tblQLTACGIA.setModel(model);
-                } catch (Exception e1) {
-                    System.out.println(e1);
                 }
             }
         } else if (e.getSource() == btXoa) {
@@ -580,7 +582,7 @@ public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener
             TitledBorder titleTK;
             Border blackline;
             blackline = BorderFactory.createLineBorder(Color.black);
-            titleTK = BorderFactory.createTitledBorder(blackline,"Tìm kiếm");
+            titleTK = BorderFactory.createTitledBorder(blackline, "Tìm kiếm");
             titleTK.setTitleFont(new Font("Arial", Font.BOLD, 28));
             titleTK.setTitleJustification(TitledBorder.CENTER);
             pnTimKiem.setBorder(titleTK);

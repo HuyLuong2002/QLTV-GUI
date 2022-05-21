@@ -28,6 +28,7 @@ import QLTV.DTO.NHANVIEN;
 import QLTV.DTO.PHIEUMUON;
 import QLTV.DTO.PHIEUTRASACH;
 import QLTV.DTO.SACH;
+// import MyCustom.MyColor;
 
 public class BaoCaoThongKe implements ActionListener {
     ThongKeBUS thongkebus = new ThongKeBUS();
@@ -62,31 +63,37 @@ public class BaoCaoThongKe implements ActionListener {
             pnThongKe = new JPanel();
             pnThongKe.setBounds(240, 0, 1145, 800);
             pnThongKe.setLayout(null);
+            pnThongKe.setBackground(MyColor.ColorBlue);
 
             pnSach = new JPanel();
             pnSach.setBounds(200, 80, 300, 180);
             pnSach.setBorder(line);
             pnSach.setLayout(null);
+            pnSach.setBackground(MyColor.ColorSach);
 
             pnKhachHang = new JPanel();
             pnKhachHang.setBounds(200, 310, 300, 180);
             pnKhachHang.setBorder(line);
             pnKhachHang.setLayout(null);
+            pnKhachHang.setBackground(MyColor.ColorKhachHang);
 
             pnNhanVien = new JPanel();
             pnNhanVien.setBounds(600, 80, 300, 180);
             pnNhanVien.setBorder(line);
             pnNhanVien.setLayout(null);
+            pnNhanVien.setBackground(MyColor.ColorNhanVien);
 
             pnTongDoanhThu = new JPanel();
             pnTongDoanhThu.setBounds(600, 310, 300, 180);
             pnTongDoanhThu.setBorder(line);
             pnTongDoanhThu.setLayout(null);
+            pnTongDoanhThu.setBackground(MyColor.ColorTongDoanhThu);
 
             pnBaoCaoDoanhThu = new JPanel();
             pnBaoCaoDoanhThu.setBounds(200, 550, 700, 100);
             pnBaoCaoDoanhThu.setBorder(line);
             pnBaoCaoDoanhThu.setLayout(new GridLayout(1, 1));
+            pnBaoCaoDoanhThu.setBackground(MyColor.ColorBlue);
 
             lbThongKe = new JLabel("THỐNG KÊ TỔNG QUÁT");
             lbThongKe.setFont(new Font("Arial", Font.BOLD, 30));
@@ -103,7 +110,7 @@ public class BaoCaoThongKe implements ActionListener {
             btXemThem.setIcon(iconXemThem);
             btXemThem.setFont(new Font("Arial", Font.BOLD, 15));
             btXemThem.setBounds(1000, 700, 80, 40);
-            btXemThem.setBackground(Color.cyan);
+            btXemThem.setBackground(MyColor.ColorButton);
             btXemThem.setBorder(new RoundedBorder(10));
             btXemThem.addActionListener(this);
 
@@ -125,7 +132,7 @@ public class BaoCaoThongKe implements ActionListener {
             btQuayLai.setIcon(iconQuayLai);
             btQuayLai.setFont(new Font("Arial", Font.BOLD, 15));
             btQuayLai.setBounds(20, 700, 80, 40);
-            btQuayLai.setBackground(Color.cyan);
+            btQuayLai.setBackground(MyColor.ColorButton);
             btQuayLai.setBorder(new RoundedBorder(10));
             btQuayLai.addActionListener(this);
 
@@ -321,7 +328,7 @@ public class BaoCaoThongKe implements ActionListener {
                 new String[] {
                         "Quý", "Quý 1", "Quý 2", "Quý 3", "Quý 4", "Tổng cộng"
                 });
-        tblDoanhThu.setSelectionBackground(Color.GREEN);
+        tblDoanhThu.setSelectionBackground(MyColor.Color);
         tblDoanhThu.setModel(model);
         MyTable myTable = new MyTable();
         myTable.setValueCellCenter(model, tblDoanhThu);
@@ -412,7 +419,7 @@ public class BaoCaoThongKe implements ActionListener {
                         int songay = Integer.parseInt(tmp[2]) - Integer.parseInt(tmp1[2]);
                         if (songay <= 15) {
                             DoanhThuQuy1 = DoanhThuQuy1 + pt.getTienthue() * songay;
-                        } else {
+                        } else if(songay >= 15 && songay <= 30 || songay >= 15 && songay <= 31) {
                             DoanhThuQuy1 = DoanhThuQuy1 + pt.getTienthue() * songay
                                     + (pt.getTienthue() + 2000) * songay;
                         }
@@ -430,7 +437,7 @@ public class BaoCaoThongKe implements ActionListener {
                         int songay = Integer.parseInt(tmp[2]) - Integer.parseInt(tmp1[2]);
                         if (songay <= 15) {
                             DoanhThuQuy2 = DoanhThuQuy2 + pt.getTienthue() * songay;
-                        } else {
+                        } else if(songay >= 15 && songay <= 30 || songay >= 15 && songay <= 31){
                             DoanhThuQuy2 = DoanhThuQuy2 + pt.getTienthue() * songay
                                     + (pt.getTienthue() + 2000) * songay;
                         }
@@ -448,7 +455,7 @@ public class BaoCaoThongKe implements ActionListener {
                         int songay = Integer.parseInt(tmp[2]) - Integer.parseInt(tmp1[2]);
                         if (songay <= 15) {
                             DoanhThuQuy3 = DoanhThuQuy3 + pt.getTienthue() * songay;
-                        } else {
+                        } else if(songay >= 15 && songay <= 30 || songay >= 15 && songay <= 31){
                             DoanhThuQuy3 = DoanhThuQuy3 + pt.getTienthue() * songay
                                     + (pt.getTienthue() + 2000) * songay;
                         }
@@ -466,7 +473,7 @@ public class BaoCaoThongKe implements ActionListener {
                         int songay = Integer.parseInt(tmp[2]) - Integer.parseInt(tmp1[2]);
                         if (songay <= 15) {
                             DoanhThuQuy4 = DoanhThuQuy4 + pt.getTienthue() * songay;
-                        } else {
+                        } else if(songay >= 15 && songay <= 30 || songay >= 15 && songay <= 31){
                             DoanhThuQuy4 = DoanhThuQuy4 + pt.getTienthue() * songay
                                     + (pt.getTienthue() + 2000) * songay;
                         }

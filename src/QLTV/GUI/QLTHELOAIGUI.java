@@ -128,12 +128,11 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
             int kt = -1;
             if (i >= 0) {
                 THELOAI theloai = new THELOAI();
-                THELOAI matheloaicu = QLTHELOAIBUS.dstheloai.set(i, theloai);
+                THELOAI matheloaicu = QLTHELOAIBUS.dstheloai.get(i);
                 getInfoTextField(theloai);
                 try {
                     QLTHELOAIBUS qltheloaibus = new QLTHELOAIBUS();
                     kt = qltheloaibus.sua(theloai, matheloaicu, i);
-
                 } catch (Exception e1) {
                     System.out.println(e1);
                 }

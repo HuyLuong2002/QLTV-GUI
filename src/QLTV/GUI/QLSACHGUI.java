@@ -67,7 +67,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
     JComboBox<String> comboBoxDSKhoaTK;
 
     JTable tblQLSACH;
-    DefaultTableModel model;
+    public static DefaultTableModel model;
     Vector<String> header;
 
     UtilDateModel modelNgayBD, modelNgayKT;
@@ -180,7 +180,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
             int kt = -1;
             if (i >= 0) {
                 SACH sach = new SACH();
-                SACH masachCu = QLSACHBUS.dssach.set(i, sach);
+                SACH masachCu = QLSACHBUS.dssach.get(i);
                 getInfoTextField(sach);
                 try {
                     QLSACHBUS qlsachbus = new QLSACHBUS();
