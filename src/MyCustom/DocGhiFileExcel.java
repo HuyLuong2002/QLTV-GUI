@@ -24,6 +24,7 @@ import QLTV.BUS.QLSACHBUS;
 import QLTV.DTO.SACH;
 
 public class DocGhiFileExcel {
+    MyTable myTable = new MyTable();
     FileInputStream excelfis = null;
     BufferedInputStream excelbis = null;
     FileOutputStream excelFOU = null;
@@ -62,10 +63,10 @@ public class DocGhiFileExcel {
                     sach.setTensach(excelTensach.getStringCellValue());
                     sach.setMaNXB(excelNXB.getStringCellValue());
                     sach.setMaTG(excelTG.getStringCellValue());
-                    sach.setNamXB(String.valueOf(excelNamXB.getNumericCellValue()).substring(0, 4));
-                    sach.setSLtong((int) excelSLtong.getNumericCellValue());
-                    sach.setSL((int) (excelSL.getNumericCellValue()));
-                    sach.setDongia((int) (excelDongia.getNumericCellValue()));
+                    sach.setNamXB(String.valueOf(excelNamXB.getStringCellValue()).substring(0, 4));
+                    sach.setSLtong(Integer.parseInt(excelSLtong.getStringCellValue()));
+                    sach.setSL(Integer.parseInt((excelSL.getStringCellValue())));
+                    sach.setDongia(Integer.parseInt(myTable.RemoveCommaInString(excelDongia.getStringCellValue())));
 
                     QLSACHBUS qlsachbus = new QLSACHBUS();
                     int kiemtra = 0;
@@ -87,6 +88,7 @@ public class DocGhiFileExcel {
                         header.add("Đơn giá");
                         if (model.getRowCount() == 0) {
                             model = new DefaultTableModel(header, 0);
+                            myTable.setValueCellCenter(model,excelTable);
                         }
                         ShowOnTable(sach, model);
                         excelTable.setModel(model);

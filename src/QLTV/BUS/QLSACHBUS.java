@@ -1,6 +1,9 @@
 package QLTV.BUS;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.swing.JOptionPane;
 
 import QLTV.DAO.QLSACHDAO;
@@ -8,7 +11,7 @@ import QLTV.DTO.SACH;
 
 public class QLSACHBUS {
     public static ArrayList<SACH> dssach;
-    public static ArrayList<SACH> htXoa = new ArrayList<SACH>();
+    public static Set<SACH> htXoa = new HashSet<SACH>();
     public static ArrayList<SACH> htSua = new ArrayList<SACH>();
 
     public QLSACHBUS() {

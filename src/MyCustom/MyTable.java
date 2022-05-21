@@ -26,5 +26,12 @@ public class MyTable {
         }
         return Dongia;
     }
-    
+    public String RemoveCommaInString(String Tien) {
+        String tmp[] = Tien.split(",");
+        String Dongia = "";
+        for (int i = 0; i < tmp.length; i++) {
+            Dongia = Dongia + tmp[i];
+        }
+        return Dongia;
+    }
 }
