@@ -134,12 +134,17 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
             int i = tblQLNHANVIEN.getSelectedRow();
 
             if (i >= 0) {
+                int kt = -1;
                 NHANVIEN nhanvien = new NHANVIEN();
-                NHANVIEN manhanviencu = QLNHANVIENBUS.dsnhanvien.set(i, nhanvien);
+                NHANVIEN manhanviencu = QLNHANVIENBUS.dsnhanvien.get(i);
                 getInfoTextField(nhanvien);
                 try {
                     QLNHANVIENBUS qlnhanvienbus = new QLNHANVIENBUS();
                     qlnhanvienbus.sua(nhanvien, manhanviencu, i);
+                } catch (Exception e1) {
+                    System.out.println(e1);
+                }
+                if (kt == 0) {
                     model.setValueAt(nhanvien.getMaNV(), i, 0);
                     model.setValueAt(nhanvien.getTenNV(), i, 1);
                     model.setValueAt(nhanvien.getChucvu(), i, 2);
@@ -149,8 +154,6 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
                     model.setValueAt(nhanvien.getSDT(), i, 6);
                     model.setValueAt(nhanvien.getMail(), i, 7);
                     tblQLNHANVIEN.setModel(model);
-                } catch (Exception e1) {
-                    System.out.println(e1);
                 }
             }
         } else if (e.getSource() == btXoa) {
@@ -676,7 +679,7 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
             TitledBorder titleTK;
             Border blackline;
             blackline = BorderFactory.createLineBorder(Color.black);
-            titleTK = BorderFactory.createTitledBorder(blackline,"Tìm kiếm");
+            titleTK = BorderFactory.createTitledBorder(blackline, "Tìm kiếm");
             titleTK.setTitleFont(new Font("Arial", Font.BOLD, 28));
             titleTK.setTitleJustification(TitledBorder.CENTER);
             pnTimKiem.setBorder(titleTK);

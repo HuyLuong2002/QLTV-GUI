@@ -36,15 +36,19 @@ public class QLNHANVIENBUS {
         }
     }
 
-    public void sua(NHANVIEN nhanvienmoi, NHANVIEN nhanviencu, int i) throws Exception {
+    public int sua(NHANVIEN nhanvienmoi, NHANVIEN nhanviencu, int i) throws Exception {
         // Truy cập vào database
+        int kt = -1;
         QLNHANVIENDAO data = new QLNHANVIENDAO();
         data.sua(nhanvienmoi, nhanviencu);
-        dsnhanvien.set(i, nhanvienmoi);
+        if (kt == 0) {
+            dsnhanvien.set(i, nhanvienmoi);
+        }
+        return kt;
     }
 
     public void xoa(String MaNV, int i) throws Exception {
-        int kt = -1;
+        // int kt = -1;
         QLNHANVIENDAO data = new QLNHANVIENDAO();
         data.xoa(MaNV);
         dsnhanvien.remove(i);
@@ -65,15 +69,15 @@ public class QLNHANVIENBUS {
     }
 
     // public ArrayList<NHANVIEN> loc(int NamBD, int NamKT) {
-    //     ArrayList<NHANVIEN> kq = new ArrayList<NHANVIEN>();
-    //     for (NHANVIEN sach : dsnhanvien) {
-    //         if (Integer.parseInt(sach.getNamXB().trim()) >= NamBD
-    //                 && Integer.parseInt(sach.getNamXB().trim()) <= NamKT) {
-    //             kq.add(sach);
-    //         }
-    //     }
+    // ArrayList<NHANVIEN> kq = new ArrayList<NHANVIEN>();
+    // for (NHANVIEN sach : dsnhanvien) {
+    // if (Integer.parseInt(sach.getNamXB().trim()) >= NamBD
+    // && Integer.parseInt(sach.getNamXB().trim()) <= NamKT) {
+    // kq.add(sach);
+    // }
+    // }
 
-    //     return kq;
+    // return kq;
     // }
 
     public int KTMa(String MaSachMoi) {
@@ -85,10 +89,10 @@ public class QLNHANVIENBUS {
     }
 
     // public int KTSL(int SLtongmoi, int SLmoi) {
-    //     if (SLtongmoi < SLmoi) {
-    //         return 0;
-    //     }
-    //     return 1;
+    // if (SLtongmoi < SLmoi) {
+    // return 0;
+    // }
+    // return 1;
     // }
 
     public NHANVIEN timTheoMa(String Masach) {
@@ -110,11 +114,11 @@ public class QLNHANVIENBUS {
     }
 
     // public ArrayList<NHANVIEN> timTheoChucvu(int Chucvu) {
-    //     ArrayList<NHANVIEN> kq = new ArrayList<NHANVIEN>();
-    //     for (NHANVIEN nhanvien : dsnhanvien)
-    //         if (nhanvien.getChucvu().indexOf(Chucvu) >= 0)
-    //             kq.add(nhanvien);
-    //     return kq;
+    // ArrayList<NHANVIEN> kq = new ArrayList<NHANVIEN>();
+    // for (NHANVIEN nhanvien : dsnhanvien)
+    // if (nhanvien.getChucvu().indexOf(Chucvu) >= 0)
+    // kq.add(nhanvien);
+    // return kq;
     // }
 
 }

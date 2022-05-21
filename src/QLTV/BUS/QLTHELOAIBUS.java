@@ -47,7 +47,9 @@ public class QLTHELOAIBUS {
         int kt=0;
         QLTHELOAIDAO data = new QLTHELOAIDAO();
         kt=data.sua(theloaimoi, theloaicu);
-        dstheloai.set(i, theloaimoi);
+        if(kt==0){
+            dstheloai.set(i, theloaimoi);
+        }
         return kt;
     }
 

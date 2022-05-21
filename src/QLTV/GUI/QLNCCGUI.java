@@ -128,7 +128,7 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
             int kt = -1;
             if (i >= 0) {
                 NHACUNGCAP ncc = new NHACUNGCAP();
-                NHACUNGCAP mancccu = QLNCCBUS.dsncc.set(i, ncc);
+                NHACUNGCAP mancccu = QLNCCBUS.dsncc.get(i);
                 getInfoTextField(ncc);
                 try {
                     QLNCCBUS qlnccbus = new QLNCCBUS();

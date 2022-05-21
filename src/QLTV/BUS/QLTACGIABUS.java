@@ -28,7 +28,7 @@ public class QLTACGIABUS {
             JOptionPane.showMessageDialog(null, "Mã Tác Giả vừa nhập bị trùng. Mời nhập lại!", "Lỗi",
                     JOptionPane.ERROR_MESSAGE);
             return -1;
-        }else {
+        } else {
             // Truy cập vào database
             QLTACGIADAO data = new QLTACGIADAO();
             data.them(tacgia);
@@ -37,11 +37,15 @@ public class QLTACGIABUS {
         }
     }
 
-    public void sua(TACGIA tacgiamoi, TACGIA tacgiacu, int i) throws Exception {
+    public int sua(TACGIA tacgiamoi, TACGIA tacgiacu, int i) throws Exception {
         // Truy cập vào database
+        int kt = 0;
         QLTACGIADAO data = new QLTACGIADAO();
-        data.sua(tacgiamoi, tacgiacu);
-        dstacgia.set(i, tacgiamoi);
+        kt = data.sua(tacgiamoi, tacgiacu);
+        if (kt == 0) {
+            dstacgia.set(i, tacgiamoi);
+        }
+        return kt;
     }
 
     public void xoa(String MaSV, int i) throws Exception {

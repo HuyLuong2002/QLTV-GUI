@@ -67,7 +67,7 @@ public class QLTACGIADAO {
         }
     }
 
-    public void sua(TACGIA tacgiamoi, TACGIA tacgiacu) {
+    public int sua(TACGIA tacgiamoi, TACGIA tacgiacu) {
         try {
             String qry = "update TACGIA set " + "MATG=" + "'" + tacgiamoi.getMaTacGia() + "'" +
                     ",TENTG=" + "N'" + tacgiamoi.getTenTacGia() + "'" + " " + "where MATG='" + tacgiacu.getMaTacGia()
@@ -78,9 +78,11 @@ public class QLTACGIADAO {
                 JOptionPane.showMessageDialog(null, "Sửa dữ liệu thành công", "Thông báo",
                         JOptionPane.INFORMATION_MESSAGE);
             }
+            return 0;
         } catch (SQLException e) {
             System.out.println(e);
             JOptionPane.showMessageDialog(null, "Sửa dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return -1;
         }
     }
 
