@@ -16,8 +16,10 @@ import MyCustom.RoundedBorder;
 import MyCustom.MyColor;
 import QLTV.BUS.QLCTPNBUS;
 import QLTV.BUS.QLPNBUS;
+import QLTV.BUS.QLSACHBUS;
 import QLTV.DTO.CHITIETPHIEUNHAP;
 import QLTV.DTO.PHIEUNHAP;
+import QLTV.DTO.SACH;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -34,7 +36,8 @@ public class QLPNGUI implements ActionListener, MouseListener {
     JLabel lbNhapPN, lbNhapCTPN, lbMaPN, lbNgayNhap, lbSLTong, lbDonGia, lbMaNV, lbMaNCC, lbCTPNMaPN, lbCTPNMaSach, lbCTPNSL,
             lbLCTKPN, lbTuKhoaTKPN, lbNgayBDLocPN, lbNgayKTLocPN;
 
-    JTextField txMaPN, txSLTong, txDonGia, txCTPNMaSach, txCTPNSL, txKhoaTKPN;
+    JTextField txMaPN, txSLTong, txDonGia, txCTPNSL, txKhoaTKPN;
+    public static JTextField txCTPNMaSach;
 
     public static JTextField txCTPNMaPN, txMaNCC, txMaNV;
     JButton btLocPN, btTimKiemPN, btThemPN, btSuaPN, btThemCTPN, btSuaCTPN, btShowAll,
@@ -289,11 +292,11 @@ public class QLPNGUI implements ActionListener, MouseListener {
             }
         }
         if (e.getSource() == btThemCTPN) {
-            int i = tblQLCTPN.getSelectedRow();
+            int i = tblQLPN.getSelectedRow();
             try {
                 CHITIETPHIEUNHAP ctphieunhap = new CHITIETPHIEUNHAP();
                 getInfoTextFieldCTPN(ctphieunhap);
-                if (!ctphieunhap.getMaPN().trim().equals(String.valueOf(modelCTPN.getValueAt(i, 0)))) {
+                if (!ctphieunhap.getMaPN().trim().equals(String.valueOf(modelPN.getValueAt(i, 0)))) {
                     JOptionPane.showMessageDialog(null, "Mã phiếu nhập tại bảng chi tiết khác với mã phiếu nhập","Lỗi",JOptionPane.ERROR_MESSAGE);
                 } else {
                         // Truy cập vào bus
@@ -305,6 +308,7 @@ public class QLPNGUI implements ActionListener, MouseListener {
                         e1.printStackTrace();
                     }
                     if (kiemtra == 0) {
+                        updateSLSachNhap(txCTPNMaSach.getText().trim());
                         // Đưa dữ liệu lên table
                         header = new Vector<String>();
                         header.add("Mã phiếu nhập");
@@ -880,4 +884,42 @@ public class QLPNGUI implements ActionListener, MouseListener {
         ctphieunhap.setSL(Integer.parseInt(txCTPNSL.getText().replaceAll("\\s+", "").trim()));
     }
 
+    public void updateSLSachNhap(String Masach) {
+        QLSACHBUS qlbus = new QLSACHBUS();
+        if (QLSACHBUS.dssach == null) {
+            try {
+                qlbus.docDSSACH();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        int indexSua = 0;
+        // Tìm mã sách để cập nhật số lượng tổng
+        for (SACH sach : QLSACHBUS.dssach) {
+            if (sach.getMasach().trim().equals(Masach)) {
+                int SLtong = sach.getSLtong() + Integer.parseInt(txCTPNSL.getText());
+                sach.setSLtong(SLtong);
+                try {
+                    qlbus.sua(sach, sach, indexSua);
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+            }
+            indexSua++;
+        }
+        // Show lên table
+        QLSACHGUI.model.setRowCount(0);
+        for (SACH sach : QLSACHBUS.dssach) {
+            Vector<String> row = new Vector<String>();
+            row.add(sach.getMasach().trim());
+            row.add(sach.getTensach().trim());
+            row.add(sach.getMaNXB().trim());
+            row.add(sach.getMaTG().trim());
+            row.add(sach.getNamXB().trim());
+            row.add(String.valueOf(sach.getSLtong()));
+            row.add(String.valueOf(sach.getSL()));
+            row.add(String.format("%,d", sach.getDongia()));
+            QLSACHGUI.model.addRow(row);
+        }
+    }
 }

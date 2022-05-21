@@ -570,7 +570,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                 CHITIETPHIEUMUON ctphieumuon = new CHITIETPHIEUMUON();
                 getInfoTextFieldCTPM(ctphieumuon);
                 if (!ctphieumuon.getMaPM().trim().equals(String.valueOf(modelMuon.getValueAt(i, 0)))) {
-                    JOptionPane.showMessageDialog(null, "Mã phiếu mượn tại bảng chi tiết khác với mã phiếu mượn", "Lỗi",
+                    JOptionPane.showMessageDialog(null, "Mã phiếu mượn tại bảng chi tiết khác với mã phiếu mượn trên table", "Lỗi",
                             JOptionPane.ERROR_MESSAGE);
                 } else {
                     // Truy cập vào bus
@@ -2469,7 +2469,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         chitiethdtienphat.setDongia(Integer.parseInt(DonGia.trim()));
     }
 
-    public void updateSLSachMuon(String Masach) { // Mã phiếu mượn đang thêm
+    public void updateSLSachMuon(String Masach) { // Mã sácg cần cập nhật
         QLSACHBUS qlbus = new QLSACHBUS();
         if (QLSACHBUS.dssach == null) {
             try {
@@ -2508,7 +2508,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         }
     }
 
-    public void updateSLSachTra(String Masach) { // Mã phiếu mượn đang thêm
+    public void updateSLSachTra(String Masach) {
         QLSACHBUS qlbus = new QLSACHBUS();
         if (QLSACHBUS.dssach == null) {
             try {
