@@ -104,14 +104,6 @@ public class QLSACHDAO {
 
     public int sua(SACH sachmoi, SACH sachcu) {
         try {
-            // String qry = "update SACH set " + "MASACH=" + "'" + sachmoi.getMasach() + "'" +
-            //         ",TENSACH=" + "N'" + sachmoi.getTensach() + "'" + ",MANXB=" + "'" + sachmoi.getMaNXB() + "'" +
-            //         ",MATG=" + "'" + sachmoi.getMaTG() + "'" + ",NAMXB=" + "'" + sachmoi.getNamXB() + "'" +
-            //         ",SLTONG=" + "'" + sachmoi.getSLtong() + "'" + ",SL=" + "'" + sachmoi.getSL() + "'" +
-            //         ",DONGIA=" + "'" + sachmoi.getDongia() + "'" + " " + "where MASACH='" + sachcu.getMasach()
-            //         + "'";
-            // st = conn.createStatement();
-            // st.executeUpdate(qry);
             String qry = "UPDATE SACH SET MASACH= ?, TENSACH= ?, MANXB= ?, MATG= ?, NAMXB= ?, SLTONG= ?, SL= ?, DONGIA= ? WHERE MASACH= ?";
             PreparedStatement ps = conn.prepareStatement(qry);
             ps.setString(1, sachmoi.getMasach());
