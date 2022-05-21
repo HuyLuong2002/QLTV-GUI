@@ -545,7 +545,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             int kt = -1;
             if (i >= 0) {
                 PHIEUMUON phieumuon = new PHIEUMUON();
-                PHIEUMUON MaPMCu = QLMUONBUS.dspm.set(i, phieumuon);
+                PHIEUMUON MaPMCu = QLMUONBUS.dspm.get(i);
                 getInfoTextFieldPM(phieumuon);
                 try {
                     QLMUONBUS qlphieumuonbus = new QLMUONBUS();
@@ -570,7 +570,8 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                 CHITIETPHIEUMUON ctphieumuon = new CHITIETPHIEUMUON();
                 getInfoTextFieldCTPM(ctphieumuon);
                 if (!ctphieumuon.getMaPM().trim().equals(String.valueOf(modelMuon.getValueAt(i, 0)))) {
-                    JOptionPane.showMessageDialog(null, "Mã phiếu mượn tại bảng chi tiết khác với mã phiếu mượn trên table", "Lỗi",
+                    JOptionPane.showMessageDialog(null,
+                            "Mã phiếu mượn tại bảng chi tiết khác với mã phiếu mượn trên table", "Lỗi",
                             JOptionPane.ERROR_MESSAGE);
                 } else {
                     // Truy cập vào bus
@@ -687,32 +688,37 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         if (e.getSource() == btThemCTPT) {
             int i = tblQLTra.getSelectedRow();
             try {
-                CHITIETPHIEUTRA ctphieutra = new CHITIETPHIEUTRA();
-                getInfoTextFieldCTPT(ctphieutra);
-                if (!ctphieutra.getMaPT().trim().equals(String.valueOf(modelTra.getValueAt(i, 0)))) {
-                    JOptionPane.showMessageDialog(null, "Mã phiếu trả tại bảng chi tiết khác với mã phiếu trả", "Lỗi",
-                            JOptionPane.ERROR_MESSAGE);
-                } else {
-                    // Truy cập vào bus
-                    QLCTTRABUS qlctphieutrabus = new QLCTTRABUS();
-                    int kiemtra = 0;
-                    try {
-                        kiemtra = qlctphieutrabus.them(ctphieutra);
-                    } catch (Exception e1) {
-                        e1.printStackTrace();
-                    }
-                    if (kiemtra == 0) {
-                        updateSLSachTra(txCTPTMaSach.getText().trim());
-                        // Đưa dữ liệu lên table
-                        header = new Vector<String>();
-                        header.add("Mã phiếu trả");
-                        header.add("Mã sách");
-                        header.add("SL");
-                        if (modelCTTra.getRowCount() == 0) {
-                            modelCTTra = new DefaultTableModel(header, 0);
+                int ktSachTraDu = checkSLSachTra(txCTPMMaSach.getText().trim());
+                // Kiểm tra số lượng sách trả có bị dư không
+                if (ktSachTraDu == 0) {
+                    CHITIETPHIEUTRA ctphieutra = new CHITIETPHIEUTRA();
+                    getInfoTextFieldCTPT(ctphieutra);
+                    if (!ctphieutra.getMaPT().trim().equals(String.valueOf(modelTra.getValueAt(i, 0)))) {
+                        JOptionPane.showMessageDialog(null, "Mã phiếu trả tại bảng chi tiết khác với mã phiếu trả",
+                                "Lỗi",
+                                JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        // Truy cập vào bus
+                        QLCTTRABUS qlctphieutrabus = new QLCTTRABUS();
+                        int kiemtra = 0;
+                        try {
+                            kiemtra = qlctphieutrabus.them(ctphieutra);
+                        } catch (Exception e1) {
+                            e1.printStackTrace();
                         }
-                        ShowOnTableCTPT(ctphieutra);
-                        tblQLCTTra.setModel(modelCTTra);
+                        if (kiemtra == 0) {
+                            updateSLSachTra(txCTPTMaSach.getText().trim());
+                            // Đưa dữ liệu lên table
+                            header = new Vector<String>();
+                            header.add("Mã phiếu trả");
+                            header.add("Mã sách");
+                            header.add("SL");
+                            if (modelCTTra.getRowCount() == 0) {
+                                modelCTTra = new DefaultTableModel(header, 0);
+                            }
+                            ShowOnTableCTPT(ctphieutra);
+                            tblQLCTTra.setModel(modelCTTra);
+                        }
                     }
                 }
             } catch (Exception e1) {
@@ -2564,6 +2570,26 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             }
             if (sach.getMasach().trim().equals(Masach) && sach.getSL() <= 0) {
                 JOptionPane.showMessageDialog(null, "Sách trong kho đã hết", "Lỗi",
+                        JOptionPane.ERROR_MESSAGE);
+                return -1;
+            }
+        }
+        return 0;
+    }
+
+    public int checkSLSachTra(String Masach) {
+        if (QLSACHBUS.dssach == null) {
+            QLSACHBUS qlbus = new QLSACHBUS();
+            try {
+                qlbus.docDSSACH();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        for (SACH sach : QLSACHBUS.dssach) {
+            int SLtra = sach.getSL() + Integer.parseInt(txCTPTSL.getText());
+            if (sach.getMasach().trim().equals(Masach) && sach.getSLtong() < SLtra) {
+                JOptionPane.showMessageDialog(null, "Số lượng cần trả lớn hơn số lượng sách trong kho", "Lỗi",
                         JOptionPane.ERROR_MESSAGE);
                 return -1;
             }
