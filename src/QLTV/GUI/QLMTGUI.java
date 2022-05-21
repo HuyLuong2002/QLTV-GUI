@@ -2570,5 +2570,4 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         }
         return 0;
     }
-
 }

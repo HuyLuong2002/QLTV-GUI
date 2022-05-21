@@ -1,6 +1,9 @@
 package QLTV.BUS;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.swing.JOptionPane;
 
 import QLTV.DAO.QLSACHDAO;
@@ -8,7 +11,7 @@ import QLTV.DTO.SACH;
 
 public class QLSACHBUS {
     public static ArrayList<SACH> dssach;
-    public static ArrayList<SACH> htXoa = new ArrayList<SACH>();
+    public static Set<SACH> htXoa = new HashSet<SACH>();
     public static ArrayList<SACH> htSua = new ArrayList<SACH>();
 
     public QLSACHBUS() {
@@ -28,7 +31,7 @@ public class QLSACHBUS {
                     JOptionPane.ERROR_MESSAGE);
             return -1;
         } else if (KTSL(sach.getSLtong(), sach.getSL()) == 0) {
-            JOptionPane.showMessageDialog(null, "Số lương tổng phải lớn hơn số lượng", "Lỗi",
+            JOptionPane.showMessageDialog(null, "Số lượng tổng phải lớn hơn số lượng", "Lỗi",
                     JOptionPane.ERROR_MESSAGE);
             return -1;
         } else {
@@ -62,13 +65,19 @@ public class QLSACHBUS {
 
     public int sua(SACH sachmoi, SACH sachcu, int i) throws Exception {
         // Truy cập vào database
-        int kt = 0;
-        QLSACHDAO data = new QLSACHDAO();
-        kt = data.sua(sachmoi, sachcu);
-        if(kt == 0){
-            dssach.set(i, sachmoi);
+        if (KTSL(sachmoi.getSLtong(), sachcu.getSL()) == 0) {
+            JOptionPane.showMessageDialog(null, "Số lương tổng phải lớn hơn số lượng", "Lỗi",
+                    JOptionPane.ERROR_MESSAGE);
+            return -1;
+        } else {
+            int kt = 0;
+            QLSACHDAO data = new QLSACHDAO();
+            kt = data.sua(sachmoi, sachcu);
+            if(kt == 0){
+                dssach.set(i, sachmoi);
+            }
+            return kt;
         }
-        return kt;
     }
 
     public void xoa(String MaSV, int i) throws Exception {
@@ -88,10 +97,12 @@ public class QLSACHBUS {
             return -1;
         } else {
             // Truy cập vào database
+            int kt = -1;
             QLSACHDAO data = new QLSACHDAO();
-            data.hoantacXoa(sach);
-            dssach.add(sach);
-            return 1;
+            kt = data.hoantacXoa(sach);
+            if(kt == 0)
+                dssach.add(sach);
+            return kt;
         }
     }
 
@@ -124,7 +135,7 @@ public class QLSACHBUS {
 
     public SACH timTheoMa(String Masach) {
         for (SACH sach : dssach)
-            if (sach.getMasach().trim().equals(Masach))
+            if (sach.getMasach().toLowerCase().trim().equals(Masach))
                 return sach;
         return null;
     }
@@ -132,7 +143,7 @@ public class QLSACHBUS {
     public ArrayList<SACH> timTheoTen(String Tensach) {
         ArrayList<SACH> kq = new ArrayList<SACH>();
         for (SACH sach : dssach)
-            if (sach.getTensach().indexOf(Tensach) >= 0)
+            if (sach.getTensach().replaceAll("\\s+", "").toLowerCase().trim().indexOf(Tensach) >= 0)
                 kq.add(sach);
         return kq;
     }
@@ -140,7 +151,7 @@ public class QLSACHBUS {
     public ArrayList<SACH> timTheoMaNXB(String MaNXB) {
         ArrayList<SACH> kq = new ArrayList<SACH>();
         for (SACH sach : dssach)
-            if (sach.getMaNXB().indexOf(MaNXB) >= 0)
+            if (sach.getMaNXB().replaceAll("\\s+", "").toLowerCase().trim().indexOf(MaNXB) >= 0)
                 kq.add(sach);
         return kq;
     }
@@ -148,7 +159,7 @@ public class QLSACHBUS {
     public ArrayList<SACH> timTheoMaTG(String MaTG) {
         ArrayList<SACH> kq = new ArrayList<SACH>();
         for (SACH sach : dssach)
-            if (sach.getMaTG().indexOf(MaTG) >= 0)
+            if (sach.getMaTG().replaceAll("\\s+", "").toLowerCase().trim().indexOf(MaTG) >= 0)
                 kq.add(sach);
         return kq;
     }
@@ -156,7 +167,7 @@ public class QLSACHBUS {
     public ArrayList<SACH> timTheoNamXB(String NamXB) {
         ArrayList<SACH> kq = new ArrayList<SACH>();
         for (SACH sach : dssach)
-            if (sach.getNamXB().indexOf(NamXB) >= 0)
+            if (sach.getNamXB().replaceAll("\\s+", "").trim().indexOf(NamXB) >= 0)
                 kq.add(sach);
         return kq;
     }
