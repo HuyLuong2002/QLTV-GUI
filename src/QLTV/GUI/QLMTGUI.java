@@ -1136,7 +1136,20 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                 pnTabTra.setVisible(false);
             }
         }
-
+        if (e.getSource() == txTienPhat) {
+            if(txCTHDSL.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Mời nhập số lượng để tính thành tiền", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+            else if(txCTHDDonGia.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Mời nhập đơn giá để tính thành tiền", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+            else{
+                int Dongia = Integer.parseInt(myTable.RemoveCommaInString(txCTHDDonGia));
+                int SL = Integer.parseInt(txCTHDSL.getText());
+                int Tienphat = Dongia*SL;
+                txTienPhat.setText(String.format("%,d",Tienphat));
+            }
+        }
     }
 
     @Override

@@ -34,6 +34,7 @@ import QLTV.GUI.QLPNGUI;
 
 public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
     public static int ThanhTien = 0;
+    MyTable myTable = new MyTable();
     JLabel lbHoTro, lbTuKhoaTK;
     JTextField txKhoaTK;
     JPanel pnTable;
@@ -1304,6 +1305,9 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
                 }
                 if(QLPNGUI.txCTPNMaSach != null){
                     QLPNGUI.txCTPNMaSach.setText(String.valueOf(model.getValueAt(i, 0)));
+                }
+                if(QLMTGUI.txCTHDDonGia != null){
+                    QLMTGUI.txCTHDDonGia.setText(String.valueOf(model.getValueAt(i, 7)));
                 }
             }
             this.dispose();
