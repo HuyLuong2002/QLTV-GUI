@@ -1560,7 +1560,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         txSLtong.addMouseListener(this);
 
         txMaDG = new JTextField();
-        txMaDG.setBounds(175, 290, 150, 30);
+        txMaDG.setBounds(175, 290, 108, 30);
         txMaDG.setFont(new Font("Arial", Font.PLAIN, 15));
         txMaDG.addMouseListener(this);
         txMaDG.setEditable(false);
@@ -1624,7 +1624,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
 
         btHoTroNhapMaDG = new JButton("...");
         btHoTroNhapMaDG.setFont(new Font("Arial", Font.BOLD, 15));
-        btHoTroNhapMaDG.setBounds(340, 290, 40, 30);
+        btHoTroNhapMaDG.setBounds(285, 290, 40, 30);
         btHoTroNhapMaDG.setBackground(MyColor.ColorButton);
         btHoTroNhapMaDG.setBorder(new RoundedBorder(10));
         btHoTroNhapMaDG.addActionListener(this);
@@ -1778,7 +1778,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         txThanhTien.setEditable(false);
 
         txMaPMTra = new JTextField();
-        txMaPMTra.setBounds(175, 290, 150, 30);
+        txMaPMTra.setBounds(175, 290, 108, 30);
         txMaPMTra.setFont(new Font("Arial", Font.PLAIN, 15));
         txMaPMTra.addMouseListener(this);
         txMaPMTra.setEditable(false);
@@ -1811,7 +1811,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
 
         btHoTroNhapPM_Tra = new JButton("...");
         btHoTroNhapPM_Tra.setFont(new Font("Arial", Font.BOLD, 15));
-        btHoTroNhapPM_Tra.setBounds(340, 290, 40, 30);
+        btHoTroNhapPM_Tra.setBounds(285, 290, 40, 30);
         btHoTroNhapPM_Tra.setBackground(MyColor.ColorButton);
         btHoTroNhapPM_Tra.setBorder(new RoundedBorder(10));
         btHoTroNhapPM_Tra.addActionListener(this);
@@ -1868,14 +1868,14 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
 
         btThemCTPT = new JButton("Thêm");
         btThemCTPT.setFont(new Font("Arial", Font.BOLD, 15));
-        btThemCTPT.setBounds(390, 200, 80, 30);
+        btThemCTPT.setBounds(390, 195, 80, 30);
         btThemCTPT.setBackground(MyColor.ColorButton);
         btThemCTPT.setBorder(new RoundedBorder(10));
         btThemCTPT.addActionListener(this);
 
         btSuaCTPT = new JButton("Sửa");
         btSuaCTPT.setFont(new Font("Arial", Font.BOLD, 15));
-        btSuaCTPT.setBounds(550, 200, 80, 30);
+        btSuaCTPT.setBounds(550, 195, 80, 30);
         btSuaCTPT.setBackground(MyColor.ColorButton);
         btSuaCTPT.setBorder(new RoundedBorder(10));
         btSuaCTPT.addActionListener(this);

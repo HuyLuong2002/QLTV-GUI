@@ -37,11 +37,11 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
     JLabel lbHoTro, lbTuKhoaTK;
     JTextField txKhoaTK;
     JPanel pnTable;
-    JButton btLuaChon, btTimKiemPM, btTimKiemPT, btTimKiemHD, btTimKiemDG, btTimKiemPN, btTimKiemNV, btTimKiemNCC,
+    JButton btLuaChon, btTimKiemPT, btTimKiemHD, btTimKiemDG, btTimKiemPN, btTimKiemNV, btTimKiemNCC,
             btLuaChonCTPT, btLuaChonCTHDTP, btLuaChonSachPT, btLuaChonSachHD, btLuaChonMaPN, btLuaChonMaNV,
             btLuaChonMaNCC;
     JButton btLuaChonInPM, btTimKiemInPM, btLuaChonCTPM, btTimKiemSach, btLuaChonSach, btLuachonPM_Tra, btLuaChonMaDG,
-            btLuaChonInHD, btTimKiemInHD;
+            btLuaChonInHD;
     JTable table;
     DefaultTableModel model;
     Vector<String> header;
@@ -326,18 +326,18 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
         txKhoaTK.setFont(new Font("Arial", Font.PLAIN, 15));
         txKhoaTK.setBounds(270, 55, 150, 30);
 
-        btTimKiemInHD = new JButton("Tìm kiếm");
-        btTimKiemInHD.setFont(new Font("Arial", Font.BOLD, 15));
-        btTimKiemInHD.setBounds(430, 55, 100, 30);
-        btTimKiemInHD.setBackground(Color.cyan);
-        btTimKiemInHD.setBorder(new RoundedBorder(10));
-        btTimKiemInHD.addActionListener(this);
+        btTimKiemHD = new JButton("Tìm kiếm");
+        btTimKiemHD.setFont(new Font("Arial", Font.BOLD, 15));
+        btTimKiemHD.setBounds(430, 55, 100, 30);
+        btTimKiemHD.setBackground(Color.cyan);
+        btTimKiemHD.setBorder(new RoundedBorder(10));
+        btTimKiemHD.addActionListener(this);
 
         this.add(lbHoTro);
         this.add(btLuaChonInHD);
         this.add(lbTuKhoaTK);
         this.add(txKhoaTK);
-        this.add(btTimKiemInHD);
+        this.add(btTimKiemHD);
     }
 
     public void setTitleCTPM() {
@@ -360,18 +360,18 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
         txKhoaTK.setFont(new Font("Arial", Font.PLAIN, 15));
         txKhoaTK.setBounds(270, 55, 150, 30);
 
-        btTimKiemPM = new JButton("Tìm kiếm");
-        btTimKiemPM.setFont(new Font("Arial", Font.BOLD, 15));
-        btTimKiemPM.setBounds(430, 55, 100, 30);
-        btTimKiemPM.setBackground(Color.cyan);
-        btTimKiemPM.setBorder(new RoundedBorder(10));
-        btTimKiemPM.addActionListener(this);
+        btTimKiemInPM = new JButton("Tìm kiếm");
+        btTimKiemInPM.setFont(new Font("Arial", Font.BOLD, 15));
+        btTimKiemInPM.setBounds(430, 55, 100, 30);
+        btTimKiemInPM.setBackground(Color.cyan);
+        btTimKiemInPM.setBorder(new RoundedBorder(10));
+        btTimKiemInPM.addActionListener(this);
 
         this.add(lbHoTro);
         this.add(btLuaChonCTPM);
         this.add(lbTuKhoaTK);
         this.add(txKhoaTK);
-        this.add(btTimKiemPM);
+        this.add(btTimKiemInPM);
     }
 
     public void setTitlePM_TRA() {
@@ -394,18 +394,18 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
         txKhoaTK.setFont(new Font("Arial", Font.PLAIN, 15));
         txKhoaTK.setBounds(270, 55, 150, 30);
 
-        btTimKiemPM = new JButton("Tìm kiếm");
-        btTimKiemPM.setFont(new Font("Arial", Font.BOLD, 15));
-        btTimKiemPM.setBounds(430, 55, 100, 30);
-        btTimKiemPM.setBackground(Color.cyan);
-        btTimKiemPM.setBorder(new RoundedBorder(10));
-        btTimKiemPM.addActionListener(this);
+        btTimKiemInPM = new JButton("Tìm kiếm");
+        btTimKiemInPM.setFont(new Font("Arial", Font.BOLD, 15));
+        btTimKiemInPM.setBounds(430, 55, 100, 30);
+        btTimKiemInPM.setBackground(Color.cyan);
+        btTimKiemInPM.setBorder(new RoundedBorder(10));
+        btTimKiemInPM.addActionListener(this);
 
         this.add(lbHoTro);
         this.add(btLuachonPM_Tra);
         this.add(lbTuKhoaTK);
         this.add(txKhoaTK);
-        this.add(btTimKiemPM);
+        this.add(btTimKiemInPM);
     }
 
     public void setTitleCTPT() {
@@ -940,42 +940,12 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
                 model.setRowCount(0);
                 ArrayList<PHIEUMUON> kq = new ArrayList<PHIEUMUON>();
                 for (PHIEUMUON pm : QLMUONBUS.dspm) {
-                    if (tukhoa.indexOf(pm.getMaPM().replaceAll("\\s+", "").toLowerCase().trim()) >= 0
-                            || tukhoa.indexOf(pm.getNgaymuon()) >= 0
-                            || tukhoa.indexOf(pm.getNgaytra()) >= 0
-                            || tukhoa.indexOf(String.valueOf(pm.getSLtong())) >= 0
-                            || tukhoa.indexOf(pm.getTinhTrangMuon().replaceAll("\\s+", "").toLowerCase().trim()) >= 0
-                            || tukhoa.indexOf(pm.getMaDG().replaceAll("\\s+", "").toLowerCase().trim()) >= 0) {
-                        kq.add(pm);
-                    }
-                }
-                if (kq.size() == 0) {
-                    JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    for (PHIEUMUON pm : kq) {
-                        ShowOnTablePM(pm);
-                    }
-                    table.setModel(model);
-                }
-            }
-        }
-        if (e.getSource() == btTimKiemPM) {
-            String tukhoa = txKhoaTK.getText().replaceAll("\\s", "").trim();
-            if (tukhoa.equals("") == true) {
-                model.setRowCount(0);
-                for (PHIEUMUON pm : QLMUONBUS.dspm) {
-                    ShowOnTablePM(pm);
-                }
-            } else {
-                model.setRowCount(0);
-                ArrayList<PHIEUMUON> kq = new ArrayList<PHIEUMUON>();
-                for (PHIEUMUON pm : QLMUONBUS.dspm) {
-                    if (tukhoa.indexOf(pm.getMaPM().replaceAll("\\s+", "").toLowerCase().trim()) >= 0
-                            || tukhoa.indexOf(pm.getNgaymuon()) >= 0
-                            || tukhoa.indexOf(pm.getNgaytra()) >= 0
-                            || tukhoa.indexOf(String.valueOf(pm.getSLtong())) >= 0
-                            || tukhoa.indexOf(pm.getTinhTrangMuon().replaceAll("\\s+", "").toLowerCase().trim()) >= 0
-                            || tukhoa.indexOf(pm.getMaDG().replaceAll("\\s+", "").toLowerCase().trim()) >= 0) {
+                    if (String.valueOf(pm.getMaPM().toLowerCase()).indexOf(tukhoa) >= 0
+                            || String.valueOf(pm.getNgaymuon().replaceAll("\\s+", "")).indexOf(tukhoa) >= 0
+                            || String.valueOf(pm.getNgaytra().replaceAll("\\s+", "")).indexOf(tukhoa) >= 0
+                            || String.valueOf(pm.getSLtong()).indexOf(tukhoa) >= 0
+                            || String.valueOf(pm.getTinhTrangMuon().replaceAll("\\s+", "").toLowerCase()).indexOf(tukhoa) >= 0
+                            || String.valueOf(pm.getMaDG().toLowerCase()).indexOf(tukhoa) >= 0) {
                         kq.add(pm);
                     }
                 }
@@ -1000,12 +970,12 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
                 model.setRowCount(0);
                 ArrayList<PHIEUTRASACH> kq = new ArrayList<PHIEUTRASACH>();
                 for (PHIEUTRASACH pt : QLTRABUS.dspt) {
-                    if (tukhoa.indexOf(pt.getMaPT().replaceAll("\\s+", "").toLowerCase().trim()) >= 0
-                            || tukhoa.indexOf(pt.getNgaytra()) >= 0
-                            || tukhoa.indexOf(String.valueOf(pt.getTienthue())) >= 0
-                            || tukhoa.indexOf(String.valueOf(pt.getTienthue())) >= 0
-                            || tukhoa.indexOf(pt.getTinhtrangsach().replaceAll("\\s+", "").toLowerCase().trim()) >= 0
-                            || tukhoa.indexOf(pt.getMaPM().replaceAll("\\s+", "").toLowerCase().trim()) >= 0) {
+                    if (String.valueOf(pt.getMaPT().toLowerCase()).indexOf(tukhoa) >= 0
+                            || String.valueOf(pt.getNgaytra().replaceAll("\\s+", "")).indexOf(tukhoa) >= 0
+                            || String.valueOf(pt.getTienthue()).indexOf(tukhoa) >= 0
+                            || String.valueOf(pt.getThanhtien()).indexOf(tukhoa) >= 0
+                            || String.valueOf(pt.getTinhtrangsach().replaceAll("\\s+", "").toLowerCase()).indexOf(tukhoa) >= 0
+                            || String.valueOf(pt.getMaPM().toLowerCase()).indexOf(tukhoa) >= 0) {
                         kq.add(pt);
                     }
                 }
@@ -1030,10 +1000,10 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
                 model.setRowCount(0);
                 ArrayList<HDTIENPHAT> kq = new ArrayList<HDTIENPHAT>();
                 for (HDTIENPHAT hd : QLHDTPBUS.dshdtp) {
-                    if (tukhoa.indexOf(hd.getMaHD().replaceAll("\\s+", "").toLowerCase().trim()) >= 0
-                            || tukhoa.indexOf(hd.getMaDG().replaceAll("\\s+", "").toLowerCase().trim()) >= 0
-                            || tukhoa.indexOf(String.valueOf(hd.getTienphat()).trim()) >= 0
-                            || tukhoa.indexOf(String.valueOf(hd.getSL()).trim()) >= 0) {
+                    if (String.valueOf(hd.getMaHD().toLowerCase()).indexOf(tukhoa) >= 0
+                            || String.valueOf(hd.getMaDG().toLowerCase()).indexOf(tukhoa) >= 0
+                            || String.valueOf(hd.getTienphat()).indexOf(tukhoa) >= 0
+                            || String.valueOf(hd.getSL()).indexOf(tukhoa) >= 0) {
                         kq.add(hd);
                     }
                 }
@@ -1058,12 +1028,11 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
                 model.setRowCount(0);
                 ArrayList<DOCGIA> kq = new ArrayList<DOCGIA>();
                 for (DOCGIA docgia : QLNVBUS.dsdg) {
-                    if (tukhoa.indexOf(docgia.getMaDG().replaceAll("\\s+", "").toLowerCase().trim()) >= 0
-                            || tukhoa.indexOf(docgia.getTenDG().replaceAll("\\s+", "").toLowerCase().trim()) >= 0
-                            || tukhoa.indexOf(docgia.getMail().replaceAll("\\s+", "").toLowerCase().trim()) >= 0
-                            || tukhoa.indexOf(docgia.getDiachi().replaceAll("\\s+", "").toLowerCase().trim()) >= 0
-                            || tukhoa.indexOf(
-                                    docgia.getTinhtrangthue().replaceAll("\\s+", "").toLowerCase().trim()) >= 0) {
+                    if (String.valueOf(docgia.getMaDG().toLowerCase()).indexOf(tukhoa) >= 0
+                            || String.valueOf(docgia.getTenDG().replaceAll("\\s+", "").toLowerCase()).indexOf(tukhoa) >= 0
+                            || String.valueOf(docgia.getMail().toLowerCase()).indexOf(tukhoa) >= 0
+                            || String.valueOf(docgia.getDiachi().replaceAll("\\s+", "").toLowerCase()).indexOf(tukhoa) >= 0
+                            || String.valueOf(docgia.getTinhtrangthue().replaceAll("\\s+", "").toLowerCase()).indexOf(tukhoa) >= 0) {
                         kq.add(docgia);
                     }
                 }
@@ -1088,12 +1057,12 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
                 model.setRowCount(0);
                 ArrayList<PHIEUNHAP> kq = new ArrayList<PHIEUNHAP>();
                 for (PHIEUNHAP pn : QLPNBUS.dspn) {
-                    if (tukhoa.indexOf(pn.getMaPN().replaceAll("\\s+", "").toLowerCase().trim()) >= 0
-                            || tukhoa.indexOf(pn.getNgaynhap().trim()) >= 0
-                            || tukhoa.indexOf(String.valueOf(pn.getSLTong()).trim()) >= 0
-                            || tukhoa.indexOf(String.valueOf(pn.getDongia()).trim()) >= 0
-                            || tukhoa.indexOf(pn.getMaNV().replaceAll("\\s+", "").toLowerCase().trim()) >= 0
-                            || tukhoa.indexOf(pn.getMaNCC().replaceAll("\\s+", "").toLowerCase().trim()) >= 0) {
+                    if (String.valueOf(pn.getMaPN().toLowerCase()).indexOf(tukhoa) >= 0
+                            || String.valueOf(pn.getNgaynhap().replaceAll("\\s+", "")).indexOf(tukhoa) >= 0
+                            || String.valueOf(pn.getSLTong()).indexOf(tukhoa) >= 0
+                            || String.valueOf(pn.getDongia()).indexOf(tukhoa) >= 0
+                            || String.valueOf(pn.getMaNV().toLowerCase()).indexOf(tukhoa) >= 0
+                            || String.valueOf(pn.getMaNCC().toLowerCase()).indexOf(tukhoa) >= 0) {
                         kq.add(pn);
                     }
                 }
@@ -1109,8 +1078,6 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
         }
         if (e.getSource() == btTimKiemNV) {
             String tukhoa = txKhoaTK.getText().replaceAll("\\s+", "").toLowerCase().trim();
-            String tennv = txKhoaTK.getText().replaceAll("\\s+", " ").toLowerCase().trim();
-
             if (tukhoa.equals("") == true) {
                 model.setRowCount(0);
                 for (NHANVIEN nv : QLNHANVIENBUS.dsnhanvien) {
@@ -1120,14 +1087,14 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
                 model.setRowCount(0);
                 ArrayList<NHANVIEN> kq = new ArrayList<NHANVIEN>();
                 for (NHANVIEN nv : QLNHANVIENBUS.dsnhanvien) {
-                    if (tukhoa.indexOf(nv.getMaNV().replaceAll("\\s+", "").toLowerCase().trim()) >= 0
-                            || tennv.indexOf(nv.getTenNV().replaceAll("\\s+", " ").toLowerCase().trim()) >= 0
-                            || tukhoa.indexOf(String.valueOf(nv.getLuongCB()).trim()) >= 0
-                            || tukhoa.indexOf(String.valueOf(nv.getHesoluong()).trim()) >= 0
-                            || tukhoa.indexOf(String.valueOf(nv.getPhucap()).trim()) >= 0
-                            || tukhoa.indexOf(nv.getChucvu().replaceAll("\\s+", "").toLowerCase().trim()) >= 0
-                            || tukhoa.indexOf(String.valueOf(nv.getSDT()).trim()) >= 0
-                            || tukhoa.indexOf(nv.getMail().replaceAll("\\s+", "").toLowerCase().trim()) >= 0) {
+                    if (String.valueOf(nv.getMaNV().toLowerCase()).indexOf(tukhoa) >= 0
+                            || String.valueOf(nv.getTenNV().replaceAll("\\s+", "").toLowerCase()).indexOf(tukhoa) >= 0
+                            || String.valueOf(nv.getLuongCB()).indexOf(tukhoa) >= 0
+                            || String.valueOf(nv.getHesoluong()).indexOf(tukhoa) >= 0
+                            || String.valueOf(nv.getPhucap()).indexOf(tukhoa) >= 0
+                            || String.valueOf(nv.getChucvu().replaceAll("\\s+", "").toLowerCase()).indexOf(tukhoa) >= 0
+                            || String.valueOf(nv.getSDT()).indexOf(tukhoa) >= 0
+                            || String.valueOf(nv.getMail().toLowerCase()).indexOf(tukhoa) >= 0) {
                         kq.add(nv);
                     }
                 }
@@ -1152,8 +1119,8 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
                 model.setRowCount(0);
                 ArrayList<NHACUNGCAP> kq = new ArrayList<NHACUNGCAP>();
                 for (NHACUNGCAP ncc : QLNCCBUS.dsncc) {
-                    if (tukhoa.indexOf(ncc.getMaNCC().replaceAll("\\s+", "").toLowerCase().trim()) >= 0
-                            || tukhoa.indexOf(ncc.getTenNCC().replaceAll("\\s+", "").toLowerCase().trim()) >= 0) {
+                    if (String.valueOf(ncc.getMaNCC().toLowerCase()).indexOf(tukhoa) >= 0
+                            || String.valueOf(ncc.getTenNCC().replaceAll("\\s+", "").toLowerCase()).indexOf(tukhoa) >= 0) {
                         kq.add(ncc);
                     }
                 }
@@ -1168,7 +1135,7 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
             }
         }
         if (e.getSource() == btTimKiemSach) {
-            String tukhoa = txKhoaTK.getText().replaceAll("\\s", "").trim();
+            String tukhoa = txKhoaTK.getText().replaceAll("\\s+", "").toLowerCase().trim();
             if (tukhoa.equals("") == true) {
                 model.setRowCount(0);
                 for (SACH sach : QLSACHBUS.dssach) {
@@ -1178,12 +1145,14 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
                 model.setRowCount(0);
                 ArrayList<SACH> kq = new ArrayList<SACH>();
                 for (SACH sach : QLSACHBUS.dssach) {
-                    if (tukhoa.indexOf(sach.getMasach().trim()) >= 0 || tukhoa.indexOf(sach.getTensach().trim()) >= 0 ||
-                            tukhoa.indexOf(sach.getMaNXB().trim()) >= 0 || tukhoa.indexOf(sach.getMaTG().trim()) >= 0 ||
-                            tukhoa.indexOf(sach.getNamXB().trim()) >= 0
-                            || tukhoa.indexOf(String.valueOf(sach.getSLtong())) >= 0 ||
-                            tukhoa.indexOf(String.valueOf(sach.getSL())) >= 0
-                            || tukhoa.indexOf(String.valueOf(sach.getDongia())) >= 0) {
+                    if (String.valueOf(sach.getMasach().toLowerCase()).indexOf(tukhoa) >= 0 
+                            || String.valueOf(sach.getTensach().replaceAll("\\s+", "").toLowerCase()).indexOf(tukhoa) >= 0 
+                            || String.valueOf(sach.getMaNXB().toLowerCase()).indexOf(tukhoa) >= 0 
+                            || String.valueOf(sach.getMaTG().toLowerCase()).indexOf(tukhoa) >= 0 
+                            || String.valueOf(sach.getNamXB()).indexOf(tukhoa) >= 0
+                            || String.valueOf(sach.getSLtong()).indexOf(tukhoa) >= 0 
+                            || String.valueOf(sach.getSL()).indexOf(tukhoa) >= 0
+                            || String.valueOf(sach.getDongia()).indexOf(tukhoa) >= 0) {
                         kq.add(sach);
                     }
                 }
@@ -1192,33 +1161,6 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
                 } else {
                     for (SACH sach1 : kq) {
                         ShowOnTableSach(sach1);
-                    }
-                    table.setModel(model);
-                }
-            }
-        }
-        if (e.getSource() == btTimKiemInHD) {
-            String tukhoa = txKhoaTK.getText().replaceAll("\\s", "").trim();
-            if (tukhoa.equals("") == true) {
-                model.setRowCount(0);
-                for (HDTIENPHAT hd : QLHDTPBUS.dshdtp) {
-                    ShowOnTableHD(hd);
-                }
-            } else {
-                model.setRowCount(0);
-                ArrayList<HDTIENPHAT> kq = new ArrayList<HDTIENPHAT>();
-                for (HDTIENPHAT hd : QLHDTPBUS.dshdtp) {
-                    if (tukhoa.indexOf(hd.getMaHD().trim()) >= 0 || tukhoa.indexOf(hd.getMaDG()) >= 0
-                            || tukhoa.indexOf(String.valueOf(hd.getTienphat())) >= 0
-                            || tukhoa.indexOf(String.valueOf(hd.getSL())) >= 0) {
-                        kq.add(hd);
-                    }
-                }
-                if (kq.size() == 0) {
-                    JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    for (HDTIENPHAT hd : kq) {
-                        ShowOnTableHD(hd);
                     }
                     table.setModel(model);
                 }
