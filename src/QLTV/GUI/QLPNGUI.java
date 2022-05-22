@@ -606,13 +606,13 @@ public class QLPNGUI implements ActionListener, MouseListener {
         txDonGia.addMouseListener(this);
 
         txMaNV = new JTextField();
-        txMaNV.setBounds(175, 245, 150, 30);
+        txMaNV.setBounds(175, 245, 108, 30);
         txMaNV.setFont(new Font("Arial", Font.PLAIN, 15));
         txMaNV.addMouseListener(this);
         txMaNV.setEditable(false);
 
         txMaNCC = new JTextField();
-        txMaNCC.setBounds(175, 290, 150, 30);
+        txMaNCC.setBounds(175, 290, 108, 30);
         txMaNCC.setFont(new Font("Arial", Font.PLAIN, 15));
         txMaNCC.addMouseListener(this);
         txMaNCC.setEditable(false);
@@ -645,14 +645,14 @@ public class QLPNGUI implements ActionListener, MouseListener {
 
         btHoTroNhapMaNV = new JButton("...");
         btHoTroNhapMaNV.setFont(new Font("Arial", Font.BOLD, 15));
-        btHoTroNhapMaNV.setBounds(340, 245, 40, 30);
+        btHoTroNhapMaNV.setBounds(285, 245, 40, 30);
         btHoTroNhapMaNV.setBackground(MyColor.ColorButton);
         btHoTroNhapMaNV.setBorder(new RoundedBorder(10));
         btHoTroNhapMaNV.addActionListener(this);
 
         btHoTroNhapMaNCC = new JButton("...");
         btHoTroNhapMaNCC.setFont(new Font("Arial", Font.BOLD, 15));
-        btHoTroNhapMaNCC.setBounds(340, 290, 40, 30);
+        btHoTroNhapMaNCC.setBounds(285, 290, 40, 30);
         btHoTroNhapMaNCC.setBackground(MyColor.ColorButton);
         btHoTroNhapMaNCC.setBorder(new RoundedBorder(10));
         btHoTroNhapMaNCC.addActionListener(this);
