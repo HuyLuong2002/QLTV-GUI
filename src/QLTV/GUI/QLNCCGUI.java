@@ -147,24 +147,20 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
             int XacNhanXoa = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa không ?", "Thông báo",
                     JOptionPane.YES_NO_OPTION);
             if (XacNhanXoa == 0) {
-                int kt = -1;
-                String manxb = txMaNCC.getText();
+                String mancc = txMaNCC.getText();
                 int i = tblQLNCC.getSelectedRow();
                 if (i >= 0) {
                     try {
                         // Truy cập xuống BUS
-                        NHACUNGCAP SachOld = QLNCCBUS.dsncc.get(i);
-                        QLNCCBUS.htXoa.add(SachOld);
+                        NHACUNGCAP nccOld = QLNCCBUS.dsncc.get(i);
+                        QLNCCBUS.htXoa.add(nccOld);
                         QLNCCBUS qlnccbus = new QLNCCBUS();
-                        kt = qlnccbus.xoa(manxb, i);
+                        qlnccbus.xoa(mancc, i);
                         // Quay dề GUI
-
-                    } catch (Exception e1) {
-                        System.out.println(e1);
-                    }
-                    if (kt == 0) {
                         model.removeRow(i);
                         tblQLNCC.setModel(model);
+                    } catch (Exception e1) {
+                        System.out.println(e1);
                     }
                 }
             }
@@ -176,13 +172,13 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
             } else {
                 for (NHACUNGCAP nxb : QLNCCBUS.htXoa) {
                     QLNCCBUS qlnccbus = new QLNCCBUS();
-                    int kiemtra = 0;
+                    int kiemtra = -1;
                     try {
                         kiemtra = qlnccbus.hoantacXoa(nxb);
                     } catch (Exception e1) {
                         e1.printStackTrace();
                     }
-                    if (kiemtra == 1) {
+                    if (kiemtra == 0) {
                         // Đưa dữ liệu lên table
                         header = new Vector<String>();
                         header.add("Mã Nhà Cung Cấp");
@@ -192,7 +188,7 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
                         }
                         ShowOnTable(nxb);
                         ktHT = 1;
-                    } else if (kiemtra == 0) {
+                    } else if (kiemtra == -1) {
                         JOptionPane.showMessageDialog(null, "Hoàn tác dữ liệu thất bại", "Lỗi",
                                 JOptionPane.ERROR_MESSAGE);
                         ktHT = 0;
@@ -211,7 +207,7 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
             setTimKiem();
         } else if (e.getSource() == btSearch) {
             int vtkey = Integer.parseInt(String.valueOf(comboBoxDSKhoaTK.getSelectedIndex()));
-            String tukhoa = txKhoaTK.getText();
+            String tukhoa = txKhoaTK.getText().replaceAll("\\s+", "").toLowerCase();
             if (tukhoa.equals("") == true) {
                 JOptionPane.showMessageDialog(null, "Xin mời nhập từ khóa", "Lỗi", JOptionPane.ERROR_MESSAGE);
             } else if (vtkey == 0) {
@@ -568,7 +564,7 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
             TitledBorder titleTK;
             Border blackline;
             blackline = BorderFactory.createLineBorder(Color.black);
-            titleTK = BorderFactory.createTitledBorder(blackline,"Tìm kiếm");
+            titleTK = BorderFactory.createTitledBorder(blackline, "Tìm kiếm");
             titleTK.setTitleFont(new Font("Arial", Font.BOLD, 28));
             titleTK.setTitleJustification(TitledBorder.CENTER);
             pnTimKiem.setBorder(titleTK);
