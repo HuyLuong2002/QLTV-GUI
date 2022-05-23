@@ -1,8 +1,17 @@
 package MyCustom;
 import javax.swing.*;
 import javax.swing.border.Border;
+
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
+
+import QLTV.BUS.ACCOUNTBUS;
+import QLTV.DTO.ACCOUNT;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Properties;
 
 public class RegisterPage extends JFrame implements ActionListener {
     JPanel panelHomePage;
@@ -14,9 +23,12 @@ public class RegisterPage extends JFrame implements ActionListener {
     Border borderForgotPasswd;
     JButton buttonDangNhap,buttonDangKy,buttonForgotPasswd;
     Color ColorWhite;
-    JComboBox<String> comboBoxPhanQuyen;
-    JRadioButton rbNam, rbNu, rbKhac;
-    ButtonGroup buttonGroupGioiTinh;
+    JComboBox<String> comboBoxGioiTinh;
+
+    UtilDateModel modelNgaySinh;
+    Properties pNgaySinh;
+    JDatePanelImpl datePanelNgaySinh;
+    JDatePickerImpl datePickerNgaySinh;
 
     public RegisterPage() throws InterruptedException{
         this.setTitle("Quản lý thư viện");
@@ -41,11 +53,11 @@ public class RegisterPage extends JFrame implements ActionListener {
         panelHomePage.setBounds(0, 0, 500, 810);
         panelHomePage.setBackground(ColorWhite);
         //set up label
-        labelHomePage = new JLabel("USER REGISTER");
-        labelUsername = new JLabel("Account ");
-        labelPassword = new JLabel("Password ");
-        labelConfirmPass = new JLabel("Confirm Password");
-        labelHoLot = new JLabel("Ho Lot");
+        labelHomePage = new JLabel("ĐĂNG KÝ");
+        labelUsername = new JLabel("Tài khoản");
+        labelPassword = new JLabel("Mật khẩu ");
+        labelConfirmPass = new JLabel("Xác nhận mật khẩu");
+        labelHoLot = new JLabel("Họ và tên lót");
         labelGioiTinh = new JLabel("Giới tính");
         labelID = new JLabel("ID");
         labelNgaySinh = new JLabel("Ngày Sinh");
@@ -60,7 +72,7 @@ public class RegisterPage extends JFrame implements ActionListener {
         //Label Dang nhap
         labelHomePage.setFont(new Font("Arial", Font.BOLD,28));
         labelHomePage.setForeground(Color.CYAN);
-        labelHomePage.setBounds(130, 0, 230, 150);
+        labelHomePage.setBounds(180, 0, 230, 150);
 
         labelID.setFont(new Font("Arial", Font.PLAIN, 17));
         labelID.setForeground(Color.black);
@@ -109,21 +121,35 @@ public class RegisterPage extends JFrame implements ActionListener {
         textSDT = new JTextField();
 
         textID.setFont(new Font("Arial",Font.ITALIC,18));
-        textID.setBounds(220,125,210,30);
+        textID.setBounds(250,125,180,30);
         txusername.setFont(new Font("Arial",Font.ITALIC,18));
-        txusername.setBounds(220,185,210,30);
+        txusername.setBounds(250,185,180,30);
         txpassword.setFont(new Font("Arial",Font.ITALIC,18));
-        txpassword.setBounds(220,245,210,30);
+        txpassword.setBounds(250,245,180,30);
         txConfirmPass.setFont(new Font("Arial", Font.ITALIC,18));
-        txConfirmPass.setBounds(220, 305, 210, 30);
+        txConfirmPass.setBounds(250, 305, 180, 30);
         textHoLot.setFont(new Font("Arial",Font.ITALIC,18));
-        textHoLot.setBounds(220,365,210,30);
+        textHoLot.setBounds(250,365,180,30);
         textTen.setFont(new Font("Arial",Font.ITALIC,18));
-        textTen.setBounds(220,425,210,30);
-        textNgaySinh.setFont(new Font("Arial",Font.ITALIC,18));
-        textNgaySinh.setBounds(220,485,210,30);
+        textTen.setBounds(250,425,180,30);
         textSDT.setFont(new Font("Arial",Font.ITALIC,18));
-        textSDT.setBounds(220,605,210,30);
+        textSDT.setBounds(250,605,180,30);
+
+        String [] dsGioiTinh = {"", "Nam", "Nữ", "Khác"};
+        comboBoxGioiTinh = new JComboBox<>(dsGioiTinh);
+        comboBoxGioiTinh.setFont(new Font("Arial", Font.BOLD, 13));
+        comboBoxGioiTinh.setBounds(250, 545, 180, 30);
+        comboBoxGioiTinh.addActionListener(this);
+
+        modelNgaySinh = new UtilDateModel();
+        modelNgaySinh.setSelected(true);
+        pNgaySinh = new Properties();
+        pNgaySinh.put("text.today", "Today");
+        pNgaySinh.put("text.month", "Month");
+        pNgaySinh.put("text.year", "Year");
+        datePanelNgaySinh = new JDatePanelImpl(modelNgaySinh, pNgaySinh);
+        datePickerNgaySinh = new JDatePickerImpl(datePanelNgaySinh, new DateLabelFormatter());
+        datePickerNgaySinh.setBounds(250, 485, 180, 30);
        
         //Button Dang nhap, Dang ky, ForgotPasswd
         buttonDangKy = new JButton("Sign up");
@@ -178,8 +204,9 @@ public class RegisterPage extends JFrame implements ActionListener {
         panelHomePage.add(txConfirmPass);
         panelHomePage.add(textHoLot);
         panelHomePage.add(textTen);
-        panelHomePage.add(textNgaySinh);
+        panelHomePage.add(datePickerNgaySinh);
         panelHomePage.add(textSDT);
+        panelHomePage.add(comboBoxGioiTinh);
 
         // panelHomePage.add(comboBoxPhanQuyen);
 
@@ -189,7 +216,50 @@ public class RegisterPage extends JFrame implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==buttonDangNhap){
+        if(e.getSource()==buttonDangKy){
+            try {
+                ACCOUNT account = new ACCOUNT();
+                account.setID(textID.getText().trim());
+                account.setUsername(txusername.getText().trim());
+                account.setPassword(String.valueOf(txpassword.getPassword()).trim());
+                account.setHoLot(textHoLot.getText().trim());
+                account.setTen(textTen.getText().trim());
+                account.setNgaySinh(datePickerNgaySinh.getJFormattedTextField().getText());
+                String GioiTinh = (String) comboBoxGioiTinh.getSelectedItem();
+                account.setGioiTinh(GioiTinh);
+                account.setSDT(textSDT.getText().trim());
+                account.setPhanQuyen(0);
+
+                String x = String.valueOf(txpassword.getPassword());
+                String y = String.valueOf(txConfirmPass.getPassword());
+
+                if (textID.getText().equals("") || txusername.getText().equals("") || textHoLot.getText().equals("")
+                        || textSDT.getText().equals("") || textTen.getText().equals("") || x.equals("") || y.equals("")
+                        || GioiTinh.equals("")) {
+                    JOptionPane.showMessageDialog(null, "Thông tin đăng ký trống", "Thông báo",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } else if (x.trim().equals(y.trim())){
+                    ACCOUNTBUS data = new ACCOUNTBUS();
+                    int kt = 0;
+                    try {
+                        data.docDSACC();
+                        kt = data.them(account);
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+                    if (kt == 0) {
+                        this.dispose();
+                        new LoginPage();
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Mật khẩu nhập không trùng nhau! Cần nhập lại");
+                }
+            } catch (InterruptedException e1) {
+                System.out.println(e1);
+               
+            }
+        }
+        if(e.getSource() == buttonDangNhap){
             try {
                 this.dispose();
                 new LoginPage();
@@ -197,6 +267,5 @@ public class RegisterPage extends JFrame implements ActionListener {
                 e1.printStackTrace();
             }
         }
-        
     }
 }

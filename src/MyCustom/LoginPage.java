@@ -1,6 +1,9 @@
 package MyCustom;
 import javax.swing.*;
 import javax.swing.border.Border;
+
+import QLTV.BUS.ACCOUNTBUS;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -39,8 +42,8 @@ public class LoginPage extends JFrame implements ActionListener {
         panelHomePage.setBackground(ColorPanel);
         //set up label
         labelHomePage = new JLabel("USER LOGIN");
-        labelUsername = new JLabel(" Account ");
-        labelPassword = new JLabel(" Password ");
+        labelUsername = new JLabel(" Tài khoản ");
+        labelPassword = new JLabel(" Mật khẩu ");
 
         // Label Library
         labelLibrary = new JLabel();
@@ -88,9 +91,9 @@ public class LoginPage extends JFrame implements ActionListener {
         // Label chèn
        
         //Button Dang nhap, Dang ky, ForgotPasswd
-        buttonDangNhap = new JButton("Sign in");
-        buttonDangKy = new JButton("Sign up");
-        buttonForgotPasswd = new JButton("Forgot Password");
+        buttonDangNhap = new JButton("Đăng nhập");
+        buttonDangKy = new JButton("Đăng ký");
+        buttonForgotPasswd = new JButton("Quên mật khẩu");
         //set bound button
         buttonDangNhap.setBounds(98,380,320,35);
         buttonDangNhap.setIcon(new ImageIcon("images\\logout.png"));
@@ -146,9 +149,17 @@ public class LoginPage extends JFrame implements ActionListener {
         }
         if(e.getSource()==buttonDangNhap){
             String pass = String.valueOf(password.getPassword());
-            if(username.getText().equals("admin") && pass.equals("admin")){
-                this.dispose();
-                new Menu();
+            String user = username.getText();
+            try {
+                int kt = -1;
+                ACCOUNTBUS dangnhap = new ACCOUNTBUS();
+                kt = dangnhap.login(user, pass);
+                if(kt == 0){
+                    this.dispose();
+                    new Menu();
+                }
+            } catch (Exception e1) {
+                e1.printStackTrace();
             }
         }
     }

@@ -27,7 +27,7 @@ public class QLSACHBUS {
 
     public int them(SACH sach) throws Exception {
         if (KTMa(sach.getMasach()) == 0) {
-            JOptionPane.showMessageDialog(null, "Mã sinh viên vừa nhập bị trùng. Mời nhập lại!", "Lỗi",
+            JOptionPane.showMessageDialog(null, "Mã sách vừa nhập bị trùng. Mời nhập lại!", "Lỗi",
                     JOptionPane.ERROR_MESSAGE);
             return -1;
         } else if (KTSL(sach.getSLtong(), sach.getSL()) == 0) {

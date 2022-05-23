@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -50,7 +52,7 @@ import QLTV.DTO.PHIEUMUON;
 import QLTV.DTO.PHIEUTRASACH;
 import QLTV.DTO.SACH;
 
-public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
+public class QLMTGUI extends JFrame implements ActionListener, MouseListener, KeyListener{
     MyTable myTable = new MyTable();
     public static String NgayTra;
     JPanel pnMuonTra, pnTabMuon, pnTabTra, pnTabTienPhat, pnShowAll, pnMuon, pnCTMuon, pnNhapPM,
@@ -64,13 +66,13 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             lbTinhTrangSach, lbTienThue, lbThanhTien, lbMaPMTra;
 
     JLabel lbNhapHDTP, lbNhapCTHDTP, lbCTPTSL, lbMaHD, lbMaHD_DG, lbSLTongHD, lbTienPhat,
-            lbCTHDMaHD, lbCTHDMaSach, lbCTHDSL, lbCTHDDonGia;
+            lbCTHDMaHD, lbCTHDMaSach, lbCTHDSL, lbCTHDDonGia, lbTienTra, lbTienThua, lbTraTienPhat;
 
     JLabel lbNgayBDLocPM, lbNgayKTLocPM, lbNgayBDLocPT, lbNgayKTLocPT;
     JButton btThoat, btSuaPM, btThemPM, btXoa, btHoanTac,
             btSuaCTPM, btThemCTPM, btThemPT, btSuaPT, btThemCTPT, btSuaCTPT, btThemHDTP, btSuaHDTP, btThemCTHD,
             btSuaCTHD;
-    JTextField txMaPM, txSLtong, txKhoaTK;
+    JTextField txMaPM, txSLtong, txKhoaTK, txTienTra_M, txTienTra_HD, txTienThua, txTraTienPhat;
     public static JTextField txCTPMMaPM, txCTPMMaSach, txCTPMSL, txCTPTMaPT, txCTPTMaSach, txCTHDMaHD, txCTHDMaSach,
             txCTHDSL, txCTHDDonGia, txCTPTSL, txMaDG, txMaPMTra;
     JComboBox<String> cbTinhTrangMuon, cbDSKhoaTK;
@@ -208,7 +210,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
 
             pnTimKiemHDTP = new JPanel();
             pnTimKiemHDTP.setLayout(null);
-            pnTimKiemHDTP.setBounds(720, 0, 413, 332);
+            pnTimKiemHDTP.setBounds(720, 155, 413, 200);
             pnTimKiemHDTP.setBackground(MyColor.ColorBlue);
 
 
@@ -1168,6 +1170,52 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
 
     }
 
+    @Override
+    public void keyPressed(KeyEvent e){
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (txTienTra_M.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Mời nhập tiền trả để tính", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            } else if (txThanhTien.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Mời nhập thành tiền để tính", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            } else {
+                int i = tblQLTra.getSelectedRow();
+                if (i >= 0) {
+                    int TienTra = Integer.parseInt(myTable.RemoveCommaInString(txTienTra_M));
+                    int TienThue = Integer.parseInt(myTable.RemoveCommaInString(txThanhTien));
+                    txTienTra_M.setText(String.format("%,d", TienTra));
+                    int TienThua = TienTra - TienThue;
+                    txTienThua.setText(String.format("%,d", TienThua));
+                }
+            }
+        }
+        if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
+            if (txTienTra_HD.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Mời nhập tiền trả để tính", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            } else if (txTienPhat.getText().equals(""))
+                JOptionPane.showMessageDialog(null, "Mời nhập tiền phạt để tính", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            else {
+                int i = tblQLHDTP.getSelectedRow();
+                if (i >= 0) {
+                    int TienTra = Integer.parseInt(myTable.RemoveCommaInString(txTienTra_HD));
+                    int TienPhat = Integer.parseInt(myTable.RemoveCommaInString(txTienPhat));
+                    int TienThua = TienTra - TienPhat;
+                    txTienTra_HD.setText(String.format("%,d", TienTra));
+                    txTraTienPhat.setText(String.format("%,d", TienThua));
+                }
+            }
+        }
+    }
+
+    @Override 
+    public void  keyReleased(KeyEvent e){
+
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e){
+
+    }
+
     public void getDBMuon() {
         try {
             QLMUONBUS qlmuonbus = new QLMUONBUS();
@@ -1865,6 +1913,14 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         lbCTPTSL.setFont(new Font("Arial", Font.BOLD, 18));
         lbCTPTSL.setBounds(355, 130, 150, 80);
 
+        lbTienTra = new JLabel("Tiền trả:");
+        lbTienTra.setFont(new Font("Arial", Font.BOLD, 18));
+        lbTienTra.setBounds(355, 230, 130, 80);
+
+        lbTienThua = new JLabel("Tiền thừa:");
+        lbTienThua.setFont(new Font("Arial", Font.BOLD, 18));
+        lbTienThua.setBounds(355, 275, 130, 80);
+
         txCTPTMaPT = new JTextField();
         txCTPTMaPT.setBounds(515, 65, 130, 30);
         txCTPTMaPT.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -1878,6 +1934,16 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         txCTPTSL = new JTextField();
         txCTPTSL.setBounds(515, 155, 130, 30);
         txCTPTSL.setFont(new Font("Arial", Font.PLAIN, 15));
+
+        txTienTra_M = new JTextField();
+        txTienTra_M.setBounds(515, 255, 130, 30);
+        txTienTra_M.setFont(new Font("Arial", Font.PLAIN, 15));
+        txTienTra_M.addKeyListener(this);
+
+        txTienThua = new JTextField();
+        txTienThua.setBounds(515, 300, 130, 30);
+        txTienThua.setFont(new Font("Arial", Font.PLAIN, 15));
+        txTienThua.setEditable(false);
 
         btThemCTPT = new JButton("Thêm");
         btThemCTPT.setFont(new Font("Arial", Font.BOLD, 15));
@@ -1911,10 +1977,14 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         pnNhapPT.add(lbCTPTMaPT);
         pnNhapPT.add(lbCTPTMaSach);
         pnNhapPT.add(lbCTPTSL);
+        pnNhapPT.add(lbTienTra);
+        pnNhapPT.add(lbTienThua);
 
         pnNhapPT.add(txCTPTMaPT);
         pnNhapPT.add(txCTPTMaSach);
         pnNhapPT.add(txCTPTSL);
+        pnNhapPT.add(txTienTra_M);
+        pnNhapPT.add(txTienThua);
 
         pnNhapPT.add(btThemCTPT);
         pnNhapPT.add(btSuaCTPT);
@@ -2014,6 +2084,14 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         lbCTHDDonGia.setFont(new Font("Arial", Font.BOLD, 18));
         lbCTHDDonGia.setBounds(355, 175, 150, 80);
 
+        lbTienTra = new JLabel("Tiền trả:");
+        lbTienTra.setFont(new Font("Arial", Font.BOLD, 18));
+        lbTienTra.setBounds(750, 40, 130, 80);
+
+        lbTraTienPhat = new JLabel("Tiền thừa:");
+        lbTraTienPhat.setFont(new Font("Arial", Font.BOLD, 18));
+        lbTraTienPhat.setBounds(750, 85, 130, 80);
+
         txCTHDMaHD = new JTextField();
         txCTHDMaHD.setBounds(515, 65, 130, 30);
         txCTHDMaHD.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -2032,6 +2110,16 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         txCTHDDonGia.setBounds(515, 200, 130, 30);
         txCTHDDonGia.setFont(new Font("Arial", Font.PLAIN, 15));
         txCTHDDonGia.setEditable(false);
+
+        txTienTra_HD = new JTextField();
+        txTienTra_HD.setBounds(870, 65, 130, 30);
+        txTienTra_HD.setFont(new Font("Arial", Font.PLAIN, 15));
+        txTienTra_HD.addKeyListener(this);
+
+        txTraTienPhat = new JTextField();
+        txTraTienPhat.setBounds(870, 110, 130, 30);
+        txTraTienPhat.setFont(new Font("Arial", Font.PLAIN, 15));
+        txTraTienPhat.setEditable(false);
 
         btThemCTHD = new JButton("Thêm");
         btThemCTHD.setFont(new Font("Arial", Font.BOLD, 15));
@@ -2066,11 +2154,15 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         pnNhapHDTP.add(lbCTHDMaSach);
         pnNhapHDTP.add(lbCTHDSL);
         pnNhapHDTP.add(lbCTHDDonGia);
+        pnNhapHDTP.add(lbTienTra);
+        pnNhapHDTP.add(lbTraTienPhat);
 
         pnNhapHDTP.add(txCTHDMaHD);
         pnNhapHDTP.add(txCTHDMaSach);
         pnNhapHDTP.add(txCTHDSL);
         pnNhapHDTP.add(txCTHDDonGia);
+        pnNhapHDTP.add(txTienTra_HD);
+        pnNhapHDTP.add(txTraTienPhat);
 
         pnNhapHDTP.add(btThemCTHD);
         pnNhapHDTP.add(btSuaCTHD);
