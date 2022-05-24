@@ -768,7 +768,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             int kt = -1;
             if (i >= 0) {
                 HDTIENPHAT hdtienphat = new HDTIENPHAT();
-                HDTIENPHAT MaHDCu = QLHDTPBUS.dshdtp.set(i, hdtienphat);
+                HDTIENPHAT MaHDCu = QLHDTPBUS.dshdtp.get(i);
                 getInfoTextFieldHD(hdtienphat);
                 try {
                     QLHDTPBUS qlhoadonbus = new QLHDTPBUS();
@@ -803,6 +803,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                         e1.printStackTrace();
                     }
                     if (kiemtra == 0) {
+                        updateTienPhat(chitiethdtienphat.getMaHD().trim(),chitiethdtienphat.getDongia()*chitiethdtienphat.getSL());
                         // Đưa dữ liệu lên table
                         header = new Vector<String>();
                         header.add("Mã phiếu trả");
@@ -1958,6 +1959,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         txSLTongHD.addMouseListener(this);
 
         txTienPhat = new JTextField();
+        txTienPhat.setText("0");
         txTienPhat.setBounds(175, 200, 150, 30);
         txTienPhat.setFont(new Font("Arial", Font.PLAIN, 15));
         txTienPhat.addMouseListener(this);
@@ -2533,5 +2535,26 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             }
         }
         return 0;
+    }
+
+    public void updateTienPhat(String MaHD, int SoTienPhat){ //Mã hóa đơn cần cập nhật tiền phạt
+        int i=0;
+        for(HDTIENPHAT hd : QLHDTPBUS.dshdtp){
+            if(hd.getMaHD().trim().equals(MaHD.trim())){
+                hd.setTienphat(hd.getTienphat() + SoTienPhat);
+                QLHDTPBUS qlhoadonbus = new QLHDTPBUS();
+                try {
+                    int kt=qlhoadonbus.sua(hd, hd, i);
+                    if(kt == 0){
+                        modelHDTP.setValueAt(String.format("%,d",hd.getTienphat()), i, 3);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            i++;
+        }
+
+
     }
 }

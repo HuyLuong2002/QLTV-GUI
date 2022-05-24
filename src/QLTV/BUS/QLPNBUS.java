@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import QLTV.DAO.QLPNDAO;
+import QLTV.DTO.CHITIETPHIEUNHAP;
 import QLTV.DTO.PHIEUNHAP;
 
 public class QLPNBUS {
@@ -21,15 +22,15 @@ public class QLPNBUS {
         dspn = data.docDS();
     }
 
-    public ArrayList<PHIEUNHAP> LocPM(int BDNhap, int KTNhap){
+    public ArrayList<PHIEUNHAP> LocPM(int BDNhap, int KTNhap) {
         ArrayList<PHIEUNHAP> kq = new ArrayList<PHIEUNHAP>();
-        for(PHIEUNHAP pn : dspn) {
-             if(Integer.parseInt(pn.getNgaynhap().replaceAll("-", "")) >= BDNhap
-             && Integer.parseInt(pn.getNgaynhap().replaceAll("-", "")) <= KTNhap)
-                 kq.add(pn);
-         }
-         return kq;
-     }
+        for (PHIEUNHAP pn : dspn) {
+            if (Integer.parseInt(pn.getNgaynhap().replaceAll("-", "")) >= BDNhap
+                    && Integer.parseInt(pn.getNgaynhap().replaceAll("-", "")) <= KTNhap)
+                kq.add(pn);
+        }
+        return kq;
+    }
 
     public PHIEUNHAP timTheoMa(String MaPN) {
         for (PHIEUNHAP pn : dspn)
@@ -80,7 +81,7 @@ public class QLPNBUS {
             int kt = 0;
             QLPNDAO data = new QLPNDAO();
             kt = data.them(phieunhap);
-            if (kt == 0){
+            if (kt == 0) {
                 dspn.add(phieunhap);
             }
             return kt;
@@ -88,20 +89,43 @@ public class QLPNBUS {
     }
 
     public int sua(PHIEUNHAP phieunhapmoi, PHIEUNHAP phieunhapcu, int i) throws Exception {
+        if (checkSLPN(phieunhapmoi) == -1) {
+            JOptionPane.showMessageDialog(null, "Số lượng tổng nhập vượt quá số lượng nhập. Mời nhập lại!", "Lỗi",
+                    JOptionPane.ERROR_MESSAGE);
+            return -1;
+        }
         // Truy cập vào database
         int kt = -1;
         QLPNDAO data = new QLPNDAO();
         kt = data.sua(phieunhapmoi, phieunhapcu);
-        if(kt == 0){
+        if (kt == 0) {
             dspn.set(i, phieunhapmoi);
         }
         return kt;
     }
+
     public int KTMa(String MaPNMoi) {
         for (PHIEUNHAP phieunhap : dspn)
             if (phieunhap.getMaPN().replaceAll("\\s+", "").trim().equals(MaPNMoi)) {
                 return 0;
             }
         return 1;
+    }
+
+    public int checkSLPN(PHIEUNHAP pnNew) {
+        int sumSLCTPN = 0;
+
+        for (PHIEUNHAP pn : QLPNBUS.dspn) {
+            for (CHITIETPHIEUNHAP ctpn : QLCTPNBUS.dsctpn) {
+                if (pn.getMaPN().trim().equals(pnNew.getMaPN().trim())
+                        && ctpn.getMaPN().trim().equals(pnNew.getMaPN().trim())) {
+                    sumSLCTPN = sumSLCTPN + ctpn.getSL();
+                }
+            }
+        }
+        if (sumSLCTPN > pnNew.getSLTong())
+            return -1;
+
+        return 0;
     }
 }

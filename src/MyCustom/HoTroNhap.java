@@ -1251,6 +1251,7 @@ public class HoTroNhap extends JFrame implements MouseListener, ActionListener {
                 if(QLMTGUI.txCTHDDonGia != null){
                     QLMTGUI.txCTHDDonGia.setText(String.valueOf(model.getValueAt(i, 7)));
                 }
+                QLPNGUI.DonGiaCTPN = Integer.parseInt(myTable.RemoveCommaInString(String.valueOf(model.getValueAt(i, 7))));
             }
             this.dispose();
         }

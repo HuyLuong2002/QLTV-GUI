@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import QLTV.DAO.QLHDTPDAO;
+import QLTV.DTO.CHITIETHDTIENPHAT;
 import QLTV.DTO.HDTIENPHAT;
 
 public class QLHDTPBUS {
@@ -55,7 +56,7 @@ public class QLHDTPBUS {
 
     public int them(HDTIENPHAT hdtienphat) throws Exception {
         if (KTMa(hdtienphat.getMaHD()) == 0) {
-            JOptionPane.showMessageDialog(null, "Mã phiếu mượn vừa nhập bị trùng. Mời nhập lại!", "Lỗi",
+            JOptionPane.showMessageDialog(null, "Mã hóa đơn vừa nhập bị trùng. Mời nhập lại!", "Lỗi",
                     JOptionPane.ERROR_MESSAGE);
             return -1;
         } else {
@@ -63,7 +64,7 @@ public class QLHDTPBUS {
             int kt = 0;
             QLHDTPDAO data = new QLHDTPDAO();
             kt = data.them(hdtienphat);
-            if(kt == 0){
+            if (kt == 0) {
                 dshdtp.add(hdtienphat);
             }
             return kt;
@@ -71,11 +72,16 @@ public class QLHDTPBUS {
     }
 
     public int sua(HDTIENPHAT hoadonmoi, HDTIENPHAT hoadoncu, int i) throws Exception {
+        if (checkSLHD(hoadonmoi) == -1) {
+            JOptionPane.showMessageDialog(null, "Số lượng tổng vượt quá số lượng hóa đơn. Mời nhập lại!", "Lỗi",
+                    JOptionPane.ERROR_MESSAGE);
+            return -1;
+        }
         // Truy cập vào database
         int kt = 0;
         QLHDTPDAO data = new QLHDTPDAO();
         kt = data.sua(hoadonmoi, hoadoncu);
-        if(kt == 0){
+        if (kt == 0) {
             dshdtp.set(i, hoadonmoi);
         }
         return kt;
@@ -87,5 +93,23 @@ public class QLHDTPBUS {
                 return 0;
             }
         return 1;
+    }
+
+    public int checkSLHD(HDTIENPHAT hdtpNew) {
+        int sumSLCTHD = 0;
+
+        for (HDTIENPHAT hdtp : QLHDTPBUS.dshdtp) {
+            for (CHITIETHDTIENPHAT cthdtp : QLCTHDTPBUS.dscthdtp) {
+                if (hdtp.getMaHD().trim().equals(hdtpNew.getMaHD().trim())
+                        && cthdtp.getMaHD().trim().equals(hdtpNew.getMaHD().trim())) {
+                    sumSLCTHD = sumSLCTHD + cthdtp.getSL();
+                }
+            }
+        }
+
+        if (sumSLCTHD > hdtpNew.getSL())
+            return -1;
+
+        return 0;
     }
 }

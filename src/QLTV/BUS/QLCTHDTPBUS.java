@@ -70,9 +70,9 @@ public class QLCTHDTPBUS {
             }
         }
         sumSLCTHD = sumSLCTHD + cthdtpNew.getSL();
-        if (sumSLCTHD > maxSLtongHD)
-            return -1;
-
+        if(sumSLCTHD != 0 && maxSLtongHD == 0) return 0;
+        else if(sumSLCTHD > maxSLtongHD)
+                return -1;
         return 0;
     }
 }
