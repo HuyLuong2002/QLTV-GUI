@@ -18,11 +18,11 @@ public class MyColor {
             Color2 = new Color(7,255,217),
             // ColorButton = new Color(10,215,228),
             // ColorButton = new Color(10,190,228),
-            ColorLightGray = new Color(192,192,192),
-            ColorSach = new Color(255, 240, 31),
-            ColorKhachHang = new Color(247, 33, 25),
-            ColorTongDoanhThu = new Color(176, 38, 255),
-            ColorNhanVien = new Color(57,255,20);
+            ColorLightGray = new Color(192,192,192);
+            // ColorSach = new Color(255, 240, 31),
+            // ColorKhachHang = new Color(247, 33, 25),
+            // ColorTongDoanhThu = new Color(176, 38, 255),
+            // ColorNhanVien = new Color(57,255,20);
             // ColorDeepAqua = new Color(64, 224, 220);
 
 }

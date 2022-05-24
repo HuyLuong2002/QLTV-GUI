@@ -63,31 +63,26 @@ public class BaoCaoThongKe implements ActionListener {
             pnThongKe = new JPanel();
             pnThongKe.setBounds(240, 0, 1145, 800);
             pnThongKe.setLayout(null);
-            pnThongKe.setBackground(MyColor.ColorBlue);
 
             pnSach = new JPanel();
             pnSach.setBounds(200, 80, 300, 180);
             pnSach.setBorder(line);
             pnSach.setLayout(null);
-            pnSach.setBackground(MyColor.ColorSach);
 
             pnKhachHang = new JPanel();
             pnKhachHang.setBounds(200, 310, 300, 180);
             pnKhachHang.setBorder(line);
             pnKhachHang.setLayout(null);
-            pnKhachHang.setBackground(MyColor.ColorKhachHang);
 
             pnNhanVien = new JPanel();
             pnNhanVien.setBounds(600, 80, 300, 180);
             pnNhanVien.setBorder(line);
             pnNhanVien.setLayout(null);
-            pnNhanVien.setBackground(MyColor.ColorNhanVien);
 
             pnTongDoanhThu = new JPanel();
             pnTongDoanhThu.setBounds(600, 310, 300, 180);
             pnTongDoanhThu.setBorder(line);
             pnTongDoanhThu.setLayout(null);
-            pnTongDoanhThu.setBackground(MyColor.ColorTongDoanhThu);
 
             pnBaoCaoDoanhThu = new JPanel();
             pnBaoCaoDoanhThu.setBounds(200, 550, 700, 100);

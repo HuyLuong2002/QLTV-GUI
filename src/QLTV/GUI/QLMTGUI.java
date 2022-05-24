@@ -583,7 +583,6 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                             header.add("SL");
                             if (modelCTMuon.getRowCount() == 0) {
                                 modelCTMuon = new DefaultTableModel(header, 0);
-                                myTable.setValueCellCenter(modelCTMuon, tblQLCTMuon);
                             }
                             ShowOnTableCTPM(ctphieumuon);
                             tblQLCTMuon.setModel(modelCTMuon);
@@ -2414,7 +2413,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         chitiethdtienphat.setDongia(Integer.parseInt(DonGia.trim()));
     }
 
-    public void updateSLSachMuon(String Masach) { // Mã sácg cần cập nhật
+    public void updateSLSachMuon(String Masach) { // Mã sách cần cập nhật
         QLSACHBUS qlbus = new QLSACHBUS();
         if (QLSACHBUS.dssach == null) {
             try {
@@ -2507,7 +2506,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
                         JOptionPane.ERROR_MESSAGE);
                 return -1;
             }
-            if (sach.getMasach().trim().equals(Masach) && sach.getSL() <= 0) {
+            if (sach.getMasach().trim().equals(Masach) && sach.getSL() == 0) {
                 JOptionPane.showMessageDialog(null, "Sách trong kho đã hết", "Lỗi",
                         JOptionPane.ERROR_MESSAGE);
                 return -1;
