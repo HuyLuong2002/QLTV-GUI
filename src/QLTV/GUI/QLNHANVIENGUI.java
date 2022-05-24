@@ -185,13 +185,13 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
             } else {
                 for (NHANVIEN nhanvien : QLNHANVIENBUS.htXoa) {
                     QLNHANVIENBUS qlnhanvienbus = new QLNHANVIENBUS();
-                    int kiemtra = 0;
+                    int kiemtra = -1;
                     try {
                         kiemtra = qlnhanvienbus.hoantacXoa(nhanvien);
                     } catch (Exception e1) {
                         e1.printStackTrace();
                     }
-                    if (kiemtra == 1) {
+                    if (kiemtra == 0) {
                         // Đưa dữ liệu lên table
                         header = new Vector<String>();
                         header.add("Mã Nhân Viên");
@@ -207,7 +207,7 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
                         }
                         ShowOnTable(nhanvien);
                         ktHT = 1;
-                    } else if (kiemtra == 0) {
+                    } else if (kiemtra == -1) {
                         JOptionPane.showMessageDialog(null, "Hoàn tác dữ liệu thất bại", "Lỗi",
                                 JOptionPane.ERROR_MESSAGE);
                         ktHT = 0;
@@ -226,7 +226,7 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
             setTimKiem();
         } else if (e.getSource() == btSearch) {
             int vtkey = Integer.parseInt(String.valueOf(comboBoxDSKhoaTK.getSelectedIndex()));
-            String tukhoa = txKhoaTK.getText();
+            String tukhoa = txKhoaTK.getText().replaceAll("\\s+", "").toLowerCase();
             if (tukhoa.equals("") == true) {
                 JOptionPane.showMessageDialog(null, "Xin mời nhập từ khóa", "Lỗi", JOptionPane.ERROR_MESSAGE);
             } else if (vtkey == 0) {

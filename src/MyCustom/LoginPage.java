@@ -3,6 +3,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 import QLTV.BUS.ACCOUNTBUS;
+import QLTV.DTO.ACCOUNT;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -12,8 +13,8 @@ public class LoginPage extends JFrame implements ActionListener {
     JLabel labelHomePage,labelUsername,labelPassword;
     JLabel labelLibrary,labelBackground,labelIconUser,labelIconPassword;
     ImageIcon ImageBackground;
-    JTextField username;
-    JPasswordField password;
+    JTextField txusername;
+    JPasswordField txpassword;
     Border borderForgotPasswd;
     JButton buttonDangNhap,buttonDangKy,buttonForgotPasswd;
     ImageIcon imgIconHP;
@@ -31,6 +32,7 @@ public class LoginPage extends JFrame implements ActionListener {
         ColorPanel = new Color(240,255,255);
         this.setIconImage(imgIconHP.getImage());
         setHomePage();
+        getDB();
         this.setVisible(true);
 
     }
@@ -81,12 +83,12 @@ public class LoginPage extends JFrame implements ActionListener {
         labelPassword.setForeground(Color.black);
         labelPassword.setBounds(205,210,150,150);
 
-        username = new JTextField();
-        password = new JPasswordField();
-        username.setFont(new Font("Arial",Font.ITALIC,18));
-        username.setBounds(98,220,320,40);
-        password.setFont(new Font("Arial",Font.ITALIC,18));
-        password.setBounds(98,295,320,40);
+        txusername = new JTextField();
+        txpassword = new JPasswordField();
+        txusername.setFont(new Font("Arial",Font.ITALIC,18));
+        txusername.setBounds(98,220,320,40);
+        txpassword.setFont(new Font("Arial",Font.ITALIC,18));
+        txpassword.setBounds(98,295,320,40);
 
         // Label chèn
        
@@ -122,11 +124,11 @@ public class LoginPage extends JFrame implements ActionListener {
 
 
         panelHomePage.add(labelUsername);
-        panelHomePage.add(username);
+        panelHomePage.add(txusername);
         panelHomePage.add(labelIconUser);
 
         panelHomePage.add(labelPassword);
-        panelHomePage.add(password);
+        panelHomePage.add(txpassword);
         panelHomePage.add(labelIconPassword);
 
         panelHomePage.add(buttonDangNhap);
@@ -148,21 +150,52 @@ public class LoginPage extends JFrame implements ActionListener {
             }
         }
         if(e.getSource()==buttonDangNhap){
-            String pass = String.valueOf(password.getPassword());
-            String user = username.getText();
+            String pass = String.valueOf(txpassword.getPassword());
+            String user = txusername.getText();
+            if(user.equals("")){
+                txusername.setBackground(MyColor.ColorSilver);
+                txusername.requestFocus();
+            } else{
+                txusername.setBackground(Color.white);
+            }
+            if (pass.equals("")) {
+                txpassword.setBackground(MyColor.ColorSilver);
+                txpassword.requestFocus();
+            } else {
+                txpassword.setBackground(Color.white);
+            } if(user.equals("") && pass.equals(""))
+                txusername.requestFocus();
             try {
                 int kt = -1;
                 ACCOUNTBUS dangnhap = new ACCOUNTBUS();
                 kt = dangnhap.login(user, pass);
+
                 if(kt == 0){
                     this.dispose();
                     new Menu();
+                }
+
+                for (ACCOUNT account : ACCOUNTBUS.dsacc){
+                    if(account.getPhanQuyen() == 1){
+                        
+                    }
                 }
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
         }
     }
-
-    
+    public void getDB(){
+        try {
+            ACCOUNTBUS data = new ACCOUNTBUS();
+            if (ACCOUNTBUS.dsacc == null)
+                try {   
+                    data.docDSACC();
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+        } catch (Exception e1) {
+            System.out.println(e1);
+        }
+    }
 }

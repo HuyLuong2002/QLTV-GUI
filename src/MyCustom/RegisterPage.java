@@ -42,6 +42,7 @@ public class RegisterPage extends JFrame implements ActionListener {
         ColorWhite = new Color(240,255,255);
         this.setIconImage(img.getImage());
         setHomePage();
+        getDB();
         this.setVisible(true);
 
     }
@@ -120,19 +121,19 @@ public class RegisterPage extends JFrame implements ActionListener {
         textNgaySinh = new JTextField();
         textSDT = new JTextField();
 
-        textID.setFont(new Font("Arial",Font.ITALIC,18));
+        textID.setFont(new Font("Arial",Font.PLAIN,18));
         textID.setBounds(250,125,180,30);
-        txusername.setFont(new Font("Arial",Font.ITALIC,18));
+        txusername.setFont(new Font("Arial",Font.PLAIN,18));
         txusername.setBounds(250,185,180,30);
-        txpassword.setFont(new Font("Arial",Font.ITALIC,18));
+        txpassword.setFont(new Font("Arial",Font.PLAIN,18));
         txpassword.setBounds(250,245,180,30);
-        txConfirmPass.setFont(new Font("Arial", Font.ITALIC,18));
+        txConfirmPass.setFont(new Font("Arial", Font.PLAIN,18));
         txConfirmPass.setBounds(250, 305, 180, 30);
-        textHoLot.setFont(new Font("Arial",Font.ITALIC,18));
+        textHoLot.setFont(new Font("Arial",Font.PLAIN,18));
         textHoLot.setBounds(250,365,180,30);
-        textTen.setFont(new Font("Arial",Font.ITALIC,18));
+        textTen.setFont(new Font("Arial",Font.PLAIN,18));
         textTen.setBounds(250,425,180,30);
-        textSDT.setFont(new Font("Arial",Font.ITALIC,18));
+        textSDT.setFont(new Font("Arial",Font.PLAIN,18));
         textSDT.setBounds(250,605,180,30);
 
         String [] dsGioiTinh = {"", "Nam", "Nữ", "Khác"};
@@ -152,8 +153,8 @@ public class RegisterPage extends JFrame implements ActionListener {
         datePickerNgaySinh.setBounds(250, 485, 180, 30);
        
         //Button Dang nhap, Dang ky, ForgotPasswd
-        buttonDangKy = new JButton("Sign up");
-        buttonDangNhap = new JButton("Sign in");
+        buttonDangKy = new JButton("Đăng ký");
+        buttonDangNhap = new JButton("Đăng nhập");
         buttonForgotPasswd = new JButton("Forgot Password");
         //set bound button
         buttonDangKy.setBounds(50,680,150,35);
@@ -240,9 +241,9 @@ public class RegisterPage extends JFrame implements ActionListener {
                             JOptionPane.INFORMATION_MESSAGE);
                 } else if (x.trim().equals(y.trim())){
                     ACCOUNTBUS data = new ACCOUNTBUS();
-                    int kt = 0;
+                    int kt = -1;
                     try {
-                        data.docDSACC();
+                        // data.docDSACC();
                         kt = data.them(account);
                     } catch (Exception e1) {
                         e1.printStackTrace();
@@ -266,6 +267,20 @@ public class RegisterPage extends JFrame implements ActionListener {
             } catch (InterruptedException e1) {
                 e1.printStackTrace();
             }
+        }
+    }
+
+    public void getDB(){
+        try {
+            ACCOUNTBUS data = new ACCOUNTBUS();
+            if (ACCOUNTBUS.dsacc == null)
+                try {   
+                    data.docDSACC();
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+        } catch (Exception e1) {
+            System.out.println(e1);
         }
     }
 }

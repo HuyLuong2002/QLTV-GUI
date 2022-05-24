@@ -33,7 +33,7 @@ public class ACCOUNTBUS {
             JOptionPane.ERROR_MESSAGE);
             return -1;
         } else {
-            int kt = 0;
+            int kt = -1;
             ACCOUNTDAO data = new ACCOUNTDAO();
             kt = data.them(acc);
             if(kt == 0){

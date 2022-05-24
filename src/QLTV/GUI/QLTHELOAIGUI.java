@@ -147,7 +147,6 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
             int XacNhanXoa = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa không ?", "Thông báo",
                     JOptionPane.YES_NO_OPTION);
             if (XacNhanXoa == 0) {
-                int kt = -1;
                 String matheloai = txMaTL.getText();
                 int i = tblQLTHELOAI.getSelectedRow();
                 if (i >= 0) {
@@ -156,15 +155,12 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
                         THELOAI theloaiold = QLTHELOAIBUS.dstheloai.get(i);
                         QLTHELOAIBUS.htXoa.add(theloaiold);
                         QLTHELOAIBUS qltheloaibus = new QLTHELOAIBUS();
-                        kt = qltheloaibus.xoa(matheloai, i);
+                        qltheloaibus.xoa(matheloai, i);
                         // Quay dề GUI
-
-                    } catch (Exception e1) {
-                        System.out.println(e1);
-                    }
-                    if (kt == 0) {
                         model.removeRow(i);
                         tblQLTHELOAI.setModel(model);
+                    } catch (Exception e1) {
+                        System.out.println(e1);
                     }
                 }
             }
@@ -212,7 +208,7 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
             setTimKiem();
         } else if (e.getSource() == btSearch) {
             int vtkey = Integer.parseInt(String.valueOf(comboBoxDSKhoaTK.getSelectedIndex()));
-            String tukhoa = txKhoaTK.getText();
+            String tukhoa = txKhoaTK.getText().replaceAll("\\s+", "").toLowerCase();
             if (tukhoa.equals("") == true) {
                 JOptionPane.showMessageDialog(null, "Xin mời nhập từ khóa", "Lỗi", JOptionPane.ERROR_MESSAGE);
             } else if (vtkey == 0) {

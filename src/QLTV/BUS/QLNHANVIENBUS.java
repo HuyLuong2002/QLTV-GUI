@@ -1,6 +1,9 @@
 package QLTV.BUS;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.swing.JOptionPane;
 
 import QLTV.DAO.QLNHANVIENDAO;
@@ -8,7 +11,7 @@ import QLTV.DTO.NHANVIEN;
 
 public class QLNHANVIENBUS {
     public static ArrayList<NHANVIEN> dsnhanvien;
-    public static ArrayList<NHANVIEN> htXoa = new ArrayList<NHANVIEN>();
+    public static Set<NHANVIEN> htXoa = new HashSet<NHANVIEN>();
     public static ArrayList<NHANVIEN> htSua = new ArrayList<NHANVIEN>();
 
     public QLNHANVIENBUS() {
@@ -61,24 +64,14 @@ public class QLNHANVIENBUS {
             return -1;
         } else {
             // Truy cập vào database
+            int kt = -1;
             QLNHANVIENDAO data = new QLNHANVIENDAO();
-            data.hoantacXoa(nhanvien);
-            dsnhanvien.add(nhanvien);
-            return 1;
+            kt = data.hoantacXoa(nhanvien);
+            if (kt == 0)
+                dsnhanvien.add(nhanvien);
+            return kt;
         }
     }
-
-    // public ArrayList<NHANVIEN> loc(int NamBD, int NamKT) {
-    // ArrayList<NHANVIEN> kq = new ArrayList<NHANVIEN>();
-    // for (NHANVIEN sach : dsnhanvien) {
-    // if (Integer.parseInt(sach.getNamXB().trim()) >= NamBD
-    // && Integer.parseInt(sach.getNamXB().trim()) <= NamKT) {
-    // kq.add(sach);
-    // }
-    // }
-
-    // return kq;
-    // }
 
     public int KTMa(String MaSachMoi) {
         for (NHANVIEN sach : dsnhanvien)
@@ -88,16 +81,9 @@ public class QLNHANVIENBUS {
         return 1;
     }
 
-    // public int KTSL(int SLtongmoi, int SLmoi) {
-    // if (SLtongmoi < SLmoi) {
-    // return 0;
-    // }
-    // return 1;
-    // }
-
     public NHANVIEN timTheoMa(String Masach) {
         for (NHANVIEN sach : dsnhanvien)
-            if (sach.getMaNV().trim().equals(Masach))
+            if (sach.getMaNV().toLowerCase().trim().equals(Masach))
                 return sach;
         return null;
     }
@@ -105,20 +91,12 @@ public class QLNHANVIENBUS {
     public ArrayList<NHANVIEN> timTheoTen(String Tensach) {
         ArrayList<NHANVIEN> kq = new ArrayList<NHANVIEN>();
         for (NHANVIEN sach : dsnhanvien)
-            if (sach.getTenNV().indexOf(Tensach) >= 0)
+            if (sach.getTenNV().replaceAll("\\s+", "").toLowerCase().trim().indexOf(Tensach) >= 0)
                 kq.add(sach);
         return kq;
     }
 
     public void docDSSACH() {
     }
-
-    // public ArrayList<NHANVIEN> timTheoChucvu(int Chucvu) {
-    // ArrayList<NHANVIEN> kq = new ArrayList<NHANVIEN>();
-    // for (NHANVIEN nhanvien : dsnhanvien)
-    // if (nhanvien.getChucvu().indexOf(Chucvu) >= 0)
-    // kq.add(nhanvien);
-    // return kq;
-    // }
 
 }

@@ -68,7 +68,7 @@ public class QLNHANVIENDAO {
         }
     }
 
-    public void hoantacXoa(NHANVIEN nhanvien) {
+    public int hoantacXoa(NHANVIEN nhanvien) {
         try {
             String qry = "INSERT INTO NHANVIEN VALUES (?,?,?,?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(qry);
@@ -80,11 +80,12 @@ public class QLNHANVIENDAO {
             ps.setString(6, String.valueOf(nhanvien.getHesoluong()));
             ps.setString(7, String.valueOf(nhanvien.getSDT()));
             ps.setString(8, nhanvien.getMail());
-
             ps.executeUpdate();
+            return 0;
         } catch (SQLException e) {
             System.out.println(e);
             JOptionPane.showMessageDialog(null, "Hoàn tác dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return -1;
         }
     }
 
@@ -126,7 +127,6 @@ public class QLNHANVIENDAO {
                         JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (SQLException e) {
-            System.out.println(e);
             JOptionPane.showMessageDialog(null, "Xóa dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
     }

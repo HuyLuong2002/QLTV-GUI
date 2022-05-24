@@ -48,18 +48,14 @@ public class QLNCCBUS {
         return kt;
     }
 
-    public int xoa(String MaSV, int i) throws Exception {
-        int kt = -1;
+    public void xoa(String MaNCC, int i) throws Exception {
         QLNCCDAO data = new QLNCCDAO();
-        kt = data.xoa(MaSV);
-        if (kt == 0) {
-            dsncc.remove(i);
-        }
-        return kt;
+        data.xoa(MaNCC);
+        dsncc.remove(i);
     }
 
     public int hoantacXoa(NHACUNGCAP ncc) throws Exception {
-        if (KTMa(ncc.getMaNCC()) == 0) {
+        if (KTMa(ncc.getMaNCC().trim()) == 0) {
             JOptionPane.showMessageDialog(null, "Mã Nhà Cung Cấp vừa nhập bị trùng. Mời nhập lại!", "Lỗi",
                     JOptionPane.ERROR_MESSAGE);
             return -1;
@@ -67,11 +63,10 @@ public class QLNCCBUS {
             // Truy cập vào database
             int kt = -1;
             QLNCCDAO data = new QLNCCDAO();
-            data.hoantacXoa(ncc);
-            if (kt == 0) {
+            kt = data.hoantacXoa(ncc);
+            if (kt == 0) 
                 dsncc.add(ncc);
-            }
-            return 1;
+            return kt;
         }
     }
 
@@ -85,7 +80,7 @@ public class QLNCCBUS {
 
     public NHACUNGCAP timTheoMa(String MaNCC) {
         for (NHACUNGCAP ncc : dsncc)
-            if (ncc.getMaNCC().trim().equals(MaNCC))
+            if (ncc.getMaNCC().toLowerCase().trim().equals(MaNCC))
                 return ncc;
         return null;
     }
@@ -93,7 +88,7 @@ public class QLNCCBUS {
     public ArrayList<NHACUNGCAP> timTheoTen(String TenNCC) {
         ArrayList<NHACUNGCAP> kq = new ArrayList<NHACUNGCAP>();
         for (NHACUNGCAP ncc : dsncc)
-            if (ncc.getTenNCC().indexOf(TenNCC) >= 0)
+            if (ncc.getTenNCC().replaceAll("\\s+", "").toLowerCase().trim().indexOf(TenNCC) >= 0)
                 kq.add(ncc);
         return kq;
     }
