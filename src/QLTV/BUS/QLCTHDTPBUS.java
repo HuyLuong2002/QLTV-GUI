@@ -58,6 +58,7 @@ public class QLCTHDTPBUS {
 
     public int checkSLCTHD(CHITIETHDTIENPHAT cthdtpNew) {
         // Đối tượng chi tiết hd tiền phạt mới mà người dùng muốn thêm
+        int i = 0;
         int sumSLCTHD = 0;
         int maxSLtongHD = 0;
         for (HDTIENPHAT hd : QLHDTPBUS.dshdtp) {
@@ -67,12 +68,18 @@ public class QLCTHDTPBUS {
                     sumSLCTHD = sumSLCTHD + cthdtp.getSL();
                     maxSLtongHD = hd.getSL();
                 }
+                else if(hd.getMaHD().trim().equals(cthdtpNew.getMaHD().trim())) {
+                    if(maxSLtongHD < hd.getSL()){
+                        maxSLtongHD = hd.getSL();
+                    }
+                }
             }
         }
         sumSLCTHD = sumSLCTHD + cthdtpNew.getSL();
-        if(sumSLCTHD != 0 && maxSLtongHD == 0) return 0;
-        else if(sumSLCTHD > maxSLtongHD)
-                return -1;
+        if (sumSLCTHD != 0 && maxSLtongHD == 0)
+            return 0;
+        else if (sumSLCTHD > maxSLtongHD)
+            return -1;
         return 0;
     }
 }

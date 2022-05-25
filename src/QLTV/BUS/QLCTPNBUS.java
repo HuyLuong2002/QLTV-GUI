@@ -67,12 +67,17 @@ public class QLCTPNBUS {
                     sumSLCTPN = sumSLCTPN + ctpn.getSL();
                     maxSLtongPN = pn.getSLTong();
                 }
+                else if(pn.getMaPN().trim().equals(ctpnNew.getMaPN().trim())){
+                    if(maxSLtongPN < pn.getSLTong()){
+                        maxSLtongPN = pn.getSLTong();
+                    }
+                }
             }
         }
-
         sumSLCTPN = sumSLCTPN + ctpnNew.getSL();
-        if (sumSLCTPN > maxSLtongPN)
-            return -1;
+        if(sumSLCTPN != 0 && maxSLtongPN == 0) return 0;
+        else if(sumSLCTPN > maxSLtongPN)
+                return -1;
 
         return 0;
     }

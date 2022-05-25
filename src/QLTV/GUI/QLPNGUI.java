@@ -314,6 +314,7 @@ public class QLPNGUI implements ActionListener, MouseListener {
                     }
                     if (kiemtra == 0) {
                         updateSLSachNhap(txCTPNMaSach.getText().trim());
+                        updateThanhTien(ctphieunhap.getMaPN().trim(), ctphieunhap.getSL() * DonGiaCTPN);
                         // Đưa dữ liệu lên table
                         header = new Vector<String>();
                         header.add("Mã phiếu nhập");
@@ -424,10 +425,9 @@ public class QLPNGUI implements ActionListener, MouseListener {
                 JOptionPane.showMessageDialog(null,
                         "Thiếu số lượng. Mời nhập số lượng bên chi tiết để tính thành tiền!", "Lỗi",
                         JOptionPane.ERROR_MESSAGE);
-            }
-            else{
+            } else {
                 int thanhtien = Integer.parseInt(txCTPNSL.getText()) * DonGiaCTPN;
-                txDonGia.setText(String.format("%,d",thanhtien));
+                txDonGia.setText(String.format("%,d", thanhtien));
             }
         }
     }
@@ -615,7 +615,7 @@ public class QLPNGUI implements ActionListener, MouseListener {
         txSLTong.setFont(new Font("Arial", Font.PLAIN, 15));
         txSLTong.addMouseListener(this);
 
-        txDonGia = new JTextField();
+        txDonGia = new JTextField("0");
         txDonGia.setBounds(175, 200, 150, 30);
         txDonGia.setFont(new Font("Arial", Font.PLAIN, 15));
         txDonGia.addMouseListener(this);
@@ -936,6 +936,26 @@ public class QLPNGUI implements ActionListener, MouseListener {
             row.add(String.valueOf(sach.getSL()));
             row.add(String.format("%,d", sach.getDongia()));
             QLSACHGUI.model.addRow(row);
+        }
+    }
+
+    public void updateThanhTien(String MaPN, int ThanhTien) {
+        int i = 0;
+        for (PHIEUNHAP pn : QLPNBUS.dspn) {
+            if (pn.getMaPN().trim().equals(MaPN.trim())) {
+                int thanhtienBD = pn.getDongia();
+                pn.setDongia(thanhtienBD + ThanhTien);
+                QLPNBUS qlbus = new QLPNBUS();
+                try {
+                    int kt = qlbus.sua(pn, pn, i);
+                    if (kt == 0) {
+                        modelPN.setValueAt(String.format("%,d", pn.getDongia()), i, 3);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            i++;
         }
     }
 }

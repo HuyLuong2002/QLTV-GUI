@@ -2541,7 +2541,8 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
         int i=0;
         for(HDTIENPHAT hd : QLHDTPBUS.dshdtp){
             if(hd.getMaHD().trim().equals(MaHD.trim())){
-                hd.setTienphat(hd.getTienphat() + SoTienPhat);
+                int tienphatBD=hd.getTienphat();
+                hd.setTienphat(tienphatBD + SoTienPhat);
                 QLHDTPBUS qlhoadonbus = new QLHDTPBUS();
                 try {
                     int kt=qlhoadonbus.sua(hd, hd, i);
@@ -2554,7 +2555,5 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener {
             }
             i++;
         }
-
-
     }
 }
