@@ -24,11 +24,7 @@ public class ACCOUNTBUS {
     }
 
     public int them(ACCOUNT acc) throws Exception{
-        if(KTID(acc.getID()) == 0){
-            JOptionPane.showMessageDialog(null, "ID vừa nhập bị trùng. Mời nhập lại!","Lỗi",
-            JOptionPane.ERROR_MESSAGE);
-            return -1;
-        } else if(KTUSER(acc.getUsername()) == 0){
+        if(KTUSER(acc.getUsername()) == 0){
             JOptionPane.showMessageDialog(null, "User vừa nhập đã tồn tại. Mời nhập user khác!","Lỗi", 
             JOptionPane.ERROR_MESSAGE);
             return -1;
@@ -43,11 +39,7 @@ public class ACCOUNTBUS {
         }
     }
     public int hoantacXoa(ACCOUNT acc) throws Exception{
-        if(KTID(acc.getID().trim()) == 0){
-            JOptionPane.showMessageDialog(null, "ID vừa nhập bị trùng. Mời nhập lại!","Lỗi",
-            JOptionPane.ERROR_MESSAGE);
-            return -1;
-        } else if(KTUSER(acc.getUsername().trim()) == 0){
+        if(KTUSER(acc.getUsername().trim()) == 0){
             JOptionPane.showMessageDialog(null, "User vừa nhập đã tồn tại. Mời nhập user khác!","Lỗi", 
             JOptionPane.ERROR_MESSAGE);
             return -1;
@@ -67,12 +59,6 @@ public class ACCOUNTBUS {
         ACCOUNTDAO data = new ACCOUNTDAO();
         data.xoa(ID);
         dsacc.remove(i);
-    }
-    public int KTID(String NewID){
-        for(ACCOUNT account : dsacc)
-            if(account.getID().trim().equals(NewID))
-                return 0;
-        return 1;
     }
     public int KTUSER(String NewUser){
         for(ACCOUNT account : dsacc)

@@ -102,13 +102,13 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
                 getInfoTextField(theloai);
                 // Truy cập vào bus
                 QLTHELOAIBUS qltheloaibus = new QLTHELOAIBUS();
-                int kiemtra = 0;
+                int kiemtra = -1;
                 try {
                     kiemtra = qltheloaibus.them(theloai);
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
-                if (kiemtra == 1) {
+                if (kiemtra == 0) {
                     // Đưa dữ liệu lên table
                     header = new Vector<String>();
                     header.add("Mã THể Loại");
@@ -149,18 +149,21 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
             if (XacNhanXoa == 0) {
                 String matheloai = txMaTL.getText();
                 int i = tblQLTHELOAI.getSelectedRow();
+                int kt = -1;
                 if (i >= 0) {
                     try {
                         // Truy cập xuống BUS
                         THELOAI theloaiold = QLTHELOAIBUS.dstheloai.get(i);
                         QLTHELOAIBUS.htXoa.add(theloaiold);
                         QLTHELOAIBUS qltheloaibus = new QLTHELOAIBUS();
-                        qltheloaibus.xoa(matheloai, i);
+                        kt = qltheloaibus.xoa(matheloai, i);
                         // Quay dề GUI
-                        model.removeRow(i);
-                        tblQLTHELOAI.setModel(model);
                     } catch (Exception e1) {
                         System.out.println(e1);
+                    }
+                    if(kt == 0){
+                        model.removeRow(i);
+                        tblQLTHELOAI.setModel(model);
                     }
                 }
             }
@@ -172,13 +175,13 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
             } else {
                 for (THELOAI theloai : QLTHELOAIBUS.htXoa) {
                     QLTHELOAIBUS qltheloaibus = new QLTHELOAIBUS();
-                    int kiemtra = 0;
+                    int kiemtra = -1;
                     try {
                         kiemtra = qltheloaibus.hoantacXoa(theloai);
                     } catch (Exception e1) {
                         e1.printStackTrace();
                     }
-                    if (kiemtra == 1) {
+                    if (kiemtra == 0) {
                         // Đưa dữ liệu lên table
                         header = new Vector<String>();
                         header.add("Mã Thể Loại");
@@ -189,7 +192,7 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
                         }
                         ShowOnTable(theloai);
                         ktHT = 1;
-                    } else if (kiemtra == 0) {
+                    } else if (kiemtra == -1) {
                         JOptionPane.showMessageDialog(null, "Hoàn tác dữ liệu thất bại", "Lỗi",
                                 JOptionPane.ERROR_MESSAGE);
                         ktHT = 0;
@@ -538,14 +541,14 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
 
     public void ShowOnTable(THELOAI theloai) {
         Vector<String> row = new Vector<String>();
-        row.add(theloai.getMaTL().replaceAll("\\s+", " ").trim());
+        row.add(theloai.getMaTL().replaceAll("\\s+", "").trim());
         row.add(theloai.getTenTL().replaceAll("\\s+", " ").trim());
         row.add(String.valueOf(theloai.getSLTL()));
         model.addRow(row);
     }
 
     public void getInfoTextField(THELOAI theloai) {
-        theloai.setMaTL(txMaTL.getText().replaceAll("\\s+", " ").trim());
+        theloai.setMaTL(txMaTL.getText().replaceAll("\\s+", "").trim());
         theloai.setTenTL(txTenTL.getText().replaceAll("\\s+", " ").trim());
         theloai.setSLTL(Integer.valueOf(txSLTL.getText()));
     }

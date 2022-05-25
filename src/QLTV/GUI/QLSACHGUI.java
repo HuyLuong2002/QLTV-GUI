@@ -188,7 +188,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
                 } catch (Exception e1) {
                     System.out.println(e1);
                 }
-                if(kt == 0){
+                if (kt == 0) {
                     model.setValueAt(sach.getMasach(), i, 0);
                     model.setValueAt(sach.getTensach(), i, 1);
                     model.setValueAt(sach.getMaNXB(), i, 2);
@@ -307,7 +307,8 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
                 ArrayList<SACH> kq = qlsachbus.timNamXBVaSL(NamXB, SL);
                 model.setRowCount(0);
                 if (kq.size() == 0) {
-                    JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu", "Lỗi", JOptionPane.ERROR_MESSAGE);                    JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
                 } else {
                     for (SACH sach : kq) {
                         ShowOnTable(sach);
@@ -450,11 +451,17 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
                 pnPN.setVisible(false);
             }
             try {
-                pnThongKe = bctk.BangBaoCaoThongKe();
+                if (pnThongKe == null) {
+                    pnThongKe = bctk.BangBaoCaoThongKe();
+                    this.add(pnThongKe);
+                }
+                else{
+                    pnThongKe.setVisible(true);
+                }
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
-            this.add(pnThongKe);
+
         }
         if (e.getSource() == btMenu) {
             OffBTBgSelected();
@@ -493,8 +500,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
             if (pnMT == null) {
                 pnMT = qlmt.setMTGUI();
                 this.add(pnMT);
-            }
-            else {
+            } else {
                 pnMT.setVisible(true);
             }
         }
@@ -548,6 +554,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
             QLPNGUI qlpn = new QLPNGUI();
             OffPageQLSACH(false);
             OffBTBgSelected();
+            btNhapSach.setBackground(MyColor.ColorLightBlue);
             if (pnMT != null) {
                 pnMT.setVisible(false);
             }
@@ -560,10 +567,13 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
             if (pnQLNV != null) {
                 pnQLNV.setVisible(false);
             }
-            btNhapSach.setBackground(MyColor.ColorLightBlue);
-            pnPN = qlpn.setPNGUI();
-            this.add(pnPN);
-
+            if (pnPN == null) {
+                pnPN = qlpn.setPNGUI();
+                this.add(pnPN);
+            }
+            else{
+                pnPN.setVisible(true);
+            }
         }
         if (e.getSource() == btQLNV) {
             QLNVGUI qlnv = new QLNVGUI();
@@ -582,8 +592,14 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
             if (pnPN != null) {
                 pnPN.setVisible(false);
             }
-            pnQLNV = qlnv.setQLNVGUI();
-            this.add(pnQLNV);
+
+            if (pnQLNV == null) {
+                pnQLNV = qlnv.setQLNVGUI();
+                this.add(pnQLNV);
+            }
+            else {
+                pnQLNV.setVisible(true);
+            }
 
         }
         if (e.getSource() == btThoat) {

@@ -103,13 +103,13 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
                 getInfoTextField(nxb);
                 // Truy cập vào bus
                 QLNXBBUS qlnxbbus = new QLNXBBUS();
-                int kiemtra = 0;
+                int kiemtra = -1;
                 try {
                     kiemtra = qlnxbbus.them(nxb);
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
-                if (kiemtra == 1) {
+                if (kiemtra == 0) {
                     // Đưa dữ liệu lên table
                     header = new Vector<String>();
                     header.add("Mã Nhà Xuất Bản");
@@ -133,7 +133,6 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
                 try {
                     QLNXBBUS qlnxbbus = new QLNXBBUS();
                     kt = qlnxbbus.sua(nxb, manxbcu, i);
-
                 } catch (Exception e1) {
                     System.out.println(e1);
                 }
@@ -176,13 +175,13 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
             } else {
                 for (NXB nxb : QLNXBBUS.htXoa) {
                     QLNXBBUS qlnxbbus = new QLNXBBUS();
-                    int kiemtra = 0;
+                    int kiemtra = -1;
                     try {
                         kiemtra = qlnxbbus.hoantacXoa(nxb);
                     } catch (Exception e1) {
                         e1.printStackTrace();
                     }
-                    if (kiemtra == 1) {
+                    if (kiemtra == 0) {
                         // Đưa dữ liệu lên table
                         header = new Vector<String>();
                         header.add("Mã Nhà Xuất Bản");
@@ -192,7 +191,7 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
                         }
                         ShowOnTable(nxb);
                         ktHT = 1;
-                    } else if (kiemtra == 0) {
+                    } else if (kiemtra == -1) {
                         JOptionPane.showMessageDialog(null, "Hoàn tác dữ liệu thất bại", "Lỗi",
                                 JOptionPane.ERROR_MESSAGE);
                         ktHT = 0;
@@ -211,7 +210,7 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
             setTimKiem();
         } else if (e.getSource() == btSearch) {
             int vtkey = Integer.parseInt(String.valueOf(comboBoxDSKhoaTK.getSelectedIndex()));
-            String tukhoa = txKhoaTK.getText();
+            String tukhoa = txKhoaTK.getText().replaceAll("\\s+", "").toLowerCase();
             if (tukhoa.equals("") == true) {
                 JOptionPane.showMessageDialog(null, "Xin mời nhập từ khóa", "Lỗi", JOptionPane.ERROR_MESSAGE);
             } else if (vtkey == 0) {
@@ -319,6 +318,8 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
         if (e.getSource() == txMaNXB) {
             txMaNXB.setToolTipText("Gợi ý: NXB001");
         }
+        if(e.getSource() == txTenNXB)
+            txTenNXB.setToolTipText("Gợi ý: Nhà xuất bản trẻ");
     }
 
     @Override
@@ -518,13 +519,13 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
 
     public void ShowOnTable(NXB nxb) {
         Vector<String> row = new Vector<String>();
-        row.add(nxb.getMaNXB().replaceAll("\\s+", " ").trim());
+        row.add(nxb.getMaNXB().replaceAll("\\s+", "").trim());
         row.add(nxb.getTenNXB().replaceAll("\\s+", " ").trim());
         model.addRow(row);
     }
 
     public void getInfoTextField(NXB nxb) {
-        nxb.setMaNXB(txMaNXB.getText().replaceAll("\\s+", " ").trim());
+        nxb.setMaNXB(txMaNXB.getText().replaceAll("\\s+", "").trim());
         nxb.setTenNXB(txTenNXB.getText().replaceAll("\\s+", " ").trim());
     }
 

@@ -1,12 +1,17 @@
 package QLTV.BUS;
 
 import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
+
 import QLTV.DAO.QLCTMUONDAO;
 import QLTV.DTO.CHITIETPHIEUMUON;
+import QLTV.DTO.PHIEUMUON;
 
 public class QLCTMUONBUS {
     public static ArrayList<CHITIETPHIEUMUON> dsctpm;
     public static ArrayList<CHITIETPHIEUMUON> htXoa = new ArrayList<CHITIETPHIEUMUON>();
+
     public QLCTMUONBUS() {
 
     }
@@ -19,24 +24,57 @@ public class QLCTMUONBUS {
     }
 
     public int them(CHITIETPHIEUMUON ctphieumuon) throws Exception {
-        int kt = 0;
-        // Truy cập vào database
-        QLCTMUONDAO data = new QLCTMUONDAO();
-        kt=data.them(ctphieumuon);
-        if(kt==0){
-            dsctpm.add(ctphieumuon);
+        if (checkSLCTPM(ctphieumuon) == -1) {
+            JOptionPane.showMessageDialog(null, "Số lượng mượn vượt quá số lượng tổng mượn. Mời nhập lại!", "Lỗi",
+                    JOptionPane.ERROR_MESSAGE);
+            return -1;
+        } else {
+            int kt = 0;
+            // Truy cập vào database
+            QLCTMUONDAO data = new QLCTMUONDAO();
+            kt = data.them(ctphieumuon);
+            if (kt == 0) {
+                dsctpm.add(ctphieumuon);
+            }
+            return kt;
         }
-        return kt;
     }
 
-    public int sua(CHITIETPHIEUMUON phieumuonmoi, String MaPMCTPMCu, String MasachCTPMCu, int i) throws Exception {
-        // Truy cập vào database
-        int kt = -1;
-        QLCTMUONDAO data = new QLCTMUONDAO();
-        kt = data.sua(phieumuonmoi, MaPMCTPMCu, MasachCTPMCu);
-        if(kt == 0){
-            dsctpm.set(i, phieumuonmoi);
+    public int sua(CHITIETPHIEUMUON ctphieumuonmoi, String MaPMCTPMCu, String MasachCTPMCu, int i) throws Exception {
+        if (checkSLCTPM(ctphieumuonmoi) == -1) {
+            JOptionPane.showMessageDialog(null, "Số lượng mượn vượt quá số lượng tổng mượn. Mời nhập lại!", "Lỗi",
+                    JOptionPane.ERROR_MESSAGE);
+            return -1;
+        } else {
+            // Truy cập vào database
+            int kt = -1;
+            QLCTMUONDAO data = new QLCTMUONDAO();
+            kt = data.sua(ctphieumuonmoi, MaPMCTPMCu, MasachCTPMCu);
+            if (kt == 0) {
+                dsctpm.set(i, ctphieumuonmoi);
+            }
+            return kt;
         }
-        return kt;
+    }
+
+    public int checkSLCTPM(CHITIETPHIEUMUON ctpmNew) {
+        int sumSLCTPM = 0;
+        int maxSLtongPM = 0;
+
+        for (PHIEUMUON pm : QLMUONBUS.dspm) {
+            for (CHITIETPHIEUMUON ctpm : QLCTMUONBUS.dsctpm) {
+                if (pm.getMaPM().trim().equals(ctpmNew.getMaPM().trim())
+                        && ctpm.getMaPM().trim().equals(ctpmNew.getMaPM().trim())) {
+                    sumSLCTPM = sumSLCTPM + ctpm.getSL();
+                    maxSLtongPM = pm.getSLtong();
+                }
+            }
+        }
+
+        sumSLCTPM = sumSLCTPM + ctpmNew.getSL();
+        if (sumSLCTPM > maxSLtongPM)
+            return -1;
+
+        return 0;
     }
 }

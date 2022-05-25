@@ -41,7 +41,7 @@ public class QLTHELOAIDAO {
         return dsnxb;
     }
 
-    public void them(THELOAI theloai) {
+    public int them(THELOAI theloai) {
         try {
             String qry = "INSERT INTO THELOAI VALUES (?,?,?)";
             PreparedStatement ps = conn.prepareStatement(qry);
@@ -53,9 +53,11 @@ public class QLTHELOAIDAO {
                 JOptionPane.showMessageDialog(null, "Thêm dữ liệu thành công", "Thông báo",
                         JOptionPane.INFORMATION_MESSAGE);
             }
+            return 0;
         } catch (SQLException e) {
             System.out.println(e);
             JOptionPane.showMessageDialog(null, "Thêm dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return -1;
         }
     }
 

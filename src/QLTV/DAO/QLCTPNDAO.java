@@ -31,7 +31,7 @@ public class QLCTPNDAO {
             while (rs.next()) {
                 CHITIETPHIEUNHAP ctpn = new CHITIETPHIEUNHAP();
                 ctpn.setMaPN(rs.getString(1));
-                ctpn.setMAsach(rs.getString(2));
+                ctpn.setMasach(rs.getString(2));
                 ctpn.setSL(Integer.parseInt(rs.getString(3)));
                 dspCTPhieunhaps.add(ctpn);
             }
@@ -46,7 +46,7 @@ public class QLCTPNDAO {
             String qry = "INSERT INTO CHITIETPHIEUNHAP VALUES (?,?,?)";
             PreparedStatement ps = conn.prepareStatement(qry);
             ps.setString(1, phieunhap.getMaPN());
-            ps.setString(2, phieunhap.getMAsach());
+            ps.setString(2, phieunhap.getMasach());
             ps.setString(3, String.valueOf(phieunhap.getSL()));
 
             int n = ps.executeUpdate();
@@ -67,7 +67,7 @@ public class QLCTPNDAO {
             String qry = "UPDATE CHITIETPHIEUNHAP SET MAPN= ?, MASACH= ?, SL= ?" + " WHERE MAPN= ? AND MASACH= ?";
             PreparedStatement ps = conn.prepareStatement(qry);
             ps.setString(1, ctpnMoi.getMaPN());
-            ps.setString(2, ctpnMoi.getMAsach());
+            ps.setString(2, ctpnMoi.getMasach());
             ps.setString(3, String.valueOf(ctpnMoi.getSL()));
             ps.setString(4, MaCTPNCu);
             ps.setString(5, MaCTPNSachCu);

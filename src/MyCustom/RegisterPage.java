@@ -16,9 +16,9 @@ import java.util.Properties;
 public class RegisterPage extends JFrame implements ActionListener {
     JPanel panelHomePage;
     JLabel labelHomePage,labelUsername,labelPassword;
-    JLabel labelLibrary,labelNgaySinh,labelTen, labelHoLot, labelGioiTinh, labelSDT, labelID, labelConfirmPass;
+    JLabel labelLibrary,labelNgaySinh,labelTen, labelHoLot, labelGioiTinh, labelSDT, labelConfirmPass;
     ImageIcon ImageBackground;
-    JTextField txusername, textNgaySinh, textTen, textHoLot, textSDT, textID;
+    JTextField txusername, textNgaySinh, textTen, textHoLot, textSDT;
     JPasswordField txpassword, txConfirmPass;
     Border borderForgotPasswd;
     JButton buttonDangNhap,buttonDangKy,buttonForgotPasswd;
@@ -32,7 +32,7 @@ public class RegisterPage extends JFrame implements ActionListener {
 
     public RegisterPage() throws InterruptedException{
         this.setTitle("Quản lý thư viện");
-        this.setSize(500, 810);
+        this.setSize(500, 760);
         // this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
         this.setLayout(null);
         this.setLocationRelativeTo(null);
@@ -60,7 +60,6 @@ public class RegisterPage extends JFrame implements ActionListener {
         labelConfirmPass = new JLabel("Xác nhận mật khẩu");
         labelHoLot = new JLabel("Họ và tên lót");
         labelGioiTinh = new JLabel("Giới tính");
-        labelID = new JLabel("ID");
         labelNgaySinh = new JLabel("Ngày Sinh");
         labelSDT = new JLabel("Số điện thoại");
         labelTen = new JLabel("Tên");
@@ -75,44 +74,40 @@ public class RegisterPage extends JFrame implements ActionListener {
         labelHomePage.setForeground(Color.CYAN);
         labelHomePage.setBounds(180, 0, 230, 150);
 
-        labelID.setFont(new Font("Arial", Font.PLAIN, 17));
-        labelID.setForeground(Color.black);
-        labelID.setBounds(50,100,120,80);
         //Label Username
         labelUsername.setFont(new Font("Arial", Font.PLAIN, 17));
         labelUsername.setForeground(Color.black);
-        labelUsername.setBounds(50,160,120,80);
+        labelUsername.setBounds(50,100,120,80);
 
         //Label Password
         labelPassword.setFont(new Font("Arial", Font.PLAIN, 17));
         labelPassword.setForeground(Color.black);
-        labelPassword.setBounds(50,220,130,80);
+        labelPassword.setBounds(50,160,130,80);
 
         labelConfirmPass.setFont(new Font("Arial", Font.PLAIN, 17));
         labelConfirmPass.setForeground(Color.black);
-        labelConfirmPass.setBounds(50,280,150,80);
+        labelConfirmPass.setBounds(50,220,150,80);
 
         labelHoLot.setFont(new Font("Arial", Font.PLAIN, 17));
         labelHoLot.setForeground(Color.BLACK);
-        labelHoLot.setBounds(50, 340, 150, 80);
+        labelHoLot.setBounds(50, 280, 150, 80);
 
         labelTen.setForeground(Color.BLACK);
-        labelTen.setBounds(50, 400,150,80);
+        labelTen.setBounds(50, 340,150,80);
         labelTen.setFont(new Font("Arial", Font.PLAIN, 17));
 
         labelNgaySinh.setFont(new Font("Arial", Font.PLAIN, 17));
         labelNgaySinh.setForeground(Color.black);
-        labelNgaySinh.setBounds(50,460,120,80);
+        labelNgaySinh.setBounds(50,400,120,80);
 
         labelGioiTinh.setFont(new Font("Arial", Font.PLAIN, 17));
         labelGioiTinh.setForeground(Color.black);
-        labelGioiTinh.setBounds(50,520,120,80);
+        labelGioiTinh.setBounds(50,460,120,80);
 
         labelSDT.setFont(new Font("Arial", Font.PLAIN, 17));
         labelSDT.setForeground(Color.black);
-        labelSDT.setBounds(50,580,120,80);
+        labelSDT.setBounds(50,520,120,80);
 
-        textID = new JTextField();
         txusername = new JTextField();
         txpassword = new JPasswordField();
         txConfirmPass = new JPasswordField();
@@ -121,25 +116,23 @@ public class RegisterPage extends JFrame implements ActionListener {
         textNgaySinh = new JTextField();
         textSDT = new JTextField();
 
-        textID.setFont(new Font("Arial",Font.PLAIN,18));
-        textID.setBounds(250,125,180,30);
         txusername.setFont(new Font("Arial",Font.PLAIN,18));
-        txusername.setBounds(250,185,180,30);
+        txusername.setBounds(250,125,180,30);
         txpassword.setFont(new Font("Arial",Font.PLAIN,18));
-        txpassword.setBounds(250,245,180,30);
+        txpassword.setBounds(250,185,180,30);
         txConfirmPass.setFont(new Font("Arial", Font.PLAIN,18));
-        txConfirmPass.setBounds(250, 305, 180, 30);
+        txConfirmPass.setBounds(250, 245, 180, 30);
         textHoLot.setFont(new Font("Arial",Font.PLAIN,18));
-        textHoLot.setBounds(250,365,180,30);
+        textHoLot.setBounds(250,305,180,30);
         textTen.setFont(new Font("Arial",Font.PLAIN,18));
-        textTen.setBounds(250,425,180,30);
+        textTen.setBounds(250,365,180,30);
         textSDT.setFont(new Font("Arial",Font.PLAIN,18));
-        textSDT.setBounds(250,605,180,30);
+        textSDT.setBounds(250,545,180,30);
 
         String [] dsGioiTinh = {"", "Nam", "Nữ", "Khác"};
         comboBoxGioiTinh = new JComboBox<>(dsGioiTinh);
         comboBoxGioiTinh.setFont(new Font("Arial", Font.BOLD, 13));
-        comboBoxGioiTinh.setBounds(250, 545, 180, 30);
+        comboBoxGioiTinh.setBounds(250, 485, 180, 30);
         comboBoxGioiTinh.addActionListener(this);
 
         modelNgaySinh = new UtilDateModel();
@@ -150,15 +143,15 @@ public class RegisterPage extends JFrame implements ActionListener {
         pNgaySinh.put("text.year", "Year");
         datePanelNgaySinh = new JDatePanelImpl(modelNgaySinh, pNgaySinh);
         datePickerNgaySinh = new JDatePickerImpl(datePanelNgaySinh, new DateLabelFormatter());
-        datePickerNgaySinh.setBounds(250, 485, 180, 30);
+        datePickerNgaySinh.setBounds(250, 425, 180, 30);
        
         //Button Dang nhap, Dang ky, ForgotPasswd
         buttonDangKy = new JButton("Đăng ký");
         buttonDangNhap = new JButton("Đăng nhập");
         buttonForgotPasswd = new JButton("Forgot Password");
         //set bound button
-        buttonDangKy.setBounds(50,680,150,35);
-        buttonDangNhap.setBounds(280,680, 150 ,35);
+        buttonDangKy.setBounds(50,620,165,35);
+        buttonDangNhap.setBounds(265,620, 165 ,35);
         buttonForgotPasswd.setBounds(325, 520, 100,35);
         //set font
         buttonDangKy.setFont(new Font("Arial",Font.BOLD,16));
@@ -178,18 +171,11 @@ public class RegisterPage extends JFrame implements ActionListener {
         buttonDangKy.addActionListener(this);
         // comboBoxPhanQuyen.addActionListener(this);
 
-        // String [] dsPhanQuyen = {"","admin","Nhân viên"};
-        // comboBoxPhanQuyen = new JComboBox<>(dsPhanQuyen);
-        // comboBoxPhanQuyen.setFont(new Font("Arial", Font.PLAIN, 13));
-        // comboBoxPhanQuyen.setBounds(200, 305, 100, 30);
-        // comboBoxPhanQuyen.setBackground(Color.WHITE);
-
         this.add(panelHomePage);
 
         panelHomePage.add(labelLibrary);
         panelHomePage.add(labelHomePage);
 
-        panelHomePage.add(labelID);
         panelHomePage.add(labelUsername);
         panelHomePage.add(labelPassword);
         panelHomePage.add(labelConfirmPass);
@@ -199,7 +185,6 @@ public class RegisterPage extends JFrame implements ActionListener {
         panelHomePage.add(labelNgaySinh);
         panelHomePage.add(labelSDT);
 
-        panelHomePage.add(textID);
         panelHomePage.add(txusername);
         panelHomePage.add(txpassword);
         panelHomePage.add(txConfirmPass);
@@ -208,8 +193,6 @@ public class RegisterPage extends JFrame implements ActionListener {
         panelHomePage.add(datePickerNgaySinh);
         panelHomePage.add(textSDT);
         panelHomePage.add(comboBoxGioiTinh);
-
-        // panelHomePage.add(comboBoxPhanQuyen);
 
         panelHomePage.add(buttonDangKy);
         panelHomePage.add(buttonDangNhap);
@@ -220,7 +203,6 @@ public class RegisterPage extends JFrame implements ActionListener {
         if(e.getSource()==buttonDangKy){
             try {
                 ACCOUNT account = new ACCOUNT();
-                account.setID(textID.getText().trim());
                 account.setUsername(txusername.getText().trim());
                 account.setPassword(String.valueOf(txpassword.getPassword()).trim());
                 account.setHoLot(textHoLot.getText().trim());
@@ -234,7 +216,7 @@ public class RegisterPage extends JFrame implements ActionListener {
                 String x = String.valueOf(txpassword.getPassword());
                 String y = String.valueOf(txConfirmPass.getPassword());
 
-                if (textID.getText().equals("") || txusername.getText().equals("") || textHoLot.getText().equals("")
+                if (txusername.getText().equals("") || textHoLot.getText().equals("")
                         || textSDT.getText().equals("") || textTen.getText().equals("") || x.equals("") || y.equals("")
                         || GioiTinh.equals("")) {
                     JOptionPane.showMessageDialog(null, "Thông tin đăng ký trống", "Thông báo",

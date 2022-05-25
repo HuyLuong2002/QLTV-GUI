@@ -341,7 +341,7 @@ public class QLPNGUI implements ActionListener, MouseListener {
                 }
                 if (kt == 0) {
                     modelCTPN.setValueAt(ctphieunhap.getMaPN(), i, 0);
-                    modelCTPN.setValueAt(ctphieunhap.getMAsach(), i, 1);
+                    modelCTPN.setValueAt(ctphieunhap.getMasach(), i, 1);
                     modelCTPN.setValueAt(ctphieunhap.getSL(), i, 2);
                     tblQLCTPN.setModel(modelCTPN);
                 }
@@ -509,7 +509,7 @@ public class QLPNGUI implements ActionListener, MouseListener {
     public void ShowOnTableCTPN(CHITIETPHIEUNHAP ctpn) {
         Vector<String> row = new Vector<String>();
         row.add(ctpn.getMaPN().replaceAll("\\s+", "").trim());
-        row.add(ctpn.getMAsach().replaceAll("\\s+", "").trim());
+        row.add(ctpn.getMasach().replaceAll("\\s+", "").trim());
         row.add(String.valueOf(ctpn.getSL()).replaceAll("\\s+", "").trim());
         modelCTPN.addRow(row);
     }
@@ -880,7 +880,7 @@ public class QLPNGUI implements ActionListener, MouseListener {
 
     public void getInfoTextFieldCTPN(CHITIETPHIEUNHAP ctphieunhap) {
         ctphieunhap.setMaPN(txCTPNMaPN.getText().replaceAll("\\s+", "").trim());
-        ctphieunhap.setMAsach(txCTPNMaSach.getText().replaceAll("\\s+", "").trim());
+        ctphieunhap.setMasach(txCTPNMaSach.getText().replaceAll("\\s+", "").trim());
         ctphieunhap.setSL(Integer.parseInt(txCTPNSL.getText().replaceAll("\\s+", "").trim()));
     }
 

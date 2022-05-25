@@ -1,6 +1,8 @@
 package QLTV.BUS;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.swing.JOptionPane;
 
@@ -9,7 +11,7 @@ import QLTV.DTO.THELOAI;
 
 public class QLTHELOAIBUS {
     public static ArrayList<THELOAI> dstheloai;
-    public static ArrayList<THELOAI> htXoa = new ArrayList<THELOAI>();
+    public static Set<THELOAI> htXoa = new HashSet<THELOAI>();
     public static ArrayList<THELOAI> htSua = new ArrayList<THELOAI>();
 
     public QLTHELOAIBUS() {
@@ -24,39 +26,55 @@ public class QLTHELOAIBUS {
     }
 
     public int them(THELOAI theloai) throws Exception {
-        if (KTMa(theloai.getMaTL().trim()) == 0) {
+        if (KTMa(theloai.getMaTL().replaceAll("\\s+","").toLowerCase().trim()) == 0) {
             JOptionPane.showMessageDialog(null, "Mã thể loại vừa nhập bị trùng. Mời nhập lại!", "Lỗi",
                     JOptionPane.ERROR_MESSAGE);
             return -1;
         }
-        if (KTTENTL(theloai.getTenTL().trim()) == 0) {
+        if (KTTENTL(theloai.getTenTL().replaceAll("\\s+","").toLowerCase().trim()) == 0) {
             JOptionPane.showMessageDialog(null, "Tên thể loại vừa nhập bị trùng. Mời nhập lại!", "Lỗi",
                     JOptionPane.ERROR_MESSAGE);
             return -1;
         } else {
             // Truy cập vào database
+            int kt = - 1;
             QLTHELOAIDAO data = new QLTHELOAIDAO();
-            data.them(theloai);
-            dstheloai.add(theloai);
-            return 1;
+            kt = data.them(theloai);
+            if(kt == 0)
+                dstheloai.add(theloai);
+            return kt;
         }
     }
 
     public int sua(THELOAI theloaimoi, THELOAI theloaicu, int i) throws Exception {
         // Truy cập vào database
-        int kt = 0;
-        QLTHELOAIDAO data = new QLTHELOAIDAO();
-        kt = data.sua(theloaimoi, theloaicu);
-        if (kt == 0) {
-            dstheloai.set(i, theloaimoi);
+        if (KTMa(theloaimoi.getMaTL().replaceAll("\\s+","").toLowerCase().trim()) == 0) {
+            JOptionPane.showMessageDialog(null, "Mã thể loại vừa nhập bị trùng. Mời nhập lại!", "Lỗi",
+                    JOptionPane.ERROR_MESSAGE);
+            return -1;
         }
-        return kt;
+        if (KTTENTL(theloaimoi.getTenTL().replaceAll("\\s+","").toLowerCase().trim()) == 0) {
+            JOptionPane.showMessageDialog(null, "Tên thể loại vừa nhập bị trùng. Mời nhập lại!", "Lỗi",
+                    JOptionPane.ERROR_MESSAGE);
+            return -1;
+        } else {
+            int kt = -1;
+            QLTHELOAIDAO data = new QLTHELOAIDAO();
+            kt = data.sua(theloaimoi, theloaicu);
+            if (kt == 0) {
+                dstheloai.set(i, theloaimoi);
+            }
+            return kt;
+        }
     }
 
-    public void xoa(String MaTL, int i) throws Exception {
+    public int xoa(String MaTL, int i) throws Exception {
+        int kt = -1;
         QLTHELOAIDAO data = new QLTHELOAIDAO();
-        data.xoa(MaTL);
-        dstheloai.remove(i);
+        kt = data.xoa(MaTL);
+        if(kt == 0)
+            dstheloai.remove(i);
+        return kt;
     }
 
     public int hoantacXoa(THELOAI theloai) throws Exception {
@@ -85,7 +103,7 @@ public class QLTHELOAIBUS {
 
     public int KTTENTL(String TENTLMoi) {
         for (THELOAI theloai : dstheloai)
-            if (theloai.getTenTL().trim().equals(TENTLMoi)) {
+            if (theloai.getTenTL().replaceAll("\\s+", "").toLowerCase().trim().equals(TENTLMoi)) {
                 return 0;
             }
         return 1;

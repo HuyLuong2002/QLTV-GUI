@@ -25,15 +25,14 @@ public class ACCOUNTDAO {
             rs = st.executeQuery(qry);
             while(rs.next()){
                 ACCOUNT acc = new ACCOUNT();
-                acc.setID(rs.getString(1));
-                acc.setUsername(rs.getString(2));
-                acc.setPassword(rs.getString(3));
-                acc.setHoLot(rs.getString(4));
-                acc.setTen(rs.getString(5));
-                acc.setNgaySinh(rs.getString(6));
-                acc.setGioiTinh(rs.getString(7));
-                acc.setSDT(rs.getString(8));
-                acc.setPhanQuyen(Integer.parseInt(rs.getString(9)));
+                acc.setUsername(rs.getString(1));
+                acc.setPassword(rs.getString(2));
+                acc.setHoLot(rs.getString(3));
+                acc.setTen(rs.getString(4));
+                acc.setNgaySinh(rs.getString(5));
+                acc.setGioiTinh(rs.getString(6));
+                acc.setSDT(rs.getString(7));
+                acc.setPhanQuyen(Integer.parseInt(rs.getString(8)));
                 dsacc.add(acc);
             }
         } catch (SQLException e) {
@@ -44,17 +43,16 @@ public class ACCOUNTDAO {
 
     public int them(ACCOUNT account){
         try {
-            String qry = "INSERT INTO ACCOUNT VALUES (?,?,?,?,?,?,?,?,?)";
+            String qry = "INSERT INTO ACCOUNT VALUES (?,?,?,?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(qry);
-            ps.setString(1, account.getID());
-            ps.setString(2, account.getUsername());
-            ps.setString(3, account.getPassword());
-            ps.setString(4, account.getHoLot());
-            ps.setString(5, account.getTen());
-            ps.setString(6, account.getNgaySinh());
-            ps.setString(7, account.getGioiTinh());
-            ps.setString(8, account.getSDT());
-            ps.setString(9, String.valueOf(account.getPhanQuyen()));
+            ps.setString(1, account.getUsername());
+            ps.setString(2, account.getPassword());
+            ps.setString(3, account.getHoLot());
+            ps.setString(4, account.getTen());
+            ps.setString(5, account.getNgaySinh());
+            ps.setString(6, account.getGioiTinh());
+            ps.setString(7, account.getSDT());
+            ps.setString(8, String.valueOf(account.getPhanQuyen()));
 
             int n = ps.executeUpdate();
             if (n != 0) {
@@ -72,14 +70,14 @@ public class ACCOUNTDAO {
         try {
             String qry = "INSERT INTO ACCOUNT VALUES (?,?,?,?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(qry);
-            ps.setString(1, account.getID());
-            ps.setString(2, account.getUsername());
-            ps.setString(3, account.getPassword());
-            ps.setString(4, account.getHoLot());
-            ps.setString(5, account.getTen());
-            ps.setString(6, account.getNgaySinh());
-            ps.setString(7, account.getGioiTinh());
-            ps.setString(8, account.getSDT());
+            ps.setString(1, account.getUsername());
+            ps.setString(2, account.getPassword());
+            ps.setString(3, account.getHoLot());
+            ps.setString(4, account.getTen());
+            ps.setString(5, account.getNgaySinh());
+            ps.setString(6, account.getGioiTinh());
+            ps.setString(7, account.getSDT());
+            ps.setString(8, String.valueOf(account.getPhanQuyen()));
 
             int n = ps.executeUpdate();
             if(n != 0){
@@ -94,11 +92,11 @@ public class ACCOUNTDAO {
     }
     public int sua(ACCOUNT newAcc, ACCOUNT oldAcc){
         try {
-            String qry = "update ACCOUNT set " + "ID=" + "'" + newAcc.getID() + "'" +
-            ",USERNAME=" + "N'" + newAcc.getUsername() + "'" + ",PASS=" + "'" + newAcc.getPassword() + "'" +
+            String qry = "update ACCOUNT set " +
+            "USERNAME=" + "N'" + newAcc.getUsername() + "'" + ",PASS=" + "'" + newAcc.getPassword() + "'" +
             ",HOLOT=" + "'" + newAcc.getHoLot() + "'" + ",TEN=" + "'" + newAcc.getTen() + "'" +
             ",NGAYSINH=" + "'" + newAcc.getNgaySinh() + "'" + ",GIOITINH=" + "'" + newAcc.getGioiTinh() + "'" +
-            ",SDT=" + "'" + newAcc.getSDT() + "'" + " " + "where ID='" + oldAcc.getID()
+            ",SDT=" + "'" + newAcc.getSDT() + "'" + " " + "where ID='" + oldAcc.getUsername()
             + "'";
             st = conn.createStatement();
             st.executeUpdate(qry);
@@ -112,9 +110,9 @@ public class ACCOUNTDAO {
             return -1;
         }
     }
-    public void xoa(String ID){
+    public void xoa(String Username){
         try {
-            String qry = "DELETE FROM ACCOUNT WHERE ID='" + ID + "'"; 
+            String qry = "DELETE FROM ACCOUNT WHERE USERNAME='" + Username + "'"; 
             st = conn.createStatement();
             st.executeUpdate(qry);
             if (st != null) {

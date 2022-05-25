@@ -63,34 +63,29 @@ public class BaoCaoThongKe implements ActionListener {
             pnThongKe = new JPanel();
             pnThongKe.setBounds(240, 0, 1145, 800);
             pnThongKe.setLayout(null);
-            pnThongKe.setBackground(MyColor.ColorBlue);
 
             pnSach = new JPanel();
-            pnSach.setBounds(200, 80, 300, 180);
+            pnSach.setBounds(200, 80, 369, 201);
             pnSach.setBorder(line);
             pnSach.setLayout(null);
-            pnSach.setBackground(MyColor.ColorSach);
 
             pnKhachHang = new JPanel();
-            pnKhachHang.setBounds(200, 310, 300, 180);
+            pnKhachHang.setBounds(200, 310, 369, 201);
             pnKhachHang.setBorder(line);
             pnKhachHang.setLayout(null);
-            pnKhachHang.setBackground(MyColor.ColorKhachHang);
 
             pnNhanVien = new JPanel();
-            pnNhanVien.setBounds(600, 80, 300, 180);
+            pnNhanVien.setBounds(600, 80, 369, 201);
             pnNhanVien.setBorder(line);
             pnNhanVien.setLayout(null);
-            pnNhanVien.setBackground(MyColor.ColorNhanVien);
 
             pnTongDoanhThu = new JPanel();
-            pnTongDoanhThu.setBounds(600, 310, 300, 180);
+            pnTongDoanhThu.setBounds(600, 310, 369, 201);
             pnTongDoanhThu.setBorder(line);
             pnTongDoanhThu.setLayout(null);
-            pnTongDoanhThu.setBackground(MyColor.ColorTongDoanhThu);
 
             pnBaoCaoDoanhThu = new JPanel();
-            pnBaoCaoDoanhThu.setBounds(200, 550, 700, 100);
+            pnBaoCaoDoanhThu.setBounds(200, 560, 775, 100);
             pnBaoCaoDoanhThu.setBorder(line);
             pnBaoCaoDoanhThu.setLayout(new GridLayout(1, 1));
             pnBaoCaoDoanhThu.setBackground(MyColor.ColorBlue);
@@ -102,7 +97,7 @@ public class BaoCaoThongKe implements ActionListener {
             String[] dsNam = { "", "2021", "2022", "2023" };
             cbKhoaThongKe = new JComboBox<>(dsNam);
             cbKhoaThongKe.setFont(new Font("Arial", Font.BOLD, 13));
-            cbKhoaThongKe.setBounds(500, 500, 100, 30);
+            cbKhoaThongKe.setBounds(535, 520, 100, 30);
             cbKhoaThongKe.addActionListener(this);
 
             ImageIcon iconXemThem = new ImageIcon("images\\right-arrow.png");

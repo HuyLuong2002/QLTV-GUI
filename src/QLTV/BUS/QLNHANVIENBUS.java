@@ -96,7 +96,12 @@ public class QLNHANVIENBUS {
         return kq;
     }
 
-    public void docDSSACH() {
+    public ArrayList<NHANVIEN> timTheoChucvu(String Chucvu){
+        ArrayList<NHANVIEN> kq = new ArrayList<NHANVIEN>();
+        for (NHANVIEN nhanvien : dsnhanvien)
+            if(nhanvien.getChucvu().replaceAll("\\s+", "").toLowerCase().indexOf(Chucvu) >= 0)
+                kq.add(nhanvien);
+        return kq;
     }
 
 }

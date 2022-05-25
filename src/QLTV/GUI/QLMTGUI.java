@@ -585,7 +585,6 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener, Ke
                             header.add("SL");
                             if (modelCTMuon.getRowCount() == 0) {
                                 modelCTMuon = new DefaultTableModel(header, 0);
-                                myTable.setValueCellCenter(modelCTMuon, tblQLCTMuon);
                             }
                             ShowOnTableCTPM(ctphieumuon);
                             tblQLCTMuon.setModel(modelCTMuon);
@@ -771,7 +770,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener, Ke
             int kt = -1;
             if (i >= 0) {
                 HDTIENPHAT hdtienphat = new HDTIENPHAT();
-                HDTIENPHAT MaHDCu = QLHDTPBUS.dshdtp.set(i, hdtienphat);
+                HDTIENPHAT MaHDCu = QLHDTPBUS.dshdtp.get(i);
                 getInfoTextFieldHD(hdtienphat);
                 try {
                     QLHDTPBUS qlhoadonbus = new QLHDTPBUS();
@@ -2506,7 +2505,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener, Ke
         chitiethdtienphat.setDongia(Integer.parseInt(DonGia.trim()));
     }
 
-    public void updateSLSachMuon(String Masach) { // Mã sácg cần cập nhật
+    public void updateSLSachMuon(String Masach) { // Mã sách cần cập nhật
         QLSACHBUS qlbus = new QLSACHBUS();
         if (QLSACHBUS.dssach == null) {
             try {
@@ -2599,7 +2598,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener, Ke
                         JOptionPane.ERROR_MESSAGE);
                 return -1;
             }
-            if (sach.getMasach().trim().equals(Masach) && sach.getSL() <= 0) {
+            if (sach.getMasach().trim().equals(Masach) && sach.getSL() == 0) {
                 JOptionPane.showMessageDialog(null, "Sách trong kho đã hết", "Lỗi",
                         JOptionPane.ERROR_MESSAGE);
                 return -1;

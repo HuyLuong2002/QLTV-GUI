@@ -40,7 +40,7 @@ public class QLNXBDAO {
         return dsnxb;
     }
 
-    public void them(NXB nxb) {
+    public int them(NXB nxb) {
         try {
             String qry = "insert into NXB values  (" + "'" + nxb.getMaNXB().trim() + "'"
                     + "," + "N'" + nxb.getTenNXB() + "'" + ")";
@@ -50,21 +50,30 @@ public class QLNXBDAO {
                 JOptionPane.showMessageDialog(null, "Thêm dữ liệu thành công", "Thông báo",
                         JOptionPane.INFORMATION_MESSAGE);
             }
+            return 0;
         } catch (SQLException e) {
             System.out.println(e);
             JOptionPane.showMessageDialog(null, "Thêm dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return -1;
         }
     }
 
-    public void hoantacXoa(NXB nxb) {
+    public int hoantacXoa(NXB nxb) {
         try {
-            String qry = "insert into NXB values  (" + "'" + nxb.getMaNXB() + "'"
-                    + "," + "N'" + nxb.getTenNXB() + "'" + ")";
-            st = conn.createStatement();
-            st.executeUpdate(qry);
+            String qry = "INSERT INTO NXB VALUES(?,?)";
+            PreparedStatement ps = conn.prepareStatement(qry);
+            ps.setString(1, nxb.getMaNXB());
+            ps.setString(2, nxb.getTenNXB());
+            int n = ps.executeUpdate();
+            if (n != 0) {
+                JOptionPane.showMessageDialog(null, "Hoàn tác dữ liệu thành công", "Thông báo",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+            return 0;
         } catch (SQLException e) {
             System.out.println(e);
-            JOptionPane.showMessageDialog(null, "Thêm dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Hoàn tác dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return -1;
         }
     }
 

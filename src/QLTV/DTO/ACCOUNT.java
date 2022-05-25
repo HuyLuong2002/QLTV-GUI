@@ -1,7 +1,6 @@
 package QLTV.DTO;
 
 public class ACCOUNT {
-    private String ID;
     private String Username;
     private String Password;
     private String HoLot;
@@ -11,9 +10,8 @@ public class ACCOUNT {
     private String SDT;
     private int PhanQuyen;
     public ACCOUNT(){}
-    public ACCOUNT(String ID, String Username, String Password, String HoLot, String Ten, String NgaySinh, String GioiTinh
+    public ACCOUNT( String Username, String Password, String HoLot, String Ten, String NgaySinh, String GioiTinh
     ,String SDT,int PhanQuyen){
-        this.ID = ID;
         this.Username = Username;
         this.Password = Password;
         this.HoLot = HoLot;
@@ -22,9 +20,6 @@ public class ACCOUNT {
         this.GioiTinh = GioiTinh;
         this.SDT = SDT;
         this.PhanQuyen = PhanQuyen;
-    }
-    public String getID(){
-        return ID;
     }
     public String getUsername(){
         return Username;
@@ -49,9 +44,6 @@ public class ACCOUNT {
     }
     public int getPhanQuyen(){
         return PhanQuyen;
-    }
-    public void setID(String ID){
-        this.ID = ID;
     }
     public void setUsername(String Username){
         this.Username = Username;

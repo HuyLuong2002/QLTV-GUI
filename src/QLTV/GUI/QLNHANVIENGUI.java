@@ -253,6 +253,17 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
                         }
                         tblQLNHANVIEN.setModel(model);
                     }
+                } else if (vtkey == 3) {
+                    ArrayList<NHANVIEN> kq = qlnhanvienbus.timTheoChucvu(tukhoa);
+                    model.setRowCount(0);
+                    if(kq.size() == 0){
+                        JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        for(NHANVIEN nhanvien : kq){
+                            ShowOnTable(nhanvien);
+                        }
+                        tblQLNHANVIEN.setModel(model);
+                    }
                 }
             }
         } else if (e.getSource() == btShowAll) {
@@ -471,7 +482,7 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
         btHoanTac.addActionListener(this);
 
         // set up ComboBox
-        String[] dsKhoaTK = { "", "Mã Nhân Viên", "Tên Nhân Viên" };
+        String[] dsKhoaTK = { "", "Mã Nhân Viên", "Tên Nhân Viên" , "Chức vụ"};
         comboBoxDSKhoaTK = new JComboBox<>(dsKhoaTK);
         comboBoxDSKhoaTK.setFont(new Font("Arial", Font.BOLD, 13));
         comboBoxDSKhoaTK.setBounds(245, 74, 120, 35);

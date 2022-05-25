@@ -37,13 +37,13 @@ public class LoginPage extends JFrame implements ActionListener {
 
     }
     //set up Home Page
-    public void setHomePage(){
+    public void setHomePage() throws InterruptedException {
         //set up panel
         panelHomePage = new JPanel();
         panelHomePage.setLayout(null);
         panelHomePage.setBackground(ColorPanel);
         //set up label
-        labelHomePage = new JLabel("USER LOGIN");
+        labelHomePage = new JLabel("ĐĂNG NHẬP");
         labelUsername = new JLabel(" Tài khoản ");
         labelPassword = new JLabel(" Mật khẩu ");
 
@@ -85,9 +85,9 @@ public class LoginPage extends JFrame implements ActionListener {
 
         txusername = new JTextField();
         txpassword = new JPasswordField();
-        txusername.setFont(new Font("Arial",Font.ITALIC,18));
+        txusername.setFont(new Font("Arial",Font.PLAIN,18));
         txusername.setBounds(98,220,320,40);
-        txpassword.setFont(new Font("Arial",Font.ITALIC,18));
+        txpassword.setFont(new Font("Arial",Font.PLAIN,18));
         txpassword.setBounds(98,295,320,40);
 
         // Label chèn
