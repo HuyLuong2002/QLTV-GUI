@@ -193,6 +193,10 @@ public class QLNVGUI extends JFrame implements MouseListener, ActionListener {
                 txTiencoc.setText(String.format("%,d", ptd.getTiencoc()));
             }
         }
+        if (e.getSource() == txTiencoc) {
+            int Tiencoc = PHIEUTHEODOIMT.TiencocCB * Integer.parseInt(txTongMuon.getText().trim());
+            txTiencoc.setText(String.format("%,d",Tiencoc));
+        }
     }
 
     @Override
@@ -447,6 +451,7 @@ public class QLNVGUI extends JFrame implements MouseListener, ActionListener {
         txTiencoc.setBounds(180, 105, 180, 30);
         txTiencoc.setFont(new Font("Arial", Font.PLAIN, 15));
         txTiencoc.addMouseListener(this);
+        txTiencoc.setEditable(false);
 
         // JbuttonThem
         btThemTDMT = new JButton("Thêm");
@@ -769,7 +774,7 @@ public class QLNVGUI extends JFrame implements MouseListener, ActionListener {
                 tblQLTDMT.setModel(modelTDMT);
             }
         }
-        if(e.getSource()==btSuaTDMT){
+        if (e.getSource() == btSuaTDMT) {
             int i = tblQLDG.getSelectedRow();
             int kt = -1;
             if (i >= 0) {
@@ -790,7 +795,7 @@ public class QLNVGUI extends JFrame implements MouseListener, ActionListener {
                 }
             }
         }
-        if(e.getSource()==btXoaTDMT){
+        if (e.getSource() == btXoaTDMT) {
             int XacNhanXoa = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa không ?", "Thông báo",
                     JOptionPane.YES_NO_OPTION);
             if (XacNhanXoa == 0) {
@@ -814,8 +819,8 @@ public class QLNVGUI extends JFrame implements MouseListener, ActionListener {
                 }
             }
         }
-        
-        if (e.getSource() == btHoanTacTDMT){
+
+        if (e.getSource() == btHoanTacTDMT) {
             int ktHT = 0;
             if (QLPHIEUTHEODOIBUS.htXoa.size() == 0) {
                 JOptionPane.showMessageDialog(null, "Dữ liệu hoàn tác rỗng", "Lỗi",
@@ -930,7 +935,7 @@ public class QLNVGUI extends JFrame implements MouseListener, ActionListener {
                 }
             }
         }
-        if (e.getSource()==btTimKiemTDMT){
+        if (e.getSource() == btTimKiemTDMT) {
             int vtkey = Integer.parseInt(String.valueOf(cbDSKhoaTKTDMT.getSelectedIndex()));
             String tukhoa = txKhoaTKTDMT.getText().replaceAll("\\s+", " ").trim();
             if (tukhoa.equals("") == true) {
@@ -950,12 +955,12 @@ public class QLNVGUI extends JFrame implements MouseListener, ActionListener {
                                 JOptionPane.ERROR_MESSAGE);
                     }
                 }
-                if (vtkey == 2){
-                    ArrayList <PHIEUTHEODOIMT> kq = qlbus.timTheoTongMuon(tukhoa);
+                if (vtkey == 2) {
+                    ArrayList<PHIEUTHEODOIMT> kq = qlbus.timTheoTongMuon(tukhoa);
                     modelTDMT.setRowCount(0);
                     if (kq.size() == 0) {
                         JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu phù hợp", "Lỗi",
-                        JOptionPane.ERROR_MESSAGE);
+                                JOptionPane.ERROR_MESSAGE);
                     } else {
                         for (PHIEUTHEODOIMT ptd : kq) {
                             ShowOnTableTDMT(ptd);
@@ -963,12 +968,12 @@ public class QLNVGUI extends JFrame implements MouseListener, ActionListener {
                         tblQLTDMT.setModel(modelTDMT);
                     }
                 }
-                if (vtkey == 3){
-                    ArrayList <PHIEUTHEODOIMT> kq = qlbus.timTheoTienCoc(tukhoa);
+                if (vtkey == 3) {
+                    ArrayList<PHIEUTHEODOIMT> kq = qlbus.timTheoTienCoc(tukhoa);
                     modelTDMT.setRowCount(0);
                     if (kq.size() == 0) {
                         JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu phù hợp", "Lỗi",
-                        JOptionPane.ERROR_MESSAGE);
+                                JOptionPane.ERROR_MESSAGE);
                     } else {
                         for (PHIEUTHEODOIMT ptd : kq) {
                             ShowOnTableTDMT(ptd);

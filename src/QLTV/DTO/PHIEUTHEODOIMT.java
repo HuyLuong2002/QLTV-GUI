@@ -2,13 +2,12 @@ package QLTV.DTO;
 
 public class PHIEUTHEODOIMT {
     private String MaDG;
-    private int TiencocCB;
+    public static int TiencocCB = 50000;
     private int Tiencoc;
     private int Tongmuon;
     public PHIEUTHEODOIMT(){}
-    public PHIEUTHEODOIMT(String MaDG,int TiencocCB,int Tiencoc,int Tongmuon){
+    public PHIEUTHEODOIMT(String MaDG,int Tiencoc,int Tongmuon){
         this.MaDG = MaDG;
-        this.TiencocCB = TiencocCB;
         this.Tiencoc = Tiencoc;
         this.Tongmuon = Tongmuon;
     }
@@ -16,7 +15,7 @@ public class PHIEUTHEODOIMT {
         this.MaDG = MaDG;
     }
     public void setTiencocCB(int TiencocCB){
-        this.TiencocCB = TiencocCB;
+        PHIEUTHEODOIMT.TiencocCB = TiencocCB;
     }
     public void setTiencoc(int Tiencoc){
         this.Tiencoc = Tiencoc;
