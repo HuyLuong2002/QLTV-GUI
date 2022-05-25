@@ -67,12 +67,18 @@ public class QLCTHDTPBUS {
                     sumSLCTHD = sumSLCTHD + cthdtp.getSL();
                     maxSLtongHD = hd.getSL();
                 }
+                else if(hd.getMaHD().trim().equals(cthdtpNew.getMaHD().trim())) {
+                    if(maxSLtongHD < hd.getSL()){
+                        maxSLtongHD = hd.getSL();
+                    }
+                }
             }
         }
         sumSLCTHD = sumSLCTHD + cthdtpNew.getSL();
-        if (sumSLCTHD > maxSLtongHD)
+        if (sumSLCTHD != 0 && maxSLtongHD == 0)
+            return 0;
+        else if (sumSLCTHD > maxSLtongHD)
             return -1;
-
         return 0;
     }
 }

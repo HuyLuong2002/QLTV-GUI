@@ -3,6 +3,7 @@ package QLTV.BUS;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import QLTV.DAO.QLMUONDAO;
+import QLTV.DTO.CHITIETPHIEUMUON;
 import QLTV.DTO.PHIEUMUON;
 import QLTV.DTO.PHIEUTRASACH;
 import QLTV.GUI.QLMTGUI;
@@ -50,7 +51,8 @@ public class QLMUONBUS {
     public ArrayList<PHIEUMUON> timTheoTinhTrangMuon(String TinhTrangMuon) {
         ArrayList<PHIEUMUON> kq = new ArrayList<PHIEUMUON>();
         for (PHIEUMUON pm : dspm)
-            if (String.valueOf(pm.getTinhTrangMuon().toLowerCase().replaceAll("\\s+", "").trim()).indexOf(TinhTrangMuon) >= 0)
+            if (String.valueOf(pm.getTinhTrangMuon().toLowerCase().replaceAll("\\s+", "").trim())
+                    .indexOf(TinhTrangMuon) >= 0)
                 kq.add(pm);
         return kq;
     }
@@ -81,6 +83,11 @@ public class QLMUONBUS {
     }
 
     public int sua(PHIEUMUON phieumuonmoi, PHIEUMUON phieumuoncu, int i) throws Exception {
+        if (checkSLPM(phieumuonmoi) == -1) {
+            JOptionPane.showMessageDialog(null, "Số lượng tổng vượt quá số lượng mượn. Mời nhập lại!", "Lỗi",
+                    JOptionPane.ERROR_MESSAGE);
+            return -1;
+        }
         // Truy cập vào database
         int kt = -1;
         QLMUONDAO data = new QLMUONDAO();
@@ -99,11 +106,22 @@ public class QLMUONBUS {
         return 1;
     }
 
-    public int KTSL(int SLtongmoi, int SLmoi) {
-        if (SLtongmoi < SLmoi) {
-            return 0;
+    public int checkSLPM(PHIEUMUON pmNew) {
+        int sumSLCTPM = 0;
+
+        for (PHIEUMUON pm : QLMUONBUS.dspm) {
+            for (CHITIETPHIEUMUON ctpm : QLCTMUONBUS.dsctpm) {
+                if (pm.getMaPM().trim().equals(pmNew.getMaPM().trim())
+                        && ctpm.getMaPM().trim().equals(pmNew.getMaPM().trim())) {
+                    sumSLCTPM = sumSLCTPM + ctpm.getSL();
+                }
+            }
         }
-        return 1;
+
+        if (sumSLCTPM > pmNew.getSLtong())
+            return -1;
+
+        return 0;
     }
 
     public int TinhTienThue(int vtPM) throws Exception {
@@ -113,11 +131,9 @@ public class QLMUONBUS {
         int songaymuon = data.TinhTienThue(NgayMuon, QLMTGUI.NgayTra);
         if (songaymuon > 0 && songaymuon <= 15) {
             ThanhTien = PHIEUTRASACH.Tienthue * songaymuon;
-        }
-        else if(songaymuon > 15 && songaymuon <= 30 || songaymuon > 15 && songaymuon <= 31){
-            ThanhTien = (PHIEUTRASACH.Tienthue + 2000) * songaymuon; 
-        }
-        else{
+        } else if (songaymuon > 15 && songaymuon <= 30 || songaymuon > 15 && songaymuon <= 31) {
+            ThanhTien = (PHIEUTRASACH.Tienthue + 2000) * songaymuon;
+        } else {
             ThanhTien = 0;
         }
         return ThanhTien;

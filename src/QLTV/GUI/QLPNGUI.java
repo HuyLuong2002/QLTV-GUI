@@ -31,9 +31,11 @@ import java.util.Properties;
 import java.util.Vector;
 
 public class QLPNGUI implements ActionListener, MouseListener {
+    public static int DonGiaCTPN = 0;
     JPanel pnPhieuNhap, pnNhapPhieu, pnNhapPN, pnPN, pnCTPN, pnTimKiemPN, pnLocPN, pnShowAll;
 
-    JLabel lbNhapPN, lbNhapCTPN, lbMaPN, lbNgayNhap, lbSLTong, lbDonGia, lbMaNV, lbMaNCC, lbCTPNMaPN, lbCTPNMaSach, lbCTPNSL,
+    JLabel lbNhapPN, lbNhapCTPN, lbMaPN, lbNgayNhap, lbSLTong, lbDonGia, lbMaNV, lbMaNCC, lbCTPNMaPN, lbCTPNMaSach,
+            lbCTPNSL,
             lbLCTKPN, lbTuKhoaTKPN, lbNgayBDLocPN, lbNgayKTLocPN;
 
     JTextField txMaPN, txSLTong, txDonGia, txCTPNSL, txKhoaTKPN;
@@ -46,7 +48,7 @@ public class QLPNGUI implements ActionListener, MouseListener {
 
     JComboBox<String> cbDSKhoaTKPN;
 
-    JTable tblQLPN,tblQLCTPN;
+    JTable tblQLPN, tblQLCTPN;
     DefaultTableModel modelPN, modelCTPN;
 
     UtilDateModel modelNgayBDPN;
@@ -64,11 +66,12 @@ public class QLPNGUI implements ActionListener, MouseListener {
     public QLPNGUI() {
 
     }
+
     MyTable myTable = new MyTable();
 
     public JPanel setPNGUI() {
         if (pnPhieuNhap == null) {
-                        pnPhieuNhap = new JPanel();
+            pnPhieuNhap = new JPanel();
             pnPhieuNhap.setBounds(240, 0, 1145, 800);
             pnPhieuNhap.setLayout(null);
             pnPhieuNhap.setBackground(MyColor.ColorBlue);
@@ -127,7 +130,7 @@ public class QLPNGUI implements ActionListener, MouseListener {
             setLocPN();
             getDBPhieuNhap();
             getDBCTPN();
-            myTable.setValueCellCenter(modelPN,tblQLPN);
+            myTable.setValueCellCenter(modelPN, tblQLPN);
             myTable.setValueCellCenter(modelCTPN, tblQLCTPN);
         }
         return pnPhieuNhap;
@@ -209,7 +212,7 @@ public class QLPNGUI implements ActionListener, MouseListener {
                 }
             }
         }
-        if(e.getSource() == btLocPN){
+        if (e.getSource() == btLocPN) {
             String tmp = datePickerNgayBDNhap.getJFormattedTextField().getText().replaceAll("-", "");
             String tmp1 = datePickerNgayKTNhap.getJFormattedTextField().getText().replaceAll("-", "");
             int BDNhap = Integer.parseInt(tmp);
@@ -217,18 +220,19 @@ public class QLPNGUI implements ActionListener, MouseListener {
             QLPNBUS qlnhapbus = new QLPNBUS();
             ArrayList<PHIEUNHAP> kq = qlnhapbus.LocPM(BDNhap, KTNhap);
             modelPN.setRowCount(0);
-            if(kq.size() == 0){
-                JOptionPane.showMessageDialog(null, "Kết quả lọc không thỏa điều kiện", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            }
-            else {
-                for(PHIEUNHAP pn : kq){
+            if (kq.size() == 0) {
+                JOptionPane.showMessageDialog(null, "Kết quả lọc không thỏa điều kiện", "Lỗi",
+                        JOptionPane.ERROR_MESSAGE);
+            } else {
+                for (PHIEUNHAP pn : kq) {
                     ShowOnTablePN(pn);
                 }
                 tblQLPN.setModel(modelPN);
-                JOptionPane.showMessageDialog(null, "Kết quả lọc: " + modelPN.getRowCount() +" Phiếu mượn có ngày mượn thỏa!");
+                JOptionPane.showMessageDialog(null,
+                        "Kết quả lọc: " + modelPN.getRowCount() + " Phiếu mượn có ngày mượn thỏa!");
             }
         }
-        if(e.getSource() == btShowAll){
+        if (e.getSource() == btShowAll) {
             modelPN.setRowCount(0);
             for (PHIEUNHAP pn : QLPNBUS.dspn) {
                 ShowOnTablePN(pn);
@@ -297,9 +301,10 @@ public class QLPNGUI implements ActionListener, MouseListener {
                 CHITIETPHIEUNHAP ctphieunhap = new CHITIETPHIEUNHAP();
                 getInfoTextFieldCTPN(ctphieunhap);
                 if (!ctphieunhap.getMaPN().trim().equals(String.valueOf(modelPN.getValueAt(i, 0)))) {
-                    JOptionPane.showMessageDialog(null, "Mã phiếu nhập tại bảng chi tiết khác với mã phiếu nhập","Lỗi",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Mã phiếu nhập tại bảng chi tiết khác với mã phiếu nhập", "Lỗi",
+                            JOptionPane.ERROR_MESSAGE);
                 } else {
-                        // Truy cập vào bus
+                    // Truy cập vào bus
                     QLCTPNBUS qlctphieunhapbus = new QLCTPNBUS();
                     int kiemtra = 0;
                     try {
@@ -309,6 +314,7 @@ public class QLPNGUI implements ActionListener, MouseListener {
                     }
                     if (kiemtra == 0) {
                         updateSLSachNhap(txCTPNMaSach.getText().trim());
+                        updateThanhTien(ctphieunhap.getMaPN().trim(), ctphieunhap.getSL() * DonGiaCTPN);
                         // Đưa dữ liệu lên table
                         header = new Vector<String>();
                         header.add("Mã phiếu nhập");
@@ -347,22 +353,22 @@ public class QLPNGUI implements ActionListener, MouseListener {
                 }
             }
         }
-        if(e.getSource() == btHoTroNhapMaPN){
+        if (e.getSource() == btHoTroNhapMaPN) {
             HoTroNhap hoTroNhapMaPN = new HoTroNhap();
             hoTroNhapMaPN.setHoTroNhapMaPN();
         }
-        if(e.getSource() == btHoTroNhapMaNV){
+        if (e.getSource() == btHoTroNhapMaNV) {
             HoTroNhap hoTroNhapMaNV = new HoTroNhap();
             hoTroNhapMaNV.setHoTroNhapMaNV();
-        } 
-        if(e.getSource() == btHoTroNhapMaNCC){
+        }
+        if (e.getSource() == btHoTroNhapMaNCC) {
             HoTroNhap hoTroNhapMaNCC = new HoTroNhap();
             hoTroNhapMaNCC.setHoTroNhapMaNCC();
-        }   
-        if(e.getSource() == btHoTroNhapMasachPN){
+        }
+        if (e.getSource() == btHoTroNhapMasachPN) {
             HoTroNhap hoTroNhapMaSach = new HoTroNhap();
             hoTroNhapMaSach.setHoTroNhapMasach();
-        }      
+        }
     }
 
     @Override
@@ -386,7 +392,7 @@ public class QLPNGUI implements ActionListener, MouseListener {
                 // Hiển thị trên textfield
                 PHIEUNHAP pnTextField = new PHIEUNHAP();
                 pnTextField = QLPNBUS.dspn.get(i);
-                txMaPN.setText(pnTextField.getMaPN());
+                txMaPN.setText(pnTextField.getMaPN().trim());
 
                 String tmp[] = pnTextField.getNgaynhap().split("-");
                 datePanelNgayBDPN.getModel().setDate(Integer.parseInt(tmp[0]), Integer.parseInt(tmp[1]),
@@ -394,8 +400,8 @@ public class QLPNGUI implements ActionListener, MouseListener {
 
                 txSLTong.setText(String.valueOf(pnTextField.getSLTong()));
                 txDonGia.setText(String.format("%,d", pnTextField.getDongia()));
-                txMaNV.setText(pnTextField.getMaNV());
-                txMaNCC.setText(pnTextField.getMaNCC());
+                txMaNV.setText(pnTextField.getMaNV().trim());
+                txMaNCC.setText(pnTextField.getMaNCC().trim());
             }
         }
         if (e.getSource() == tblQLCTPN) {
@@ -409,26 +415,41 @@ public class QLPNGUI implements ActionListener, MouseListener {
                 txCTPNSL.setText(SL);
             }
         }
+
+        if (e.getSource() == txDonGia) {
+            if (DonGiaCTPN == 0) {
+                JOptionPane.showMessageDialog(null, "Thiếu đơn giá. Mời nhập mã sách bên chi tiết để tính thành tiền!",
+                        "Lỗi",
+                        JOptionPane.ERROR_MESSAGE);
+            } else if (txCTPNSL.getText().equals("")) {
+                JOptionPane.showMessageDialog(null,
+                        "Thiếu số lượng. Mời nhập số lượng bên chi tiết để tính thành tiền!", "Lỗi",
+                        JOptionPane.ERROR_MESSAGE);
+            } else {
+                int thanhtien = Integer.parseInt(txCTPNSL.getText()) * DonGiaCTPN;
+                txDonGia.setText(String.format("%,d", thanhtien));
+            }
+        }
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        
+
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        
+
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        
+
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        
+
     }
 
     public void setTitlePN() {
@@ -461,7 +482,7 @@ public class QLPNGUI implements ActionListener, MouseListener {
             header.add("Mã phiếu nhập");
             header.add("Ngày nhập");
             header.add("SL tổng");
-            header.add("Đơn giá");
+            header.add("Thành tiền");
             header.add("Mã nhân viên");
             header.add("Mã nhà cung cấp");
             modelPN = new DefaultTableModel(header, 0);
@@ -500,7 +521,7 @@ public class QLPNGUI implements ActionListener, MouseListener {
         row.add(pn.getMaPN().replaceAll("\\s+", "").trim());
         row.add(pn.getNgaynhap().replaceAll("\\s+", "").trim());
         row.add(String.valueOf(pn.getSLTong()).replaceAll("\\s+", "").trim());
-        row.add(String.format("%,d",pn.getDongia()).replaceAll("\\s+", "").trim());
+        row.add(String.format("%,d", pn.getDongia()).replaceAll("\\s+", "").trim());
         row.add(pn.getMaNV().replaceAll("\\s+", "").trim());
         row.add(pn.getMaNCC().replaceAll("\\s+", "").trim());
         modelPN.addRow(row);
@@ -572,7 +593,7 @@ public class QLPNGUI implements ActionListener, MouseListener {
         lbSLTong.setFont(new Font("Arial", Font.BOLD, 18));
         lbSLTong.setBounds(0, 130, 170, 80);
 
-        lbDonGia = new JLabel("Đơn giá:");
+        lbDonGia = new JLabel("Thành tiền:");
         lbDonGia.setFont(new Font("Arial", Font.BOLD, 18));
         lbDonGia.setBounds(0, 175, 150, 80);
 
@@ -584,12 +605,6 @@ public class QLPNGUI implements ActionListener, MouseListener {
         lbMaNCC.setFont(new Font("Arial", Font.BOLD, 18));
         lbMaNCC.setBounds(0, 265, 150, 80);
 
-        // String[] dsTinhTrangTra = { "", "Bình thường", "Hư tổn" };
-        // cbTinhTrangTra = new JComboBox<>(dsTinhTrangTra);
-        // cbTinhTrangTra.setFont(new Font("Arial", Font.BOLD, 13));
-        // cbTinhTrangTra.setBounds(175, 155, 150, 30);
-        // cbTinhTrangTra.addActionListener(this);
-
         txMaPN = new JTextField();
         txMaPN.setBounds(175, 65, 150, 30);
         txMaPN.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -600,10 +615,11 @@ public class QLPNGUI implements ActionListener, MouseListener {
         txSLTong.setFont(new Font("Arial", Font.PLAIN, 15));
         txSLTong.addMouseListener(this);
 
-        txDonGia = new JTextField();
+        txDonGia = new JTextField("0");
         txDonGia.setBounds(175, 200, 150, 30);
         txDonGia.setFont(new Font("Arial", Font.PLAIN, 15));
         txDonGia.addMouseListener(this);
+        txDonGia.setEditable(false);
 
         txMaNV = new JTextField();
         txMaNV.setBounds(175, 245, 108, 30);
@@ -675,7 +691,7 @@ public class QLPNGUI implements ActionListener, MouseListener {
         pnNhapPN.add(btThemPN);
         pnNhapPN.add(btSuaPN);
         pnNhapPN.add(btHoTroNhapMaNV);
-        pnNhapPN.add(btHoTroNhapMaNCC);    
+        pnNhapPN.add(btHoTroNhapMaNCC);
     }
 
     public void setInputCTPN() {
@@ -776,7 +792,7 @@ public class QLPNGUI implements ActionListener, MouseListener {
             txKhoaTKPN.setFont(new Font("Arial", Font.PLAIN, 15));
             txKhoaTKPN.setBounds(250, 110, 150, 30);
 
-            String[] dsKhoaTK = { "", "Mã phiếu nhập", "SL tổng", "Đơn giá", "Mã nhân viên", "Mã NCC"};
+            String[] dsKhoaTK = { "", "Mã phiếu nhập", "SL tổng", "Đơn giá", "Mã nhân viên", "Mã NCC" };
             cbDSKhoaTKPN = new JComboBox<>(dsKhoaTK);
             cbDSKhoaTKPN.setFont(new Font("Arial", Font.BOLD, 13));
             cbDSKhoaTKPN.setBounds(250, 60, 120, 30);
@@ -920,6 +936,26 @@ public class QLPNGUI implements ActionListener, MouseListener {
             row.add(String.valueOf(sach.getSL()));
             row.add(String.format("%,d", sach.getDongia()));
             QLSACHGUI.model.addRow(row);
+        }
+    }
+
+    public void updateThanhTien(String MaPN, int ThanhTien) {
+        int i = 0;
+        for (PHIEUNHAP pn : QLPNBUS.dspn) {
+            if (pn.getMaPN().trim().equals(MaPN.trim())) {
+                int thanhtienBD = pn.getDongia();
+                pn.setDongia(thanhtienBD + ThanhTien);
+                QLPNBUS qlbus = new QLPNBUS();
+                try {
+                    int kt = qlbus.sua(pn, pn, i);
+                    if (kt == 0) {
+                        modelPN.setValueAt(String.format("%,d", pn.getDongia()), i, 3);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            i++;
         }
     }
 }
