@@ -3,6 +3,8 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 import QLTV.BUS.ACCOUNTBUS;
+import QLTV.DTO.ACCOUNT;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -17,6 +19,7 @@ public class LoginPage extends JFrame implements ActionListener {
     JButton buttonDangNhap,buttonDangKy,buttonForgotPasswd;
     ImageIcon imgIconHP;
     Color ColorPanel;
+    public static int Admin = -1;
 
     public LoginPage() throws InterruptedException{
         this.setTitle("Quản lý thư viện");
@@ -164,10 +167,11 @@ public class LoginPage extends JFrame implements ActionListener {
             } if(user.equals("") && pass.equals(""))
                 txusername.requestFocus();
             try {
-                int kt = -1;
+                ACCOUNT kt;
                 ACCOUNTBUS dangnhap = new ACCOUNTBUS();
                 kt = dangnhap.login(user, pass);
-                if(kt == 0){
+                if(kt != null){
+                    Admin = kt.getPhanQuyen();
                     this.dispose();
                     new Menu();
                 }

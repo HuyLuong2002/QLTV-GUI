@@ -32,9 +32,9 @@ import QLTV.BUS.QLTHELOAIBUS;
 import QLTV.DTO.THELOAI;
 
 public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListener {
-    JPanel pnTTTheLoai, pnNhapTTTL, pnShowAll, pnMenu, pnTimKiem;
+    JPanel pnTTTheLoai, pnNhapTTTL, pnShowAll, pnMenu, pnTimKiem, pnLibrary;
     JLabel lbHome, lbTTTL, lbMaTL, lbTenTL, lbSLTL, lbLCTK, lbTuKhoaTK;
-    JLabel lbTKMaTL;
+    JLabel lbTKMaTL, lbLibrary;
     JTextField txMaTL, txTenTL, txSLTL, txKhoaTK;
     JButton btThem, bttheloai, btSua, btXoa, btHoanTac, btMenuTimKiem, btShowAll;
     JButton btMenu, btSapXep, btDangXuat, btThoat;
@@ -59,9 +59,21 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
         pnShowAll = new JPanel();
         pnMenu = new JPanel();
         pnTimKiem = new JPanel();
+        pnLibrary = new JPanel();
+
         pnTTTheLoai.setLayout(new GridLayout(2, 1, 0, -300));
         pnTTTheLoai.setBounds(242, 0, 1142, 400);
         pnTTTheLoai.setBackground(MyColor.ColorBlue);
+
+        pnLibrary.setLayout(null);
+        pnLibrary.setBounds(0, 0, 240, 178);
+        pnLibrary.setBackground(MyColor.ColorOcean);
+
+        lbLibrary = new JLabel();
+        lbLibrary.setIcon(new ImageIcon("images\\user_login.png"));
+        lbLibrary.setBounds(55, 25, 125, 125);
+
+        pnLibrary.add(lbLibrary);
 
         pnShowAll.setLayout(null);
         pnShowAll.setBounds(242, 402, 1142, 30);
@@ -72,7 +84,7 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
         pnNhapTTTL.setBackground(MyColor.ColorBlue);
 
         pnMenu.setLayout(new GridLayout(9, 1));
-        pnMenu.setBounds(0, 178, 240, 590);
+        pnMenu.setBounds(0, 180, 240, 590);
         pnMenu.setBackground(MyColor.ColorOcean);
 
         pnTimKiem.setLayout(null);
@@ -84,6 +96,7 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
         this.add(pnShowAll);
         this.add(pnNhapTTTL);
         this.add(pnTimKiem);
+        this.add(pnLibrary);
 
         setTableNXB();
         setInput();

@@ -33,8 +33,8 @@ import QLTV.BUS.QLNCCBUS;
 import QLTV.DTO.NHACUNGCAP;
 
 public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
-    JPanel pnTTNCC, pnNhapTTNCC, pnShowAll, pnMenu, pnTimKiem;
-    JLabel lbHome, lbTTNCC, lbMaNCC, lbTenNCC, lbLCTK, lbTuKhoaTK;
+    JPanel pnTTNCC, pnNhapTTNCC, pnShowAll, pnMenu, pnTimKiem, pnLibrary;
+    JLabel lbHome, lbTTNCC, lbMaNCC, lbTenNCC, lbLCTK, lbTuKhoaTK, lbLibrary;
     JLabel lbTKMaNCC;
     JTextField txMaNCC, txTenNCC, txKhoaTK;
     JButton btThem, btnxb, btSua, btXoa, btHoanTac, btMenuTimKiem, btShowAll, btThongKe;
@@ -60,9 +60,21 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
         pnShowAll = new JPanel();
         pnMenu = new JPanel();
         pnTimKiem = new JPanel();
+        pnLibrary = new JPanel();
+        
         pnTTNCC.setLayout(new GridLayout(2, 1, 0, -300));
         pnTTNCC.setBounds(242, 0, 1142, 400);
         pnTTNCC.setBackground(MyColor.ColorBlue);
+
+        pnLibrary.setLayout(null);
+        pnLibrary.setBounds(0, 0, 240, 178);
+        pnLibrary.setBackground(MyColor.ColorOcean);
+
+        lbLibrary = new JLabel();
+        lbLibrary.setIcon(new ImageIcon("images\\user_login.png"));
+        lbLibrary.setBounds(55, 25, 125, 125);
+
+        pnLibrary.add(lbLibrary);
 
         pnShowAll.setLayout(null);
         pnShowAll.setBounds(242, 402, 1142, 30);
@@ -73,7 +85,7 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
         pnNhapTTNCC.setBackground(MyColor.ColorBlue);
 
         pnMenu.setLayout(new GridLayout(9, 1));
-        pnMenu.setBounds(0, 178, 240, 590);
+        pnMenu.setBounds(0, 180, 240, 590);
         pnMenu.setBackground(MyColor.ColorOcean);
 
         pnTimKiem.setLayout(null);
@@ -85,6 +97,7 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
         this.add(pnShowAll);
         this.add(pnNhapTTNCC);
         this.add(pnTimKiem);
+        this.add(pnLibrary);
 
         setTableNXB();
         setInput();
