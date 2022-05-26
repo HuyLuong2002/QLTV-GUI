@@ -41,6 +41,34 @@ public class ACCOUNTDAO {
         return dsacc;
     }
 
+    public ACCOUNT DangNhap(String username, String pass) throws SQLException{
+        String qry = "SELECT * FROM ACCOUNT WHERE USERNAME=? AND PASS=?";
+        PreparedStatement ps = conn.prepareStatement(qry);
+        ps.setString(1, username);
+        ps.setString(2, pass);
+        rs = ps.executeQuery();
+        while(rs.next()){
+            ACCOUNT acc = new ACCOUNT();
+            acc.setUsername(rs.getString(1));
+            acc.setPassword(rs.getString(2));
+            acc.setHoLot(rs.getString(3));
+            acc.setTen(rs.getString(4));
+            acc.setNgaySinh(rs.getString(5));
+            acc.setGioiTinh(rs.getString(6));
+            acc.setSDT(rs.getString(7));
+            acc.setPhanQuyen(Integer.parseInt(rs.getString(8)));
+            return acc;
+        }
+        if (username.equals("") || pass.equals("")){
+            JOptionPane.showMessageDialog(null, "Thiếu thông tin đăng nhập!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            return null;
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Đăng nhập thất bại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+    }
+
     public int them(ACCOUNT account){
         try {
             String qry = "INSERT INTO ACCOUNT VALUES (?,?,?,?,?,?,?,?)";
@@ -121,27 +149,6 @@ public class ACCOUNTDAO {
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Xóa dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    public int DangNhap(String username, String pass) throws SQLException{
-        String qry = "SELECT * FROM ACCOUNT WHERE USERNAME=? AND PASS=?";
-        PreparedStatement ps = conn.prepareStatement(qry);
-        ps.setString(1, username);
-        ps.setString(2, pass);
-        rs = ps.executeQuery();
-
-        if (username.equals("") || pass.equals("")){
-            JOptionPane.showMessageDialog(null, "Thiếu thông tin đăng nhập!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            return -1;
-        }
-        else if (rs.next()){
-            JOptionPane.showMessageDialog(null, "Đăng nhập thành công!");
-            return 0;
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "Đăng nhập thất bại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return -1;
         }
     }
 }

@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Properties;
 import java.util.Vector;
 import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -21,7 +20,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -61,9 +59,6 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
     JButton btTK, btSearch, btLoc, btSapXep, btNhapExcel, btXuatExcel;
 
     JScrollPane pane;
-
-    JRadioButton rbNam, rbNu, rbKhac;
-    ButtonGroup buttonGroupGT;
     JComboBox<String> comboBoxDSKhoaTK;
 
     JTable tblQLSACH;
@@ -92,6 +87,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
 
         pnLibrary.setLayout(null);
         pnLibrary.setBounds(0, 0, 240, 178);
+        pnLibrary.setBackground(MyColor.ColorOcean);
 
         lbLibrary = new JLabel();
         lbLibrary.setIcon(new ImageIcon("images\\user_login.png"));
@@ -119,8 +115,6 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         pnLoc.setLayout(null);
         pnLoc.setBackground(MyColor.ColorBlue);
         pnLoc.setBounds(380, 105, 300, 180);
-
-        pnLibrary.setBackground(MyColor.ColorOcean);
         // add components
         this.add(pnMenu);
         this.add(pnShowAll);

@@ -66,10 +66,12 @@ public class ACCOUNTBUS {
                 return 0;
         return 1;
     }
-    public int login(String username, String pass) throws Exception{
-        int kt = -1;
+    public ACCOUNT login(String username, String pass) throws Exception{
+        ACCOUNT kt;
         ACCOUNTDAO data = new ACCOUNTDAO();
         kt = data.DangNhap(username, pass);
+        if (kt != null)
+            JOptionPane.showMessageDialog(null, "Đăng nhập thành công!");
         return kt;
     }
 }

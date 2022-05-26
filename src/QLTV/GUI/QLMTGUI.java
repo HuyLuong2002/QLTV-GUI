@@ -34,6 +34,7 @@ import org.jdatepicker.impl.UtilDateModel;
 import MyCustom.BangTTIn;
 import MyCustom.DateLabelFormatter;
 import MyCustom.HoTroNhap;
+import MyCustom.LoginPage;
 import MyCustom.MyTable;
 import MyCustom.RoundedBorder;
 import MyCustom.MyColor;
@@ -281,7 +282,6 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener, Ke
             myTable.setValueCellCenter(modelHDTP, tblQLHDTP);
             myTable.setValueCellCenter(modelCTHDTP, tblQLCTHDTP);
             SetInputBtXoa();
-
         }
         return pnMuonTra;
     }
@@ -2380,6 +2380,15 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener, Ke
         pnNhapPM.add(btXoaCTPM);
         pnNhapPT.add(btXoaCTPT);
         pnNhapHDTP.add(btXoaCTHD);
+
+        if(LoginPage.Admin == 0){
+            btXoaPM.setVisible(false);
+            btXoaPT.setVisible(false);
+            btXoaHD.setVisible(false);
+            btXoaCTPM.setVisible(false);
+            btXoaCTPT.setVisible(false);
+            btXoaCTHD.setVisible(false);
+        }
     }
 
     public void setTimKiemPM() {

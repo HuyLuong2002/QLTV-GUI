@@ -33,8 +33,8 @@ import QLTV.BUS.QLNXBBUS;
 import QLTV.DTO.NXB;
 
 public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
-    JPanel pnTTNXB, pnNhapTTNXB, pnShowAll, pnMenu, pnTimKiem;
-    JLabel lbHome, lbTTNXB, lbMaNXB, lbTenNXB, lbLCTK, lbTuKhoaTK;
+    JPanel pnTTNXB, pnNhapTTNXB, pnShowAll, pnMenu, pnTimKiem, pnLibrary;
+    JLabel lbHome, lbTTNXB, lbMaNXB, lbTenNXB, lbLCTK, lbTuKhoaTK, lbLibrary;
     JLabel lbTKMaNXB;
     JTextField txMaNXB, txTenNXB, txKhoaTK;
     JButton btThem, btnxb, btSua, btXoa, btHoanTac, btMenuTimKiem, btShowAll, btThongKe;
@@ -60,9 +60,21 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
         pnShowAll = new JPanel();
         pnMenu = new JPanel();
         pnTimKiem = new JPanel();
+        pnLibrary = new JPanel();
+
         pnTTNXB.setLayout(new GridLayout(2, 1, 0, -300));
         pnTTNXB.setBounds(242, 0, 1142, 400);
         pnTTNXB.setBackground(MyColor.ColorBlue);
+
+        pnLibrary.setLayout(null);
+        pnLibrary.setBounds(0, 0, 240, 178);
+        pnLibrary.setBackground(MyColor.ColorOcean);
+
+        lbLibrary = new JLabel();
+        lbLibrary.setIcon(new ImageIcon("images\\user_login.png"));
+        lbLibrary.setBounds(55, 25, 125, 125);
+
+        pnLibrary.add(lbLibrary);
 
         pnShowAll.setLayout(null);
         pnShowAll.setBounds(242, 402, 1142, 30);
@@ -73,7 +85,7 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
         pnNhapTTNXB.setBackground(MyColor.ColorBlue);
 
         pnMenu.setLayout(new GridLayout(9, 1));
-        pnMenu.setBounds(0, 178, 240, 590);
+        pnMenu.setBounds(0, 180, 240, 590);
         pnMenu.setBackground(MyColor.ColorOcean);
 
         pnTimKiem.setLayout(null);
@@ -85,6 +97,7 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
         this.add(pnShowAll);
         this.add(pnNhapTTNXB);
         this.add(pnTimKiem);
+        this.add(pnLibrary);
 
         setTableNXB();
         setInput();

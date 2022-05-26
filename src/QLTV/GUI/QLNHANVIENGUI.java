@@ -34,10 +34,10 @@ import QLTV.DTO.NHANVIEN;
 
 public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListener {
     MyTable myTable = new MyTable();
-    JPanel pnTTnhanvien, pnNhapTTnhanvien, pnShowAll, pnMenu, pnTimKiem;
+    JPanel pnTTnhanvien, pnNhapTTnhanvien, pnShowAll, pnMenu, pnTimKiem, pnLibrary;
     JLabel lbHome, lbTTNhanVien, lbManhanvien, lbTennhanvien, lbChucvu, lbLuongCB, lbPhucap, lbHesoluong, lbSDT,
             lbEmail, lbLCTK, lbTuKhoaTK;
-    JLabel lbTKMaNV;
+    JLabel lbTKMaNV, lbLibrary;
     JTextField txMaNV, txTenNV, txChucvu, txLuongCB, txPhucap, txHesoluong, txSDT, txEmail, txKhoaTK;
     JButton btThem, btSua, btXoa, btHoanTac, btSapXep, btMenuTimKiem, btShowAll, btThongKe;
     JButton btMenu, btNhanvien, btDangXuat, btThoat;
@@ -61,9 +61,21 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
         pnShowAll = new JPanel();
         pnMenu = new JPanel();
         pnTimKiem = new JPanel();
+        pnLibrary = new JPanel();
+
         pnTTnhanvien.setLayout(new GridLayout(2, 1, 0, -300));
         pnTTnhanvien.setBounds(242, 0, 1142, 400);
         pnTTnhanvien.setBackground(MyColor.ColorBlue);
+
+        pnLibrary.setLayout(null);
+        pnLibrary.setBounds(0, 0, 240, 178);
+        pnLibrary.setBackground(MyColor.ColorOcean);
+
+        lbLibrary = new JLabel();
+        lbLibrary.setIcon(new ImageIcon("images\\user_login.png"));
+        lbLibrary.setBounds(55, 25, 125, 125);
+
+        pnLibrary.add(lbLibrary);
 
         pnShowAll.setLayout(null);
         pnShowAll.setBounds(242, 402, 1142, 30);
@@ -74,7 +86,7 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
         pnNhapTTnhanvien.setBackground(MyColor.ColorBlue);
 
         pnMenu.setLayout(new GridLayout(9, 1));
-        pnMenu.setBounds(0, 178, 240, 590);
+        pnMenu.setBounds(0, 180, 240, 590);
         pnMenu.setBackground(MyColor.ColorOcean);
 
         pnTimKiem.setLayout(null);
@@ -86,6 +98,7 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
         this.add(pnShowAll);
         this.add(pnNhapTTnhanvien);
         this.add(pnTimKiem);
+        this.add(pnLibrary);
 
         setTableNV();
         setInput();

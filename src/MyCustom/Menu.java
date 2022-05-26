@@ -57,9 +57,9 @@ public class Menu extends JFrame implements ActionListener {
         panelLibrary = new JPanel();
         panelLibrary.setLayout(null);
         panelLibrary.setBounds(0, 0, 240, 178);
-        panelLibrary.setBackground(ColorDeepAqua);
+        panelLibrary.setBackground(MyColor.ColorOcean);
 
-        labelQLTV = new JLabel("❥ ~ Quản lý thư viện ~ ❥");
+        labelQLTV = new JLabel("❤ ~ Quản lý thư viện ~ ❤");
         labelQLTV.setFont(new Font("Serif", Font.ITALIC, 35));
         labelQLTV.setForeground(Color.WHITE);
         labelQLTV.setBounds(310, 20, 400, 50);
@@ -69,7 +69,7 @@ public class Menu extends JFrame implements ActionListener {
         labelBackGroundMenu.setBounds(0, 0, 954, 629);
 
         labelLibrary = new JLabel();
-        labelLibrary.setIcon(new ImageIcon("images\\user_login1.png"));
+        labelLibrary.setIcon(new ImageIcon("images\\user_login.png"));
         labelLibrary.setBounds(55, 25, 125, 125);
 
         btSach = new JButton("Quản lý sách");
@@ -180,8 +180,12 @@ public class Menu extends JFrame implements ActionListener {
         }
         if (e.getSource() == btNhanvien) {
             try {
-                this.dispose();
-                new QLNHANVIENGUI();
+                if(LoginPage.Admin == 1){
+                    this.dispose();
+                    new QLNHANVIENGUI();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                }
             } catch (Exception e1) {
                 e1.printStackTrace();
             }

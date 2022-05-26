@@ -33,8 +33,8 @@ import QLTV.BUS.QLTACGIABUS;
 import QLTV.DTO.TACGIA;
 
 public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener {
-    JPanel pnTTTacgia, pnNhapTTTacgia, pnShowAll, pnMenu, pnTimKiem;
-    JLabel lbHome, lbTTTacgia, lbMatacgia, lbTentacgia, lbLCTK, lbTuKhoaTK;
+    JPanel pnTTTacgia, pnNhapTTTacgia, pnShowAll, pnMenu, pnTimKiem, pnLibrary;
+    JLabel lbHome, lbTTTacgia, lbMatacgia, lbTentacgia, lbLCTK, lbTuKhoaTK, lbLibrary;
     JLabel lbTKMatacgia;
     JTextField txMatacgia, txTentacgia, txKhoaTK;
     JButton btDoc, btThem, btSua, btXoa, btHoanTac, btMenuTimKiem, btShowAll, btThongKe;
@@ -60,9 +60,21 @@ public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener
         pnShowAll = new JPanel();
         pnMenu = new JPanel();
         pnTimKiem = new JPanel();
+        pnLibrary = new JPanel();
+
         pnTTTacgia.setLayout(new GridLayout(2, 1, 0, -300));
         pnTTTacgia.setBounds(242, 0, 1142, 400);
         pnTTTacgia.setBackground(MyColor.ColorBlue);
+
+        pnLibrary.setLayout(null);
+        pnLibrary.setBounds(0, 0, 240, 178);
+        pnLibrary.setBackground(MyColor.ColorOcean);
+
+        lbLibrary = new JLabel();
+        lbLibrary.setIcon(new ImageIcon("images\\user_login.png"));
+        lbLibrary.setBounds(55, 25, 125, 125);
+
+        pnLibrary.add(lbLibrary);
 
         pnShowAll.setLayout(null);
         pnShowAll.setBounds(242, 402, 1142, 30);
@@ -73,7 +85,7 @@ public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener
         pnNhapTTTacgia.setBackground(MyColor.ColorBlue);
 
         pnMenu.setLayout(new GridLayout(9, 1));
-        pnMenu.setBounds(0, 178, 240, 590);
+        pnMenu.setBounds(0, 180, 240, 590);
         pnMenu.setBackground(MyColor.ColorOcean);
 
         pnTimKiem.setLayout(null);
@@ -85,6 +97,7 @@ public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener
         this.add(pnShowAll);
         this.add(pnNhapTTTacgia);
         this.add(pnTimKiem);
+        this.add(pnLibrary);
 
         setTableTacGia();
         setInput();
