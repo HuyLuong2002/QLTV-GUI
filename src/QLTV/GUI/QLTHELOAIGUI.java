@@ -46,6 +46,7 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
     JTable tblQLTHELOAI;
     DefaultTableModel model;
     Vector<String> header;
+    private ImageIcon imgIconHP;
 
     public QLTHELOAIGUI() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -53,6 +54,8 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
         this.setTitle("Quản lý thông tin thể loại");
         this.setLayout(null);
         this.setLocationRelativeTo(null);
+        imgIconHP = new ImageIcon("images\\app_logo.png");
+        this.setIconImage(imgIconHP.getImage());
 
         pnTTTheLoai = new JPanel();
         pnNhapTTTL = new JPanel();

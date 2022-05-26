@@ -20,7 +20,7 @@ public class Menu extends JFrame implements ActionListener {
     JPanel panelMenu, panelBackGround, panelTitle, panelLibrary;
     JLabel labelQLTV, labelBackGroundMenu, labelLibrary;
     JButton btSach, btNhanvien, btNXB, btTheLoai, btTacGia, btNhaCC, btThoat, btDangXuat;
-    ImageIcon imagebackground;
+    ImageIcon imagebackground, imgIconHP;
     Color ColorOCean, ColorDeepAqua, ColorRed, ColorBlue;
 
     public Menu() {
@@ -29,7 +29,8 @@ public class Menu extends JFrame implements ActionListener {
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLayout(null);
-
+        imgIconHP = new ImageIcon("images\\app_logo.png");
+        this.setIconImage(imgIconHP.getImage());
         setMenu();
         // this.pack();
         this.setVisible(true);

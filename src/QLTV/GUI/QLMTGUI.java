@@ -80,13 +80,13 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener, Ke
             lbLCTKHD, lbTuKhoaTKHD;
     JButton btMenu, btSach, btMT, btQLNV, btDangXuat, btNhapSach, btMenuTimKiem, btThongKe;
     JButton btHoTroNhapMaPM, btHoTroNhapMaDG, btHoTroNhapPM_Tra, btHoTroNhapMasachPM, btHoTroNhapMasachPT,
-            btHoTroNhapMasachHD,
+            btHoTroNhapMasachHD, btHoTroNhapMaHD_DG,
             btHoTroNhapMaPT, btHoTroNhapMaHD, btShowAll,
             btTimKiemPM, btLocPM, btInPM, btTimKiemPT, btLocPT, btInPT,
             btTimKiemHDTP, btInHDTP;
-    JTextField txKhoaTKPM, txKhoaTKPT, txKhoaTKHDTP, txMaPT, txTienThue, txMaHD, txMaHD_DG,
+    JTextField txKhoaTKPM, txKhoaTKPT, txKhoaTKHDTP, txMaPT, txTienThue, txMaHD,
             txSLTongHD, txTienPhat;
-    public static JTextField txThanhTien;
+    public static JTextField txThanhTien, txMaHD_DG;
     JComboBox<String> cbTinhTrangTra, cbDSKhoaTKPM, cbDSKhoaTKPT, cbDSKhoaTKHDTP;
 
     TitledBorder titleMuon, titleTra, titleHDTP, titleCTHDTP;
@@ -922,7 +922,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener, Ke
             int XacNhanXoa = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa không ?", "Thông báo",
                     JOptionPane.YES_NO_OPTION);
             if (XacNhanXoa == 0) {
-                String masach = txCTPMMaPM.getText();
+                String masach = txCTPMMaSach.getText();
                 int i = tblQLCTMuon.getSelectedRow();
                 int kt = -1;
                 if (i >= 0) {
@@ -972,7 +972,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener, Ke
             int XacNhanXoa = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa không ?", "Thông báo",
                     JOptionPane.YES_NO_OPTION);
             if (XacNhanXoa == 0) {
-                String masach = txCTPTMaPT.getText();
+                String masach = txCTPTMaSach.getText();
                 int i = tblQLCTTra.getSelectedRow();
                 int kt = -1;
                 if (i >= 0) {
@@ -1022,7 +1022,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener, Ke
             int XacNhanXoa = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa không ?", "Thông báo",
                     JOptionPane.YES_NO_OPTION);
             if (XacNhanXoa == 0) {
-                String masach = txCTHDMaHD.getText();
+                String masach = txCTHDMaSach.getText();
                 int i = tblQLCTHDTP.getSelectedRow();
                 int kt = -1;
                 if (i >= 0) {
@@ -1070,6 +1070,10 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener, Ke
         if (e.getSource() == btHoTroNhapMaDG) {
             HoTroNhap hoTroNhapMaDG = new HoTroNhap();
             hoTroNhapMaDG.setHoTroNhapMaDG();
+        }
+        if (e.getSource() == btHoTroNhapMaHD_DG) {
+            HoTroNhap hoTroNhapMaDG = new HoTroNhap();
+            hoTroNhapMaDG.setHoTroNhapMaDG_HD();
         }
         if (e.getSource() == btHoTroNhapPM_Tra) {
             HoTroNhap hoTroNhapMaPM_Tra = new HoTroNhap();
@@ -2177,9 +2181,10 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener, Ke
         txMaHD.addMouseListener(this);
 
         txMaHD_DG = new JTextField();
-        txMaHD_DG.setBounds(175, 110, 150, 30);
+        txMaHD_DG.setBounds(175, 110, 105, 30);
         txMaHD_DG.setFont(new Font("Arial", Font.PLAIN, 15));
         txMaHD_DG.addMouseListener(this);
+        txMaHD_DG.setEditable(false);
 
         txSLTongHD = new JTextField();
         txSLTongHD.setBounds(175, 155, 150, 30);
@@ -2207,6 +2212,13 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener, Ke
         btSuaHDTP.setBorder(new RoundedBorder(10));
         btSuaHDTP.addActionListener(this);
 
+        btHoTroNhapMaHD_DG = new JButton("...");
+        btHoTroNhapMaHD_DG.setFont(new Font("Arial", Font.BOLD, 15));
+        btHoTroNhapMaHD_DG.setBounds(285, 110, 40, 30);
+        btHoTroNhapMaHD_DG.setBackground(MyColor.ColorButton);
+        btHoTroNhapMaHD_DG.setBorder(new RoundedBorder(10));
+        btHoTroNhapMaHD_DG.addActionListener(this);
+
         pnNhapHDTP.add(lbNhapHDTP);
         pnNhapHDTP.add(lbMaHD);
         pnNhapHDTP.add(lbMaHD_DG);
@@ -2220,6 +2232,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener, Ke
 
         pnNhapHDTP.add(btThemHDTP);
         pnNhapHDTP.add(btSuaHDTP);
+        pnNhapHDTP.add(btHoTroNhapMaHD_DG);
     }
 
     public void setInputCTHDTP() {

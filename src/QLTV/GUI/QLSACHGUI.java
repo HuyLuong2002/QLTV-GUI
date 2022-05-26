@@ -69,6 +69,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
     Properties pNgayBD, pNgayKT;
     JDatePanelImpl datePanelNgayBD, datePanelNgayKT;
     JDatePickerImpl datePickerNgayBD, datePickerNgayKT;
+    private ImageIcon imgIconHP;
 
     public QLSACHGUI() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -76,6 +77,8 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         this.setTitle("Quản lý thông tin sách");
         this.setLayout(null);
         this.setLocationRelativeTo(null);
+        imgIconHP = new ImageIcon("images\\app_logo.png");
+        this.setIconImage(imgIconHP.getImage());
 
         pnTTSach = new JPanel();
         pnNhapTTSach = new JPanel();

@@ -47,6 +47,7 @@ public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener
     JTable tblQLTACGIA;
     DefaultTableModel model;
     Vector<String> header;
+    private ImageIcon imgIconHP;
 
     public QLTACGIAGUI() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -54,6 +55,8 @@ public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener
         this.setTitle("Quản lý thông tin tác giả");
         this.setLayout(null);
         this.setLocationRelativeTo(null);
+        imgIconHP = new ImageIcon("images\\app_logo.png");
+        this.setIconImage(imgIconHP.getImage());
 
         pnTTTacgia = new JPanel();
         pnNhapTTTacgia = new JPanel();
