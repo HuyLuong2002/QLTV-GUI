@@ -55,11 +55,12 @@ public class QLSACHBUS {
                     JOptionPane.ERROR_MESSAGE);
             return -1;
         } else {
+            int kt = 0;
             // Truy cập vào database
             QLSACHDAO data = new QLSACHDAO();
-            data.themDataExcel(sach);
+            kt=data.themDataExcel(sach);
             dssach.add(sach);
-            return 1;
+            return kt;
         }
     }
 

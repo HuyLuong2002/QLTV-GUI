@@ -905,8 +905,6 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener, Ke
                 if (i >= 0) {
                     try {
                         // Truy cập xuống BUS
-                        PHIEUMUON PMOld = QLMUONBUS.dspm.get(i);
-                        QLMUONBUS.htXoa.add(PMOld);
                         QLMUONBUS qlsachbus = new QLMUONBUS();
                         kt = qlsachbus.xoa(masach, i);
                         // Quay dề GUI

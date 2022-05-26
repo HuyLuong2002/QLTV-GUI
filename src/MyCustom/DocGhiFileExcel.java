@@ -63,19 +63,19 @@ public class DocGhiFileExcel {
                     sach.setTensach(excelTensach.getStringCellValue());
                     sach.setMaNXB(excelNXB.getStringCellValue());
                     sach.setMaTG(excelTG.getStringCellValue());
-                    sach.setNamXB(String.valueOf(excelNamXB.getStringCellValue()).substring(0, 4));
-                    sach.setSLtong(Integer.parseInt(excelSLtong.getStringCellValue()));
-                    sach.setSL(Integer.parseInt((excelSL.getStringCellValue())));
-                    sach.setDongia(Integer.parseInt(myTable.RemoveCommaInString(excelDongia.getStringCellValue())));
+                    sach.setNamXB(String.valueOf(excelNamXB.getNumericCellValue()).substring(0, 4));
+                    sach.setSLtong((int)excelSLtong.getNumericCellValue());
+                    sach.setSL((int)(excelSL.getNumericCellValue()));
+                    sach.setDongia((int)((excelDongia.getNumericCellValue())));
 
                     QLSACHBUS qlsachbus = new QLSACHBUS();
-                    int kiemtra = 0;
+                    int kiemtra = -1;
                     try {
                         kiemtra = qlsachbus.themDataExcel(sach);
                     } catch (Exception e1) {
                         e1.printStackTrace();
                     }
-                    if (kiemtra == 1) {
+                    if (kiemtra == 0) {
                         // Đưa dữ liệu lên table
                         Vector <String> header = new Vector<String>();
                         header.add("Mã sách");
@@ -104,7 +104,18 @@ public class DocGhiFileExcel {
                     XSSFRow excelRow = excelSheet.createRow(i + 1);
                     for (int j = 0; j < model.getColumnCount(); j++) {
                         XSSFCell excelCell = excelRow.createCell(j);
-                        excelCell.setCellValue(model.getValueAt(i, j).toString());
+                        if(j==4 || j==5 || j==6 || j==7) {
+                            if(j==7){
+                                excelCell.setCellValue(Integer.parseInt(myTable.RemoveCommaInString(String.valueOf(model.getValueAt(i, j)))));                                
+                            }
+                            else{
+                                excelCell.setCellValue(Integer.parseInt(String.valueOf(model.getValueAt(i,j))));
+                            }
+                        }
+                        else{
+                            excelCell.setCellValue(model.getValueAt(i, j).toString());
+                        }
+                        
                     }
                 }
                 // Append xlsx file extension to selected files. To

@@ -70,7 +70,7 @@ public class QLSACHDAO {
         }
     }
 
-    public void themDataExcel(SACH sach) {
+    public int themDataExcel(SACH sach) {
         try {
             String qry = "insert into SACH values  (" + "'" + sach.getMasach() + "'"
                     + "," + "N'" + sach.getTensach() + "'" + "," + "'" + sach.getMaNXB() + "'" + ","
@@ -80,9 +80,11 @@ public class QLSACHDAO {
                     + ")";
             st = conn.createStatement();
             st.executeUpdate(qry);
+            return 0;
         } catch (SQLException e) {
             System.out.println(e);
             JOptionPane.showMessageDialog(null, "Thêm dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return -1;
         }
     }
 
