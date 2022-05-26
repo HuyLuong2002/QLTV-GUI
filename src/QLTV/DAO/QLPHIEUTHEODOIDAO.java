@@ -104,10 +104,6 @@ public class QLPHIEUTHEODOIDAO {
             ps.setString(1, ptd.getMaDG());
             ps.setString(2, String.valueOf(ptd.getTongmuon()));
             ps.setString(3, String.valueOf(ptd.getTiencoc()));
-
-
-            ps.executeUpdate();
-
             return 0;
         } catch (SQLException e) {
             System.out.println(e);

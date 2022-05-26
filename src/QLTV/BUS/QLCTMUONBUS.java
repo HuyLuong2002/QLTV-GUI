@@ -1,6 +1,8 @@
 package QLTV.BUS;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.swing.JOptionPane;
 
@@ -10,7 +12,7 @@ import QLTV.DTO.PHIEUMUON;
 
 public class QLCTMUONBUS {
     public static ArrayList<CHITIETPHIEUMUON> dsctpm;
-    public static ArrayList<CHITIETPHIEUMUON> htXoa = new ArrayList<CHITIETPHIEUMUON>();
+    public static Set<CHITIETPHIEUMUON> htXoa = new HashSet<CHITIETPHIEUMUON>();
 
     public QLCTMUONBUS() {
 
@@ -55,6 +57,15 @@ public class QLCTMUONBUS {
             }
             return kt;
         }
+    }
+
+    public int xoa(String MaSV, int i) throws Exception {
+        int kt = -1;
+        QLCTMUONDAO data = new QLCTMUONDAO();
+        kt = data.xoa(MaSV);
+        if(kt == 0)
+            dsctpm.remove(i);
+        return kt;
     }
 
     public int checkSLCTPM(CHITIETPHIEUMUON ctpmNew) {

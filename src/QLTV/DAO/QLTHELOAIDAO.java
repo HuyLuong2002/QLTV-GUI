@@ -68,14 +68,8 @@ public class QLTHELOAIDAO {
             ps.setString(1, theloai.getMaTL());
             ps.setString(2, theloai.getTenTL());
             ps.setString(3, String.valueOf(theloai.getSLTL()));
-            int n = ps.executeUpdate();
-            if (n != 0) {
-                JOptionPane.showMessageDialog(null, "Hoàn tác dữ liệu thành công", "Thông báo",
-                        JOptionPane.INFORMATION_MESSAGE);
-            }
             return 0;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Hoàn tác liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return -1;
         }
     }

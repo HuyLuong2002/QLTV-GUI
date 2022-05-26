@@ -80,10 +80,13 @@ public class QLSACHBUS {
         }
     }
 
-    public void xoa(String MaSV, int i) throws Exception {
+    public int xoa(String MaSV, int i) throws Exception {
+        int kt = -1;
         QLSACHDAO data = new QLSACHDAO();
-        data.xoa(MaSV);
-        dssach.remove(i);
+        kt = data.xoa(MaSV);
+        if(kt == 0)
+            dssach.remove(i);
+        return kt;
     }
 
     public int hoantacXoa(SACH sach) throws Exception {

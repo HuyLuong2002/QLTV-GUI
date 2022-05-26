@@ -64,15 +64,8 @@ public class QLNXBDAO {
             PreparedStatement ps = conn.prepareStatement(qry);
             ps.setString(1, nxb.getMaNXB());
             ps.setString(2, nxb.getTenNXB());
-            int n = ps.executeUpdate();
-            if (n != 0) {
-                JOptionPane.showMessageDialog(null, "Hoàn tác dữ liệu thành công", "Thông báo",
-                        JOptionPane.INFORMATION_MESSAGE);
-            }
             return 0;
         } catch (SQLException e) {
-            System.out.println(e);
-            JOptionPane.showMessageDialog(null, "Hoàn tác dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return -1;
         }
     }

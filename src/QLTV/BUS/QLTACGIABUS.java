@@ -1,6 +1,8 @@
 package QLTV.BUS;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.swing.JOptionPane;
 
@@ -9,7 +11,7 @@ import QLTV.DTO.TACGIA;
 
 public class QLTACGIABUS {
     public static ArrayList<TACGIA> dstacgia;
-    public static ArrayList<TACGIA> htXoa = new ArrayList<TACGIA>();
+    public static Set<TACGIA> htXoa = new HashSet<TACGIA>();
     public static ArrayList<TACGIA> htSua = new ArrayList<TACGIA>();
 
     public QLTACGIABUS() {
@@ -30,28 +32,39 @@ public class QLTACGIABUS {
             return -1;
         } else {
             // Truy cập vào database
+            int kt = -1;
             QLTACGIADAO data = new QLTACGIADAO();
-            data.them(tacgia);
-            dstacgia.add(tacgia);
-            return 1;
+            kt = data.them(tacgia);
+            if(kt == 0)
+                dstacgia.add(tacgia);
+            return kt;
         }
     }
 
     public int sua(TACGIA tacgiamoi, TACGIA tacgiacu, int i) throws Exception {
         // Truy cập vào database
-        int kt = 0;
-        QLTACGIADAO data = new QLTACGIADAO();
-        kt = data.sua(tacgiamoi, tacgiacu);
-        if (kt == 0) {
-            dstacgia.set(i, tacgiamoi);
+        if (KTTen(tacgiamoi.getTenTacGia().replaceAll("\\s+", "").toLowerCase()) == 0) {
+            JOptionPane.showMessageDialog(null, "Tên Tác Giả vừa nhập bị trùng. Mời nhập lại!", "Lỗi",
+                    JOptionPane.ERROR_MESSAGE);
+            return -1;
+        } else {
+            int kt = -1;
+            QLTACGIADAO data = new QLTACGIADAO();
+            kt = data.sua(tacgiamoi, tacgiacu);
+            if (kt == 0) {
+                dstacgia.set(i, tacgiamoi);
+            }
+            return kt;
         }
-        return kt;
     }
 
-    public void xoa(String MaSV, int i) throws Exception {
+    public int xoa(String MaSV, int i) throws Exception {
+        int kt = -1;
         QLTACGIADAO data = new QLTACGIADAO();
-        data.xoa(MaSV);
-        dstacgia.remove(i);
+        kt = data.xoa(MaSV);
+        if(kt == 0)
+            dstacgia.remove(i);
+        return kt;
     }
 
     public int hoantacXoa(TACGIA tacgia) throws Exception {
@@ -61,16 +74,26 @@ public class QLTACGIABUS {
             return -1;
         } else {
             // Truy cập vào database
+            int kt = -1;
             QLTACGIADAO data = new QLTACGIADAO();
-            data.hoantacXoa(tacgia);
-            dstacgia.add(tacgia);
-            return 1;
+            kt = data.hoantacXoa(tacgia);
+            if(kt == 0)
+                dstacgia.add(tacgia);
+            return kt;
         }
     }
 
     public int KTMa(String MaTacGiaMoi) {
         for (TACGIA tacgia : dstacgia)
-            if (tacgia.getMaTacGia().equals(MaTacGiaMoi)) {
+            if (tacgia.getMaTacGia().replaceAll("\\s+", "").toLowerCase().equals(MaTacGiaMoi)) {
+                return 0;
+            }
+        return 1;
+    }
+
+    public int KTTen(String MaTacGiaMoi) {
+        for (TACGIA tacgia : dstacgia)
+            if (tacgia.getTenTacGia().replaceAll("\\s+", "").toLowerCase().equals(MaTacGiaMoi)) {
                 return 0;
             }
         return 1;
@@ -78,7 +101,7 @@ public class QLTACGIABUS {
 
     public TACGIA timTheoMa(String Matacgia) {
         for (TACGIA sach : dstacgia)
-            if (sach.getMaTacGia().trim().equals(Matacgia))
+            if (sach.getMaTacGia().replaceAll("\\s+", "").toLowerCase().equals(Matacgia))
                 return sach;
         return null;
     }
@@ -86,7 +109,7 @@ public class QLTACGIABUS {
     public ArrayList<TACGIA> timTheoTen(String Tentacgia) {
         ArrayList<TACGIA> kq = new ArrayList<TACGIA>();
         for (TACGIA sach : dstacgia)
-            if (sach.getTenTacGia().trim().indexOf(Tentacgia) >= 0)
+            if (sach.getTenTacGia().replaceAll("\\s+", "").toLowerCase().indexOf(Tentacgia) >= 0)
                 kq.add(sach);
         return kq;
     }

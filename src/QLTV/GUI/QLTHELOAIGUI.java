@@ -448,7 +448,7 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
         lbHome.setIcon(iconHome);
 
         btMenu = new JButton("Menu");
-        btMenu.setFont(new Font("Arial", Font.BOLD, 20));
+        btMenu.setFont(new Font("Times new Roman", Font.BOLD, 20));
         btMenu.setBackground(MyColor.ColorOcean);
         btMenu.setIcon(iconMenu);
         btMenu.setHorizontalAlignment(SwingConstants.LEFT);
@@ -456,7 +456,7 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
         btMenu.addActionListener(this);
 
         bttheloai = new JButton("Thông tin thể loại");
-        bttheloai.setFont(new Font("Arial", Font.BOLD, 20));
+        bttheloai.setFont(new Font("Times new Roman", Font.BOLD, 20));
         bttheloai.setBackground(MyColor.ColorLightBlue);
         bttheloai.setIcon(iconPubCompany);
         bttheloai.setHorizontalAlignment(SwingConstants.LEFT);
@@ -464,7 +464,7 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
         bttheloai.addActionListener(this);
 
         btMenuTimKiem = new JButton("Tìm kiếm thể loại");
-        btMenuTimKiem.setFont(new Font("Arial", Font.BOLD, 20));
+        btMenuTimKiem.setFont(new Font("Times new Roman", Font.BOLD, 20));
         btMenuTimKiem.setBackground(MyColor.ColorOcean);
         btMenuTimKiem.setIcon(iconSearch);
         btMenuTimKiem.setHorizontalAlignment(SwingConstants.LEFT);
@@ -473,7 +473,7 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
 
         // JButton Đăng xuất
         btDangXuat = new JButton("Đăng xuất");
-        btDangXuat.setFont(new Font("Arial", Font.BOLD, 20));
+        btDangXuat.setFont(new Font("Times new Roman", Font.BOLD, 20));
         btDangXuat.setBackground(MyColor.ColorOcean);
         btDangXuat.setIcon(iconLogout);
         btDangXuat.setHorizontalAlignment(SwingConstants.LEFT);
@@ -481,7 +481,7 @@ public class QLTHELOAIGUI extends JFrame implements ActionListener, MouseListene
         btDangXuat.addActionListener(this);
         // JButton thoát
         btThoat = new JButton("Thoát");
-        btThoat.setFont(new Font("Arial", Font.BOLD, 20));
+        btThoat.setFont(new Font("Times new Roman", Font.BOLD, 20));
         btThoat.setBackground(MyColor.ColorOcean);
         btThoat.setIcon(iconExited);
         btThoat.setHorizontalAlignment(SwingConstants.LEFT);

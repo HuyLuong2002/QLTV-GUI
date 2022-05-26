@@ -69,9 +69,8 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener, Ke
             lbCTHDMaHD, lbCTHDMaSach, lbCTHDSL, lbCTHDDonGia, lbTienTra, lbTienThua, lbTraTienPhat;
 
     JLabel lbNgayBDLocPM, lbNgayKTLocPM, lbNgayBDLocPT, lbNgayKTLocPT;
-    JButton btThoat, btSuaPM, btThemPM, btXoa, btHoanTac,
-            btSuaCTPM, btThemCTPM, btThemPT, btSuaPT, btThemCTPT, btSuaCTPT, btThemHDTP, btSuaHDTP, btThemCTHD,
-            btSuaCTHD;
+    JButton btThoat, btSuaPM, btThemPM, btSuaCTPM, btThemCTPM, btThemPT, btSuaPT, btThemCTPT, btSuaCTPT, 
+            btThemHDTP, btSuaHDTP, btThemCTHD, btSuaCTHD, btXoaPM, btXoaCTPM, btXoaPT, btXoaCTPT, btXoaHD, btXoaCTHD;
     JTextField txMaPM, txSLtong, txKhoaTK, txTienTra_M, txTienTra_HD, txTienThua, txTraTienPhat;
     public static JTextField txCTPMMaPM, txCTPMMaSach, txCTPMSL, txCTPTMaPT, txCTPTMaSach, txCTHDMaHD, txCTHDMaSach,
             txCTHDSL, txCTHDDonGia, txCTPTSL, txMaDG, txMaPMTra;
@@ -281,6 +280,7 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener, Ke
             getDBCTHDTP();
             myTable.setValueCellCenter(modelHDTP, tblQLHDTP);
             myTable.setValueCellCenter(modelCTHDTP, tblQLCTHDTP);
+            SetInputBtXoa();
 
         }
         return pnMuonTra;
@@ -895,6 +895,156 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener, Ke
                         "Kết quả lọc: " + modelTra.getRowCount() + " Phiếu trả có ngày trả thỏa!");
             }
         }
+        if(e.getSource() == btXoaPM){
+            int XacNhanXoa = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa không ?", "Thông báo",
+                    JOptionPane.YES_NO_OPTION);
+            if (XacNhanXoa == 0) {
+                String masach = txMaPM.getText();
+                int i = tblQLMuon.getSelectedRow();
+                int kt = -1;
+                if (i >= 0) {
+                    try {
+                        // Truy cập xuống BUS
+                        PHIEUMUON PMOld = QLMUONBUS.dspm.get(i);
+                        QLMUONBUS.htXoa.add(PMOld);
+                        QLMUONBUS qlsachbus = new QLMUONBUS();
+                        kt = qlsachbus.xoa(masach, i);
+                        // Quay dề GUI
+                    } catch (Exception e1) {
+                        System.out.println(e1);
+                    }
+                    if(kt == 0){
+                        modelMuon.removeRow(i);
+                        tblQLMuon.setModel(modelMuon);
+                    }
+                }
+            }
+        }
+        if(e.getSource() == btXoaCTPM){
+            int XacNhanXoa = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa không ?", "Thông báo",
+                    JOptionPane.YES_NO_OPTION);
+            if (XacNhanXoa == 0) {
+                String masach = txCTPMMaPM.getText();
+                int i = tblQLCTMuon.getSelectedRow();
+                int kt = -1;
+                if (i >= 0) {
+                    try {
+                        // Truy cập xuống BUS
+                        CHITIETPHIEUMUON CTPMOld = QLCTMUONBUS.dsctpm.get(i);
+                        QLCTMUONBUS.htXoa.add(CTPMOld);
+                        QLCTMUONBUS qlsachbus = new QLCTMUONBUS();
+                        kt = qlsachbus.xoa(masach, i);
+                        // Quay dề GUI
+                    } catch (Exception e1) {
+                        System.out.println(e1);
+                    }
+                    if(kt == 0){
+                        modelCTMuon.removeRow(i);
+                        tblQLCTMuon.setModel(modelCTMuon);
+                    }
+                }
+            }
+        }
+        if(e.getSource() == btXoaPT){
+            int XacNhanXoa = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa không ?", "Thông báo",
+                    JOptionPane.YES_NO_OPTION);
+            if (XacNhanXoa == 0) {
+                String masach = txMaPT.getText();
+                int i = tblQLTra.getSelectedRow();
+                int kt = -1;
+                if (i >= 0) {
+                    try {
+                        // Truy cập xuống BUS
+                        PHIEUTRASACH PMOld = QLTRABUS.dspt.get(i);
+                        QLTRABUS.htXoa.add(PMOld);
+                        QLTRABUS qlsachbus = new QLTRABUS();
+                        kt = qlsachbus.xoa(masach, i);
+                        // Quay dề GUI
+                    } catch (Exception e1) {
+                        System.out.println(e1);
+                    }
+                    if(kt == 0){
+                        modelTra.removeRow(i);
+                        tblQLTra.setModel(modelTra);
+                    }
+                }
+            }
+        }
+        if(e.getSource() == btXoaCTPT){
+            int XacNhanXoa = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa không ?", "Thông báo",
+                    JOptionPane.YES_NO_OPTION);
+            if (XacNhanXoa == 0) {
+                String masach = txCTPTMaPT.getText();
+                int i = tblQLCTTra.getSelectedRow();
+                int kt = -1;
+                if (i >= 0) {
+                    try {
+                        // Truy cập xuống BUS
+                        CHITIETPHIEUTRA PMOld = QLCTTRABUS.dsctpt.get(i);
+                        QLCTTRABUS.htXoa.add(PMOld);
+                        QLCTTRABUS qlsachbus = new QLCTTRABUS();
+                        kt = qlsachbus.xoa(masach, i);
+                        // Quay dề GUI
+                    } catch (Exception e1) {
+                        System.out.println(e1);
+                    }
+                    if(kt == 0){
+                        modelCTTra.removeRow(i);
+                        tblQLCTTra.setModel(modelCTTra);
+                    }
+                }
+            }
+        }
+        if(e.getSource() == btXoaHD){
+            int XacNhanXoa = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa không ?", "Thông báo",
+                    JOptionPane.YES_NO_OPTION);
+            if (XacNhanXoa == 0) {
+                String masach = txMaHD.getText();
+                int i = tblQLHDTP.getSelectedRow();
+                int kt = -1;
+                if (i >= 0) {
+                    try {
+                        // Truy cập xuống BUS
+                        HDTIENPHAT PMOld = QLHDTPBUS.dshdtp.get(i);
+                        QLHDTPBUS.htXoa.add(PMOld);
+                        QLHDTPBUS qlsachbus = new QLHDTPBUS();
+                        kt = qlsachbus.xoa(masach, i);
+                        // Quay dề GUI
+                    } catch (Exception e1) {
+                        System.out.println(e1);
+                    }
+                    if(kt == 0){
+                        modelHDTP.removeRow(i);
+                        tblQLHDTP.setModel(modelHDTP);
+                    }
+                }
+            }
+        }
+        if(e.getSource() == btXoaCTHD){
+            int XacNhanXoa = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa không ?", "Thông báo",
+                    JOptionPane.YES_NO_OPTION);
+            if (XacNhanXoa == 0) {
+                String masach = txCTHDMaHD.getText();
+                int i = tblQLCTHDTP.getSelectedRow();
+                int kt = -1;
+                if (i >= 0) {
+                    try {
+                        // Truy cập xuống BUS
+                        CHITIETHDTIENPHAT PMOld = QLCTHDTPBUS.dscthdtp.get(i);
+                        QLCTHDTPBUS.htXoa.add(PMOld);
+                        QLCTHDTPBUS qlsachbus = new QLCTHDTPBUS();
+                        kt = qlsachbus.xoa(masach, i);
+                        // Quay dề GUI
+                    } catch (Exception e1) {
+                        System.out.println(e1);
+                    }
+                    if(kt == 0){
+                        modelCTHDTP.removeRow(i);
+                        tblQLCTHDTP.setModel(modelCTHDTP);
+                    }
+                }
+            }
+        }
         if (e.getSource() == btHoTroNhapMaPM) {
             HoTroNhap hoTroNhapMaPM = new HoTroNhap();
             hoTroNhapMaPM.setHoTroNhapCTPM();
@@ -1173,6 +1323,20 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener, Ke
         } else if (e.getSource() == txMaDG) {
             txMaDG.setToolTipText("Gợi ý: DG001");
         }
+        if(e.getSource() == txMaPT)
+            txMaPT.setToolTipText("Gợi ý: PT001");
+        if (e.getSource() == txMaHD)
+            txMaHD.setToolTipText("Gợi ý: HD001");
+        if(e.getSource() == txMaHD_DG)
+            txMaHD_DG.setToolTipText("Gợi ý: DG001");
+        if(e.getSource() == txSLTongHD)
+            txSLTongHD.setToolTipText("Gợi ý: Tổng sách hư");
+        if(e.getSource() == txCTHDSL)
+            txCTHDSL.setToolTipText("Số lượng sách");
+        if(e.getSource() == txTienTra_M)
+            txTienTra_M.setToolTipText("Nhấn Enter để tính");
+        if (e.getSource() == txTienTra_HD)
+            txTienTra_M.setToolTipText("Nhấn Shift để tính");
     }
 
     @Override
@@ -1667,31 +1831,17 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener, Ke
 
         btThemPM = new JButton("Thêm");
         btThemPM.setFont(new Font("Arial", Font.BOLD, 15));
-        btThemPM.setBounds(95, 325, 80, 30);
+        btThemPM.setBounds(10, 325, 80, 30);
         btThemPM.setBackground(MyColor.ColorButton);
         btThemPM.setBorder(new RoundedBorder(10));
         btThemPM.addActionListener(this);
 
         btSuaPM = new JButton("Sửa");
         btSuaPM.setFont(new Font("Arial", Font.BOLD, 15));
-        btSuaPM.setBounds(245, 325, 80, 30);
+        btSuaPM.setBounds(130, 325, 80, 30);
         btSuaPM.setBackground(MyColor.ColorButton);
         btSuaPM.setBorder(new RoundedBorder(10));
         btSuaPM.addActionListener(this);
-
-        btXoa = new JButton("Xóa");
-        btXoa.setFont(new Font("Arial", Font.BOLD, 15));
-        btXoa.setBounds(210, 305, 80, 30);
-        btXoa.setBackground(MyColor.ColorButton);
-        btXoa.setBorder(new RoundedBorder(10));
-        btXoa.addActionListener(this);
-
-        btHoanTac = new JButton("Hoàn tác");
-        btHoanTac.setFont(new Font("Arial", Font.BOLD, 15));
-        btHoanTac.setBounds(310, 305, 90, 30);
-        btHoanTac.setBackground(MyColor.ColorButton);
-        btHoanTac.setBorder(new RoundedBorder(10));
-        btHoanTac.addActionListener(this);
 
         btHoTroNhapMaDG = new JButton("...");
         btHoTroNhapMaDG.setFont(new Font("Arial", Font.BOLD, 15));
@@ -1754,14 +1904,14 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener, Ke
 
         btThemCTPM = new JButton("Thêm");
         btThemCTPM.setFont(new Font("Arial", Font.BOLD, 15));
-        btThemCTPM.setBounds(390, 200, 80, 30);
+        btThemCTPM.setBounds(370, 200, 80, 30);
         btThemCTPM.setBackground(MyColor.ColorButton);
         btThemCTPM.setBorder(new RoundedBorder(10));
         btThemCTPM.addActionListener(this);
 
         btSuaCTPM = new JButton("Sửa");
         btSuaCTPM.setFont(new Font("Arial", Font.BOLD, 15));
-        btSuaCTPM.setBounds(550, 200, 80, 30);
+        btSuaCTPM.setBounds(495, 200, 80, 30);
         btSuaCTPM.setBackground(MyColor.ColorButton);
         btSuaCTPM.setBorder(new RoundedBorder(10));
         btSuaCTPM.addActionListener(this);
@@ -1868,14 +2018,14 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener, Ke
 
         btThemPT = new JButton("Thêm");
         btThemPT.setFont(new Font("Arial", Font.BOLD, 15));
-        btThemPT.setBounds(95, 325, 80, 30);
+        btThemPT.setBounds(10, 325, 80, 30);
         btThemPT.setBackground(MyColor.ColorButton);
         btThemPT.setBorder(new RoundedBorder(10));
         btThemPT.addActionListener(this);
 
         btSuaPT = new JButton("Sửa");
         btSuaPT.setFont(new Font("Arial", Font.BOLD, 15));
-        btSuaPT.setBounds(245, 325, 80, 30);
+        btSuaPT.setBounds(130, 325, 80, 30);
         btSuaPT.setBackground(MyColor.ColorButton);
         btSuaPT.setBorder(new RoundedBorder(10));
         btSuaPT.addActionListener(this);
@@ -1957,14 +2107,14 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener, Ke
 
         btThemCTPT = new JButton("Thêm");
         btThemCTPT.setFont(new Font("Arial", Font.BOLD, 15));
-        btThemCTPT.setBounds(390, 195, 80, 30);
+        btThemCTPT.setBounds(370, 205, 80, 30);
         btThemCTPT.setBackground(MyColor.ColorButton);
         btThemCTPT.setBorder(new RoundedBorder(10));
         btThemCTPT.addActionListener(this);
 
         btSuaCTPT = new JButton("Sửa");
         btSuaCTPT.setFont(new Font("Arial", Font.BOLD, 15));
-        btSuaCTPT.setBounds(550, 195, 80, 30);
+        btSuaCTPT.setBounds(495, 205, 80, 30);
         btSuaCTPT.setBackground(MyColor.ColorButton);
         btSuaCTPT.setBorder(new RoundedBorder(10));
         btSuaCTPT.addActionListener(this);
@@ -2047,14 +2197,14 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener, Ke
 
         btThemHDTP = new JButton("Thêm");
         btThemHDTP.setFont(new Font("Arial", Font.BOLD, 15));
-        btThemHDTP.setBounds(95, 250, 80, 30);
+        btThemHDTP.setBounds(10, 250, 80, 30);
         btThemHDTP.setBackground(MyColor.ColorButton);
         btThemHDTP.setBorder(new RoundedBorder(10));
         btThemHDTP.addActionListener(this);
 
         btSuaHDTP = new JButton("Sửa");
         btSuaHDTP.setFont(new Font("Arial", Font.BOLD, 15));
-        btSuaHDTP.setBounds(245, 250, 80, 30);
+        btSuaHDTP.setBounds(130, 250, 80, 30);
         btSuaHDTP.setBackground(MyColor.ColorButton);
         btSuaHDTP.setBorder(new RoundedBorder(10));
         btSuaHDTP.addActionListener(this);
@@ -2134,14 +2284,14 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener, Ke
 
         btThemCTHD = new JButton("Thêm");
         btThemCTHD.setFont(new Font("Arial", Font.BOLD, 15));
-        btThemCTHD.setBounds(390, 250, 80, 30);
+        btThemCTHD.setBounds(370, 250, 80, 30);
         btThemCTHD.setBackground(MyColor.ColorButton);
         btThemCTHD.setBorder(new RoundedBorder(10));
         btThemCTHD.addActionListener(this);
 
         btSuaCTHD = new JButton("Sửa");
         btSuaCTHD.setFont(new Font("Arial", Font.BOLD, 15));
-        btSuaCTHD.setBounds(550, 250, 80, 30);
+        btSuaCTHD.setBounds(495, 250, 80, 30);
         btSuaCTHD.setBackground(MyColor.ColorButton);
         btSuaCTHD.setBorder(new RoundedBorder(10));
         btSuaCTHD.addActionListener(this);
@@ -2179,6 +2329,57 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener, Ke
         pnNhapHDTP.add(btSuaCTHD);
         pnNhapHDTP.add(btHoTroNhapMaHD);
         pnNhapHDTP.add(btHoTroNhapMasachHD);
+    }
+
+    public void SetInputBtXoa(){
+        btXoaPM = new JButton("Xóa");
+        btXoaPM.setFont(new Font("Arial", Font.BOLD, 15));
+        btXoaPM.setBounds(250, 325, 80, 30);
+        btXoaPM.setBackground(MyColor.ColorButton);
+        btXoaPM.setBorder(new RoundedBorder(10));
+        btXoaPM.addActionListener(this);
+
+        btXoaCTPM = new JButton("Xóa");
+        btXoaCTPM.setFont(new Font("Arial", Font.BOLD, 15));
+        btXoaCTPM.setBounds(620, 200, 80, 30);
+        btXoaCTPM.setBackground(MyColor.ColorButton);
+        btXoaCTPM.setBorder(new RoundedBorder(10));
+        btXoaCTPM.addActionListener(this);
+
+        btXoaPT = new JButton("Xóa");
+        btXoaPT.setFont(new Font("Arial", Font.BOLD, 15));
+        btXoaPT.setBounds(250, 325, 80, 30);
+        btXoaPT.setBackground(MyColor.ColorButton);
+        btXoaPT.setBorder(new RoundedBorder(10));
+        btXoaPT.addActionListener(this);
+        
+        btXoaCTPT = new JButton("Xóa");
+        btXoaCTPT.setFont(new Font("Arial", Font.BOLD, 15));
+        btXoaCTPT.setBounds(620, 205, 80, 30);
+        btXoaCTPT.setBackground(MyColor.ColorButton);
+        btXoaCTPT.setBorder(new RoundedBorder(10));
+        btXoaCTPT.addActionListener(this);
+        
+        btXoaHD = new JButton("Xóa");
+        btXoaHD.setFont(new Font("Arial", Font.BOLD, 15));
+        btXoaHD.setBounds(250, 250, 80, 30);
+        btXoaHD.setBackground(MyColor.ColorButton);
+        btXoaHD.setBorder(new RoundedBorder(10));
+        btXoaHD.addActionListener(this);
+
+        btXoaCTHD = new JButton("Xóa");
+        btXoaCTHD.setFont(new Font("Arial", Font.BOLD, 15));
+        btXoaCTHD.setBounds(620, 250, 80, 30);
+        btXoaCTHD.setBackground(MyColor.ColorButton);
+        btXoaCTHD.setBorder(new RoundedBorder(10));
+        btXoaCTHD.addActionListener(this);
+
+        pnNhapPM.add(btXoaPM);
+        pnNhapPT.add(btXoaPT);
+        pnNhapHDTP.add(btXoaHD);
+        pnNhapPM.add(btXoaCTPM);
+        pnNhapPT.add(btXoaCTPT);
+        pnNhapHDTP.add(btXoaCTHD);
     }
 
     public void setTimKiemPM() {

@@ -13,6 +13,7 @@ import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import MyCustom.HoTroNhap;
 import MyCustom.LoginPage;
 import MyCustom.MyColor;
 import MyCustom.MyTable;
@@ -29,8 +30,8 @@ public class QLNVGUI extends JFrame implements MouseListener, ActionListener {
     JLabel lbMaDG, lbTenDG, lbDiaChi, lbMail, lbTinhTrangThue, lbLCTKDG, lbTuKhoaTKDG;
     JLabel lbMaDGTDMT, lbTongMuon, lbTienCoc, lbLCTKTDMT, lbTuKhoaTKTDMT;
     JTextField txMaDG, txTenDG, txDiaChi, txMail, txKhoaTKDG, txKhoaTKTDMT;
-    JTextField txMaDGTDMT, txTongMuon, txTiencoc;
-    JButton btThemTDMT, btSuaTDMT, btXoaTDMT, btHoanTacTDMT, btTimKiemTDMT;
+    JTextField txTongMuon, txTiencoc;
+    JButton btThemTDMT, btSuaTDMT, btXoaTDMT, btHoanTacTDMT, btTimKiemTDMT, btHoTroNhapMaDG;
     JComboBox<String> cbTinhTrangThue, cbDSKhoaTKDG, cbDSKhoaTKTDMT;
     JTabbedPane tabbedPane;
     public JTable tblQLDG, tblQLTDMT;
@@ -38,6 +39,7 @@ public class QLNVGUI extends JFrame implements MouseListener, ActionListener {
     TitledBorder titleDG, titleTDMT;
     Vector<String> header;
     JButton btShowAll;
+    public static JTextField txMaDGTDMT;
 
     public QLNVGUI() {
 
@@ -333,7 +335,7 @@ public class QLNVGUI extends JFrame implements MouseListener, ActionListener {
 
     public void setInputDG() {
         lbMaDG = new JLabel("Mã độc giả");
-        lbMaDG.setFont(new Font("Arial", Font.BOLD, 20));
+        lbMaDG.setFont(new Font("Arial", Font.BOLD, 18));
         lbMaDG.setBounds(20, 0, 130, 80);
 
         lbTenDG = new JLabel("Tên độc giả:");
@@ -438,9 +440,10 @@ public class QLNVGUI extends JFrame implements MouseListener, ActionListener {
         lbTienCoc.setBounds(20, 80, 130, 80);
 
         txMaDGTDMT = new JTextField();
-        txMaDGTDMT.setBounds(180, 25, 180, 30);
+        txMaDGTDMT.setBounds(180, 25, 142, 30);
         txMaDGTDMT.setFont(new Font("Arial", Font.PLAIN, 15));
         txMaDGTDMT.addMouseListener(this);
+        txMaDGTDMT.setEditable(false);
 
         txTongMuon = new JTextField();
         txTongMuon.setBounds(180, 65, 180, 30);
@@ -482,6 +485,13 @@ public class QLNVGUI extends JFrame implements MouseListener, ActionListener {
         btHoanTacTDMT.setBorder(new RoundedBorder(10));
         btHoanTacTDMT.addActionListener(this);
 
+        btHoTroNhapMaDG = new JButton("...");
+        btHoTroNhapMaDG.setFont(new Font("Arial", Font.BOLD, 15));
+        btHoTroNhapMaDG.setBounds(325, 25, 35, 30);
+        btHoTroNhapMaDG.setBackground(MyColor.ColorButton);
+        btHoTroNhapMaDG.setBorder(new RoundedBorder(10));
+        btHoTroNhapMaDG.addActionListener(this);
+
         pnNhapTDMT.add(lbMaDGTDMT);
         pnNhapTDMT.add(lbTongMuon);
         pnNhapTDMT.add(lbTienCoc);
@@ -494,6 +504,7 @@ public class QLNVGUI extends JFrame implements MouseListener, ActionListener {
         pnNhapTDMT.add(btSuaTDMT);
         pnNhapTDMT.add(btXoaTDMT);
         pnNhapTDMT.add(btHoanTacTDMT);
+        pnNhapTDMT.add(btHoTroNhapMaDG);
     }
 
     public void setShowAll() {
@@ -627,7 +638,7 @@ public class QLNVGUI extends JFrame implements MouseListener, ActionListener {
             getInfoTextFieldDG(docgia);
             // Truy cập vào bus
             QLNVBUS qlnvbus = new QLNVBUS();
-            int kiemtra = 0;
+            int kiemtra = -1;
             try {
                 kiemtra = qlnvbus.them(docgia);
             } catch (Exception e1) {
@@ -700,7 +711,7 @@ public class QLNVGUI extends JFrame implements MouseListener, ActionListener {
             } else {
                 for (DOCGIA docgia : QLNVBUS.htXoa) {
                     QLNVBUS qlnvbus = new QLNVBUS();
-                    int kiemtra = 0;
+                    int kiemtra = -1;
                     try {
                         kiemtra = qlnvbus.hoantacXoa(docgia);
                     } catch (Exception e1) {
@@ -755,7 +766,7 @@ public class QLNVGUI extends JFrame implements MouseListener, ActionListener {
             getInfoTextFieldTDMT(ptd);
 
             QLPHIEUTHEODOIBUS qlbus = new QLPHIEUTHEODOIBUS();
-            int kiemtra = 0;
+            int kiemtra = -1;
             try {
                 kiemtra = qlbus.them(ptd);
             } catch (Exception e1) {
@@ -828,7 +839,7 @@ public class QLNVGUI extends JFrame implements MouseListener, ActionListener {
             } else {
                 for (PHIEUTHEODOIMT ptd : QLPHIEUTHEODOIBUS.htXoa) {
                     QLPHIEUTHEODOIBUS qlbus = new QLPHIEUTHEODOIBUS();
-                    int kiemtra = 0;
+                    int kiemtra = -1;
                     try {
                         kiemtra = qlbus.hoantacXoa(ptd);
                     } catch (Exception e1) {
@@ -862,7 +873,7 @@ public class QLNVGUI extends JFrame implements MouseListener, ActionListener {
 
         if (e.getSource() == btTimKiemDG) {
             int vtkey = Integer.parseInt(String.valueOf(cbDSKhoaTKDG.getSelectedIndex()));
-            String tukhoa = txKhoaTKDG.getText().replaceAll("\\s+", " ").trim();
+            String tukhoa = txKhoaTKDG.getText().replaceAll("\\s+", "").toLowerCase();
             if (tukhoa.equals("") == true) {
                 JOptionPane.showMessageDialog(null, "Xin mời nhập từ khóa", "Lỗi", JOptionPane.ERROR_MESSAGE);
             } else if (vtkey == 0) {
@@ -937,7 +948,7 @@ public class QLNVGUI extends JFrame implements MouseListener, ActionListener {
         }
         if (e.getSource() == btTimKiemTDMT) {
             int vtkey = Integer.parseInt(String.valueOf(cbDSKhoaTKTDMT.getSelectedIndex()));
-            String tukhoa = txKhoaTKTDMT.getText().replaceAll("\\s+", " ").trim();
+            String tukhoa = txKhoaTKTDMT.getText().replaceAll("\\s+", "").toLowerCase();
             if (tukhoa.equals("") == true) {
                 JOptionPane.showMessageDialog(null, "Xin mời nhập từ khóa", "Lỗi", JOptionPane.ERROR_MESSAGE);
             } else if (vtkey == 0) {
@@ -1009,6 +1020,10 @@ public class QLNVGUI extends JFrame implements MouseListener, ActionListener {
         }
         if (e.getSource() == btSapXep) {
             SapXep();
+        }
+        if (e.getSource() == btHoTroNhapMaDG) {
+            HoTroNhap hoTroNhapMaDG = new HoTroNhap();
+            hoTroNhapMaDG.setHoTroNhapMaDG_NV();
         }
 
     }

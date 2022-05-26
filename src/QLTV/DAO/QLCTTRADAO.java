@@ -84,4 +84,19 @@ public class QLCTTRADAO {
             return -1;
         }
     }
+    public int xoa(String Masach) {
+        try {
+            String qry = "delete from CHITIETPHIEUTRA where MAPT='" + Masach + "'";
+            st = conn.createStatement();
+            st.executeUpdate(qry);
+            if (st != null) {
+                JOptionPane.showMessageDialog(null, "Xóa dữ liệu thành công", "Thông báo",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+            return 0;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Xóa dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return -1;
+        }
+    }
 }

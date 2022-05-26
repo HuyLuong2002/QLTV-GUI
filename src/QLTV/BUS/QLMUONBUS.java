@@ -98,6 +98,15 @@ public class QLMUONBUS {
         return kt;
     }
 
+    public int xoa(String MaSV, int i) throws Exception {
+        int kt = -1;
+        QLMUONDAO data = new QLMUONDAO();
+        kt = data.xoa(MaSV);
+        if(kt == 0)
+            dspm.remove(i);
+        return kt;
+    }
+
     public int KTMa(String MaPmMoi) {
         for (PHIEUMUON phieumuon : dspm)
             if (phieumuon.getMaPM().trim().equals(MaPmMoi)) {

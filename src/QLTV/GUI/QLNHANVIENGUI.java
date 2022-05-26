@@ -526,7 +526,7 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
         ImageIcon iconExited = new ImageIcon("images\\exit.png");
 
         btMenu = new JButton("Menu");
-        btMenu.setFont(new Font("Arial", Font.BOLD, 20));
+        btMenu.setFont(new Font("Times new Roman", Font.BOLD, 20));
         btMenu.setBackground(MyColor.ColorOcean);
         btMenu.setIcon(iconMenu);
         btMenu.setHorizontalAlignment(SwingConstants.LEFT);
@@ -534,7 +534,7 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
         btMenu.addActionListener(this);
 
         btMenuTimKiem = new JButton("Tìm kiếm nhân viên");
-        btMenuTimKiem.setFont(new Font("Arial", Font.BOLD, 20));
+        btMenuTimKiem.setFont(new Font("Times new Roman", Font.BOLD, 20));
         btMenuTimKiem.setBackground(MyColor.ColorOcean);
         btMenuTimKiem.setIcon(iconSearch);
         btMenuTimKiem.setHorizontalAlignment(SwingConstants.LEFT);
@@ -542,7 +542,7 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
         btMenuTimKiem.addActionListener(this);
 
         btNhanvien = new JButton("Thông tin nhân viên");
-        btNhanvien.setFont(new Font("Arial", Font.BOLD, 20));
+        btNhanvien.setFont(new Font("Times new Roman", Font.BOLD, 20));
         btNhanvien.setBackground(MyColor.ColorLightBlue);
         btNhanvien.setIcon(iconBook);
         btNhanvien.setHorizontalAlignment(SwingConstants.LEFT);
@@ -551,7 +551,7 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
 
         // JButton Đăng xuất
         btDangXuat = new JButton("Đăng xuất");
-        btDangXuat.setFont(new Font("Arial", Font.BOLD, 20));
+        btDangXuat.setFont(new Font("Times new Roman", Font.BOLD, 20));
         btDangXuat.setBackground(MyColor.ColorOcean);
         btDangXuat.setIcon(iconLogout);
         btDangXuat.setHorizontalAlignment(SwingConstants.LEFT);
@@ -559,7 +559,7 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
         btDangXuat.addActionListener(this);
         // JButton thoát
         btThoat = new JButton("Thoát");
-        btThoat.setFont(new Font("Arial", Font.BOLD, 20));
+        btThoat.setFont(new Font("Times new Roman", Font.BOLD, 20));
         btThoat.setBackground(MyColor.ColorOcean);
         btThoat.setIcon(iconExited);
         btThoat.setHorizontalAlignment(SwingConstants.LEFT);

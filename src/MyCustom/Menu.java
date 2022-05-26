@@ -59,10 +59,10 @@ public class Menu extends JFrame implements ActionListener {
         panelLibrary.setBounds(0, 0, 240, 178);
         panelLibrary.setBackground(ColorDeepAqua);
 
-        labelQLTV = new JLabel("QUẢN LÝ THƯ VIỆN");
-        labelQLTV.setFont(new Font("Arial", Font.BOLD, 35));
+        labelQLTV = new JLabel("❥ ~ Quản lý thư viện ~ ❥");
+        labelQLTV.setFont(new Font("Serif", Font.ITALIC, 35));
         labelQLTV.setForeground(Color.WHITE);
-        labelQLTV.setBounds(320, 20, 400, 50);
+        labelQLTV.setBounds(310, 20, 400, 50);
 
         labelBackGroundMenu = new JLabel();
         labelBackGroundMenu.setIcon(new ImageIcon("images\\backgroundMenu.png"));
@@ -82,55 +82,55 @@ public class Menu extends JFrame implements ActionListener {
         btThoat = new JButton("Thoát");
 
         btNXB.setFont(new Font("Times new Roman", Font.BOLD, 18));
-        btNXB.setForeground(Color.WHITE);
+        btNXB.setForeground(Color.BLACK);
         btNXB.setBackground(ColorOCean);
         btNXB.setIcon(new ImageIcon("images\\publisher.png"));
         btNXB.setHorizontalAlignment(SwingConstants.LEFT);
         btNXB.addActionListener(this);
 
         btNhaCC.setFont(new Font("Times new Roman", Font.BOLD, 18));
-        btNhaCC.setForeground(Color.WHITE);
+        btNhaCC.setForeground(Color.BLACK);
         btNhaCC.setBackground(ColorOCean);
         btNhaCC.setIcon(new ImageIcon("images\\courier.png"));
         btNhaCC.setHorizontalAlignment(SwingConstants.LEFT);
         btNhaCC.addActionListener(this);
 
         btNhanvien.setFont(new Font("Times new Roman", Font.BOLD, 18));
-        btNhanvien.setForeground(Color.WHITE);
+        btNhanvien.setForeground(Color.BLACK);
         btNhanvien.setBackground(ColorOCean);
         btNhanvien.setIcon(new ImageIcon("images\\group.png"));
         btNhanvien.setHorizontalAlignment(SwingConstants.LEFT);
         btNhanvien.addActionListener(this);
 
         btSach.setFont(new Font("Times new Roman", Font.BOLD, 18));
-        btSach.setForeground(Color.WHITE);
+        btSach.setForeground(Color.BLACK);
         btSach.setBackground(ColorOCean);
         btSach.setIcon(new ImageIcon("images\\book.png"));
         btSach.setHorizontalAlignment(SwingConstants.LEFT);
         btSach.addActionListener(this);
 
         btTheLoai.setFont(new Font("Times new Roman", Font.BOLD, 18));
-        btTheLoai.setForeground(Color.WHITE);
+        btTheLoai.setForeground(Color.BLACK);
         btTheLoai.setBackground(ColorOCean);
         btTheLoai.setIcon(new ImageIcon("images\\list.png"));
         btTheLoai.setHorizontalAlignment(SwingConstants.LEFT);
         btTheLoai.addActionListener(this);
 
-        btTacGia.setForeground(Color.WHITE);
+        btTacGia.setForeground(Color.BLACK);
         btTacGia.setFont(new Font("Times new Roman", Font.BOLD, 18));
         btTacGia.setBackground(ColorOCean);
         btTacGia.setIcon(new ImageIcon("images\\author.png"));
         btTacGia.setHorizontalAlignment(SwingConstants.LEFT);
         btTacGia.addActionListener(this);
 
-        btDangXuat.setForeground(Color.WHITE);
+        btDangXuat.setForeground(Color.BLACK);
         btDangXuat.setFont(new Font("Times new Roman", Font.BOLD, 18));
         btDangXuat.setBackground(ColorOCean);
         btDangXuat.setIcon(new ImageIcon("images\\logout.png"));
         btDangXuat.setHorizontalAlignment(SwingConstants.LEFT);
         btDangXuat.addActionListener(this);
 
-        btThoat.setForeground(Color.WHITE);
+        btThoat.setForeground(Color.BLACK);
         btThoat.setFont(new Font("Times new Roman", Font.BOLD, 18));
         btThoat.setBackground(ColorOCean);
         btThoat.setIcon(new ImageIcon("images\\exit.png"));

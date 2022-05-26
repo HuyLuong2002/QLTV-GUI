@@ -48,11 +48,7 @@ public class QLNXBBUS {
 
     public int sua(NXB nxbmoi, NXB nxbcu, int i) throws Exception {
         // Truy cập vào database
-        if(KTMa(nxbmoi.getMaNXB().replaceAll("\\s+", "").toLowerCase()) == 0){
-            JOptionPane.showMessageDialog(null, "Mã Nhà Xuất Bản vừa nhập bị trùng. Mời nhập lại!", "Lỗi",
-            JOptionPane.ERROR_MESSAGE);
-        return -1;        
-        } else if (KTTenNXB(nxbmoi.getTenNXB().replaceAll("\\s+", "").toLowerCase().trim()) == 0) {
+        if (KTTenNXB(nxbmoi.getTenNXB().replaceAll("\\s+", "").toLowerCase().trim()) == 0) {
             JOptionPane.showMessageDialog(null, "Tên Nhà Xuất Bản vừa nhập bị trùng. Mời nhập lại!", "Lỗi",
                     JOptionPane.ERROR_MESSAGE);
             return -1;
@@ -101,7 +97,7 @@ public class QLNXBBUS {
 
     public int KTTenNXB(String TenNXBMoi) {
         for (NXB nxb : dsnxb)
-            if (nxb.getTenNXB().replaceAll("\\s+", "").toLowerCase().trim().equals(TenNXBMoi)) {
+            if (nxb.getTenNXB().replaceAll("\\s+", "").toLowerCase().equals(TenNXBMoi)) {
                 return 0;
             }
         return 1;

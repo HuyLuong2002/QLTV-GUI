@@ -206,18 +206,21 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
             if (XacNhanXoa == 0) {
                 String masach = txMasach.getText();
                 int i = tblQLSACH.getSelectedRow();
+                int kt = -1;
                 if (i >= 0) {
                     try {
                         // Truy cập xuống BUS
                         SACH SachOld = QLSACHBUS.dssach.get(i);
                         QLSACHBUS.htXoa.add(SachOld);
                         QLSACHBUS qlsachbus = new QLSACHBUS();
-                        qlsachbus.xoa(masach, i);
+                        kt = qlsachbus.xoa(masach, i);
                         // Quay dề GUI
-                        model.removeRow(i);
-                        tblQLSACH.setModel(model);
                     } catch (Exception e1) {
                         System.out.println(e1);
+                    }
+                    if(kt == 0){
+                        model.removeRow(i);
+                        tblQLSACH.setModel(model);
                     }
                 }
             }
@@ -893,7 +896,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         ImageIcon iconExited = new ImageIcon("images\\exit.png");
 
         btMenu = new JButton("Menu");
-        btMenu.setFont(new Font("Arial", Font.BOLD, 20));
+        btMenu.setFont(new Font("Times new Roman", Font.BOLD, 20));
         btMenu.setBackground(MyColor.ColorOcean);
         btMenu.setIcon(iconMenu);
         btMenu.setHorizontalAlignment(SwingConstants.LEFT);
@@ -901,7 +904,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         btMenu.addActionListener(this);
 
         btMenuTimKiem = new JButton("Tìm kiếm sách");
-        btMenuTimKiem.setFont(new Font("Arial", Font.BOLD, 20));
+        btMenuTimKiem.setFont(new Font("Times new Roman", Font.BOLD, 20));
         btMenuTimKiem.setBackground(MyColor.ColorOcean);
         btMenuTimKiem.setIcon(iconSearch);
         btMenuTimKiem.setHorizontalAlignment(SwingConstants.LEFT);
@@ -909,7 +912,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         btMenuTimKiem.addActionListener(this);
 
         btSach = new JButton("Thông tin sách");
-        btSach.setFont(new Font("Arial", Font.BOLD, 20));
+        btSach.setFont(new Font("Times new Roman", Font.BOLD, 20));
         btSach.setBackground(MyColor.ColorLightBlue);
         btSach.setIcon(iconBook);
         btSach.setHorizontalAlignment(SwingConstants.LEFT);
@@ -917,7 +920,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         btSach.addActionListener(this);
 
         btMT = new JButton("Mượn trả sách");
-        btMT.setFont(new Font("Arial", Font.BOLD, 20));
+        btMT.setFont(new Font("Times new Roman", Font.BOLD, 20));
         btMT.setBackground(MyColor.ColorOcean);
         btMT.setIcon(iconRent);
         btMT.setHorizontalAlignment(SwingConstants.LEFT);
@@ -925,7 +928,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         btMT.addActionListener(this);
 
         btNhapSach = new JButton("Nhập sách");
-        btNhapSach.setFont(new Font("Arial", Font.BOLD, 20));
+        btNhapSach.setFont(new Font("Times new Roman", Font.BOLD, 20));
         btNhapSach.setBackground(MyColor.ColorOcean);
         btNhapSach.setIcon(iconNS);
         btNhapSach.setHorizontalAlignment(SwingConstants.LEFT);
@@ -933,7 +936,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         btNhapSach.addActionListener(this);
 
         btQLNV = new JButton("Quản lý nghiệp vụ");
-        btQLNV.setFont(new Font("Arial", Font.BOLD, 20));
+        btQLNV.setFont(new Font("Times new Roman", Font.BOLD, 20));
         btQLNV.setBackground(MyColor.ColorOcean);
         btQLNV.setIcon(iconRent);
         btQLNV.setHorizontalAlignment(SwingConstants.LEFT);
@@ -941,7 +944,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         btQLNV.addActionListener(this);
 
         btThongKe = new JButton("Thống kê");
-        btThongKe.setFont(new Font("Arial", Font.BOLD, 20));
+        btThongKe.setFont(new Font("Times new Roman", Font.BOLD, 20));
         btThongKe.setBackground(MyColor.ColorOcean);
         btThongKe.setIcon(iconTK);
         btThongKe.setHorizontalAlignment(SwingConstants.LEFT);
@@ -950,7 +953,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
 
         // JButton Đăng xuất
         btDangXuat = new JButton("Đăng xuất");
-        btDangXuat.setFont(new Font("Arial", Font.BOLD, 20));
+        btDangXuat.setFont(new Font("Times new Roman", Font.BOLD, 20));
         btDangXuat.setBackground(MyColor.ColorOcean);
         btDangXuat.setIcon(iconLogout);
         btDangXuat.setHorizontalAlignment(SwingConstants.LEFT);
@@ -958,7 +961,7 @@ public class QLSACHGUI extends JFrame implements ActionListener, MouseListener {
         btDangXuat.addActionListener(this);
         // JButton thoát
         btThoat = new JButton("Thoát");
-        btThoat.setFont(new Font("Arial", Font.BOLD, 20));
+        btThoat.setFont(new Font("Times new Roman", Font.BOLD, 20));
         btThoat.setBackground(MyColor.ColorOcean);
         btThoat.setIcon(iconExited);
         btThoat.setHorizontalAlignment(SwingConstants.LEFT);

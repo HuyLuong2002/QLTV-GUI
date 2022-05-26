@@ -202,7 +202,7 @@ public class QLMUONDAO {
         }
     }
 
-    public void xoa(String MaPM) {
+    public int xoa(String MaPM) {
         try {
             String qry = "delete from PHIEUMUON where MAPM='" + MaPM + "'";
             st = conn.createStatement();
@@ -211,8 +211,10 @@ public class QLMUONDAO {
                 JOptionPane.showMessageDialog(null, "Xóa dữ liệu thành công", "Thông báo",
                         JOptionPane.INFORMATION_MESSAGE);
             }
+            return 0;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Xóa dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return -1;
         }
     }
 }

@@ -99,7 +99,6 @@ public class QLSACHDAO {
             return 0;
         } catch (SQLException e) {
             System.out.println(e);
-            JOptionPane.showMessageDialog(null, "Thêm dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return -1;
         }
     }
@@ -130,7 +129,7 @@ public class QLSACHDAO {
         }
     }
 
-    public void xoa(String Masach) {
+    public int xoa(String Masach) {
         try {
             String qry = "delete from SACH where MASACH='" + Masach + "'";
             st = conn.createStatement();
@@ -139,8 +138,10 @@ public class QLSACHDAO {
                 JOptionPane.showMessageDialog(null, "Xóa dữ liệu thành công", "Thông báo",
                         JOptionPane.INFORMATION_MESSAGE);
             }
+            return 0;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Xóa dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return -1;
         }
     }
 

@@ -86,4 +86,20 @@ public class QLHDTPDAO {
             return -1;
         }
     }
+
+    public int xoa(String MaPM) {
+        try {
+            String qry = "delete from HDTIENPHAT where MAHD='" + MaPM + "'";
+            st = conn.createStatement();
+            st.executeUpdate(qry);
+            if (st != null) {
+                JOptionPane.showMessageDialog(null, "Xóa dữ liệu thành công", "Thông báo",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+            return 0;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Xóa dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return -1;
+        }
+    }
 }

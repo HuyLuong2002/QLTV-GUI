@@ -75,9 +75,6 @@ public class QLNVDAO {
             ps.setString(3, docgia.getDiachi().trim());
             ps.setString(4, docgia.getMail().trim());
             ps.setString(5, docgia.getTinhtrangthue());
-
-            ps.executeUpdate();
-
             return 0;
         } catch (SQLException e) {
             System.out.println(e);

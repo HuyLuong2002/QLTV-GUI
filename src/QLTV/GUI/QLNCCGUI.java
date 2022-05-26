@@ -103,13 +103,13 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
                 getInfoTextField(ncc);
                 // Truy cập vào bus
                 QLNCCBUS qlnccbus = new QLNCCBUS();
-                int kiemtra = 0;
+                int kiemtra = -1;
                 try {
                     kiemtra = qlnccbus.them(ncc);
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
-                if (kiemtra == 1) {
+                if (kiemtra == 0) {
                     // Đưa dữ liệu lên table
                     header = new Vector<String>();
                     header.add("Mã Nhà Cung Cấp");
@@ -315,6 +315,8 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
         if (e.getSource() == txMaNCC) {
             txMaNCC.setToolTipText("Gợi ý: NXB001");
         }
+        if(e.getSource() == txTenNCC)
+            txTenNCC.setToolTipText("Gợi ý: Nhà sách Fahasa");
     }
 
     @Override
@@ -421,7 +423,7 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
         ImageIcon iconExited = new ImageIcon("images\\exit.png");
 
         btMenu = new JButton("Menu");
-        btMenu.setFont(new Font("Arial", Font.BOLD, 20));
+        btMenu.setFont(new Font("Times new Roman", Font.BOLD, 20));
         btMenu.setBackground(MyColor.ColorOcean);
         btMenu.setIcon(iconMenu);
         btMenu.setHorizontalAlignment(SwingConstants.LEFT);
@@ -429,7 +431,7 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
         btMenu.addActionListener(this);
 
         btnxb = new JButton("Thông tin NCC");
-        btnxb.setFont(new Font("Arial", Font.BOLD, 20));
+        btnxb.setFont(new Font("Times new Roman", Font.BOLD, 20));
         btnxb.setBackground(MyColor.ColorLightBlue);
         btnxb.setIcon(iconPubCompany);
         btnxb.setHorizontalAlignment(SwingConstants.LEFT);
@@ -437,7 +439,7 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
         btnxb.addActionListener(this);
 
         btMenuTimKiem = new JButton("Tìm kiếm NCC");
-        btMenuTimKiem.setFont(new Font("Arial", Font.BOLD, 20));
+        btMenuTimKiem.setFont(new Font("Times new Roman", Font.BOLD, 20));
         btMenuTimKiem.setBackground(MyColor.ColorOcean);
         btMenuTimKiem.setIcon(iconSearch);
         btMenuTimKiem.setHorizontalAlignment(SwingConstants.LEFT);
@@ -446,7 +448,7 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
 
         // JButton Đăng xuất
         btDangXuat = new JButton("Đăng xuất");
-        btDangXuat.setFont(new Font("Arial", Font.BOLD, 20));
+        btDangXuat.setFont(new Font("Times new Roman", Font.BOLD, 20));
         btDangXuat.setBackground(MyColor.ColorOcean);
         btDangXuat.setIcon(iconLogout);
         btDangXuat.setHorizontalAlignment(SwingConstants.LEFT);
@@ -454,7 +456,7 @@ public class QLNCCGUI extends JFrame implements ActionListener, MouseListener {
         btDangXuat.addActionListener(this);
         // JButton thoát
         btThoat = new JButton("Thoát");
-        btThoat.setFont(new Font("Arial", Font.BOLD, 20));
+        btThoat.setFont(new Font("Times new Roman", Font.BOLD, 20));
         btThoat.setBackground(MyColor.ColorOcean);
         btThoat.setIcon(iconExited);
         btThoat.setHorizontalAlignment(SwingConstants.LEFT);

@@ -1,6 +1,8 @@
 package QLTV.BUS;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.swing.JOptionPane;
 
@@ -9,7 +11,7 @@ import QLTV.DTO.PHIEUTRASACH;
 
 public class QLTRABUS {
     public static ArrayList<PHIEUTRASACH> dspt;
-    public static ArrayList<PHIEUTRASACH> htXoa = new ArrayList<PHIEUTRASACH>();
+    public static Set<PHIEUTRASACH> htXoa = new HashSet<PHIEUTRASACH>();
 
     public QLTRABUS() {
 
@@ -98,9 +100,19 @@ public class QLTRABUS {
         }
         return kt;
     }
+
+    public int xoa(String MaSV, int i) throws Exception {
+        int kt = -1;
+        QLTRADAO data = new QLTRADAO();
+        kt = data.xoa(MaSV);
+        if(kt == 0)
+            dspt.remove(i);
+        return kt;
+    }
+
     public int KTMa(String MaPtMoi) {
         for (PHIEUTRASACH phieutrasach : dspt)
-            if (phieutrasach.getMaPT().trim().equals(MaPtMoi)) {
+            if (phieutrasach.getMaPT().replaceAll("\\s+", "").toLowerCase().equals(MaPtMoi)) {
                 return 0;
             }
         return 1;

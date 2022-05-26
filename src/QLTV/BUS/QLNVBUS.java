@@ -1,6 +1,8 @@
 package QLTV.BUS;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.swing.JOptionPane;
 
@@ -9,7 +11,7 @@ import QLTV.DTO.DOCGIA;
 
 public class QLNVBUS {
     public static ArrayList<DOCGIA> dsdg;
-    public static ArrayList<DOCGIA> htXoa = new ArrayList<DOCGIA>();
+    public static Set<DOCGIA> htXoa = new HashSet<DOCGIA>();
 
     public QLNVBUS() {
 
@@ -62,7 +64,7 @@ public class QLNVBUS {
 
     public int hoantacXoa(DOCGIA docgia) throws Exception {
         int kt = 0;
-        if (KTMa(docgia.getMaDG().trim()) == 0) {
+        if (KTMa(docgia.getMaDG().replaceAll("\\s+", "").toLowerCase()) == 0) {
             JOptionPane.showMessageDialog(null, "Mã độc giả vừa nhập bị trùng. Mời nhập lại!", "Lỗi",
                     JOptionPane.ERROR_MESSAGE);
             return -1;
@@ -79,7 +81,7 @@ public class QLNVBUS {
 
     public int KTMa(String MaDGMoi) {
         for (DOCGIA docgia : dsdg)
-            if (docgia.getMaDG().trim().equals(MaDGMoi)) {
+            if (docgia.getMaDG().replaceAll("\\s+", "").toLowerCase().equals(MaDGMoi)) {
                 return 0;
             }
         return 1;
@@ -87,7 +89,7 @@ public class QLNVBUS {
 
     public DOCGIA timTheoMa(String MaDG) {
         for (DOCGIA docgia : dsdg)
-            if (docgia.getMaDG().trim().equals(MaDG))
+            if (docgia.getMaDG().replaceAll("\\s+", "").toLowerCase().equals(MaDG))
                 return docgia;
         return null;
     }
@@ -95,7 +97,7 @@ public class QLNVBUS {
     public ArrayList<DOCGIA> timTheoTen(String TenDG) {
         ArrayList<DOCGIA> kq = new ArrayList<DOCGIA>();
         for (DOCGIA docgia : dsdg)
-            if (docgia.getTenDG().trim().indexOf(TenDG) >= 0)
+            if (docgia.getTenDG().replaceAll("\\s+", "").toLowerCase().indexOf(TenDG) >= 0)
                 kq.add(docgia);
         return kq;
     }
@@ -103,7 +105,7 @@ public class QLNVBUS {
     public ArrayList<DOCGIA> timTheoDiaChi(String Diachi) {
         ArrayList<DOCGIA> kq = new ArrayList<DOCGIA>();
         for (DOCGIA docgia : dsdg)
-            if (docgia.getDiachi().trim().indexOf(Diachi) >= 0)
+            if (docgia.getDiachi().replaceAll("\\s+", "").toLowerCase().indexOf(Diachi) >= 0)
                 kq.add(docgia);
         return kq;
     }
@@ -111,7 +113,7 @@ public class QLNVBUS {
     public ArrayList<DOCGIA> timTheoEmail(String Email) {
         ArrayList<DOCGIA> kq = new ArrayList<DOCGIA>();
         for (DOCGIA docgia : dsdg)
-            if (docgia.getMail().trim().indexOf(Email) >= 0)
+            if (docgia.getMail().replaceAll("\\s+", "").toLowerCase().indexOf(Email) >= 0)
                 kq.add(docgia);
         return kq;
     }
@@ -119,7 +121,7 @@ public class QLNVBUS {
     public ArrayList<DOCGIA> timTheoTinhTrangSach(String TinhTrangThue) {
         ArrayList<DOCGIA> kq = new ArrayList<DOCGIA>();
         for (DOCGIA docgia : dsdg)
-            if (docgia.getTinhtrangthue().trim().indexOf(TinhTrangThue) >= 0)
+            if (docgia.getTinhtrangthue().replaceAll("\\s+", "").toLowerCase().indexOf(TinhTrangThue) >= 0)
                 kq.add(docgia);
         return kq;
     }

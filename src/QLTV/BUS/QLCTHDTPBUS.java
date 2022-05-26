@@ -1,6 +1,8 @@
 package QLTV.BUS;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.swing.JOptionPane;
 
@@ -10,6 +12,7 @@ import QLTV.DTO.HDTIENPHAT;
 
 public class QLCTHDTPBUS {
     public static ArrayList<CHITIETHDTIENPHAT> dscthdtp;
+    public static Set<CHITIETHDTIENPHAT> htXoa = new HashSet<CHITIETHDTIENPHAT>();
 
     public QLCTHDTPBUS() {
 
@@ -54,6 +57,15 @@ public class QLCTHDTPBUS {
                 dscthdtp.set(i, chitiethdtienphatMoi);
             return kt;
         }
+    }
+
+    public int xoa(String MaSV, int i) throws Exception {
+        int kt = -1;
+        QLCTHDTPDAO data = new QLCTHDTPDAO();
+        kt = data.xoa(MaSV);
+        if(kt == 0)
+            dscthdtp.remove(i);
+        return kt;
     }
 
     public int checkSLCTHD(CHITIETHDTIENPHAT cthdtpNew) {

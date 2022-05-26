@@ -103,13 +103,13 @@ public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener
                 getInfoTextField(tacgia);
                 // Truy cập vào bus
                 QLTACGIABUS QLTACGIABUS = new QLTACGIABUS();
-                int kiemtra = 0;
+                int kiemtra = -1;
                 try {
                     kiemtra = QLTACGIABUS.them(tacgia);
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
-                if (kiemtra == 1) {
+                if (kiemtra == 0) {
                     // Đưa dữ liệu lên table
                     header = new Vector<String>();
                     header.add("Mã Tác Giả");
@@ -148,18 +148,21 @@ public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener
             if (XacNhanXoa == 0) {
                 String matacgia = txMatacgia.getText();
                 int i = tblQLTACGIA.getSelectedRow();
+                int kt = -1;
                 if (i >= 0) {
                     try {
                         // Truy cập xuống BUS
                         TACGIA tacgiaOld = QLTACGIABUS.dstacgia.get(i);
                         QLTACGIABUS.htXoa.add(tacgiaOld);
                         QLTACGIABUS QLTACGIABUS = new QLTACGIABUS();
-                        QLTACGIABUS.xoa(matacgia, i);
+                        kt = QLTACGIABUS.xoa(matacgia, i);
                         // Quay dề GUI
-                        model.removeRow(i);
-                        tblQLTACGIA.setModel(model);
                     } catch (Exception e1) {
                         System.out.println(e1);
+                    }
+                    if(kt == 0){
+                        model.removeRow(i);
+                        tblQLTACGIA.setModel(model);
                     }
                 }
             }
@@ -171,13 +174,13 @@ public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener
             } else {
                 for (TACGIA tacgia : QLTACGIABUS.htXoa) {
                     QLTACGIABUS QLTACGIABUS = new QLTACGIABUS();
-                    int kiemtra = 0;
+                    int kiemtra = -1;
                     try {
                         kiemtra = QLTACGIABUS.hoantacXoa(tacgia);
                     } catch (Exception e1) {
                         e1.printStackTrace();
                     }
-                    if (kiemtra == 1) {
+                    if (kiemtra == 0) {
                         // Đưa dữ liệu lên table
                         header = new Vector<String>();
                         header.add("Mã tác giả");
@@ -187,7 +190,7 @@ public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener
                         }
                         ShowOnTable(tacgia);
                         ktHT = 1;
-                    } else if (kiemtra == 0) {
+                    } else if (kiemtra == -1) {
                         JOptionPane.showMessageDialog(null, "Hoàn tác dữ liệu thất bại", "Lỗi",
                                 JOptionPane.ERROR_MESSAGE);
                         ktHT = 0;
@@ -206,7 +209,7 @@ public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener
             setTimKiem();
         } else if (e.getSource() == btSearch) {
             int vtkey = Integer.parseInt(String.valueOf(comboBoxDSKhoaTK.getSelectedIndex()));
-            String tukhoa = txKhoaTK.getText();
+            String tukhoa = txKhoaTK.getText().replaceAll("\\s+", "").toLowerCase();
             if (tukhoa.equals("") == true) {
                 JOptionPane.showMessageDialog(null, "Xin mời nhập từ khóa", "Lỗi", JOptionPane.ERROR_MESSAGE);
             } else if (vtkey == 0) {
@@ -331,6 +334,8 @@ public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener
         if (e.getSource() == txMatacgia) {
             txMatacgia.setToolTipText("Gợi ý: TG001");
         }
+        if(e.getSource() == txTentacgia)
+            txTentacgia.setToolTipText("Gợi ý: Nguyễn Văn A");
     }
 
     @Override
@@ -438,7 +443,7 @@ public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener
         ImageIcon iconExited = new ImageIcon("images\\exit.png");
 
         btMenu = new JButton("Menu");
-        btMenu.setFont(new Font("Arial", Font.BOLD, 20));
+        btMenu.setFont(new Font("Times new Roman", Font.BOLD, 20));
         btMenu.setBackground(MyColor.ColorOcean);
         btMenu.setIcon(iconMenu);
         btMenu.setHorizontalAlignment(SwingConstants.LEFT);
@@ -446,7 +451,7 @@ public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener
         btMenu.addActionListener(this);
 
         bttacgia = new JButton("Thông tin tác giả");
-        bttacgia.setFont(new Font("Arial", Font.BOLD, 20));
+        bttacgia.setFont(new Font("Times new Roman", Font.BOLD, 20));
         bttacgia.setBackground(MyColor.ColorLightBlue);
         bttacgia.setIcon(iconauthor);
         bttacgia.setHorizontalAlignment(SwingConstants.LEFT);
@@ -454,7 +459,7 @@ public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener
         bttacgia.addActionListener(this);
 
         btMenuTimKiem = new JButton("Tìm kiếm tác giả");
-        btMenuTimKiem.setFont(new Font("Arial", Font.BOLD, 20));
+        btMenuTimKiem.setFont(new Font("Times new Roman", Font.BOLD, 20));
         btMenuTimKiem.setBackground(MyColor.ColorOcean);
         btMenuTimKiem.setIcon(iconSearch);
         btMenuTimKiem.setHorizontalAlignment(SwingConstants.LEFT);
@@ -463,7 +468,7 @@ public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener
 
         // JButton Đăng xuất
         btDangXuat = new JButton("Đăng xuất");
-        btDangXuat.setFont(new Font("Arial", Font.BOLD, 20));
+        btDangXuat.setFont(new Font("Times new Roman", Font.BOLD, 20));
         btDangXuat.setBackground(MyColor.ColorOcean);
         btDangXuat.setIcon(iconLogout);
         btDangXuat.setHorizontalAlignment(SwingConstants.LEFT);
@@ -471,7 +476,7 @@ public class QLTACGIAGUI extends JFrame implements ActionListener, MouseListener
         btDangXuat.addActionListener(this);
         // JButton thoát
         btThoat = new JButton("Thoát");
-        btThoat.setFont(new Font("Arial", Font.BOLD, 20));
+        btThoat.setFont(new Font("Times new Roman", Font.BOLD, 20));
         btThoat.setBackground(MyColor.ColorOcean);
         btThoat.setIcon(iconExited);
         btThoat.setHorizontalAlignment(SwingConstants.LEFT);

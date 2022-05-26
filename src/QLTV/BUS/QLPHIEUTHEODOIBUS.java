@@ -1,6 +1,8 @@
 package QLTV.BUS;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.swing.JOptionPane;
 
@@ -9,7 +11,7 @@ import QLTV.DTO.PHIEUTHEODOIMT;
 
 public class QLPHIEUTHEODOIBUS {
     public static ArrayList<PHIEUTHEODOIMT> dsptd;
-    public static ArrayList<PHIEUTHEODOIMT> htXoa = new ArrayList<PHIEUTHEODOIMT>();
+    public static Set<PHIEUTHEODOIMT> htXoa = new HashSet<PHIEUTHEODOIMT>();
 
     public QLPHIEUTHEODOIBUS() {
 
@@ -79,7 +81,7 @@ public class QLPHIEUTHEODOIBUS {
 
     public int KTMa(String MaDGMoi) {
         for (PHIEUTHEODOIMT ptd : dsptd)
-            if (ptd.getMaDG().trim().equals(MaDGMoi)) {
+            if (ptd.getMaDG().replaceAll("\\s+", "").toLowerCase().equals(MaDGMoi)) {
                 return 0;
             }
         return 1;
@@ -87,7 +89,7 @@ public class QLPHIEUTHEODOIBUS {
 
     public PHIEUTHEODOIMT timTheoMa(String MaDG) {
         for (PHIEUTHEODOIMT ptd : dsptd) {
-            if (ptd.getMaDG().trim().equals(MaDG))
+            if (ptd.getMaDG().replaceAll("\\s+", "").toLowerCase().equals(MaDG))
                 return ptd;
         }
         return null;

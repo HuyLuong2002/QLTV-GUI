@@ -40,7 +40,7 @@ public class QLNCCDAO {
         return dsncc;
     }
 
-    public void them(NHACUNGCAP ncc) {
+    public int them(NHACUNGCAP ncc) {
         try {
             String qry = "insert into NHACUNGCAP values  (" + "'" + ncc.getMaNCC().trim() + "'"
                     + "," + "N'" + ncc.getTenNCC() + "'" + ")";
@@ -50,9 +50,11 @@ public class QLNCCDAO {
                 JOptionPane.showMessageDialog(null, "Thêm dữ liệu thành công", "Thông báo",
                         JOptionPane.INFORMATION_MESSAGE);
             }
+            return 0;
         } catch (SQLException e) {
             System.out.println(e);
             JOptionPane.showMessageDialog(null, "Thêm dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return -1;
         }
     }
 
@@ -89,7 +91,7 @@ public class QLNCCDAO {
         }
     }
 
-    public void xoa(String MaNCC) {
+    public int xoa(String MaNCC) {
         try {
             String qry = "delete from NHACUNGCAP where MANCC='" + MaNCC + "'";
             st = conn.createStatement();
@@ -98,8 +100,10 @@ public class QLNCCDAO {
                 JOptionPane.showMessageDialog(null, "Xóa dữ liệu thành công", "Thông báo",
                         JOptionPane.INFORMATION_MESSAGE);
             }
+            return 0;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Xóa dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return -1;
         }
     }
 

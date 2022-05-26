@@ -48,11 +48,6 @@ public class QLTHELOAIBUS {
 
     public int sua(THELOAI theloaimoi, THELOAI theloaicu, int i) throws Exception {
         // Truy cập vào database
-        if (KTMa(theloaimoi.getMaTL().replaceAll("\\s+","").toLowerCase().trim()) == 0) {
-            JOptionPane.showMessageDialog(null, "Mã thể loại vừa nhập bị trùng. Mời nhập lại!", "Lỗi",
-                    JOptionPane.ERROR_MESSAGE);
-            return -1;
-        }
         if (KTTENTL(theloaimoi.getTenTL().replaceAll("\\s+","").toLowerCase().trim()) == 0) {
             JOptionPane.showMessageDialog(null, "Tên thể loại vừa nhập bị trùng. Mời nhập lại!", "Lỗi",
                     JOptionPane.ERROR_MESSAGE);

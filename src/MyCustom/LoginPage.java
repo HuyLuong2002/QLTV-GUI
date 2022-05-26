@@ -3,8 +3,6 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 import QLTV.BUS.ACCOUNTBUS;
-import QLTV.DTO.ACCOUNT;
-
 import java.awt.*;
 import java.awt.event.*;
 
@@ -169,16 +167,9 @@ public class LoginPage extends JFrame implements ActionListener {
                 int kt = -1;
                 ACCOUNTBUS dangnhap = new ACCOUNTBUS();
                 kt = dangnhap.login(user, pass);
-
                 if(kt == 0){
                     this.dispose();
                     new Menu();
-                }
-
-                for (ACCOUNT account : ACCOUNTBUS.dsacc){
-                    if(account.getPhanQuyen() == 1){
-                        
-                    }
                 }
             } catch (Exception e1) {
                 e1.printStackTrace();
