@@ -47,6 +47,7 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
     JTable tblQLNXB;
     DefaultTableModel model;
     Vector<String> header;
+    private ImageIcon imgIconHP;
 
     public QLNXBGUI() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -54,6 +55,8 @@ public class QLNXBGUI extends JFrame implements ActionListener, MouseListener {
         this.setTitle("Quản lý thông tin nhà xuất bản");
         this.setLayout(null);
         this.setLocationRelativeTo(null);
+        imgIconHP = new ImageIcon("images\\app_logo.png");
+        this.setIconImage(imgIconHP.getImage());
 
         pnTTNXB = new JPanel();
         pnNhapTTNXB = new JPanel();

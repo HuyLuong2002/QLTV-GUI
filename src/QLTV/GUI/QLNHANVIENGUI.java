@@ -48,6 +48,7 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
     JTable tblQLNHANVIEN;
     DefaultTableModel model;
     Vector<String> header;
+    ImageIcon imgIconHP;
 
     public QLNHANVIENGUI() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -55,6 +56,9 @@ public class QLNHANVIENGUI extends JFrame implements ActionListener, MouseListen
         this.setTitle("Quản lý thông tin nhân viên");
         this.setLayout(null);
         this.setLocationRelativeTo(null);
+
+        imgIconHP = new ImageIcon("images\\app_logo.png");
+        this.setIconImage(imgIconHP.getImage());
 
         pnTTnhanvien = new JPanel();
         pnNhapTTnhanvien = new JPanel();

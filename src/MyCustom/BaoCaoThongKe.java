@@ -28,7 +28,6 @@ import QLTV.DTO.NHANVIEN;
 import QLTV.DTO.PHIEUMUON;
 import QLTV.DTO.PHIEUTRASACH;
 import QLTV.DTO.SACH;
-// import MyCustom.MyColor;
 
 public class BaoCaoThongKe implements ActionListener {
     ThongKeBUS thongkebus = new ThongKeBUS();
