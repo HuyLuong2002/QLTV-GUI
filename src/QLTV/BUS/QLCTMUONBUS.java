@@ -59,19 +59,28 @@ public class QLCTMUONBUS {
         }
     }
 
-    public int xoa(String MaSV, int i) throws Exception {
+    public int xoa(String MaPM, String MaSach) throws Exception {
         int kt = -1;
+        int i=0;
         QLCTMUONDAO data = new QLCTMUONDAO();
-        kt = data.xoa(MaSV);
-        if(kt == 0)
-            dsctpm.remove(i);
+        kt = data.xoa(MaPM,MaSach);
+        if(kt == 0){
+            for(CHITIETPHIEUMUON ctpm : QLCTMUONBUS.dsctpm){
+                if(ctpm.getMaPM().trim().equals(MaPM) && ctpm.getMasach().trim().equals(MaSach)){
+                    dsctpm.remove(i);
+                }
+                i++;
+            }
+        }
         return kt;
     }
 
     public int checkSLCTPM(CHITIETPHIEUMUON ctpmNew) {
         int sumSLCTPM = 0;
         int maxSLtongPM = 0;
-
+        if(ctpmNew.getSL()==0) {
+            JOptionPane.showMessageDialog(null, "Số lượng phải lớn hơn 0","Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
         for (PHIEUMUON pm : QLMUONBUS.dspm) {
             for (CHITIETPHIEUMUON ctpm : QLCTMUONBUS.dsctpm) {
                 if (pm.getMaPM().trim().equals(ctpmNew.getMaPM().trim())
@@ -79,10 +88,15 @@ public class QLCTMUONBUS {
                     sumSLCTPM = sumSLCTPM + ctpm.getSL();
                     maxSLtongPM = pm.getSLtong();
                 }
+                else if(pm.getMaPM().trim().equals(ctpmNew.getMaPM().trim())){
+                    if(maxSLtongPM < pm.getSLtong())
+                        maxSLtongPM = pm.getSLtong();
+                }
             }
         }
 
         sumSLCTPM = sumSLCTPM + ctpmNew.getSL();
+        
         if (sumSLCTPM > maxSLtongPM)
             return -1;
 
