@@ -923,20 +923,21 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener, Ke
                     JOptionPane.YES_NO_OPTION);
             if (XacNhanXoa == 0) {
                 int i = tblQLCTMuon.getSelectedRow();
-                int kt = -1;
                 if (i >= 0) {
                     try {
+                        int kt = -1;
+                        String MaPM = String.valueOf(modelCTMuon.getValueAt(i, 0)).trim();
+                        String MaSach = String.valueOf(modelCTMuon.getValueAt(i, 1)).trim();
                         // Truy cập xuống BUS
-                        String masach = String.valueOf(modelCTMuon.getValueAt(i, 1));
                         QLCTMUONBUS qlsachbus = new QLCTMUONBUS();
-                        kt = qlsachbus.xoa(masach, i);
+                        kt = qlsachbus.xoa(MaPM,MaSach);
                         // Quay dề GUI
+                        if(kt == 0){
+                            modelCTMuon.removeRow(i);
+                            tblQLCTMuon.setModel(modelCTMuon);
+                        }
                     } catch (Exception e1) {
                         System.out.println(e1);
-                    }
-                    if(kt == 0){
-                        modelCTMuon.removeRow(i);
-                        tblQLCTMuon.setModel(modelCTMuon);
                     }
                 }
             }
@@ -969,21 +970,21 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener, Ke
                     JOptionPane.YES_NO_OPTION);
             if (XacNhanXoa == 0) {
                 int i = tblQLCTTra.getSelectedRow();
-                int kt = -1;
                 if (i >= 0) {
                     try {
                         // Truy cập xuống BUS
+                        int kt = -1;
                         String mapt = String.valueOf(modelCTTra.getValueAt(i, 0));
                         String masach = String.valueOf(modelCTHDTP.getValueAt(i, 1));
                         QLCTTRABUS qlsachbus = new QLCTTRABUS();
-                        kt = qlsachbus.xoa(mapt, masach, i);
+                        kt = qlsachbus.xoa(mapt, masach);
+                        if(kt == 0){
+                            modelCTTra.removeRow(i);
+                            tblQLCTTra.setModel(modelCTTra);
+                        }
                         // Quay dề GUI
                     } catch (Exception e1) {
                         System.out.println(e1);
-                    }
-                    if(kt == 0){
-                        modelCTTra.removeRow(i);
-                        tblQLCTTra.setModel(modelCTTra);
                     }
                 }
             }
@@ -1016,21 +1017,21 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener, Ke
                     JOptionPane.YES_NO_OPTION);
             if (XacNhanXoa == 0) {
                 int i = tblQLCTHDTP.getSelectedRow();
-                int kt = -1;
                 if (i >= 0) {
                     try {
                         // Truy cập xuống BUS
+                        int kt = -1;
                         String mahd = String.valueOf(modelCTHDTP.getValueAt(i, 0));
                         String masach = String.valueOf(modelCTHDTP.getValueAt(i, 1));
                         QLCTHDTPBUS qlsachbus = new QLCTHDTPBUS();
-                        kt = qlsachbus.xoa(mahd, masach, i);
+                        kt = qlsachbus.xoa(mahd, masach);
                         // Quay dề GUI
+                        if(kt == 0){
+                            modelCTHDTP.removeRow(i);
+                            tblQLCTHDTP.setModel(modelCTHDTP);
+                        }
                     } catch (Exception e1) {
                         System.out.println(e1);
-                    }
-                    if(kt == 0){
-                        modelCTHDTP.removeRow(i);
-                        tblQLCTHDTP.setModel(modelCTHDTP);
                     }
                 }
             }

@@ -84,9 +84,9 @@ public class QLCTMUONDAO {
         }
     }
 
-    public int xoa(String Masach) {
+    public int xoa(String MaPM, String MaSach) {
         try {
-            String qry = "delete from CHITIETPHIEUMUON where MASACH='" + Masach + "'";
+            String qry = "delete from CHITIETPHIEUMUON where MAPM='" + MaPM + "' and " + "MASACH='" + MaSach + "'";
             st = conn.createStatement();
             st.executeUpdate(qry);
             if (st != null) {

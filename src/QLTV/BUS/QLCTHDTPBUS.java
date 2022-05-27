@@ -59,12 +59,20 @@ public class QLCTHDTPBUS {
         }
     }
 
-    public int xoa(String MaHD, String MaSV, int i) throws Exception {
+    public int xoa(String MaPM, String MaSach) throws Exception {
         int kt = -1;
+        int i=0;
         QLCTHDTPDAO data = new QLCTHDTPDAO();
-        kt = data.xoa(MaHD, MaSV);
-        if(kt == 0)
-            dscthdtp.remove(i);
+        kt = data.xoa(MaPM,MaSach);
+        if(kt == 0){
+            for(CHITIETHDTIENPHAT ctpm : QLCTHDTPBUS.dscthdtp){
+                if(ctpm.getMaHD().trim().equals(MaPM) && ctpm.getMasach().trim().equals(MaSach)){
+                    dscthdtp.remove(i);
+                    break;
+                }
+                i++;
+            }
+        }
         return kt;
     }
 

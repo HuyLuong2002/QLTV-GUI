@@ -40,12 +40,20 @@ public class QLCTTRABUS {
         return kt;
     }
 
-    public int xoa(String MaPT, String MaSV, int i) throws Exception {
+    public int xoa(String MaPM, String MaSach) throws Exception {
         int kt = -1;
+        int i=0;
         QLCTTRADAO data = new QLCTTRADAO();
-        kt = data.xoa(MaPT, MaSV);
-        if(kt == 0)
-            dsctpt.remove(i);
+        kt = data.xoa(MaPM,MaSach);
+        if(kt == 0){
+            for(CHITIETPHIEUTRA ctpm : QLCTTRABUS.dsctpt){
+                if(ctpm.getMaPT().trim().equals(MaPM) && ctpm.getMasach().trim().equals(MaSach)){
+                    dsctpt.remove(i);
+                    break;
+                }
+                i++;
+            }
+        }
         return kt;
     }
 }

@@ -133,7 +133,7 @@ public class QLMUONBUS {
         return 0;
     }
 
-    public int TinhTienThue(int vtPM) throws Exception {
+    public int TinhTienThue(int vtPM) throws Exception { //tham số là vị trí PM trên table
         int ThanhTien = 0;
         QLMUONDAO data = new QLMUONDAO();
         String NgayMuon = dspm.get(vtPM).getNgaymuon();

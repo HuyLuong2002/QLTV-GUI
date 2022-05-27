@@ -1,6 +1,5 @@
 import MyCustom.LoginPage;
 import MyCustom.setProgressBar;
-import QLTV.GUI.QLNHANVIENGUI;
 import QLTV.GUI.QLSACHGUI;
 
 public class App {
@@ -9,8 +8,8 @@ public class App {
         // new QLTACGIAGUI();
         // new QLNHANVIENGUI();
         // new QLNXBGUI();
-        // new setProgressBar();
-        // new LoginPage();
+        //new setProgressBar();
+        //new LoginPage();
         // new Menu();
         // new RegisterPage();
     }
