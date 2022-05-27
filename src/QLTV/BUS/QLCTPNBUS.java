@@ -27,6 +27,10 @@ public class QLCTPNBUS {
             JOptionPane.showMessageDialog(null, "Số lượng nhập vượt quá số lượng tổng nhập. Mời nhập lại!", "Lỗi",
                     JOptionPane.ERROR_MESSAGE);
             return -1;
+        } else if (checkSLCTPN(ctpn) == -2) {
+            JOptionPane.showMessageDialog(null, "Số lượng phải lớn hơn 0", "Lỗi",
+                    JOptionPane.ERROR_MESSAGE);
+            return -1;
         } else {
             int kt = 0;
             // Truy cập vào database
@@ -44,6 +48,10 @@ public class QLCTPNBUS {
             JOptionPane.showMessageDialog(null, "Số lượng nhập vượt quá số lượng tổng nhập. Mời nhập lại!", "Lỗi",
                     JOptionPane.ERROR_MESSAGE);
             return -1;
+        } else if (checkSLCTPN(phieunhapMoi) == -2) {
+            JOptionPane.showMessageDialog(null, "Số lượng phải lớn hơn 0", "Lỗi",
+                    JOptionPane.ERROR_MESSAGE);
+            return -1;
         } else {
             // Truy cập vào database
             int kt = -1;
@@ -59,7 +67,9 @@ public class QLCTPNBUS {
     public int checkSLCTPN(CHITIETPHIEUNHAP ctpnNew) {
         int sumSLCTPN = 0;
         int maxSLtongPN = 0;
-
+        if (ctpnNew.getSL() == 0) {
+            return -2;
+        }
         for (PHIEUNHAP pn : QLPNBUS.dspn) {
             for (CHITIETPHIEUNHAP ctpn : QLCTPNBUS.dsctpn) {
                 if (pn.getMaPN().trim().equals(ctpnNew.getMaPN().trim())
@@ -67,17 +77,16 @@ public class QLCTPNBUS {
                     sumSLCTPN = sumSLCTPN + ctpn.getSL();
                     maxSLtongPN = pn.getSLTong();
                 }
-                else if(pn.getMaPN().trim().equals(ctpnNew.getMaPN().trim())){
-                    if(maxSLtongPN < pn.getSLTong()){
-                        maxSLtongPN = pn.getSLTong();
-                    }
+            }
+            if (pn.getMaPN().trim().equals(ctpnNew.getMaPN().trim())) {
+                if (maxSLtongPN < pn.getSLTong()) {
+                    maxSLtongPN = pn.getSLTong();
                 }
             }
         }
         sumSLCTPN = sumSLCTPN + ctpnNew.getSL();
-        if(sumSLCTPN != 0 && maxSLtongPN == 0) return 0;
-        else if(sumSLCTPN > maxSLtongPN)
-                return -1;
+        if (sumSLCTPN > maxSLtongPN)
+            return -1;
 
         return 0;
     }
