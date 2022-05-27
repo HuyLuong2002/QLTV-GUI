@@ -80,6 +80,9 @@ public class QLCTHDTPBUS {
         // Đối tượng chi tiết hd tiền phạt mới mà người dùng muốn thêm
         int sumSLCTHD = 0;
         int maxSLtongHD = 0;
+        if(cthdtpNew.getSL() == 0){
+            
+        }
         for (HDTIENPHAT hd : QLHDTPBUS.dshdtp) {
             for (CHITIETHDTIENPHAT cthdtp : QLCTHDTPBUS.dscthdtp) {
                 if (hd.getMaHD().trim().equals(cthdtpNew.getMaHD().trim())
