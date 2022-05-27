@@ -974,8 +974,8 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener, Ke
                     try {
                         // Truy cập xuống BUS
                         int kt = -1;
-                        String mapt = String.valueOf(modelCTTra.getValueAt(i, 0));
-                        String masach = String.valueOf(modelCTHDTP.getValueAt(i, 1));
+                        String mapt = String.valueOf(modelCTTra.getValueAt(i, 0)).trim();
+                        String masach = String.valueOf(modelCTTra.getValueAt(i, 1)).trim();
                         QLCTTRABUS qlsachbus = new QLCTTRABUS();
                         kt = qlsachbus.xoa(mapt, masach);
                         if(kt == 0){
@@ -1021,8 +1021,8 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener, Ke
                     try {
                         // Truy cập xuống BUS
                         int kt = -1;
-                        String mahd = String.valueOf(modelCTHDTP.getValueAt(i, 0));
-                        String masach = String.valueOf(modelCTHDTP.getValueAt(i, 1));
+                        String mahd = String.valueOf(modelCTHDTP.getValueAt(i, 0)).trim();
+                        String masach = String.valueOf(modelCTHDTP.getValueAt(i, 1)).trim();
                         QLCTHDTPBUS qlsachbus = new QLCTHDTPBUS();
                         kt = qlsachbus.xoa(mahd, masach);
                         // Quay dề GUI

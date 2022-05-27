@@ -89,8 +89,7 @@ public class QLCTTRADAO {
             String qry = "delete from CHITIETPHIEUTRA where MAPT=? AND MASACH=?";
             PreparedStatement ps = conn.prepareStatement(qry);
             ps.setString(1, MaPT);
-            ps.setString(1, Masach);
-
+            ps.setString(2, Masach);
             int n = ps.executeUpdate();
 
             if (n != 0) {
@@ -99,6 +98,7 @@ public class QLCTTRADAO {
             }
             return 0;
         } catch (SQLException e) {
+            System.out.println(e);
             JOptionPane.showMessageDialog(null, "Xóa dữ liệu thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return -1;
         }

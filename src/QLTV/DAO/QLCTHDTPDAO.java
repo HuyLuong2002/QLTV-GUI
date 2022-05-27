@@ -92,7 +92,7 @@ public class QLCTHDTPDAO {
             String qry = "delete from CHITIETHDTIENPHAT where MAHD=? AND MASACH=?";
             PreparedStatement ps = conn.prepareStatement(qry);
             ps.setString(1, MaHD);
-            ps.setString(1, Masach);
+            ps.setString(2, Masach);
 
             int n = ps.executeUpdate();
 
