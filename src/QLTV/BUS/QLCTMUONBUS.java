@@ -30,6 +30,9 @@ public class QLCTMUONBUS {
             JOptionPane.showMessageDialog(null, "Số lượng mượn vượt quá số lượng tổng mượn. Mời nhập lại!", "Lỗi",
                     JOptionPane.ERROR_MESSAGE);
             return -1;
+        } else if (checkSLCTPM(ctphieumuon) == -2) {
+            JOptionPane.showMessageDialog(null, "Số lượng phải lớn hơn 0", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return -1;
         } else {
             int kt = 0;
             // Truy cập vào database
@@ -47,6 +50,8 @@ public class QLCTMUONBUS {
             JOptionPane.showMessageDialog(null, "Số lượng mượn vượt quá số lượng tổng mượn. Mời nhập lại!", "Lỗi",
                     JOptionPane.ERROR_MESSAGE);
             return -1;
+        } else if (checkSLCTPM(ctphieumuonmoi) == -2) {
+            return -1;
         } else {
             // Truy cập vào database
             int kt = -1;
@@ -61,12 +66,12 @@ public class QLCTMUONBUS {
 
     public int xoa(String MaPM, String MaSach) throws Exception {
         int kt = -1;
-        int i=0;
+        int i = 0;
         QLCTMUONDAO data = new QLCTMUONDAO();
-        kt = data.xoa(MaPM,MaSach);
-        if(kt == 0){
-            for(CHITIETPHIEUMUON ctpm : QLCTMUONBUS.dsctpm){
-                if(ctpm.getMaPM().trim().equals(MaPM) && ctpm.getMasach().trim().equals(MaSach)){
+        kt = data.xoa(MaPM, MaSach);
+        if (kt == 0) {
+            for (CHITIETPHIEUMUON ctpm : QLCTMUONBUS.dsctpm) {
+                if (ctpm.getMaPM().trim().equals(MaPM) && ctpm.getMasach().trim().equals(MaSach)) {
                     dsctpm.remove(i);
                     break;
                 }
@@ -79,8 +84,8 @@ public class QLCTMUONBUS {
     public int checkSLCTPM(CHITIETPHIEUMUON ctpmNew) {
         int sumSLCTPM = 0;
         int maxSLtongPM = 0;
-        if(ctpmNew.getSL()==0) {
-            JOptionPane.showMessageDialog(null, "Số lượng phải lớn hơn 0","Lỗi", JOptionPane.ERROR_MESSAGE);
+        if (ctpmNew.getSL() == 0) {
+            return -2;
         }
         for (PHIEUMUON pm : QLMUONBUS.dspm) {
             for (CHITIETPHIEUMUON ctpm : QLCTMUONBUS.dsctpm) {
@@ -89,15 +94,14 @@ public class QLCTMUONBUS {
                     sumSLCTPM = sumSLCTPM + ctpm.getSL();
                     maxSLtongPM = pm.getSLtong();
                 }
-                else if(pm.getMaPM().trim().equals(ctpmNew.getMaPM().trim())){
-                    if(maxSLtongPM < pm.getSLtong())
-                        maxSLtongPM = pm.getSLtong();
-                }
+            }
+            if (pm.getMaPM().trim().equals(ctpmNew.getMaPM().trim())) {
+                if (maxSLtongPM < pm.getSLtong())
+                    maxSLtongPM = pm.getSLtong();
             }
         }
 
         sumSLCTPM = sumSLCTPM + ctpmNew.getSL();
-        
         if (sumSLCTPM > maxSLtongPM)
             return -1;
 

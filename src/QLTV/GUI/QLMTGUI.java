@@ -929,8 +929,8 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener, Ke
                         String MaPM = String.valueOf(modelCTMuon.getValueAt(i, 0)).trim();
                         String MaSach = String.valueOf(modelCTMuon.getValueAt(i, 1)).trim();
                         // Truy cập xuống BUS
-                        QLCTMUONBUS qlsachbus = new QLCTMUONBUS();
-                        kt = qlsachbus.xoa(MaPM,MaSach);
+                        QLCTMUONBUS qlbus = new QLCTMUONBUS();
+                        kt = qlbus.xoa(MaPM,MaSach);
                         // Quay dề GUI
                         if(kt == 0){
                             modelCTMuon.removeRow(i);
