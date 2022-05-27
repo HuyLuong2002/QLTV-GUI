@@ -405,15 +405,15 @@ public class BaoCaoThongKe implements ActionListener {
             // Quý 1
             kq = thongkebus.getPMTheoQuy1(NamThongKe);
             for (PHIEUMUON pm : kq) {
-                String MaPM = pm.getMaPM();
+                String MaPM = pm.getMaPM().trim();
                 for (PHIEUTRASACH pt : QLTRABUS.dspt) {
-                    if (pt.getMaPM().equals(MaPM)) {
+                    if (pt.getMaPM().trim().equals(MaPM)) {
                         String tmp[] = pt.getNgaytra().split("-");
                         String tmp1[] = pm.getNgaymuon().split("-");
                         int songay = Integer.parseInt(tmp[2]) - Integer.parseInt(tmp1[2]);
                         if (songay <= 15) {
                             DoanhThuQuy1 = DoanhThuQuy1 + pt.getTienthue() * songay;
-                        } else if(songay >= 15 && songay <= 30 || songay >= 15 && songay <= 31) {
+                        } else if(songay > 15 && songay <= 30 || songay > 15 && songay <= 31) {
                             DoanhThuQuy1 = DoanhThuQuy1 + pt.getTienthue() * songay
                                     + (pt.getTienthue() + 2000) * songay;
                         }
@@ -423,15 +423,15 @@ public class BaoCaoThongKe implements ActionListener {
             // Quý 2
             kq = thongkebus.getPMTheoQuy2(NamThongKe);
             for (PHIEUMUON pm : kq) {
-                String MaPM = pm.getMaPM();
+                String MaPM = pm.getMaPM().trim();
                 for (PHIEUTRASACH pt : QLTRABUS.dspt) {
-                    if (pt.getMaPM().equals(MaPM)) {
+                    if (pt.getMaPM().trim().equals(MaPM)) {
                         String tmp[] = pt.getNgaytra().split("-");
                         String tmp1[] = pm.getNgaymuon().split("-");
                         int songay = Integer.parseInt(tmp[2]) - Integer.parseInt(tmp1[2]);
                         if (songay <= 15) {
                             DoanhThuQuy2 = DoanhThuQuy2 + pt.getTienthue() * songay;
-                        } else if(songay >= 15 && songay <= 30 || songay >= 15 && songay <= 31){
+                        } else if(songay > 15 && songay <= 30 || songay > 15 && songay <= 31){
                             DoanhThuQuy2 = DoanhThuQuy2 + pt.getTienthue() * songay
                                     + (pt.getTienthue() + 2000) * songay;
                         }
@@ -441,15 +441,15 @@ public class BaoCaoThongKe implements ActionListener {
             // Quý 3
             kq = thongkebus.getPMTheoQuy3(NamThongKe);
             for (PHIEUMUON pm : kq) {
-                String MaPM = pm.getMaPM();
+                String MaPM = pm.getMaPM().trim();
                 for (PHIEUTRASACH pt : QLTRABUS.dspt) {
-                    if (pt.getMaPM().equals(MaPM)) {
+                    if (pt.getMaPM().trim().equals(MaPM)) {
                         String tmp[] = pt.getNgaytra().split("-");
                         String tmp1[] = pm.getNgaymuon().split("-");
                         int songay = Integer.parseInt(tmp[2]) - Integer.parseInt(tmp1[2]);
                         if (songay <= 15) {
                             DoanhThuQuy3 = DoanhThuQuy3 + pt.getTienthue() * songay;
-                        } else if(songay >= 15 && songay <= 30 || songay >= 15 && songay <= 31){
+                        } else if(songay > 15 && songay <= 30 || songay > 15 && songay <= 31){
                             DoanhThuQuy3 = DoanhThuQuy3 + pt.getTienthue() * songay
                                     + (pt.getTienthue() + 2000) * songay;
                         }
@@ -459,15 +459,15 @@ public class BaoCaoThongKe implements ActionListener {
             // Quý 4
             kq = thongkebus.getPMTheoQuy4(NamThongKe);
             for (PHIEUMUON pm : kq) {
-                String MaPM = pm.getMaPM();
+                String MaPM = pm.getMaPM().trim();
                 for (PHIEUTRASACH pt : QLTRABUS.dspt) {
-                    if (pt.getMaPM().equals(MaPM)) {
+                    if (pt.getMaPM().trim().equals(MaPM)) {
                         String tmp[] = pt.getNgaytra().split("-");
                         String tmp1[] = pm.getNgaymuon().split("-");
                         int songay = Integer.parseInt(tmp[2]) - Integer.parseInt(tmp1[2]);
                         if (songay <= 15) {
                             DoanhThuQuy4 = DoanhThuQuy4 + pt.getTienthue() * songay;
-                        } else if(songay >= 15 && songay <= 30 || songay >= 15 && songay <= 31){
+                        } else if(songay > 15 && songay <= 30 || songay > 15 && songay <= 31){
                             DoanhThuQuy4 = DoanhThuQuy4 + pt.getTienthue() * songay
                                     + (pt.getTienthue() + 2000) * songay;
                         }
@@ -487,6 +487,7 @@ public class BaoCaoThongKe implements ActionListener {
             model.setValueAt(String.format("%,d", TongDoanhThu), 1, 5);
 
             myTable.setValueCellCenter(model, tblDoanhThu);
+            tblDoanhThu.setModel(model);
         }
         if (e.getSource() == btXemThem) {
             if (pnSach.isVisible() == true) {
