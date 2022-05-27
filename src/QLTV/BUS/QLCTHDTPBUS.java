@@ -31,6 +31,10 @@ public class QLCTHDTPBUS {
                     "Số lượng chi tiết hóa đơn vượt quá số lượng tổng của hóa đơn. Mời nhập lại!", "Lỗi",
                     JOptionPane.ERROR_MESSAGE);
             return -1;
+        } else if (checkSLCTHD(chitiethdtienphat) == -2) {
+            JOptionPane.showMessageDialog(null, "Số lượng phải lớn hơn 0", "Lỗi",
+                    JOptionPane.ERROR_MESSAGE);
+            return -1;
         } else {
             int kt = 0;
             QLCTHDTPDAO data = new QLCTHDTPDAO();
@@ -39,13 +43,16 @@ public class QLCTHDTPBUS {
                 dscthdtp.add(chitiethdtienphat);
             return kt;
         }
-
     }
 
     public int sua(CHITIETHDTIENPHAT chitiethdtienphatMoi, String MaHDCu, String MaSachCu, int i) throws Exception {
         if (checkSLCTHD(chitiethdtienphatMoi) == -1) {
             JOptionPane.showMessageDialog(null,
                     "Số lượng chi tiết hóa đơn vượt quá số lượng tổng của hóa đơn. Mời nhập lại!", "Lỗi",
+                    JOptionPane.ERROR_MESSAGE);
+            return -1;
+        } else if (checkSLCTHD(chitiethdtienphatMoi) == -2) {
+            JOptionPane.showMessageDialog(null, "Số lượng phải lớn hơn 0", "Lỗi",
                     JOptionPane.ERROR_MESSAGE);
             return -1;
         } else {
@@ -63,7 +70,7 @@ public class QLCTHDTPBUS {
         int kt = -1;
         QLCTHDTPDAO data = new QLCTHDTPDAO();
         kt = data.xoa(MaSV);
-        if(kt == 0)
+        if (kt == 0)
             dscthdtp.remove(i);
         return kt;
     }
@@ -72,6 +79,9 @@ public class QLCTHDTPBUS {
         // Đối tượng chi tiết hd tiền phạt mới mà người dùng muốn thêm
         int sumSLCTHD = 0;
         int maxSLtongHD = 0;
+        if (cthdtpNew.getSL() == 0) {
+            return -2;
+        }
         for (HDTIENPHAT hd : QLHDTPBUS.dshdtp) {
             for (CHITIETHDTIENPHAT cthdtp : QLCTHDTPBUS.dscthdtp) {
                 if (hd.getMaHD().trim().equals(cthdtpNew.getMaHD().trim())
@@ -79,17 +89,15 @@ public class QLCTHDTPBUS {
                     sumSLCTHD = sumSLCTHD + cthdtp.getSL();
                     maxSLtongHD = hd.getSL();
                 }
-                else if(hd.getMaHD().trim().equals(cthdtpNew.getMaHD().trim())) {
-                    if(maxSLtongHD < hd.getSL()){
-                        maxSLtongHD = hd.getSL();
-                    }
+            }
+            if (hd.getMaHD().trim().equals(cthdtpNew.getMaHD().trim())) {
+                if (maxSLtongHD < hd.getSL()) {
+                    maxSLtongHD = hd.getSL();
                 }
             }
         }
         sumSLCTHD = sumSLCTHD + cthdtpNew.getSL();
-        if (sumSLCTHD != 0 && maxSLtongHD == 0)
-            return 0;
-        else if (sumSLCTHD > maxSLtongHD)
+        if (sumSLCTHD > maxSLtongHD)
             return -1;
         return 0;
     }

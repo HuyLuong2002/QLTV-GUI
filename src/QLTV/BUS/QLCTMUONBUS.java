@@ -51,6 +51,7 @@ public class QLCTMUONBUS {
                     JOptionPane.ERROR_MESSAGE);
             return -1;
         } else if (checkSLCTPM(ctphieumuonmoi) == -2) {
+            JOptionPane.showMessageDialog(null, "Số lượng phải lớn hơn 0", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return -1;
         } else {
             // Truy cập vào database
