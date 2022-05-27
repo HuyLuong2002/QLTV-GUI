@@ -922,14 +922,12 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener, Ke
             int XacNhanXoa = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa không ?", "Thông báo",
                     JOptionPane.YES_NO_OPTION);
             if (XacNhanXoa == 0) {
-                String masach = txCTPMMaSach.getText();
                 int i = tblQLCTMuon.getSelectedRow();
                 int kt = -1;
                 if (i >= 0) {
                     try {
                         // Truy cập xuống BUS
-                        CHITIETPHIEUMUON CTPMOld = QLCTMUONBUS.dsctpm.get(i);
-                        QLCTMUONBUS.htXoa.add(CTPMOld);
+                        String masach = String.valueOf(modelCTMuon.getValueAt(i, 1));
                         QLCTMUONBUS qlsachbus = new QLCTMUONBUS();
                         kt = qlsachbus.xoa(masach, i);
                         // Quay dề GUI
@@ -953,8 +951,6 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener, Ke
                 if (i >= 0) {
                     try {
                         // Truy cập xuống BUS
-                        PHIEUTRASACH PMOld = QLTRABUS.dspt.get(i);
-                        QLTRABUS.htXoa.add(PMOld);
                         QLTRABUS qlsachbus = new QLTRABUS();
                         kt = qlsachbus.xoa(masach, i);
                         // Quay dề GUI
@@ -972,16 +968,15 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener, Ke
             int XacNhanXoa = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa không ?", "Thông báo",
                     JOptionPane.YES_NO_OPTION);
             if (XacNhanXoa == 0) {
-                String masach = txCTPTMaSach.getText();
                 int i = tblQLCTTra.getSelectedRow();
                 int kt = -1;
                 if (i >= 0) {
                     try {
                         // Truy cập xuống BUS
-                        CHITIETPHIEUTRA PMOld = QLCTTRABUS.dsctpt.get(i);
-                        QLCTTRABUS.htXoa.add(PMOld);
+                        String mapt = String.valueOf(modelCTTra.getValueAt(i, 0));
+                        String masach = String.valueOf(modelCTHDTP.getValueAt(i, 1));
                         QLCTTRABUS qlsachbus = new QLCTTRABUS();
-                        kt = qlsachbus.xoa(masach, i);
+                        kt = qlsachbus.xoa(mapt, masach, i);
                         // Quay dề GUI
                     } catch (Exception e1) {
                         System.out.println(e1);
@@ -1003,8 +998,6 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener, Ke
                 if (i >= 0) {
                     try {
                         // Truy cập xuống BUS
-                        HDTIENPHAT PMOld = QLHDTPBUS.dshdtp.get(i);
-                        QLHDTPBUS.htXoa.add(PMOld);
                         QLHDTPBUS qlsachbus = new QLHDTPBUS();
                         kt = qlsachbus.xoa(masach, i);
                         // Quay dề GUI
@@ -1022,16 +1015,15 @@ public class QLMTGUI extends JFrame implements ActionListener, MouseListener, Ke
             int XacNhanXoa = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa không ?", "Thông báo",
                     JOptionPane.YES_NO_OPTION);
             if (XacNhanXoa == 0) {
-                String masach = txCTHDMaSach.getText();
                 int i = tblQLCTHDTP.getSelectedRow();
                 int kt = -1;
                 if (i >= 0) {
                     try {
                         // Truy cập xuống BUS
-                        CHITIETHDTIENPHAT PMOld = QLCTHDTPBUS.dscthdtp.get(i);
-                        QLCTHDTPBUS.htXoa.add(PMOld);
+                        String mahd = String.valueOf(modelCTHDTP.getValueAt(i, 0));
+                        String masach = String.valueOf(modelCTHDTP.getValueAt(i, 1));
                         QLCTHDTPBUS qlsachbus = new QLCTHDTPBUS();
-                        kt = qlsachbus.xoa(masach, i);
+                        kt = qlsachbus.xoa(mahd, masach, i);
                         // Quay dề GUI
                     } catch (Exception e1) {
                         System.out.println(e1);

@@ -40,10 +40,10 @@ public class QLCTTRABUS {
         return kt;
     }
 
-    public int xoa(String MaSV, int i) throws Exception {
+    public int xoa(String MaPT, String MaSV, int i) throws Exception {
         int kt = -1;
         QLCTTRADAO data = new QLCTTRADAO();
-        kt = data.xoa(MaSV);
+        kt = data.xoa(MaPT, MaSV);
         if(kt == 0)
             dsctpt.remove(i);
         return kt;

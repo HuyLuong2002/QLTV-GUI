@@ -87,15 +87,18 @@ public class QLCTHDTPDAO {
             return -1;
         }
     }
-    public int xoa(String MaCTPM){
+    public int xoa(String MaHD, String Masach) {
         try {
-            String qry = "DELETE FROM CHITIETHDTIENPHAT WHERE MASACH=?";
+            String qry = "delete from CHITIETHDTIENPHAT where MAHD=? AND MASACH=?";
             PreparedStatement ps = conn.prepareStatement(qry);
-            ps.setString(1, MaCTPM);
+            ps.setString(1, MaHD);
+            ps.setString(1, Masach);
+
             int n = ps.executeUpdate();
-            if(n != 0){
+
+            if (n != 0) {
                 JOptionPane.showMessageDialog(null, "Xóa dữ liệu thành công", "Thông báo",
-                JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.INFORMATION_MESSAGE);
             }
             return 0;
         } catch (SQLException e) {

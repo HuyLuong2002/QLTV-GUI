@@ -59,10 +59,10 @@ public class QLCTHDTPBUS {
         }
     }
 
-    public int xoa(String MaSV, int i) throws Exception {
+    public int xoa(String MaHD, String MaSV, int i) throws Exception {
         int kt = -1;
         QLCTHDTPDAO data = new QLCTHDTPDAO();
-        kt = data.xoa(MaSV);
+        kt = data.xoa(MaHD, MaSV);
         if(kt == 0)
             dscthdtp.remove(i);
         return kt;
