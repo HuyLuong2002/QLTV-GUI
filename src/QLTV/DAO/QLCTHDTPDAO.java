@@ -89,7 +89,7 @@ public class QLCTHDTPDAO {
     }
     public int xoa(String MaCTPM){
         try {
-            String qry = "DELETE FROM CHITIETHDTIENPHAT WHERE MAHD=?";
+            String qry = "DELETE FROM CHITIETHDTIENPHAT WHERE MASACH=?";
             PreparedStatement ps = conn.prepareStatement(qry);
             ps.setString(1, MaCTPM);
             int n = ps.executeUpdate();

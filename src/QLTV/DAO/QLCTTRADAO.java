@@ -86,7 +86,7 @@ public class QLCTTRADAO {
     }
     public int xoa(String Masach) {
         try {
-            String qry = "delete from CHITIETPHIEUTRA where MAPT='" + Masach + "'";
+            String qry = "delete from CHITIETPHIEUTRA where MASACH='" + Masach + "'";
             st = conn.createStatement();
             st.executeUpdate(qry);
             if (st != null) {
