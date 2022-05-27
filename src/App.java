@@ -1,7 +1,5 @@
 import MyCustom.LoginPage;
 import MyCustom.setProgressBar;
-import QLTV.GUI.QLNHANVIENGUI;
-import QLTV.GUI.QLSACHGUI;
 
 public class App {
     public static void main(String[] args) throws Exception {
