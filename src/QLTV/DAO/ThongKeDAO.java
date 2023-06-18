@@ -24,10 +24,14 @@ public class ThongKeDAO {
     public ArrayList<CHITIETPHIEUMUON> getTop5LuotMuon(){
         ArrayList<CHITIETPHIEUMUON> dskq = new ArrayList<CHITIETPHIEUMUON>();
         try {
-            String qry = "SELECT TOP" + "(5)" + " MASACH," +  "SUM" + "(SL)" +
+            // String qry = "SELECT TOP" + "(5)" + " MASACH," +  "SUM" + "(SL)" +
+            // "FROM CHITIETPHIEUMUON " + 
+            // "GROUP BY MASACH " +
+            // "ORDER BY SUM" + "(SL)" + "DESC";
+            String qry = "SELECT" + " MASACH," +  "SUM" + "(SL)" +
             "FROM CHITIETPHIEUMUON " + 
             "GROUP BY MASACH " +
-            "ORDER BY SUM" + "(SL)" + "DESC";
+            "ORDER BY SUM" + "(SL)" + "DESC LIMIT 5";
 
             st=conn.createStatement();
             rs=st.executeQuery(qry);
@@ -42,25 +46,7 @@ public class ThongKeDAO {
         }
         return dskq;
     }
-
-    public ArrayList<CHITIETPHIEUMUON> getTop5(){
-        ArrayList<CHITIETPHIEUMUON> dskq = new ArrayList<CHITIETPHIEUMUON>();
-        try {
-            String qry = "SELECT TOP(5) MASACH, SUM(SL) FROM CHITIETPHIEUMUON GROUP BY MASACH ORDER BY SUM(SL) DESC";
-            st = conn.createStatement();
-            rs = st.executeQuery(qry);
-            while(rs.next()){
-                CHITIETPHIEUMUON chitietphieumuon = new CHITIETPHIEUMUON();
-                chitietphieumuon.setMasach(rs.getString(1));
-                chitietphieumuon.setSL(rs.getInt(2));
-                dskq.add(chitietphieumuon);
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return dskq;
-    }
-
+ 
     public ArrayList<PHIEUMUON> getPMTheoQuy1(String year) {
         ArrayList<PHIEUMUON> kq = new ArrayList<PHIEUMUON>();
         try {
@@ -172,5 +158,5 @@ public class ThongKeDAO {
         }
         return nam;
     }
-
+    
 }

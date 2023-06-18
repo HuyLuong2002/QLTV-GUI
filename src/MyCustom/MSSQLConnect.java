@@ -9,11 +9,16 @@ import java.sql.Statement;
 //ADMIN: Thành
 import javax.swing.JOptionPane;
 public class MSSQLConnect {
-    String host="DESKTOP-5IRG803\\SQLEXPRESS";
-    String database="QLTV";
-    String username="sa";
-    String password="sa";
-    String url = "jdbc:sqlserver://DESKTOP-5IRG803\\SQLEXPRESS:1433;databaseName=QLTV;trustServerCertificate=true;integratedSecurity=true;";
+    // String host="DESKTOP-5IRG803\\SQLEXPRESS";
+    // String database="QLTV";
+    // String username="sa";
+    // String password="sa";
+    // String url = "jdbc:sqlserver://DESKTOP-5IRG803\\SQLEXPRESS:1433;databaseName=QLTV;trustServerCertificate=true;integratedSecurity=true;";
+    String host="localhost";
+    String database="qltv";
+    String username="root";
+    String password="BTult6257@@nc";
+    String url = "jdbc:mysql://localhost:3306/qltv";
     Connection conn = null;
     Statement st = null;
     ResultSet rs = null;
@@ -28,7 +33,8 @@ public class MSSQLConnect {
     }
     protected void driverTest() throws Exception{
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            // Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             System.out.println(e);
         }
@@ -37,7 +43,8 @@ public class MSSQLConnect {
     public Connection getConnection() throws Exception{
         if(this.conn==null){
             driverTest();
-            String url="jdbc:sqlserver://" + this.host + ":1433;databaseName=" + this.database + ";trustServerCertificate=true";
+            // String url="jdbc:sqlserver://" + this.host + ":1433;databaseName=" + this.database + ";trustServerCertificate=true";
+            String url="jdbc:mysql://" + this.host + ":3306/" + this.database;
             try {
                 this.conn = DriverManager.getConnection(url,this.username,this.password);
             } catch (SQLException e) {

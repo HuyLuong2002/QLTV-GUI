@@ -377,7 +377,7 @@ public class BaoCaoThongKe implements ActionListener {
 
     private JFreeChart createChart() throws Exception {
         JFreeChart barChart = ChartFactory.createBarChart(
-                "Doanh thu năm " + Calendar.getInstance().get(Calendar.YEAR),
+                "Doanh thu năm " + String.valueOf(Calendar.getInstance().get(Calendar.YEAR) - 1),
                 "Tháng", "Doanh thu",
                 createDataset(), PlotOrientation.VERTICAL, false, false, false);
         return barChart;
@@ -387,7 +387,7 @@ public class BaoCaoThongKe implements ActionListener {
         
         final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         for (int i = 1; i <= 12; i++) {
-            double value = thongkebus.getDoanhThuThang(i, Calendar.getInstance().get(Calendar.YEAR));
+            double value = thongkebus.getDoanhThuThang(i, Calendar.getInstance().get(Calendar.YEAR) - 1);
             dataset.addValue(value, "Doanh thu", i + "");
         }
         return dataset;
